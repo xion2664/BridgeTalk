@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.parent.domain;
 
-import com.ssafy.bridgetalkback.global.BaseTimeEntity;
+import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.kid.domain.Kids;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @Table(name="parents")
-public class Parents extends BaseTimeEntity {
+public class Parents extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @GenericGenerator(name="uuid2", strategy = "uuid2")
@@ -40,9 +40,6 @@ public class Parents extends BaseTimeEntity {
     @Column(nullable = false)
     private int parentsActive;
 
-    @Column(nullable = false)
-    private int isDeleted;
-
     @Convert(converter = Role.RoleConverter.class)
     private Role role;
 
@@ -57,7 +54,6 @@ public class Parents extends BaseTimeEntity {
         this.parentsNickname = parentsNickname;
         this.parentsDino = parentsDino;
         this.parentsActive = 0;
-        this.isDeleted = 0;
         this.role = Role.USER;
     }
 
