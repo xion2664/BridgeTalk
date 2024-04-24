@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.letters.domain;
 import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parent.domain.Parents;
 import com.ssafy.bridgetalkback.parent.domain.Role;
+import com.ssafy.bridgetalkback.reports.domain.Reports;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,10 @@ public class Letters extends BaseEntity {
     @JoinColumn(name = "parents_uuid", referencedColumnName = "parents_uuid")
     private Parents parents;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reports_id", referencedColumnName = "reports_id")
+    private Reports reports;
+
     @Column(columnDefinition = "TEXT", nullable = false)
     private String lettersOriginalContent;
 
@@ -31,14 +36,16 @@ public class Letters extends BaseEntity {
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
 
-    private Letters(Parents parents, String lettersOriginalContent, String lettersTranslationContent) {
+    @Builder
+    private Letters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         this.parents = parents;
+        this.reports = reports;
         this.lettersOriginalContent = lettersOriginalContent;
         this.lettersTranslationContent = lettersTranslationContent;
     }
 
-    public static Letters createLetters(Parents parents, String lettersOriginalContent, String lettersTranslationContent) {
-        return new Letters(parents, lettersOriginalContent, lettersTranslationContent);
+    public static Letters createLetters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
+        return new Letters(parents, reports, lettersOriginalContent, lettersTranslationContent);
     }
 
 
