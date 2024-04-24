@@ -3,14 +3,11 @@ package com.ssafy.bridgetalkback.letters.domain;
 import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parent.domain.Parents;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Table(name="letters")
@@ -24,13 +21,13 @@ public class Letters extends BaseEntity {
     @JoinColumn(name = "parents_uuid", referencedColumnName = "parents_uuid")
     private Parents parents;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String lettersOriginalContent;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String lettersTranslationContent;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "integer default 0")
     private int isChecked;
 
 
