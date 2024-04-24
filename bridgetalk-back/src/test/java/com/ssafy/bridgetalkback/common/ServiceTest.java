@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.common;
 
+import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ServiceTest {
     @Autowired
     private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    protected ParentsRepository parentsRepository;
 
     @AfterEach
     void clearDatabase() {
