@@ -25,11 +25,11 @@ public class Parents extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String parentsName;
 
-    @Column(nullable = false, length = 30)
-    private String parentsEmail;
+    @Embedded
+    private Email parentsEmail;
 
-    @Column(nullable = false, length = 20)
-    private String parentsPassword;
+    @Embedded
+    private Password parentsPassword;
 
     @Column(nullable = false, length = 20)
     private String parentsNickname;
@@ -46,7 +46,7 @@ public class Parents extends BaseEntity {
     @OneToMany(mappedBy = "parents", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Kids> kidsList = new ArrayList<>();
 
-    private Parents(String parentsName, String parentsEmail, String parentsPassword, String parentsNickname, String parentsDino) {
+    private Parents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         this.uuid = UUID.randomUUID();
         this.parentsName = parentsName;
         this.parentsEmail = parentsEmail;
@@ -57,7 +57,7 @@ public class Parents extends BaseEntity {
         this.role = Role.USER;
     }
 
-    public static Parents createParents(String parentsName, String parentsEmail, String parentsPassword, String parentsNickname, String parentsDino) {
+    public static Parents createParents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         return new Parents(parentsName, parentsEmail, parentsPassword, parentsNickname, parentsDino);
     }
 
