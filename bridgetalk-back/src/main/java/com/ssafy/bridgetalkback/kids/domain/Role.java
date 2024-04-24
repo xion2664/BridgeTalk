@@ -1,4 +1,4 @@
-package com.ssafy.bridgetalkback.parent.domain;
+package com.ssafy.bridgetalkback.kids.domain;
 
 import com.ssafy.bridgetalkback.global.utils.EnumConverter;
 import com.ssafy.bridgetalkback.global.utils.EnumStandard;

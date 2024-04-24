@@ -1,12 +1,9 @@
 package com.ssafy.bridgetalkback.letters.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import com.ssafy.bridgetalkback.parent.domain.Parents;
-import com.ssafy.bridgetalkback.parent.domain.Role;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Getter
 @Entity

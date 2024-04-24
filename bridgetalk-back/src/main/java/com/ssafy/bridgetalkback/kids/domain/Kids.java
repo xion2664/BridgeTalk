@@ -1,7 +1,7 @@
-package com.ssafy.bridgetalkback.kid.domain;
+package com.ssafy.bridgetalkback.kids.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import com.ssafy.bridgetalkback.parent.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

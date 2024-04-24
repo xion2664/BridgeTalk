@@ -1,7 +1,5 @@
 package com.ssafy.bridgetalkback.parents.domain;
 
-import com.ssafy.bridgetalkback.parent.domain.Parents;
-import com.ssafy.bridgetalkback.parent.domain.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.fixture;
 
-import com.ssafy.bridgetalkback.parent.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
