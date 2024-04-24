@@ -1,10 +1,9 @@
 package com.ssafy.bridgetalkback.kids.domain;
 
 import com.ssafy.bridgetalkback.kid.domain.Kids;
+import com.ssafy.bridgetalkback.kid.domain.Role;
 import com.ssafy.bridgetalkback.parent.domain.Parents;
-import com.ssafy.bridgetalkback.parent.domain.Role;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
