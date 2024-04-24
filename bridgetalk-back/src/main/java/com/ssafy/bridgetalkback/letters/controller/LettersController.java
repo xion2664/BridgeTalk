@@ -1,10 +1,9 @@
 package com.ssafy.bridgetalkback.letters.controller;
 
 //import com.ssafy.bridgetalkback.letters.service.STTService;
-import com.ssafy.bridgetalkback.letters.dto.LettersRequestDTO;
+import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ public class LettersController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadLettersVoice(@RequestBody LettersRequestDTO lettersRequestDTO){
+    public ResponseEntity<?> uploadLettersVoice(@ModelAttribute LettersRequestDTO lettersRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
