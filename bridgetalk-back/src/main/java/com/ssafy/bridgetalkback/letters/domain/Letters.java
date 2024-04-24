@@ -31,15 +31,14 @@ public class Letters extends BaseEntity {
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
 
-    public Letters(Parents parents, String lettersOriginalContent, String lettersTranslationContent, int isChecked) {
+    private Letters(Parents parents, String lettersOriginalContent, String lettersTranslationContent) {
         this.parents = parents;
         this.lettersOriginalContent = lettersOriginalContent;
         this.lettersTranslationContent = lettersTranslationContent;
-        this.isChecked = 0;
     }
 
-    public static Letters createLetters(Parents parents, String lettersOriginalContent, String lettersTranslationContent, int isChecked) {
-        return new Letters(parents, lettersOriginalContent, lettersTranslationContent, isChecked);
+    public static Letters createLetters(Parents parents, String lettersOriginalContent, String lettersTranslationContent) {
+        return new Letters(parents, lettersOriginalContent, lettersTranslationContent);
     }
 
 
