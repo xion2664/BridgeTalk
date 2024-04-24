@@ -1,6 +1,5 @@
 package com.ssafy.bridgetalkback.parents.domain;
 
-import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import jakarta.persistence.Column;
