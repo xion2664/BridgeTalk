@@ -33,3 +33,15 @@ export const Absolute = styled.div<{ top: number; left: number }>`
     top: ${(props) => `${props.top}svh`};
     left: ${(props) => `${props.left}svw`};
 `;
+
+export const ReportContainer = css`
+    display: flex;
+    flex-direction: column;
+
+    padding: 2svw;
+    width: 90svw;
+    height: 80svh;
+    background-color: ${color(0.4).sub};
+    border-radius: 1svw;
+    box-shadow: 1svh 1svh 1svw ${color(0.2).dark};
+`;

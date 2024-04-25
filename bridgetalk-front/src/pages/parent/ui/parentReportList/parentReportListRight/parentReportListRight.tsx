@@ -2,7 +2,7 @@ import * as S from '@/styles/parent/parentInformationListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 
 export function ParentReportListRight() {
-    const item = [
+    const fetchData = [
         {
             reportsId: 1,
             reportsSummary: '오늘 학교에서 친구와 싸워서 기분이 안좋다',
@@ -16,9 +16,10 @@ export function ParentReportListRight() {
             createdAt: '2024-04-23 24:00:00',
         },
     ];
+
     return (
         <S.Container>
-            {item.map((it) => (
+            {fetchData.map((it) => (
                 <ParentReportListItem
                     key={it.reportsId}
                     reportsId={it.reportsId}

@@ -33,7 +33,7 @@ export function AppRoutes() {
             <Route path="/parent" element={<Parent />}>
                 <Route path="main" element={<ParentMain />}></Route>
                 <Route path="report" element={<ParentReportList />}></Route>
-                <Route path="report/:report_id" element={<ParentReportDetail />}></Route>
+                <Route path="report/:reportId" element={<ParentReportDetail />}></Route>
                 <Route path="information" element={<ParentInformationMain />}></Route>
                 <Route path="information/news" element={<ParentInformationNews />}></Route>
                 <Route path="information/word" element={<ParentInformationWord />}></Route>
