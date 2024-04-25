@@ -1,10 +1,12 @@
 import * as S from '@/styles/parent/parentReportDetail.style';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
+import { ParentBackButton } from '@/shared';
 
 export function ParentReportDetail() {
     const { reportId } = useParams();
+    const navigate = useNavigate();
 
     const fetchData = {
         reportsSummary: '오늘 학교에서 친구와 싸워서 기분이 안좋다. 나랑 탕후루 먹으러 같이 안가줘서 서운하다.',
@@ -18,22 +20,25 @@ export function ParentReportDetail() {
     }, []);
 
     return (
-        <S.Container>
-            <div>{fetchData.createdAt}</div>
-            <S.ContentContainer>
-                <div className="leftside">
-                    <div>
-                        <S.Keywords>
-                            {fetchData.reportsKeywords.map((keyword) => (
-                                <div>{keyword}</div>
-                            ))}
-                        </S.Keywords>
-                        <S.Summary>{fetchData.reportsSummary}</S.Summary>
+        <>
+            <ParentBackButton path="../report" navigate={navigate} />
+            <S.Container>
+                <div>{fetchData.createdAt}</div>
+                <S.ContentContainer>
+                    <div className="leftside">
+                        <div>
+                            <S.Keywords>
+                                {fetchData.reportsKeywords.map((keyword) => (
+                                    <div>{keyword}</div>
+                                ))}
+                            </S.Keywords>
+                            <S.Summary>{fetchData.reportsSummary}</S.Summary>
+                        </div>
+                        <S.Solution>{fetchData.reportsSolution}</S.Solution>
                     </div>
-                    <S.Solution>{fetchData.reportsSolution}</S.Solution>
-                </div>
-                <ParentReportDetailRecorder />
-            </S.ContentContainer>
-        </S.Container>
+                    <ParentReportDetailRecorder />
+                </S.ContentContainer>
+            </S.Container>
+        </>
     );
 }

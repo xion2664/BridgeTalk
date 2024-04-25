@@ -1,3 +1,4 @@
+import { ParentBackButton } from '@/shared';
 import * as S from '@/styles/parent/parentReportListItem.style';
 import { useNavigate } from 'react-router-dom';
 
