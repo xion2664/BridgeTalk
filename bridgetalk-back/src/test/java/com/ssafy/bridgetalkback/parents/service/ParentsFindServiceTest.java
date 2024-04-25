@@ -31,11 +31,11 @@ public class ParentsFindServiceTest extends ServiceTest {
     @DisplayName("ID(PK)로 부모를 조회한다")
     void findById() {
         // when
-        Parents findParents = parentsFindService.findById(parents.getUuid());
+        Parents findParents = parentsFindService.findByIdAndIsDeleted(parents.getUuid());
         UUID inVaildUuid = UUID.randomUUID();
 
         // then
-        assertThatThrownBy(() -> parentsFindService.findById(inVaildUuid))
+        assertThatThrownBy(() -> parentsFindService.findByIdAndIsDeleted(inVaildUuid))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(ParentsErrorCode.PARENTS_NOT_FOUND.getMessage());
 

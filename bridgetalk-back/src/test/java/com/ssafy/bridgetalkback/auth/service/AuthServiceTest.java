@@ -51,7 +51,7 @@ public class AuthServiceTest extends ServiceTest {
             UUID parentsId = authService.signup(createParentsSignupRequestDto());
 
             // when - then
-            Parents newParents = parentsFindService.findById(parentsId);
+            Parents newParents = parentsFindService.findByIdAndIsDeleted(parentsId);
             Assertions.assertAll(
                     () -> assertThat(newParents.getUuid()).isEqualTo(parentsId),
                     () -> assertThat(newParents.getParentsName()).isEqualTo(SUNKYOUNG.getParentsName()),

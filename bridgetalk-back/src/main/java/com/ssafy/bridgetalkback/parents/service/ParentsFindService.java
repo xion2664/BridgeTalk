@@ -18,10 +18,10 @@ import java.util.UUID;
 public class ParentsFindService {
     private final ParentsRepository parentsRepository;
 
-    public Parents findById(UUID uuid) {
+    public Parents findByIdAndIsDeleted(UUID uuid) {
         log.info("{ ParentsFindService } : Id(Pk)로 부모 정보 조회 )");
 
-        return parentsRepository.findById(uuid)
+        return parentsRepository.findByIdAndIsDeleted(uuid)
                 .orElseThrow(() -> BaseException.type(ParentsErrorCode.PARENTS_NOT_FOUND));
     }
 
