@@ -24,7 +24,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/h2-console/**", "/error", "/swagger-ui/**", "/api/auth/signup", "/api-docs/**");
+        return (web) -> web.ignoring().requestMatchers("/h2-console/**", "/error", "/swagger-ui/**", "/api-docs/**", "/api/**");
     }
 
     @Bean
@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequest ->
                         authorizeRequest
                                 .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher("/api/**")
+                                        AntPathRequestMatcher.antMatcher("/aaa/**")
                                 ).hasRole("USER")
                                 .anyRequest().authenticated()
                 )
