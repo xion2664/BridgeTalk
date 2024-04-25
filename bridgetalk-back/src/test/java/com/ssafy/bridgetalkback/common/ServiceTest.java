@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.common;
 
+import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,9 @@ public class ServiceTest {
 
     @Autowired
     protected KidsRepository kidsRepository;
+
+    @Autowired
+    protected RefreshTokenRedisRepository refreshTokenRedisRepository;
 
     @AfterEach
     void clearDatabase() {
