@@ -60,8 +60,4 @@ public class Parents extends BaseEntity {
     public static Parents createParents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         return new Parents(parentsName, parentsEmail, parentsPassword, parentsNickname, parentsDino);
     }
-
-    public String getRoleKey() {
-        return this.role.getAuthority();
-    }
 }

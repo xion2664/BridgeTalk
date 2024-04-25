@@ -36,7 +36,6 @@ public class Kids extends BaseEntity {
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parents_uuid", referencedColumnName = "parents_uuid")
     private Parents parents;
 
     private Kids(Parents parents, String kidsName, String kidsEmail, String kidsNickname, String kidsDino) {
@@ -51,9 +50,5 @@ public class Kids extends BaseEntity {
 
     public static Kids createKids(Parents parents, String kidsName, String kidsEmail, String kidsNickname, String kidsDino) {
         return new Kids(parents, kidsName, kidsEmail, kidsNickname, kidsDino);
-    }
-
-    public String getRoleKey() {
-        return this.role.getAuthority();
     }
 }
