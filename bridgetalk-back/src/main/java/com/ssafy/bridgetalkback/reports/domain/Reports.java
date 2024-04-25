@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.reports.domain;
 
+import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.kid.domain.Kids;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,14 +13,14 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "reports")
-public class Reports {
+public class Reports extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportsId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kids_id", referencedColumnName = "kids_id")
+    @JoinColumn(name = "kids_uuid", referencedColumnName = "kids_uuid")
     private Kids kids;
 
     @Column(columnDefinition = "TEXT", nullable = false)
