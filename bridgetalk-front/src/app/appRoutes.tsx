@@ -15,6 +15,7 @@ import {
     TestVoice,
     TestWordcloud,
     ErrorPage,
+    ParentInformationNewsDetail,
 } from '@/pages';
 
 export function AppRoutes() {
@@ -36,6 +37,7 @@ export function AppRoutes() {
                 <Route path="report/:reportId" element={<ParentReportDetail />}></Route>
                 <Route path="information" element={<ParentInformationMain />}></Route>
                 <Route path="information/news" element={<ParentInformationNews />}></Route>
+                <Route path="information/news/:newsId" element={<ParentInformationNewsDetail />}></Route>
                 <Route path="information/word" element={<ParentInformationWord />}></Route>
                 <Route path="*" element={<ErrorPage />}></Route>
             </Route>
