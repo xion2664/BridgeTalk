@@ -20,11 +20,11 @@ public class Letters extends BaseEntity {
     private Long lettersId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parents_uuid", referencedColumnName = "parents_uuid")
+    @JoinColumn(name = "parents_uuid")
     private Parents parents;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reports_id", referencedColumnName = "reports_id")
+    @JoinColumn(name = "reports_id")
     private Reports reports;
 
     @Column(columnDefinition = "TEXT", nullable = false)
