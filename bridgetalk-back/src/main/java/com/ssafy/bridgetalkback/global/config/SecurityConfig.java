@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequest ->
                         authorizeRequest
                                 .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher("/api/**")
+                                        AntPathRequestMatcher.antMatcher("/aaaa/**")
                                 ).hasRole("USER")
                                 .anyRequest().authenticated()
                 )
