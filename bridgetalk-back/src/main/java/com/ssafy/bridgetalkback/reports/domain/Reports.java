@@ -20,7 +20,7 @@ public class Reports extends BaseEntity {
     private Long reportsId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kids_uuid", referencedColumnName = "kids_uuid")
+    @JoinColumn(name = "kids_uuid")
     private Kids kids;
 
     @Column(columnDefinition = "TEXT", nullable = false)
