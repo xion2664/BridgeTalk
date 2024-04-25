@@ -1,5 +1,7 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
+import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
@@ -12,7 +14,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.UUID;
 
+import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
+import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -79,8 +83,123 @@ public class AuthControllerTest extends ControllerTest {
         }
     }
 
-    private ParentsSignupRequestDto createParentsSignupRequestDto() {
+    @Nested
+    @DisplayName("로그인(부모) API [POST /api/auth/login]")
+    class login {
+        private static final String BASE_URL = "/api/auth/login";
+
+        @Test
+        @DisplayName("불일치하는 비밀번호라면 로그인에 실패한다")
+        void throwExceptionByWrongPassword() throws Exception {
+            // given
+            doThrow(BaseException.type(AuthErrorCode.WRONG_PASSWORD))
+                    .when(authService)
+                    .login(any());
+
+            // when
+            final LoginRequestDto request = createLoginRequestDto();
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(request));
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.WRONG_PASSWORD;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isUnauthorized(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+
+        }
+
+        @Test
+        @DisplayName("로그인에 성공한다")
+        void success() throws Exception {
+            // given
+            doReturn(ParentsLoginResponseDto())
+                    .when(authService)
+                    .login(any());
+
+            // when
+            final LoginRequestDto request = createLoginRequestDto();
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(request));
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
+    @Nested
+    @DisplayName("로그아웃 API 테스트 [GET /api/auth/logout]")
+    class logout {
+        private static final String BASE_URL = "/api/auth/logout";
+
+        @Test
+        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
+        void throwExceptionByInvalidPermission() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+
+        }
+
+        @Test
+        @DisplayName("로그아웃에 성공한다")
+        void success() throws Exception {
+            // given
+            doNothing()
+                    .when(authService)
+                    .logout(UUID.randomUUID());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
+        private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());
+    }
+
+    private LoginRequestDto createLoginRequestDto() {
+        return new LoginRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword());
+    }
+
+    private ParentsLoginResponseDto ParentsLoginResponseDto() {
+        return new ParentsLoginResponseDto(UUID.randomUUID(), SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
+                SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
     }
 }
