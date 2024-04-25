@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import {
     Parent,
-    ParentInformation,
     ParentInformationMain,
     ParentInformationNews,
     ParentInformationWord,
@@ -29,16 +28,16 @@ export function AppRoutes() {
                 <Route path="voice" element={<TestVoice />} />
                 <Route path="wordcloud" element={<TestWordcloud />} />
                 <Route path="zustand" element={<TeestZustand />} />
+                <Route path="*" element={<ErrorPage />}></Route>
             </Route>
             <Route path="/parent" element={<Parent />}>
                 <Route path="main" element={<ParentMain />}></Route>
                 <Route path="reportlist" element={<ParentReportList />}></Route>
                 <Route path="report/:report_id" element={<ParentReportDetail />}></Route>
-                <Route path="information" element={<ParentInformation />}>
-                    <Route path="main" element={<ParentInformationMain />}></Route>
-                    <Route path="news" element={<ParentInformationNews />}></Route>
-                    <Route path="word" element={<ParentInformationWord />}></Route>
-                </Route>
+                <Route path="information" element={<ParentInformationMain />}></Route>
+                <Route path="information/news" element={<ParentInformationNews />}></Route>
+                <Route path="information/word" element={<ParentInformationWord />}></Route>
+                <Route path="*" element={<ErrorPage />}></Route>
             </Route>
             <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
