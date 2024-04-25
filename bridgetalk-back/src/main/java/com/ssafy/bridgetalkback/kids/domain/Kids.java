@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name="kids")
 public class Kids extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "kids_uuid", columnDefinition = "BINARY(16)")
     private UUID uuid;
