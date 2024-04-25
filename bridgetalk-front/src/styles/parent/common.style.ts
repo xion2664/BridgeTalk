@@ -34,11 +34,11 @@ export const Absolute = styled.div<{ top: number; left: number }>`
     left: ${(props) => `${props.left}svw`};
 `;
 
-export const ReportContainer = css`
+export const CommonContainer = css`
     display: flex;
     flex-direction: column;
 
-    padding: 2svw;
+    padding: 2svh 2svw;
     width: 90svw;
     height: 80svh;
     background-color: ${color(0.4).sub};
