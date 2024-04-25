@@ -1,7 +1,7 @@
-package com.ssafy.bridgetalkback.parent.domain;
+package com.ssafy.bridgetalkback.parents.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import com.ssafy.bridgetalkback.kid.domain.Kids;
+import com.ssafy.bridgetalkback.kids.domain.Kids;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name="parents")
 public class Parents extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "parents_uuid", columnDefinition = "BINARY(16)")
     private UUID uuid;
@@ -25,11 +25,11 @@ public class Parents extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String parentsName;
 
-    @Column(nullable = false, length = 30)
-    private String parentsEmail;
+    @Embedded
+    private Email parentsEmail;
 
-    @Column(nullable = false, length = 20)
-    private String parentsPassword;
+    @Embedded
+    private Password parentsPassword;
 
     @Column(nullable = false, length = 20)
     private String parentsNickname;
@@ -46,7 +46,7 @@ public class Parents extends BaseEntity {
     @OneToMany(mappedBy = "parents", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Kids> kidsList = new ArrayList<>();
 
-    private Parents(String parentsName, String parentsEmail, String parentsPassword, String parentsNickname, String parentsDino) {
+    private Parents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         this.uuid = UUID.randomUUID();
         this.parentsName = parentsName;
         this.parentsEmail = parentsEmail;
@@ -57,11 +57,7 @@ public class Parents extends BaseEntity {
         this.role = Role.USER;
     }
 
-    public static Parents createParents(String parentsName, String parentsEmail, String parentsPassword, String parentsNickname, String parentsDino) {
+    public static Parents createParents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         return new Parents(parentsName, parentsEmail, parentsPassword, parentsNickname, parentsDino);
-    }
-
-    public String getRoleKey() {
-        return this.role.getAuthority();
     }
 }

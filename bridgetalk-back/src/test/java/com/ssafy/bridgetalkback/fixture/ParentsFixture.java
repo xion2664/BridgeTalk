@@ -1,8 +1,12 @@
 package com.ssafy.bridgetalkback.fixture;
 
-import com.ssafy.bridgetalkback.parent.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Email;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Password;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import static com.ssafy.bridgetalkback.global.utils.PasswordEncoderUtils.ENCODER;
 
 @Getter
 @RequiredArgsConstructor
@@ -16,6 +20,6 @@ public enum ParentsFixture {
     private final String parentsDino;
 
     public Parents toParents() {
-        return Parents.createParents(parentsName, parentsEmail, parentsPassword, parentsNickname, parentsDino);
+        return Parents.createParents(parentsName, Email.from(parentsEmail), Password.encrypt(parentsPassword, ENCODER), parentsNickname, parentsDino);
     }
 }

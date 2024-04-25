@@ -1,7 +1,7 @@
-package com.ssafy.bridgetalkback.kid.domain;
+package com.ssafy.bridgetalkback.kids.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import com.ssafy.bridgetalkback.parent.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name="kids")
 public class Kids extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "kids_uuid", columnDefinition = "BINARY(16)")
     private UUID uuid;
@@ -51,9 +51,5 @@ public class Kids extends BaseEntity {
 
     public static Kids createKids(Parents parents, String kidsName, String kidsEmail, String kidsNickname, String kidsDino) {
         return new Kids(parents, kidsName, kidsEmail, kidsNickname, kidsDino);
-    }
-
-    public String getRoleKey() {
-        return this.role.getAuthority();
     }
 }
