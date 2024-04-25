@@ -36,6 +36,7 @@ public class Kids extends BaseEntity {
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parents_uuid")
     private Parents parents;
 
     private Kids(Parents parents, String kidsName, String kidsEmail, String kidsNickname, String kidsDino) {
