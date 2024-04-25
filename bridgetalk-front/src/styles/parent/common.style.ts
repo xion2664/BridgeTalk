@@ -1,5 +1,13 @@
 import styled, { css } from 'styled-components';
 
+export function color(alpha: number) {
+    return {
+        main: `rgba(108, 149, 255, ${alpha})`,
+        sub: `rgba(204, 205, 234, ${alpha})`,
+        dark: `rgba(34, 34, 34, ${alpha})`,
+    };
+}
+
 export const flexColumn = css`
     display: flex;
     flex-direction: column;
