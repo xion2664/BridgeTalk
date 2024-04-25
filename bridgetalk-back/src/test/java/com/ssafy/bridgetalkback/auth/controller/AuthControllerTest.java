@@ -18,6 +18,7 @@ import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -172,6 +173,7 @@ public class AuthControllerTest extends ControllerTest {
         @DisplayName("로그아웃에 성공한다")
         void success() throws Exception {
             // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doNothing()
                     .when(authService)
                     .logout(UUID.randomUUID());
@@ -189,7 +191,7 @@ public class AuthControllerTest extends ControllerTest {
         }
     }
 
-        private ParentsSignupRequestDto createParentsSignupRequestDto() {
+    private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());
     }
