@@ -46,7 +46,7 @@ class FileServiceTest extends ServiceTest {
         void throwExceptionByEmptyFile() {
             // given
             MultipartFile nullFile = null;
-            MultipartFile emptyFile = new MockMultipartFile("voice", "empty.mp3", "multipart/form-data", new byte[]{});
+            MultipartFile emptyFile = new MockMultipartFile("letters", "empty.mp3", "audio/mpeg", new byte[]{});
 
             // when - then
             assertThatThrownBy(() -> fileService.uploadVoiceFiles(nullFile))
@@ -62,8 +62,8 @@ class FileServiceTest extends ServiceTest {
         void success() throws Exception {
             // given
             String fileName = "test.mp3";
-            String contentType = "multipart/form-data";
-            String dir = "voice";
+            String contentType = "audio/mpeg";
+            String dir = "letters";
             MultipartFile file = createMockMultipartFile(dir, fileName, contentType);
 
             // when

@@ -60,8 +60,7 @@ public class S3FileService {
      * */
     private void validateAudioContentType(MultipartFile file) {
         String contentType = file.getContentType();
-        if (!(contentType.equals("audio/mpeg") || contentType.equals("audio/mpeg") ||
-                contentType.equals("audio/mpeg"))) {
+        if (!(contentType.equals("audio/mpeg"))) {
             throw BaseException.type(S3FileErrorCode.NOT_AN_AUDIO);
         }
     }
