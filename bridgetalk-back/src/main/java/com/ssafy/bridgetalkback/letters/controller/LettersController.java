@@ -1,6 +1,5 @@
 package com.ssafy.bridgetalkback.letters.controller;
 
-import com.ssafy.bridgetalkback.letters.service.STTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
