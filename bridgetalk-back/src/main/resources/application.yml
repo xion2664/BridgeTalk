@@ -19,5 +19,25 @@ spring:
     username: ${EC2_USERNAME}
     password: ${EC2_PASSWORD}
 
+  servlet:
+    multipart:
+      max-file-size: 20MB # 최대 파일 사이즈
+      max-request-size: 20MB # 최대 요청 사이즈
+
+  # aws s3
+  cloud:
+    aws:
+      credentials:
+        access-key: ${S3_ACCESS_KEY}
+        secret-key: ${S3_SECRET_KEY}
+      s3:
+        bucket: ${S3_BUCKET_NAME}
+      region:
+        static: ${S3_REGION_STATIC}
+      stack:
+        auto: false
+
+
+
 
 
