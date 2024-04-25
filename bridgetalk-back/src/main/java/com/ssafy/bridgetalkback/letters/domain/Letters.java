@@ -1,13 +1,10 @@
 package com.ssafy.bridgetalkback.letters.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import com.ssafy.bridgetalkback.parent.domain.Parents;
-import com.ssafy.bridgetalkback.parent.domain.Role;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Getter
 @Entity
@@ -47,6 +44,4 @@ public class Letters extends BaseEntity {
     public static Letters createLetters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         return new Letters(parents, reports, lettersOriginalContent, lettersTranslationContent);
     }
-
-
 }

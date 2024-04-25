@@ -1,11 +1,10 @@
 package com.ssafy.bridgetalkback.parents.domain;
 
-import com.ssafy.bridgetalkback.parent.domain.Parents;
-import com.ssafy.bridgetalkback.parent.domain.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
+import static com.ssafy.bridgetalkback.global.utils.PasswordEncoderUtils.ENCODER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -19,8 +18,8 @@ public class ParentsTest {
         assertAll(
                 () -> assertThat(parents.getUuid()).isNotNull(),
                 () -> assertThat(parents.getParentsName()).isEqualTo(SUNKYOUNG.getParentsName()),
-                () -> assertThat(parents.getParentsEmail()).isEqualTo(SUNKYOUNG.getParentsEmail()),
-                () -> assertThat(parents.getParentsPassword()).isEqualTo(SUNKYOUNG.getParentsPassword()),
+                () -> assertThat(parents.getParentsEmail().isSameEmail(Email.from(SUNKYOUNG.getParentsEmail()))).isTrue(),
+                () -> assertThat(parents.getParentsPassword().isSamePassword(SUNKYOUNG.getParentsPassword(), ENCODER)).isTrue(),
                 () -> assertThat(parents.getParentsNickname()).isEqualTo(SUNKYOUNG.getParentsNickname()),
                 () -> assertThat(parents.getParentsDino()).isEqualTo(SUNKYOUNG.getParentsDino()),
                 () -> assertThat(parents.getParentsActive()).isEqualTo(0),
