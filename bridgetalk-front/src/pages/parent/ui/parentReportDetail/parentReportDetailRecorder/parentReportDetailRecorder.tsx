@@ -1,6 +1,12 @@
-import { connectAudioStream, generateAudioContex, generateVolumeCheckInterval } from '@/shared';
+import {
+    connectAudioStream,
+    generateAudioContex,
+    generateVolumeCheckInterval,
+    startRecordVoice,
+    stopRecordVoice,
+} from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
-import { ReactNode, memo, useState, Dispatch, SetStateAction, useEffect, MutableRefObject, useRef } from 'react';
+import { memo, useState, Dispatch, SetStateAction, useEffect, MutableRefObject, useRef } from 'react';
 
 interface AudioContext {
     analyser: AnalyserNode;
@@ -12,13 +18,11 @@ export const ParentReportDetailRecorder = memo(() => {
     const [lang, setLang] = useState<number>(0);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [volume, setVolume] = useState<number>(0);
+    const [audioURL, setAudioURL] = useState<string>('');
 
     // 녹음 관련
     const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
     const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
-    const analyserRef: MutableRefObject<AnalyserNode | null> = useRef(null);
-    const bufferLengthRef: MutableRefObject<number> = useRef(0);
-    const dataArrayRef: MutableRefObject<Uint8Array[]> = useRef([]);
 
     useEffect(() => {
         // 오디오 스트림 연결
@@ -38,13 +42,15 @@ export const ParentReportDetailRecorder = memo(() => {
         let volumeCheckInterval: any = null;
         if (isRecording) {
             const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContex(streamRef)!;
-
             volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
+
+            startRecordVoice(streamRef, recorderRef, setAudioURL);
         }
 
         return () => {
             if (isRecording && volumeCheckInterval) {
                 clearInterval(volumeCheckInterval);
+                stopRecordVoice(recorderRef);
             }
         };
     }, [isRecording]);
@@ -52,6 +58,10 @@ export const ParentReportDetailRecorder = memo(() => {
     useEffect(() => {
         console.log(volume);
     }, [volume]);
+
+    useEffect(() => {
+        console.log(audioURL);
+    }, [audioURL]);
 
     return (
         <S.Container>
