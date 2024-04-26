@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { color } from './common.style';
+import '../../main.css';
 
 export const Container = styled.div`
     display: flex;
