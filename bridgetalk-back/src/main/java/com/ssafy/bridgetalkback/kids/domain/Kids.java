@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.kids.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Kids extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String kidsName;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 100)
     private String kidsEmail;
 
     @Column(nullable = false, length = 20)
