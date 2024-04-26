@@ -6,9 +6,10 @@ import {
     stopRecordVoice,
 } from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
-import { memo, useState, Dispatch, SetStateAction, useEffect, MutableRefObject, useRef } from 'react';
+import { memo, useState, useEffect, MutableRefObject, useRef } from 'react';
 import { ParentReportDetailRecorderButton } from '../parentReportDetailRecorderButton/parentReportDetailRecorderButton';
 import { useVoiceStore } from '@/pages/parent/store/useVoiceStore/useVoiceStore';
+import { ParentReportDetailVolumeChecker } from '../parentReportDetailVolumeChecker/parentReportDetailVolumeChecker';
 
 interface AudioContext {
     analyser: AnalyserNode;
@@ -19,8 +20,8 @@ interface AudioContext {
 export const ParentReportDetailRecorder = memo(() => {
     const [lang, setLang] = useState<number>(0);
     const [isRecording, setIsRecording] = useState<boolean>(false);
-    const [volume, setVolume] = useState<number>(0);
-    const { audioURL, setAudioURL } = useVoiceStore();
+    const setAudioURL = useVoiceStore((state) => state.setAudioURL);
+    const setVolume = useVoiceStore((state) => state.setVolume);
 
     // 녹음 관련
     const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -61,18 +62,9 @@ export const ParentReportDetailRecorder = memo(() => {
         };
     }, [isRecording]);
 
-    useEffect(() => {
-        console.log(volume);
-    }, [volume]);
-
-    useEffect(() => {
-        console.log(audioURL);
-    }, [audioURL]);
-
     return (
         <S.Container>
-            <div>음량표시</div>
-            <div>음량표시공룡</div>
+            <ParentReportDetailVolumeChecker />
             <div>녹음시간</div>
             <div>
                 <button>한국어</button>

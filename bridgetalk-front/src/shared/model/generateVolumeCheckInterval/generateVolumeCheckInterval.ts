@@ -1,11 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export function generateVolumeCheckInterval(
     analyser: AnalyserNode,
     dataArray: Uint8Array,
     bufferLength: number,
-
-    setVolume: Dispatch<SetStateAction<number>>,
+    setVolume: (volume: number) => void,
 ) {
     // 30ms마다 볼륨체크하는 인터벌 생성
 

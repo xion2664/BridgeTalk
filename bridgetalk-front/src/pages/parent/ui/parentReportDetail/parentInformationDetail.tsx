@@ -15,10 +15,6 @@ export function ParentReportDetail() {
         createdAt: '2024-04-23 24:00:00',
     };
 
-    useEffect(() => {
-        console.log(reportId);
-    }, []);
-
     return (
         <>
             <ParentBackButton path="../report" navigate={navigate} />
