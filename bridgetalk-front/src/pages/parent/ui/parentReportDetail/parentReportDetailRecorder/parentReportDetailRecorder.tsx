@@ -58,6 +58,7 @@ export const ParentReportDetailRecorder = memo(() => {
             if (isRecording && volumeCheckInterval) {
                 clearInterval(volumeCheckInterval);
                 stopRecordVoice(recorderRef);
+                setVolume(0);
             }
         };
     }, [isRecording]);
