@@ -15,6 +15,16 @@ export const Container = styled.div`
     div {
         display: flex;
         align-items: center;
-        height: 100%;
+    }
+`;
+
+export const ButtonWrapper = styled.button<{ isRecording: boolean }>`
+    background-color: ${(props) => (props.isRecording ? color(1).red : color(1).main)};
+    width: 10svw;
+    height: 10svw;
+    border-radius: 50%;
+
+    &:hover {
+        cursor: pointer;
     }
 `;
