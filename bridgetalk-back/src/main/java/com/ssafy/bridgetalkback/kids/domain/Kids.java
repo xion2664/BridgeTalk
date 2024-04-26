@@ -30,10 +30,11 @@ public class Kids extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String kidsNickname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String kidsDino;
 
     @Convert(converter = Role.RoleConverter.class)
+    @Column(nullable = false, length = 10)
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
