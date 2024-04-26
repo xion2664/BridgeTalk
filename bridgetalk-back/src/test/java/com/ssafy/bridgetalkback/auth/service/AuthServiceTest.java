@@ -147,9 +147,4 @@ public class AuthServiceTest extends ServiceTest {
     private LoginRequestDto createWrongLoginRequestDto() {
         return new LoginRequestDto(SOYOUNG.getParentsEmail(), "wrong"+SOYOUNG.getParentsPassword());
     }
-
-    private ParentsLoginResponseDto ParentsLoginResponseDto() {
-        return new ParentsLoginResponseDto(UUID.randomUUID(), SOYOUNG.getParentsName(), SOYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
-                SOYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
-    }
 }
