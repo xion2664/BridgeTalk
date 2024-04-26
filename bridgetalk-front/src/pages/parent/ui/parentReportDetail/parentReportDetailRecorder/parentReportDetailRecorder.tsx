@@ -7,6 +7,8 @@ import {
 } from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
 import { memo, useState, Dispatch, SetStateAction, useEffect, MutableRefObject, useRef } from 'react';
+import { ParentReportDetailRecorderButton } from '../parentReportDetailRecorderButton/parentReportDetailRecorderButton';
+import { useVoiceStore } from '@/pages/parent/store/useVoiceStore/useVoiceStore';
 
 interface AudioContext {
     analyser: AnalyserNode;
@@ -18,7 +20,7 @@ export const ParentReportDetailRecorder = memo(() => {
     const [lang, setLang] = useState<number>(0);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [volume, setVolume] = useState<number>(0);
-    const [audioURL, setAudioURL] = useState<string>('');
+    const { audioURL, setAudioURL } = useVoiceStore();
 
     // 녹음 관련
     const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -40,14 +42,18 @@ export const ParentReportDetailRecorder = memo(() => {
 
     useEffect(() => {
         let volumeCheckInterval: any = null;
+
         if (isRecording) {
+            // 음량 체크
             const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContex(streamRef)!;
             volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
+            // 녹음 시작
             startRecordVoice(streamRef, recorderRef, setAudioURL);
         }
 
         return () => {
+            // 음량 체크 및 녹음 종료
             if (isRecording && volumeCheckInterval) {
                 clearInterval(volumeCheckInterval);
                 stopRecordVoice(recorderRef);
@@ -72,25 +78,10 @@ export const ParentReportDetailRecorder = memo(() => {
                 <button>한국어</button>
                 <button>베트남어</button>
             </div>
-            <RecordButton isRecording={isRecording} setIsRecording={setIsRecording}></RecordButton>
+            <ParentReportDetailRecorderButton
+                isRecording={isRecording}
+                setIsRecording={setIsRecording}
+            ></ParentReportDetailRecorderButton>
         </S.Container>
     );
 });
-
-interface Props {
-    readonly isRecording: boolean;
-    readonly setIsRecording: Dispatch<SetStateAction<boolean>>;
-}
-
-function RecordButton({ isRecording, setIsRecording }: Props) {
-    return (
-        <S.ButtonWrapper
-            isRecording={isRecording}
-            onClick={() => {
-                setIsRecording(!isRecording);
-            }}
-        >
-            {isRecording ? 'Đang ghi' : 'Trả lời'}
-        </S.ButtonWrapper>
-    );
-}

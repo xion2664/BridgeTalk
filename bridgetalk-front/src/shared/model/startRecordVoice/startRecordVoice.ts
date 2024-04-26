@@ -3,7 +3,7 @@ import { MutableRefObject, SetStateAction, Dispatch } from 'react';
 export function startRecordVoice(
     streamRef: MutableRefObject<MediaStream | null>,
     recorderRef: MutableRefObject<MediaRecorder | null>,
-    setAudioURL: Dispatch<SetStateAction<string>>,
+    setAudioURL: (audioURL: string) => void,
 ) {
     if (streamRef.current) {
         recorderRef.current = new MediaRecorder(streamRef.current);
