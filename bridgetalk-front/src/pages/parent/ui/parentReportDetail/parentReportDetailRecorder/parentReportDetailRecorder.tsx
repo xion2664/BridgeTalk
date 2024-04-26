@@ -1,4 +1,4 @@
-import { connectAudioStream, generateAudioContex } from '@/shared';
+import { connectAudioStream, generateAudioContex, generateVolumeCheckInterval } from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
 import { ReactNode, memo, useState, Dispatch, SetStateAction, useEffect, MutableRefObject, useRef } from 'react';
 
@@ -11,6 +11,7 @@ interface AudioContext {
 export const ParentReportDetailRecorder = memo(() => {
     const [lang, setLang] = useState<number>(0);
     const [isRecording, setIsRecording] = useState<boolean>(false);
+    const [volume, setVolume] = useState<number>(0);
 
     // 녹음 관련
     const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -34,10 +35,23 @@ export const ParentReportDetailRecorder = memo(() => {
     }, []);
 
     useEffect(() => {
+        let volumeCheckInterval: any = null;
         if (isRecording) {
             const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContex(streamRef)!;
+
+            volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
         }
+
+        return () => {
+            if (isRecording && volumeCheckInterval) {
+                clearInterval(volumeCheckInterval);
+            }
+        };
     }, [isRecording]);
+
+    useEffect(() => {
+        console.log(volume);
+    }, [volume]);
 
     return (
         <S.Container>
