@@ -68,11 +68,8 @@ public class AuthService {
     @Transactional
     public UUID kidsSignup(KidsSingupRequestDto requestDto) {
         log.info("{ AuthService } : 아이 회원가입 진입");
+        Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(requestDto.parentsId()));
 
-        log.info("{ AuthService } : 전달받은 부모Id 존재 확인");
-        Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(requestDto.parentsId());
-        log.info("{ AuthService } : 전달받은 부모Id 존재 확인 완료");
-        log.info("{ AuthService } : 아이 회원가입 진입");
         Kids kids = Kids.createKids(parents, requestDto.kidsName(), "",
                 requestDto.kidsNickname(), requestDto.kidsDino());
 
