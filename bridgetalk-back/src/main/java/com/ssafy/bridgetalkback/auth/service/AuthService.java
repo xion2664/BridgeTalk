@@ -69,7 +69,10 @@ public class AuthService {
     public UUID kidsSignup(KidsSingupRequestDto requestDto) {
         log.info("{ AuthService } : 아이 회원가입 진입");
 
+        log.info("{ AuthService } : 전달받은 부모Id 존재 확인");
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(requestDto.parentsId());
+        log.info("{ AuthService } : 전달받은 부모Id 존재 확인 완료");
+        log.info("{ AuthService } : 아이 회원가입 진입");
         Kids kids = Kids.createKids(parents, requestDto.kidsName(), "",
                 requestDto.kidsNickname(), requestDto.kidsDino());
 
@@ -77,9 +80,9 @@ public class AuthService {
     }
 
     public void DuplicateEmail(String email) {
-        log.info("{ AuthService } : 중복 이메일로 가입 실패");
         // 기존 이메일 가입한 경우 재가입 불가
         if(parentsRepository.existsParentsByParentsEmail(Email.from(email))) {
+            log.info("{ AuthService } : 중복 이메일로 가입 실패");
             throw BaseException.type(AuthErrorCode.DUPLICATE_EMAIL);
         }
     }

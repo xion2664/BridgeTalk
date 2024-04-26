@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
+import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
+import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -191,6 +193,34 @@ public class AuthControllerTest extends ControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("아이 회원가입 (프로필 추가) API 테스트 [GET /api/auth/kids]")
+    class kidsSingup {
+        private static final String BASE_URL = "/api/auth/kids";
+
+        @Test
+        @DisplayName("아이 회원가입(프로필 추가)에 성공한다")
+        void success() throws Exception {
+            // given
+            doReturn(UUID.randomUUID())
+                    .when(authService)
+                    .kidsSignup(any());
+
+            // when
+            final KidsSingupRequestDto request = createKidsSingupRequestDto();
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(request));
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());
@@ -203,5 +233,9 @@ public class AuthControllerTest extends ControllerTest {
     private ParentsLoginResponseDto ParentsLoginResponseDto() {
         return new ParentsLoginResponseDto(UUID.randomUUID(), SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
                 SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
+    }
+
+    private KidsSingupRequestDto createKidsSingupRequestDto() {
+        return new KidsSingupRequestDto(UUID.randomUUID(), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
     }
 }
