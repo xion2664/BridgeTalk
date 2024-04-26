@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Builder
 public record ParentsLoginResponseDto(
-    UUID userId,
+    String userId,
     String userName,
     String userEmail,
     String userNickname,
@@ -17,7 +17,7 @@ public record ParentsLoginResponseDto(
 ) {
     public static ParentsLoginResponseDto from(Parents parents, String accessToken, String refreshToken) {
         return ParentsLoginResponseDto.builder()
-                .userId(parents.getUuid())
+                .userId(String.valueOf(parents.getUuid()))
                 .userName(parents.getParentsName())
                 .userEmail(parents.getParentsEmail().getValue())
                 .userNickname(parents.getParentsNickname())

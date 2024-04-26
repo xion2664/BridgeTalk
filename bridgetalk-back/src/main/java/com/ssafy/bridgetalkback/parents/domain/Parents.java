@@ -34,13 +34,14 @@ public class Parents extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String parentsNickname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String parentsDino;
 
     @Column(nullable = false)
     private int parentsActive;
 
     @Convert(converter = Role.RoleConverter.class)
+    @Column(nullable = false, length = 10)
     private Role role;
 
     @OneToMany(mappedBy = "parents", cascade = CascadeType.PERSIST, orphanRemoval = true)
