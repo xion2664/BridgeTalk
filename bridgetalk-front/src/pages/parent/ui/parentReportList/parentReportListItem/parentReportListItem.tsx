@@ -18,8 +18,8 @@ export function ParentReportListItem({ reportsId, reportsSummary, reportsKeyword
                 <S.ContentHeader>
                     <div>{createdAt}</div>
                     <div>
-                        {reportsKeywords.map((keyword) => (
-                            <span>{keyword}</span>
+                        {reportsKeywords.map((keyword, idx) => (
+                            <span key={idx}>{keyword}</span>
                         ))}
                     </div>
                 </S.ContentHeader>

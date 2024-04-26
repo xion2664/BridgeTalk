@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import { color } from './common.style';
 
 export const Container = styled.div`
@@ -18,13 +18,41 @@ export const Container = styled.div`
     }
 `;
 
-export const ButtonWrapper = styled.button<{ isRecording: boolean }>`
-    background-color: ${(props) => (props.isRecording ? color(1).red : color(1).main)};
+const virtual = css`
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    content: '';
+`;
+
+export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
+    background-color: ${(props) => (props.$isRecording ? color(1).red : color(1).main)};
     width: 10svw;
     height: 10svw;
     border-radius: 50%;
+    border: none;
+    box-shadow: inset 0 1svh 1svw ${color(1).shadowTop};
+    position: relative;
+    color: ${color(1).bright};
+
+    &::before {
+        ${virtual}
+        box-shadow: 0 1svh 0.5svw ${color(0.8).dark};
+    }
+
+    &::after {
+        ${virtual}
+        box-shadow: inset 0 -1svh 1svw ${color(0.3).dark};
+    }
 
     &:hover {
         cursor: pointer;
+
+        &::before {
+            ${virtual}
+        }
     }
 `;

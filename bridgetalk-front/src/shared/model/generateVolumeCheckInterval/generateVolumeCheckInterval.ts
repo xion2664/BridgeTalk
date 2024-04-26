@@ -9,7 +9,7 @@ export function generateVolumeCheckInterval(
     let interval = setInterval(() => {
         analyser.getByteFrequencyData(dataArray);
         setVolume(Math.floor((getAudioFrequency(dataArray, bufferLength) / 256) * 100));
-    }, 10);
+    }, 50);
 
     return interval;
 }

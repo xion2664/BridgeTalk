@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
+import { FaMicrophone } from 'react-icons/fa';
 
 interface Props {
     readonly isRecording: boolean;
@@ -9,11 +10,12 @@ interface Props {
 export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }: Props) {
     return (
         <S.ButtonWrapper
-            isRecording={isRecording}
+            $isRecording={isRecording}
             onClick={() => {
                 setIsRecording(!isRecording);
             }}
         >
+            <FaMicrophone />
             {isRecording ? 'Đang ghi' : 'Trả lời'}
         </S.ButtonWrapper>
     );

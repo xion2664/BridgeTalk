@@ -7,9 +7,9 @@ import {
 } from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
 import { memo, useState, useEffect, MutableRefObject, useRef } from 'react';
-import { ParentReportDetailRecorderButton } from '../parentReportDetailRecorderButton/parentReportDetailRecorderButton';
-import { useVoiceStore } from '@/pages/parent/store/useVoiceStore/useVoiceStore';
-import { ParentReportDetailVolumeChecker } from '../parentReportDetailVolumeChecker/parentReportDetailVolumeChecker';
+import { ParentReportDetailRecorderButton } from '@/pages/parent/ui/parentReportDetail/parentReportDetailRecorderButton/parentReportDetailRecorderButton';
+import { ParentReportDetailVolumeChecker } from '@/pages/parent/ui/parentReportDetail/parentReportDetailVolumeChecker/parentReportDetailVolumeChecker';
+import { useVoiceStore } from '@/pages/parent/store';
 
 interface AudioContext {
     analyser: AnalyserNode;
@@ -64,8 +64,7 @@ export const ParentReportDetailRecorder = memo(() => {
 
     return (
         <S.Container>
-            <ParentReportDetailVolumeChecker />
-            <div>녹음시간</div>
+            <ParentReportDetailVolumeChecker isRecording={isRecording} />
             <div>
                 <button>한국어</button>
                 <button>베트남어</button>

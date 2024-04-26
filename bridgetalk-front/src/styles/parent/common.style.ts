@@ -6,6 +6,8 @@ export function color(alpha: number) {
         sub: `rgba(204, 205, 234, ${alpha})`,
         dark: `rgba(34, 34, 34, ${alpha})`,
         red: `rgba(255, 97, 97, ${alpha})`,
+        shadowTop: `rgba(185, 204, 255, ${alpha})`,
+        bright: `rgba(238, 238, 238, ${alpha})`,
     };
 }
 

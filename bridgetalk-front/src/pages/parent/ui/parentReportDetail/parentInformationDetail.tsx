@@ -1,11 +1,10 @@
 import * as S from '@/styles/parent/parentReportDetail.style';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
 import { ParentBackButton } from '@/shared';
 
 export function ParentReportDetail() {
-    const { reportId } = useParams();
     const navigate = useNavigate();
 
     const fetchData = {
