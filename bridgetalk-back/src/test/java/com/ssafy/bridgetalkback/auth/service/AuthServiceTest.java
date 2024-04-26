@@ -24,8 +24,6 @@ import java.util.UUID;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SOYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.ACCESS_TOKEN;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
 import static com.ssafy.bridgetalkback.global.utils.PasswordEncoderUtils.ENCODER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
