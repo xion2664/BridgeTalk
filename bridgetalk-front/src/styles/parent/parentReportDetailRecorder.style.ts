@@ -17,10 +17,10 @@ const virtual = css`
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 50%;
     width: 100%;
     height: 100%;
     content: '';
+    border-radius: 50%;
 `;
 
 export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
@@ -45,10 +45,6 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
 
     &:hover {
         cursor: pointer;
-
-        &::before {
-            ${virtual}
-        }
     }
 `;
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CommonContainer, color } from '../parent/common.style';
+import { color, embossing } from '../parent/common.style';
 
 export const Container = styled.div`
     position: fixed;
@@ -20,5 +20,21 @@ export const AudioContainer = styled.div`
     width: 50svw;
     height: 50svh;
     background-color: ${color(0.8).sub};
-    ${CommonContainer}
+    border-radius: 1svw;
+    gap: 2svh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ${embossing}
+
+    .buttons button {
+        padding: 2svh 2svw;
+        font-size: 5svh;
+        border-radius: 1svw;
+        cursor: pointer;
+
+        ${embossing}
+    }
 `;

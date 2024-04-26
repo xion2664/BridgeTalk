@@ -39,6 +39,7 @@ export const Absolute = styled.div<{ top: number; left: number }>`
 
 export const embossing = css`
     box-shadow: 1svh 1svh 1svw ${color(0.4).dark};
+    position: relative;
 
     &::after {
         position: absolute;
