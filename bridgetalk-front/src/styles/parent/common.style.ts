@@ -37,14 +37,32 @@ export const Absolute = styled.div<{ top: number; left: number }>`
     left: ${(props) => `${props.left}svw`};
 `;
 
+export const embossing = css`
+    box-shadow: 1svh 1svh 1svw ${color(0.4).dark};
+
+    &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-radius: 1svw;
+        box-shadow: inset -1svh -1svh 1svw ${color(0.4).dark};
+        z-index: 0;
+        pointer-events: none;
+    }
+`;
+
 export const CommonContainer = css`
     display: flex;
     flex-direction: column;
+    position: relative;
 
     padding: 2svh 2svw;
     width: 90svw;
     height: 80svh;
-    background-color: ${color(0.4).sub};
+    background-color: ${color(0.7).sub};
     border-radius: 1svw;
-    box-shadow: 1svh 1svh 1svw ${color(0.2).dark};
+    ${embossing}
 `;

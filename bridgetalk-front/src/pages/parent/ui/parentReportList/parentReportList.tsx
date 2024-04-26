@@ -1,4 +1,4 @@
-import * as S from '@/styles/parent/parentInformationList.style';
+import * as S from '@/styles/parent/parentReportList.style';
 import { ParentReportListLeft } from '@/pages/parent/ui/parentReportList/parentReportListLeft/parentReportListLeft';
 import { ParentReportListRight } from '@/pages/parent/ui/parentReportList/parentReportListRight/parentReportListRight';
 import { ParentBackButton } from '@/shared';

@@ -1,4 +1,4 @@
-import * as S from '@/styles/parent/parentInformationListRight.style';
+import * as S from '@/styles/parent/parentReportListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 
 export function ParentReportListRight() {

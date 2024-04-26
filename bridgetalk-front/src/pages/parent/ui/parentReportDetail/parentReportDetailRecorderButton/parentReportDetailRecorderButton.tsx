@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
 import { FaMicrophone } from 'react-icons/fa';
+import { useVoiceStore } from '@/pages/parent/store';
 
 interface Props {
     readonly isRecording: boolean;
@@ -8,11 +9,18 @@ interface Props {
 }
 
 export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }: Props) {
+    const setIsRecordFinished = useVoiceStore((state) => state.setIsRecordFinished);
+
     return (
         <S.ButtonWrapper
             $isRecording={isRecording}
             onClick={() => {
-                setIsRecording(!isRecording);
+                if (isRecording) {
+                    setIsRecording(false);
+                    setIsRecordFinished(true);
+                } else {
+                    setIsRecording(true);
+                }
             }}
         >
             <FaMicrophone />
