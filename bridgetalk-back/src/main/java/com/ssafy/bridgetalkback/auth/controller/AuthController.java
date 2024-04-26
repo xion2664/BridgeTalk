@@ -6,6 +6,7 @@ import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Slf4j
+@Tag(name = "Auth", description = "AuthApiController")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
