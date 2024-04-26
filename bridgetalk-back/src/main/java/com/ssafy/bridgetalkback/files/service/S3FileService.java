@@ -30,7 +30,7 @@ public class S3FileService {
      * @param file : 입력 파일
      * @return String : 업로드 된 S3 주소
      * */
-    public String uploadVoiceFiles(MultipartFile file) {
+    public String uploadLettersFiles(MultipartFile file) {
         log.info("{ S3FileService } : S3 파일 업로드 서비스");
         log.info(">> 파일 존재 여부 확인");
         validateFileExists(file);

@@ -52,6 +52,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'io.findify:s3mock_2.13:0.2.6'
+
+	// ASW SDK
+	implementation(platform("software.amazon.awssdk:bom:2.21.1"))
+	implementation("software.amazon.awssdk:s3")
+	implementation group: 'software.amazon.awssdk', name: 'transcribe', version: '2.20.92'
+	implementation group: 'software.amazon.awssdk', name: 'transcribestreaming', version: '2.17.160'
 }
 
 tasks.named('test') {

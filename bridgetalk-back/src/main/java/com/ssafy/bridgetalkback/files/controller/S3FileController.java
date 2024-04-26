@@ -23,9 +23,10 @@ public class S3FileController {
 
     // 실제로 사용x 테스트용 controller
     @PostMapping(value = "/upload", consumes = MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> upload(@RequestPart(value = "file") MultipartFile multipartFile) {
+    public ResponseEntity<String> upload(@RequestPart(value = "lettersFile") MultipartFile multipartFile) {
         log.info("{ S3FileController } : s3 파일 업로드 테스트 Controller");
-        String uploadFileUrl = s3FileService.uploadVoiceFiles(multipartFile);
+        log.info(">> lettersFile : {}", multipartFile);
+        String uploadFileUrl = s3FileService.uploadLettersFiles(multipartFile);
         return ResponseEntity.ok(uploadFileUrl);
     }
 
