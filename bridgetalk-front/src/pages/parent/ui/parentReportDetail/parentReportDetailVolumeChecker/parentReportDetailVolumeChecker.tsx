@@ -32,7 +32,7 @@ export function ParentReportDetailVolumeChecker({ isRecording }: Props) {
     return (
         <>
             <S.Volume>
-                {[...Array(15)].map((it, idx) => (
+                {[...Array(9)].map((it, idx) => (
                     <S.VolumeBar volume={volume} idx={idx} />
                 ))}
             </S.Volume>

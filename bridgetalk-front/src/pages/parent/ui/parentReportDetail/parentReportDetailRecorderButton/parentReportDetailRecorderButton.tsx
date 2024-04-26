@@ -17,7 +17,9 @@ export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }
             onClick={() => {
                 if (isRecording) {
                     setIsRecording(false);
-                    setIsRecordFinished(true);
+                    setTimeout(() => {
+                        setIsRecordFinished(true);
+                    }, 250);
                 } else {
                     setIsRecording(true);
                 }

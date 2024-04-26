@@ -14,7 +14,7 @@ export function startRecordVoice(
         };
 
         recorderRef.current.onstop = () => {
-            const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/webm' });
+            const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mp4' });
             const audioURL: string = URL.createObjectURL(audioBlob);
 
             voiceChunk.splice(0, voiceChunk.length);

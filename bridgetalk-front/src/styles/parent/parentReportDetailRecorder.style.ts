@@ -32,6 +32,7 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
     box-shadow: inset 0 1svh 1svw ${color(1).shadowTop};
     position: relative;
     color: ${color(1).bright};
+    transition: all 0.2s ease-in-out;
 
     &::before {
         ${virtual}
@@ -57,7 +58,7 @@ export const Volume = styled.div`
 
 export const VolumeBar = styled.div<{ volume: number; idx: number }>`
     width: 0.4svw;
-    height: ${(props) => Math.min(0.2 + ((props.volume / 20) * Math.random()) / Math.abs(7.5 - props.idx), 4)}svw;
+    height: ${(props) => Math.min(0.2 + ((props.volume / 20) * Math.random()) / Math.abs(4.5 - props.idx), 4)}svw;
     background-color: ${color(0.7).dark};
     transition: height 0.15s ease-in-out;
 `;
