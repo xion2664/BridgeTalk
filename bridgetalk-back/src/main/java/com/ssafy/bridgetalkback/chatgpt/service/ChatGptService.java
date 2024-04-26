@@ -64,7 +64,47 @@ public class ChatGptService {
 
 
     public String createText(String origin) {
-        origin += "3줄 요약해줘";
+        origin += " 3줄 요약해줘";
         return origin;
     }
+
+    public String translatePrompt(String summaryText) {
+        log.info("{ ChatGptService } : 요약본번역 진입");
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .prompt(translateText(summaryText))
+                .build();
+
+        HttpHeaders headers = chatGptConfig.httpHeaders();
+
+        HttpEntity<ChatGptRequestDto> requestEntity = new HttpEntity<>(chatGptRequestDto, headers);
+        ResponseEntity<String> response = chatGptConfig
+                .restTemplate()
+                .exchange(legacyPromptUrl, HttpMethod.POST, requestEntity, String.class);
+
+
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            ObjectMapper om = new ObjectMapper();
+            resultMap = om.readValue(response.getBody(), new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        List<Choice> choices = (List<Choice>) resultMap.get("choices");
+        Map<String, Object> textMap = (Map<String, Object>) choices.get(0);
+        String result = (String) textMap.get("text");
+        result = result.substring(2);
+
+        log.info("{ ChatGptService } : 요약본번역 성공");
+        return result;
+    }
+
+
+    public String translateText(String summary) {
+        summary += " 베트남어로 번역해줘";
+        return summary;
+    }
+
 }
