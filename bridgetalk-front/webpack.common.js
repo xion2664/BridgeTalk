@@ -55,9 +55,9 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'assets/fonts/[name].[hash:8].[ext]',
-                            outputPath: 'assets/fonts', // 폰트 파일이 저장될 경로 설정
-                            publicPath: '/assets/fonts/', // 웹팩이 폰트 파일을 로드할 때 사용할 경로 설정
+                            name: '[name].[hash:8].[ext]',
+                            outputPath: 'fonts/', // 폰트 파일이 저장될 경로 설정
+                            publicPath: '/fonts/', // 웹팩이 폰트 파일을 로드할 때 사용할 웹 경로 설정
                         },
                     },
                 ],

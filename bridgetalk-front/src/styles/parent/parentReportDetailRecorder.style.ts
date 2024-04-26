@@ -34,6 +34,7 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
     position: relative;
     color: ${color(1).bright};
     transition: all 0.2s ease-in-out;
+    font-family: 'CherryBomb';
 
     &::before {
         ${virtual}
