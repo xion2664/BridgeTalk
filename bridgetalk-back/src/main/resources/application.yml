@@ -37,6 +37,13 @@ spring:
       stack:
         auto: false
 
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 # swagger 설정
 springdoc:
   swagger-ui:
@@ -56,6 +63,4 @@ springdoc:
   model-and-view-allowed: true
   paths-to-match:
     - /api/**
-
-
 

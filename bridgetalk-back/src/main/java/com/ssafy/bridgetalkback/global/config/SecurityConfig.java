@@ -1,5 +1,11 @@
 package com.ssafy.bridgetalkback.global.config;
 
+import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
+import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
+import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
+import com.ssafy.bridgetalkback.global.security.JwtAuthenticationFilter;
+import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -21,11 +28,17 @@ import java.util.Collections;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final JwtProvider jwtProvider;
+    private final ParentsFindService parentsFindService;
+    private final KidsFindService kidsFindService;
+
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/h2-console/**", "/error", "/swagger-ui/**", "/api-docs/**",
-                "/api/auth/signup" );
+                "/api/auth/signup", "/api/auth/login" );
     }
 
     @Bean
@@ -49,6 +62,9 @@ public class SecurityConfig {
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+                .exceptionHandling(authenticationManager -> authenticationManager
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler))
                 .authorizeHttpRequests(authorizeRequest ->
                         authorizeRequest
                                 .requestMatchers(
@@ -56,7 +72,9 @@ public class SecurityConfig {
                                 ).hasRole("USER")
                                 .anyRequest().authenticated()
                 )
-                .addFilterBefore(corsFilter(), SecurityContextPersistenceFilter.class);
+                .addFilterBefore(corsFilter(), SecurityContextPersistenceFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, parentsFindService, kidsFindService),
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
