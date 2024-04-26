@@ -107,7 +107,7 @@ public class AuthServiceTest extends ServiceTest {
 
             // then
             Assertions.assertAll(
-                    () -> assertThat(loginResponseDto.userId()).isEqualTo(parents.getUuid()),
+                    () -> assertThat(loginResponseDto.userId()).isEqualTo(String.valueOf(parents.getUuid())),
                     () -> assertThat(loginResponseDto.userName()).isEqualTo(parents.getParentsName()),
                     () -> assertThat(loginResponseDto.userEmail()).isEqualTo(parents.getParentsEmail().getValue()),
                     () -> assertThat(loginResponseDto.userNickname()).isEqualTo(parents.getParentsNickname()),
@@ -178,6 +178,6 @@ public class AuthServiceTest extends ServiceTest {
     }
 
     private KidsSingupRequestDto createKidsSingupRequestDto() {
-        return new KidsSingupRequestDto(parents.getUuid(), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+        return new KidsSingupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
     }
 }

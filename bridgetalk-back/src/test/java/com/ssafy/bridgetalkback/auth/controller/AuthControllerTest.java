@@ -231,11 +231,11 @@ public class AuthControllerTest extends ControllerTest {
     }
 
     private ParentsLoginResponseDto ParentsLoginResponseDto() {
-        return new ParentsLoginResponseDto(UUID.randomUUID(), SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
+        return new ParentsLoginResponseDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
                 SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
     }
 
     private KidsSingupRequestDto createKidsSingupRequestDto() {
-        return new KidsSingupRequestDto(UUID.randomUUID(), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+        return new KidsSingupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
     }
 }
