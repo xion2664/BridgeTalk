@@ -11,11 +11,6 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${color(1).sub};
-
-    div {
-        display: flex;
-        align-items: center;
-    }
 `;
 
 const virtual = css`
@@ -55,4 +50,18 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
             ${virtual}
         }
     }
+`;
+
+export const Volume = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.1svw;
+    height: 4svh;
+`;
+
+export const VolumeBar = styled.div<{ volume: number; idx: number }>`
+    width: 0.4svw;
+    height: ${(props) => Math.min(0.2 + ((props.volume / 20) * Math.random()) / Math.abs(7.5 - props.idx), 4)}svw;
+    background-color: ${color(0.7).dark};
+    transition: height 0.15s ease-in-out;
 `;
