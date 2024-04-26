@@ -49,6 +49,19 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i, // 해당 확장자의 파일의 경우
                 type: 'asset/resource', // 별도의 파일을 내보내고 URL을 추출한다.
             },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[hash:8].[ext]',
+                            outputPath: 'fonts/', // 폰트 파일이 저장될 경로 설정
+                            publicPath: '/fonts/', // 웹팩이 폰트 파일을 로드할 때 사용할 웹 경로 설정
+                        },
+                    },
+                ],
+            },
         ],
     },
     performance: {

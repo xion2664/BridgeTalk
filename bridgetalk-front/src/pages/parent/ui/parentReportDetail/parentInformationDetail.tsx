@@ -1,11 +1,10 @@
 import * as S from '@/styles/parent/parentReportDetail.style';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
 import { ParentBackButton } from '@/shared';
 
 export function ParentReportDetail() {
-    const { reportId } = useParams();
     const navigate = useNavigate();
 
     const fetchData = {
@@ -14,10 +13,6 @@ export function ParentReportDetail() {
         reportsSolution: '친구와 싸워서 서운하겠다. 엄마랑 함께 탕후루를 먹으러 가자. 너 기분이 좋아지길 바랄게',
         createdAt: '2024-04-23 24:00:00',
     };
-
-    useEffect(() => {
-        console.log(reportId);
-    }, []);
 
     return (
         <>
