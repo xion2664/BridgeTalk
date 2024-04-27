@@ -9,6 +9,7 @@ import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,6 +75,21 @@ public class LettersService {
         log.info("{LettersService} : Id(Pk)로 편지 정보 조회");
         return lettersRepository.findByLettersIdAndIsDeletedFalse(lettersId)
                 .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND));
+    }
+
+    /**
+     * pk에 해당하는 편지의 번역된 한국어 text를 음성데이터로 반환하는 메서드
+     *
+     * @param lettersId
+     * @return 번역문의 음성데이터
+     */
+
+    public Resource findLettersVoice(Long lettersId) {
+        log.info("{LettersServie.findLettersVoice()} : 편지tts 메서드");
+        Letters letter = findById(lettersId);
+        letter.updateIsChecked();
+        String inputText = letter.getLettersTranslationContent();
+        return ttsService.textToSpeech(inputText);
     }
 
 }
