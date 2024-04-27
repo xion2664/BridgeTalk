@@ -29,11 +29,13 @@ public class TtsService {
     @Value("${CLOVA_CLIENT_SECRET}")
     private String clientSecret;
 
+    private URL url;
+
     public Resource textToSpeech(String inputText) {
         log.info("{tts Service }: tts 변환 서비스 호출");
         try {
             String text = URLEncoder.encode(inputText, StandardCharsets.UTF_8);
-            URL url = new URL("https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts");
+            url = new URL("https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
