@@ -4,11 +4,13 @@ import com.ssafy.bridgetalkback.letters.domain.Letters;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
+@Repository
 public interface LettersRepository extends JpaRepository<Letters, Long> {
     // 부모 편지 리스트 출력 by parents
     List<Letters> findAllByParents(Parents parents);
@@ -21,6 +23,9 @@ public interface LettersRepository extends JpaRepository<Letters, Long> {
 
     // 부모 편지 읽은 편지 or 읽지 않은 편지 리스트
     List<Letters> findAllByIsChecked(int isChecked);
+
+    @Query("SELECT l FROM Letters l WHERE l.lettersId = :lettersId AND l.isDeleted = 0")
+    Optional<Letters> findByLettersIdAndIsDeletedFalse(Long lettersId);
 
 
 }
