@@ -15,7 +15,7 @@ import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("Member [Service Layer] -> MemberFindService 테스트")
+@DisplayName("Parents [Service Layer] -> ParentsFindService 테스트")
 public class ParentsFindServiceTest extends ServiceTest {
     @Autowired
     private ParentsFindService parentsFindService;
@@ -29,13 +29,27 @@ public class ParentsFindServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("ID(PK)로 부모를 조회한다")
-    void findById() {
+    void findParentsByUuidAndIsDeleted() {
         // when
-        Parents findParents = parentsFindService.findByIdAndIsDeleted(parents.getUuid());
+        Parents findParents = parentsFindService.findParentsByUuidAndIsDeleted(parents.getUuid());
         UUID inVaildUuid = UUID.randomUUID();
 
         // then
-        assertThatThrownBy(() -> parentsFindService.findByIdAndIsDeleted(inVaildUuid))
+        assertThatThrownBy(() -> parentsFindService.findParentsByUuidAndIsDeleted(inVaildUuid))
+                .isInstanceOf(BaseException.class)
+                .hasMessage(ParentsErrorCode.PARENTS_NOT_FOUND.getMessage());
+
+        assertThat(findParents).isEqualTo(parents);
+    }
+
+    @Test
+    @DisplayName("email로 부모를 조회한다")
+    void findParentsByParentsEmailAndIsDeleted() {
+        // when
+        Parents findParents = parentsFindService.findParentsByParentsEmailAndIsDeleted(parents.getParentsEmail().getValue());
+
+        // then
+        assertThatThrownBy(() -> parentsFindService.findParentsByParentsEmailAndIsDeleted("inVaild@gmail.com"))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(ParentsErrorCode.PARENTS_NOT_FOUND.getMessage());
 
