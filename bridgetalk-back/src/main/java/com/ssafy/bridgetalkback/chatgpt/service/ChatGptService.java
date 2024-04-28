@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptConfig;
 import com.ssafy.bridgetalkback.chatgpt.dto.request.ChatGptRequestDto;
 import com.ssafy.bridgetalkback.chatgpt.dto.response.Choice;
+import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,16 +41,19 @@ public class ChatGptService {
         HttpHeaders headers = chatGptConfig.httpHeaders();
 
         HttpEntity<ChatGptRequestDto> requestEntity = new HttpEntity<>(chatGptRequestDto, headers);
-        ResponseEntity<String> response = chatGptConfig
-                .restTemplate()
-                .exchange(legacyPromptUrl, HttpMethod.POST, requestEntity, String.class);
+
 
 
         Map<String, Object> resultMap = new HashMap<>();
         try {
+            ResponseEntity<String> response = chatGptConfig
+                    .restTemplate()
+                    .exchange(legacyPromptUrl, HttpMethod.POST, requestEntity, String.class);
             ObjectMapper om = new ObjectMapper();
             resultMap = om.readValue(response.getBody(), new TypeReference<>() {
             });
+        } catch (RestClientException e) {
+            throw BaseException.type(ChatGptErrorCode.CHATGPT_FAILED);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
