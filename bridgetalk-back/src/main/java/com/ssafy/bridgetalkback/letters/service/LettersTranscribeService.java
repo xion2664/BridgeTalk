@@ -83,6 +83,7 @@ public class LettersTranscribeService {
                 }
             }
             log.info(">> TranscriptionJobName : {}", getJobResponse.transcriptionJob().transcriptionJobName());
+            log.info(">> Result Transcription : {}", getJobResponse.transcriptionJob().transcript());
             resultJobName = getJobResponse.transcriptionJob().transcriptionJobName();
         }catch (Exception e) {
             log.error(e.getMessage());

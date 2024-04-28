@@ -43,13 +43,5 @@ public class LettersController {
         LettersResponseDTO responseDTO = lettersService.createText(url);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-    //bridge-talk-transcription-job-904981d2-c130-401b-92cf-c83838d65f52
-    @GetMapping("/transcription-josn")
-    public ResponseEntity<?> transcription_json(){
-        log.info("{ LettersController - test } : [test]부모 음성 편지 json to text 컨트롤러");
-        String jobName = "bridge-talk-transcription-job-904981d2-c130-401b-92cf-c83838d65f52";
-        lettersService.jsonTotext(jobName);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 
 }

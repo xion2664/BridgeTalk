@@ -10,6 +10,7 @@ import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
+import com.ssafy.bridgetalkback.letters.dto.request.TranscriptionDTO;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
@@ -84,11 +85,12 @@ public class LettersService {
             S3Object s3Object = s3Client.getObject(bucketName, transcriptFileName);
             log.info(">> s3Object : {}",s3Object);
             S3ObjectInputStream objectContent = s3Object.getObjectContent();
-            Map<String, Object> jsonData = objectMapper.readValue(objectContent, new TypeReference<Map<String, Object>>() {});
+            // Transcript json -> DTO
+            TranscriptionDTO jsonData = objectMapper.readValue(objectContent, TranscriptionDTO.class);
             log.info(">> jsonToObject : {}", jsonData);
-            Map<String, Object> results = (Map<String, Object>) jsonData.get("results");
-            List<Map<String, String>> rList = (List<Map<String, String>>) results.get("transcripts");
-            extractText = rList.get(0).get("transcript");
+            Map<String, Object> results = jsonData.results();
+            List<Map<String, String>> transcriptList = (List<Map<String, String>>) results.get("transcripts");
+            extractText = transcriptList.get(0).get("transcript");
             log.info(">> extractText : {}", extractText);
 
             // 스트림 및 객체 닫기
@@ -105,33 +107,6 @@ public class LettersService {
         return extractText;
     }
 
-    public void jsonTotext(String jobName) {
-        String transcriptFileName = jobName + ".json";
-        log.info(">> trancriptionFileName : {}", transcriptFileName);
-        String extractText = "";
-        try {
-            S3Object s3Object = s3Client.getObject(bucketName, transcriptFileName);
-            log.info(">> s3Object : {}",s3Object);
-            S3ObjectInputStream objectContent = s3Object.getObjectContent();
-            Map<String, Object> jsonData = objectMapper.readValue(objectContent, new TypeReference<Map<String, Object>>() {});
-            log.info(">> jsonToObject : {}", jsonData);
-            Map<String, Object> results = (Map<String, Object>) jsonData.get("results");
-            List<Map<String, String>> rList = (List<Map<String, String>>) results.get("transcripts");
-            extractText = rList.get(0).get("transcript");
-            log.info(">> extractText : {}", extractText);
-
-            // 스트림 및 객체 닫기
-            objectContent.close();
-            s3Object.close();
-        } catch (NotFoundException ne) {
-            log.error(ne.getMessage());
-            throw BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw BaseException.type(GlobalErrorCode.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     /**
      * translation() : 번역 api 호출 메서드
      * @param orignal : 원본 텍스트
@@ -139,6 +114,7 @@ public class LettersService {
      * */
     private String translation(String orignal) {
         log.info("{ LetterService.saveVoiceFile() } : 번역 api 호출 메서드 ");
+
         return "";
     }
 
