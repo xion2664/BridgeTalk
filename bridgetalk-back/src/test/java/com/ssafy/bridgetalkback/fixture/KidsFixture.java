@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum KidsFixture {
-    JIYEONG("이지영", "btasdfsdfsdf@bridgetalk.co.kr", "닉네임", "D1");
+    JIYEONG("이지영", "btasdfsdfsdf@bridgetalk.co.kr", "닉네임", "D1"),
+    HYUNYOUNG("이현영", "abcabcabc@bridgetalk.co.kr", "닉네임", "D2"),
+    SIYEON("박시연", "qweqweqwe@bridge.co.kr", "닉네임", "D3")
+    ;
 
     private final String kidsName;
     private final String kidsEmail;
