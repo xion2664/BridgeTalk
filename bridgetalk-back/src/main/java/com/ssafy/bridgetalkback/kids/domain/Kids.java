@@ -54,4 +54,8 @@ public class Kids extends BaseEntity {
     public static Kids createKids(Parents parents, String kidsName, String kidsEmail, String kidsNickname, String kidsDino) {
         return new Kids(parents, kidsName, kidsEmail, kidsNickname, kidsDino);
     }
+
+    public void updateKidsEmail(String updateKidsEmail) {
+        this.kidsEmail = updateKidsEmail;
+    }
 }
