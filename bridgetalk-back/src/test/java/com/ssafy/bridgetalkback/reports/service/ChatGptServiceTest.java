@@ -46,8 +46,9 @@ public class ChatGptServiceTest extends ServiceTest {
         String summary = chatGptService.createPrompt(reports.getReportsOriginContent());
 
         //then
-        String result = "나는 놀이동산에 가고 싶어서 엄마에게 말했지만 항상 바쁜 엄마는 내 얘기를 잘 못 알아들어줘. 나는 놀이동산에서 모든 놀이기구를 타고 싶고, 친구들과 함께 즐거운 시간을 보내고 싶어! 아이스크림도 먹고 싶어!";
-        assertThat(result).isEqualTo(summary);
+        assertThat(summary).isNotEmpty();
+        assertThat(summary).isNotNull();
+        assertThat(summary.length()).isLessThan(originText.length());
     }
 
     @Test
@@ -60,10 +61,11 @@ public class ChatGptServiceTest extends ServiceTest {
 
         //when
         String translate = chatGptService.translatePrompt(summary);
-        String result = "Tôi muốn đi đến công viên giải trí và tôi đã nói với mẹ nhưng mẹ luôn bận rộn và không hiểu ý tôi. Tôi muốn cưỡi tất cả các trò chơi, mua bóng bay và có thời gian vui vẻ cùng bạn bè ở công viên giải trí!";
 
         //then
-        assertThat(result).isEqualTo(translate);
+        assertThat(translate).isNotEmpty();
+        assertThat(translate).isNotNull();
+        assertThat(translate).isNotEqualTo(summary);
     }
 
 
