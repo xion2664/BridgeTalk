@@ -1,7 +1,9 @@
 package com.ssafy.bridgetalkback.letters.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
+import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,7 +58,10 @@ public class LettersTranscribeService {
         StartTranscriptionJobResponse startJobResponse = null;
         try {
             startJobResponse = client.startTranscriptionJob(request);
-        }catch (Exception e) {
+        }catch (BadRequestException be){
+            log.error(be.getMessage());
+            throw BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND);
+        } catch (Exception e) {
             log.error(e.getMessage());
             throw BaseException.type(GlobalErrorCode.INTERNAL_SERVER_ERROR);
         }

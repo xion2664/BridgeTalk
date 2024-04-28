@@ -49,10 +49,10 @@ class FileServiceTest extends ServiceTest {
             MultipartFile emptyFile = new MockMultipartFile("letters", "empty.mp3", "audio/mpeg", new byte[]{});
 
             // when - then
-            assertThatThrownBy(() -> fileService.uploadVoiceFiles(nullFile))
+            assertThatThrownBy(() -> fileService.uploadLettersFiles(nullFile))
                     .isInstanceOf(BaseException.class)
                     .hasMessage(S3FileErrorCode.EMPTY_FILE.getMessage());
-            assertThatThrownBy(() -> fileService.uploadVoiceFiles(emptyFile))
+            assertThatThrownBy(() -> fileService.uploadLettersFiles(emptyFile))
                     .isInstanceOf(BaseException.class)
                     .hasMessage(S3FileErrorCode.EMPTY_FILE.getMessage());
         }
@@ -67,7 +67,7 @@ class FileServiceTest extends ServiceTest {
             MultipartFile file = createMockMultipartFile(dir, fileName, contentType);
 
             // when
-            String fileKey = fileService.uploadVoiceFiles(file);
+            String fileKey = fileService.uploadLettersFiles(file);
 
             // then
             assertThat(fileKey).contains("test.mp3");

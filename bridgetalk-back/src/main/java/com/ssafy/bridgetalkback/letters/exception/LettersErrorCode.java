@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum LettersErrorCode implements ErrorCode {
-    LETTERS_NOT_FOUND(HttpStatus.NOT_FOUND,"COMMON-ERR-404","편지를 찾을 수 없습니다.");
+    EMPTY_FILE(HttpStatus.BAD_REQUEST, "LETTERS_001", "전송된 파일이 없습니다."),
+    LETTERS_NOT_FOUND(HttpStatus.NOT_FOUND,"LETTERS-002","편지를 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String errorCode;

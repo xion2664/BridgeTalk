@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import software.amazon.awssdk.services.s3.S3Client;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -59,9 +60,11 @@ public class LettersService {
     public LettersResponseDTO createText(String voiceUrl){
         log.info("{ LetterService.createText() } : 텍스트화 메서드");
         String[] vrr = voiceUrl.split("/");
+        System.out.println(Arrays.toString(vrr));
         int len = vrr.length;
         String fileName = vrr[len-2]+"/"+vrr[len-1];
         log.info(">> fileName : {}", fileName);
+
         // stt api 호출
         String extractText = stt(fileName);
 
@@ -75,7 +78,7 @@ public class LettersService {
      * @param fileName : 파일명
      * @return String : 변환된 텍스트
      * */
-    private String stt(String fileName) {
+    public String stt(String fileName) {
         log.info("{ LetterService.stt() } : stt api 호출 메서드");
         String jobName = lettersTranscribeService.transcribe(bucketName, fileName);
         String transcriptFileName = jobName + ".json";
@@ -117,5 +120,7 @@ public class LettersService {
 
         return "";
     }
+
+
 
 }
