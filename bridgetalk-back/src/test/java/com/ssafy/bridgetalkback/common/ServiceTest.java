@@ -1,9 +1,6 @@
 package com.ssafy.bridgetalkback.common;
 
-<<<<<<< bridgetalk-back/src/test/java/com/ssafy/bridgetalkback/common/ServiceTest.java
-=======
 import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
->>>>>>> bridgetalk-back/src/test/java/com/ssafy/bridgetalkback/common/ServiceTest.java
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
