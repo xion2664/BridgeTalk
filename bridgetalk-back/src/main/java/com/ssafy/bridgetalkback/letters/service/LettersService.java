@@ -9,9 +9,9 @@ import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 @Service
 @Transactional
@@ -84,7 +84,7 @@ public class LettersService {
      * @return 번역문의 음성데이터
      */
 
-    public Resource findLettersVoice(Long lettersId) {
+    public StreamingResponseBody findLettersVoice(Long lettersId) {
         log.info("{LettersServie.findLettersVoice()} : 편지tts 메서드");
         Letters letter = findById(lettersId);
         letter.updateIsChecked();
