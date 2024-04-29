@@ -33,7 +33,7 @@ export const ContentContainer = styled.div`
             font-family: 'DNF';
             font-size: 2.5svw;
             color: ${color(1).bright};
-            z-index: 1;
+            z-index: 0;
             ${textShadowBlue}
             text-align: center;
 
