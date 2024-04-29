@@ -12,7 +12,9 @@ import com.ssafy.bridgetalkback.global.config.SecurityConfig;
 import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
+import com.ssafy.bridgetalkback.parents.service.ProfileListService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @ImportAutoConfiguration(SecurityConfig.class)
 @WebMvcTest({
         AuthController.class,
-        TokenReissueController.class
+        TokenReissueController.class,
+        ProfileListController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -70,6 +73,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected TtsService ttsService;
+
+    @MockBean
+    protected ProfileListService profileListService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

@@ -9,6 +9,7 @@ import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
+import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Email;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.domain.Password;
@@ -33,6 +34,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final TokenService tokenService;
     private final KidsRepository kidsRepository;
+    private final KidsFindService kidsFindService;
 
     @Transactional
     public UUID signup(ParentsSignupRequestDto requestDto) {
@@ -73,7 +75,11 @@ public class AuthService {
         Kids kids = Kids.createKids(parents, requestDto.kidsName(), "",
                 requestDto.kidsNickname(), requestDto.kidsDino());
 
-        return kidsRepository.save(kids).getUuid();
+        UUID kidsId = kidsRepository.save(kids).getUuid();
+        Kids findKids = kidsFindService.findKidsByUuidAndIsDeleted(kidsId);
+        findKids.updateKidsEmail(createKidsEmail(String.valueOf(kidsId)));
+
+        return findKids.getUuid();
     }
 
     public void DuplicateEmail(String email) {
@@ -88,5 +94,10 @@ public class AuthService {
         if(!findPassword.isSamePassword(comparePassword, ENCODER)) {
             throw BaseException.type(AuthErrorCode.WRONG_PASSWORD);
         }
+    }
+
+    private String createKidsEmail(String kidsId) {
+        String randomNumber = String.valueOf((int)(Math.random() * 99) + 10);
+        return "bridgetalk" + kidsId + randomNumber + "@bridgetalk.co.kr";
     }
 }
