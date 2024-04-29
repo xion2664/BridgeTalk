@@ -14,8 +14,34 @@ export const Container = styled.div`
     border-radius: 2svw;
     padding: 4svh 1svw 1svh 1svw;
 
-    box-shadow: 0 1svh 0.4svh ${color(1).dark};
+    box-shadow: 0 1svh 0.4svh ${color(0.5).dark};
     position: relative;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 2svw;
+        content: '';
+        pointer-events: none;
+        z-index: 0;
+        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+    }
+
+    /* &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-radius: 1svw;
+        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+        z-index: 0;
+        pointer-events: none;
+    } */
 
     .title {
         position: absolute;
@@ -84,8 +110,9 @@ export const Container = styled.div`
 
     .content {
         width: 100%;
-        height: 55svh;
+        height: 53svh;
         overflow-y: scroll;
+        border-radius: 1svw;
 
         .list {
             width: 100%;

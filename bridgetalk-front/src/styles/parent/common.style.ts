@@ -70,3 +70,5 @@ export const CommonContainer = css`
     border-radius: 1svw;
     ${embossing}
 `;
+
+export const outlineBlue = css``;
