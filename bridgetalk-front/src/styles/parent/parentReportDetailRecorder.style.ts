@@ -78,7 +78,8 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
     height: 10svw;
     border-radius: 50%;
     border: none;
-    box-shadow: inset 0 1svh 1svw ${color(1).shadowTop};
+    box-shadow: 0 1svh 0.5svw ${color(0.8).dark};
+
     position: relative;
     color: ${color(1).bright};
     transition: all 0.2s ease-in-out;
@@ -90,7 +91,7 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
 
     &::before {
         ${virtual}
-        box-shadow: 0 1svh 0.5svw ${color(0.8).dark};
+        box-shadow: inset 0 1svh 1svw ${color(1).shadowTop};
     }
 
     &::after {
@@ -100,6 +101,14 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
 
     &:hover {
         cursor: pointer;
+
+        transform: translateY(0.25svh);
+        box-shadow: 0 0.75svh 0.5svw ${color(0.8).dark};
+    }
+
+    &:active {
+        transform: translateY(0.5svh);
+        box-shadow: 0 0.5svh 0.5svw ${color(0.8).dark};
     }
 `;
 
