@@ -27,7 +27,7 @@ export const ContentContainer = styled.div`
         .title {
             position: absolute;
             top: 0;
-            left: 0;
+            left: 2svw;
             transform: translateY(-50%);
 
             font-family: 'DNF';
