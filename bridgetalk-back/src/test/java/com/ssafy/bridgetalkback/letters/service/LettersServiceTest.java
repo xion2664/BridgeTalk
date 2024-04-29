@@ -4,11 +4,13 @@ import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.files.exception.S3FileErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,8 +20,11 @@ public class LettersServiceTest extends ServiceTest {
 
     @Autowired
     private LettersService lettersService;
-
-
+    private Parents parents;
+    @BeforeEach
+    void setup() {
+        parents = parentsRepository.save(SUNKYOUNG.toParents());
+    }
 
     @Test
     @DisplayName("stt로 변환할 텍스트 파일의 존재여부 확인 : 음성 파일 url")
@@ -28,7 +33,7 @@ public class LettersServiceTest extends ServiceTest {
         String noneS3FileUrl = "https://bridge-talk.s3.ap-northeast-2.amazonaws.com/"+" "+"/"+" ";
 
         //when-then
-        assertThatThrownBy(() -> lettersService.createText(noneS3FileUrl))
+        assertThatThrownBy(() -> lettersService.createText(noneS3FileUrl, parents.getUuid().toString()))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(LettersErrorCode.LETTERS_NOT_FOUND.getMessage());
     }
