@@ -41,7 +41,7 @@ spring:
     type: redis
   data:
     redis:
-      host: localhost
+      host: ${REDIS_HOST}
       port: 6379
 
 # swagger 설정
