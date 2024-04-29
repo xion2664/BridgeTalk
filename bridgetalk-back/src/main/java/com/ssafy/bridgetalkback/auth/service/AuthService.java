@@ -10,7 +10,6 @@ import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Email;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.domain.Password;
-import com.ssafy.bridgetalkback.parents.dto.ProfileResponseDto;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import lombok.RequiredArgsConstructor;
