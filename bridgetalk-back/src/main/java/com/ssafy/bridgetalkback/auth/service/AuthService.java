@@ -1,9 +1,6 @@
 package com.ssafy.bridgetalkback.auth.service;
 
-import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.*;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
@@ -48,7 +45,7 @@ public class AuthService {
     }
 
     @Transactional
-    public ParentsLoginResponseDto login(LoginRequestDto requestDto) {
+    public LoginResponseDto login(LoginRequestDto requestDto) {
         log.info("{ AuthService } : 부모로그인 진입");
         Parents parents = parentsFindService.findParentsByParentsEmailAndIsDeleted(requestDto.email());
         validatePassword(requestDto.password(), parents.getParentsPassword());
@@ -58,7 +55,7 @@ public class AuthService {
         String refreshToken = jwtProvider.createRefreshToken(parents.getUuid());
         tokenService.synchronizeRefreshToken(parents.getUuid(), refreshToken);
 
-        return ParentsLoginResponseDto.from(parents, accessToken, refreshToken);
+        return LoginResponseDto.fromParents(parents, accessToken, refreshToken);
     }
 
     @Transactional
@@ -80,6 +77,32 @@ public class AuthService {
         findKids.updateKidsEmail(createKidsEmail(String.valueOf(kidsId)));
 
         return findKids.getUuid();
+    }
+
+    @Transactional
+    public LoginResponseDto profileLogin(UUID profileId) {
+        log.info("{ AuthService } : 프로필 선택 진입");
+        LoginResponseDto loginResponseDto = null;
+
+        if(parentsRepository.existsParentsByUuidAndIsDeleted(profileId, 0)){
+            log.info("{ AuthService } : 부모 측 - 프로필 조회");
+            Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(profileId);
+            String accessToken = jwtProvider.createAccessToken(parents.getUuid());
+            String refreshToken = jwtProvider.createRefreshToken(parents.getUuid());
+            tokenService.synchronizeRefreshToken(parents.getUuid(), refreshToken);
+            loginResponseDto = LoginResponseDto.fromParents(parents, accessToken, refreshToken);
+        }
+        else if(kidsRepository.existsKidsByUuidAndIsDeleted(profileId, 0)) {
+            log.info("{ AuthService } : 아이 측 - 프로필 조회");
+            Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(profileId);
+            String accessToken = jwtProvider.createAccessToken(kids.getUuid());
+            String refreshToken = jwtProvider.createRefreshToken(kids.getUuid());
+            tokenService.synchronizeRefreshToken(kids.getUuid(), refreshToken);
+            loginResponseDto = LoginResponseDto.fromKids(kids, accessToken, refreshToken);
+        }
+        else throw BaseException.type(AuthErrorCode.USER_NOT_FOUND);
+
+        return loginResponseDto;
     }
 
     public void DuplicateEmail(String email) {

@@ -1,10 +1,7 @@
 package com.ssafy.bridgetalkback.auth.service;
 
 import com.ssafy.bridgetalkback.auth.domain.RefreshToken;
-import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.*;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.common.ServiceTest;
@@ -43,10 +40,12 @@ public class AuthServiceTest extends ServiceTest {
     private KidsFindService kidsFindService;
 
     private Parents parents;
+    private Kids kids;
 
     @BeforeEach
     void setup() {
         parents = parentsRepository.save(SOYOUNG.toParents());
+        kids = kidsRepository.save(JIYEONG.toKids(parents));
     }
 
     @Nested
@@ -103,7 +102,7 @@ public class AuthServiceTest extends ServiceTest {
         @DisplayName("로그인에 성공한다")
         void success() {
             // when
-            ParentsLoginResponseDto loginResponseDto = authService.login(createLoginRequestDto());
+            LoginResponseDto loginResponseDto = authService.login(createLoginRequestDto());
 
             // then
             Assertions.assertAll(
@@ -154,12 +153,50 @@ public class AuthServiceTest extends ServiceTest {
             Assertions.assertAll(
                     () -> assertThat(newKids.getUuid()).isEqualTo(kidsId),
                     () -> assertThat(newKids.getKidsName()).isEqualTo(JIYEONG.getKidsName()),
-                    () -> assertThat(newKids.getKidsEmail()).isEqualTo(""),
+                    () -> assertThat(newKids.getKidsEmail()).isNotNull(),
                     () -> assertThat(newKids.getKidsNickname()).isEqualTo(JIYEONG.getKidsNickname()),
                     () -> assertThat(newKids.getKidsDino()).isEqualTo(JIYEONG.getKidsDino()),
                     () -> assertThat(newKids.getIsDeleted()).isEqualTo(0),
                     () -> assertThat(newKids.getRole()).isEqualTo(Role.USER),
                     () -> assertThat(newKids.getParents()).isEqualTo(parents)
+            );
+        }
+    }
+
+    @Nested
+    @DisplayName("프로필 선택 (로그인)")
+    class profileLogin {
+        @Test
+        @DisplayName("프로필 선택 (로그인)에 성공한다")
+        void success() {
+            // when
+            LoginResponseDto parentsLoginResponseDto = authService.profileLogin(parents.getUuid());
+            LoginResponseDto kidsLoginResponseDto = authService.profileLogin(kids.getUuid());
+
+            // when - then
+            Assertions.assertAll(
+                    () -> assertThat(parentsLoginResponseDto.userId()).isEqualTo(String.valueOf(parents.getUuid())),
+                    () -> assertThat(parentsLoginResponseDto.userName()).isEqualTo(parents.getParentsName()),
+                    () -> assertThat(parentsLoginResponseDto.userEmail()).isEqualTo(parents.getParentsEmail().getValue()),
+                    () -> assertThat(parentsLoginResponseDto.userNickname()).isEqualTo(parents.getParentsNickname()),
+                    () -> assertThat(parentsLoginResponseDto.userDino()).isEqualTo(parents.getParentsDino()),
+                    () -> assertThat(jwtProvider.getId(parentsLoginResponseDto.accessToken())).isEqualTo(String.valueOf(parents.getUuid())),
+                    () -> assertThat(jwtProvider.getId(parentsLoginResponseDto.refreshToken())).isEqualTo(String.valueOf(parents.getUuid())),
+                    () -> {
+                        RefreshToken findRefreshToken = refreshTokenRedisRepository.findById(parents.getUuid()).orElseThrow();
+                        assertThat(findRefreshToken.getRefreshToken()).isEqualTo(parentsLoginResponseDto.refreshToken());
+                    },
+                    () -> assertThat(kidsLoginResponseDto.userId()).isEqualTo(String.valueOf(kids.getUuid())),
+                    () -> assertThat(kidsLoginResponseDto.userName()).isEqualTo(kids.getKidsName()),
+                    () -> assertThat(kidsLoginResponseDto.userEmail()).isEqualTo(kids.getKidsEmail()),
+                    () -> assertThat(kidsLoginResponseDto.userNickname()).isEqualTo(kids.getKidsNickname()),
+                    () -> assertThat(kidsLoginResponseDto.userDino()).isEqualTo(kids.getKidsDino()),
+                    () -> assertThat(jwtProvider.getId(kidsLoginResponseDto.accessToken())).isEqualTo(String.valueOf(kids.getUuid())),
+                    () -> assertThat(jwtProvider.getId(kidsLoginResponseDto.refreshToken())).isEqualTo(String.valueOf(kids.getUuid())),
+                    () -> {
+                        RefreshToken findRefreshToken = refreshTokenRedisRepository.findById(kids.getUuid()).orElseThrow();
+                        assertThat(findRefreshToken.getRefreshToken()).isEqualTo(kidsLoginResponseDto.refreshToken());
+                    }
             );
         }
     }
