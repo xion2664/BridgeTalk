@@ -31,9 +31,10 @@ public class LettersServiceTest extends ServiceTest {
     void throwExceptionByExistFile() {
         //given
         String noneS3FileUrl = "https://bridge-talk.s3.ap-northeast-2.amazonaws.com/"+" "+"/"+" ";
+        Long reportsId = 1L;
 
         //when-then
-        assertThatThrownBy(() -> lettersService.createText(noneS3FileUrl, parents.getUuid().toString()))
+        assertThatThrownBy(() -> lettersService.createText(noneS3FileUrl, parents.getUuid().toString(), reportsId))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(LettersErrorCode.LETTERS_NOT_FOUND.getMessage());
     }

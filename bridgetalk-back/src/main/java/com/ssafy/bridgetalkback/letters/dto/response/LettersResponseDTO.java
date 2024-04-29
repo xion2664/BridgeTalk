@@ -9,7 +9,7 @@ public record LettersResponseDTO(
         String lettersOriginalContent,
         String lettersTranslationContent
 ) {
-    public LettersResponseDTO of(Letters letters) {
+    public static LettersResponseDTO of(Letters letters) {
         return LettersResponseDTO.builder()
                 .lettersId(letters.getLettersId())
                 .lettersOriginalContent(letters.getLettersOriginalContent())

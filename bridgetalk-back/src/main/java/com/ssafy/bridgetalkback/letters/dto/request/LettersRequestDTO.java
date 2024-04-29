@@ -9,12 +9,4 @@ public record LettersRequestDTO(
         Long reportsId,
         MultipartFile lettersFile
 ) {
-    public Letters toEntity(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
-        return Letters.builder()
-                .parents(parents)
-                .reports(reports)
-                .lettersOriginalContent(lettersOriginalContent)
-                .lettersTranslationContent(lettersTranslationContent)
-                .build();
-    }
 }
