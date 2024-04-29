@@ -17,6 +17,7 @@ import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDTO;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
 import com.ssafy.bridgetalkback.letters.dto.response.TranslationResultsDTO;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
+import com.ssafy.bridgetalkback.letters.exception.TranslateBadRequestException;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
@@ -174,7 +175,7 @@ public class LettersService {
             con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
             // post request
             if (source.isEmpty() || target.isEmpty()){
-                throw BaseException.type(LettersErrorCode.TRANSLATION_EMPTY_CODE);
+                throw new TranslateBadRequestException(LettersErrorCode.TRANSLATION_EMPTY_CODE.getMessage(), 400);
             }
             String postParams = "source="+source+"&target="+target+"&text=" + text;
             con.setDoOutput(true);
@@ -183,6 +184,7 @@ public class LettersService {
             wr.flush();
             wr.close();
             int responseCode = con.getResponseCode();
+            log.info(">> papago api responseCode : {}", responseCode);
             BufferedReader br;
             if (responseCode == 200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -205,8 +207,8 @@ public class LettersService {
             }
 
             br.close();
-        }catch (BadRequestException be){
-            log.error(be.getMessage());
+        }catch (TranslateBadRequestException tbe){
+            log.error(tbe.getMessage());
             throw BaseException.type(LettersErrorCode.TRANSLATION_BAD_REQUEST);
 
         }catch (Exception e) {
