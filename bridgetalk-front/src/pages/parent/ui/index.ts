@@ -6,4 +6,4 @@ export * from '@/pages/parent/ui/parentInformationNewsDetail/parentInformationNe
 export * from '@/pages/parent/ui/parentInformationMain/parentInformationMain';
 export * from '@/pages/parent/ui/parentInformationWord/parentInformationWord';
 export * from '@/pages/parent/ui/parentReportDetail/parentInformationDetail';
-export * from '@/pages/parent/ui/parentReportList/parentInformationList';
+export * from '@/pages/parent/ui/parentReportList/parentReportList';
