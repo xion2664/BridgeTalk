@@ -40,7 +40,8 @@ public class LettersController {
         log.info("{ LettersController -test} : [test] 부모 음성 편지 번역 컨틀롤러");
         log.info(">> OriginText : {}", originText);
 
-        lettersService.translation(originText);
+        String firstText = lettersService.translation(originText, "vi", "en");
+        String resultText = lettersService.translation(firstText, "en", "ko");
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }

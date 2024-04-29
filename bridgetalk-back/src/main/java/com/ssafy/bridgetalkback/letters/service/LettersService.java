@@ -85,7 +85,10 @@ public class LettersService {
         String extractOriginText = stt(fileName);
 
         // 번역 api 호출
-        String extractTranslationText = translation(extractOriginText);
+        // 1. 베트남어(vi) -> 영어(en)
+        String extractTranslationTextIntoEn = translation(extractOriginText, "vi", "en");
+        // 2. 영어(en) -> 한국어(ko)
+        String extractTranslationTextIntoKo = translation(extractOriginText, "en", "ko");
 
         return LettersResponseDTO.builder().build();
     }
@@ -132,7 +135,7 @@ public class LettersService {
      * @param orignal : 원본 텍스트
      * @return String : 번역본 텍스트
      * */
-    public String translation(String orignal) {
+    public String translation(String orignal, String source, String target) {
         log.info("{ LetterService.translation() } : 번역 api 호출 메서드 ");
 
         String extractTranslationText = "";
@@ -145,9 +148,10 @@ public class LettersService {
             con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
             con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
             // post request
-            // 1. 베트남어(vi) -> 한국어(ko)
-            // 2. 베트남어(vi) -> 영어(en) -> 한국어(ko)
-            String postParams = "source=vi&target=ko&text=" + text;
+            if (source.isEmpty() || target.isEmpty()){
+                throw BaseException.type(LettersErrorCode.TRANSLATION_EMPTY_CODE);
+            }
+            String postParams = "source="+source+"&target="+target+"&text=" + text;
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(postParams);
