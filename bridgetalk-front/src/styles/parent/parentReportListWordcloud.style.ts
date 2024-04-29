@@ -11,6 +11,12 @@ const shadow = css`
     pointer-events: none;
 `;
 
+const textShadowBlue = css`
+    text-shadow: 0.3svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
+        -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
+        0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
+`;
+
 export const Wrapper = styled.div`
     width: 100%;
     height: 40svh;
@@ -39,11 +45,18 @@ export const Wrapper = styled.div`
 
     .title {
         position: absolute;
-        top: -3svh;
-        left: 10svw;
-        font-size: 2svw;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* transform: translateX(50%); */
+        /* transform: translateY(-50%); */
+
+        font-size: 3svw;
         font-family: 'DNF';
         color: ${color(1).bright};
+        z-index: 1;
+
+        ${textShadowBlue}
     }
 
     .cloud {

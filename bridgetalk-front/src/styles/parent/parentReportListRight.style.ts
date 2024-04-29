@@ -1,5 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { color } from './common.style';
+
+const textShadowBlue = css`
+    text-shadow: 0.2svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
+        -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
+        0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
+`;
 
 export const Container = styled.div`
     display: flex;
@@ -12,7 +18,7 @@ export const Container = styled.div`
     height: 100%;
 
     border-radius: 2svw;
-    padding: 4svh 1svw 1svh 1svw;
+    padding: 5svh 1svw 1svh 1svw;
 
     box-shadow: 0 1svh 0.4svh ${color(0.5).dark};
     position: relative;
@@ -30,19 +36,6 @@ export const Container = styled.div`
         box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
     }
 
-    /* &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 100%;
-        border-radius: 1svw;
-        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
-        z-index: 0;
-        pointer-events: none;
-    } */
-
     .title {
         position: absolute;
         display: flex;
@@ -58,6 +51,8 @@ export const Container = styled.div`
             font-size: 3svw;
             color: ${color(1).bright};
             position: relative;
+
+            ${textShadowBlue}
         }
 
         img {
@@ -77,7 +72,7 @@ export const Container = styled.div`
         .calendar {
             display: flex;
             align-items: center;
-            gap: 0.3svw;
+            gap: 0.5svw;
 
             font-size: 1.7svw;
 
