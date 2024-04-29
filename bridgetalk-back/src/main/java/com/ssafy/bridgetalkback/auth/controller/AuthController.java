@@ -1,9 +1,6 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.*;
 import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,9 +28,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ParentsLoginResponseDto> login(@RequestBody LoginRequestDto requestDto) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto requestDto) {
         log.info("{ AuthController } : 부모로그인 진입");
-        ParentsLoginResponseDto loginResponseDto = authService.login(requestDto);
+        LoginResponseDto loginResponseDto = authService.login(requestDto);
         log.info("{ AuthService } : 부모로그인 성공");
         return ResponseEntity.ok(loginResponseDto);
     }
@@ -52,5 +49,13 @@ public class AuthController {
         authService.kidsSignup(requestDto);
         log.info("{ AuthService } : 아이 회원가입 성공");
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/profileLogin/{profileId}")
+    public ResponseEntity<LoginResponseDto> profileLogin(@ExtractPayload String userId, @PathVariable String profileId) {
+        log.info("{ AuthController } : 프로필 선택 (로그인) 진입");
+        LoginResponseDto loginResponseDto = authService.profileLogin(UUID.fromString(profileId));
+        log.info("{ AuthService } : 프로필 선택 (로그인) 성공");
+        return ResponseEntity.ok(loginResponseDto);
     }
 }
