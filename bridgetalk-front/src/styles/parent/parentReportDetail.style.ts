@@ -33,8 +33,28 @@ export const ContentContainer = styled.div`
             font-family: 'DNF';
             font-size: 2.5svw;
             color: ${color(1).bright};
-
+            z-index: 1;
             ${textShadowBlue}
+            text-align: center;
+
+            display: flex;
+            gap: 1svw;
+            align-items: center;
+
+            .button {
+                background-color: transparent;
+                border: none;
+                z-index: 1;
+                background-color: ${color(1).sub};
+                padding: 1svh 1svw;
+                border-radius: 2svw;
+                box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
+                cursor: pointer;
+
+                img {
+                    height: 3svw;
+                }
+            }
         }
 
         .content-container {

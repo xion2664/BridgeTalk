@@ -2,10 +2,11 @@ import * as S from '@/styles/parent/parentReportDetail.style';
 import { useNavigate } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
 import { BackButton } from '@/shared';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export function ParentReportDetail() {
     const navigate = useNavigate();
+    const [isKor, setIsKor] = useState<boolean>(true);
 
     const fetchData = {
         reportsSummary: '오늘 학교에서 친구와 싸워서 기분이 안좋다. 나랑 탕후루 먹으러 같이 안가줘서 서운하다.',
@@ -26,6 +27,7 @@ export function ParentReportDetail() {
                 <div className="leftside">
                     <div className="title">
                         {date[0]}년 {date[1]}월 {date[2]}일 분석 리포트
+                        <TransltaionButton isKor={isKor} setIsKor={setIsKor} />
                     </div>
                     <div className="content-container">
                         <div className="content">
@@ -42,5 +44,23 @@ export function ParentReportDetail() {
                 <ParentReportDetailRecorder />
             </S.ContentContainer>
         </>
+    );
+}
+
+interface Props {
+    readonly isKor: boolean;
+    readonly setIsKor: Dispatch<SetStateAction<boolean>>;
+}
+
+function TransltaionButton({ isKor, setIsKor }: Props) {
+    return (
+        <button
+            className="button"
+            onClick={() => {
+                setIsKor(!isKor);
+            }}
+        >
+            {isKor ? <img src="/assets/img/ktv.svg" /> : <img src="/assets/img/vtk.svg" />}
+        </button>
     );
 }
