@@ -65,6 +65,7 @@ export const ParentReportDetailRecorder = memo(() => {
 
     return (
         <S.Container>
+            <div className="title">답장하기</div>
             <ParentReportDetailVolumeChecker isRecording={isRecording} />
             <div>
                 <button>한국어</button>

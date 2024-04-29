@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from './common.style';
+import { color, textShadowBlue } from './common.style';
 
 export const ContentContainer = styled.div`
     display: grid;
@@ -31,8 +31,10 @@ export const ContentContainer = styled.div`
             transform: translateY(-50%);
 
             font-family: 'DNF';
-            font-size: 2svw;
+            font-size: 2.5svw;
             color: ${color(1).bright};
+
+            ${textShadowBlue}
         }
 
         .content-container {

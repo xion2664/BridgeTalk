@@ -1,6 +1,5 @@
-import styled, { createGlobalStyle, css } from 'styled-components';
-import { color } from './common.style';
-import '../../main.css';
+import styled, { css } from 'styled-components';
+import { color, textShadowBlue } from './common.style';
 
 export const Container = styled.div`
     display: flex;
@@ -17,6 +16,23 @@ export const Container = styled.div`
     border-radius: 1svw;
 
     box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
+
+    position: relative;
+
+    .title {
+        position: absolute;
+        top: 0;
+        transform: translateY(-50%);
+
+        text-align: center;
+        width: 100%;
+
+        font-family: 'DNF';
+        color: ${color(1).bright};
+        font-size: 2.7svw;
+
+        ${textShadowBlue}
+    }
 
     position: relative;
     &::after {
