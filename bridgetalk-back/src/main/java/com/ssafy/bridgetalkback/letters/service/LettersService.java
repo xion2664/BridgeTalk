@@ -55,9 +55,10 @@ public class LettersService {
     /**
      * createText() : 음성파일 텍스트화 메서드
      * @param voiceUrl : 입력된 음성 파일
+     * @param parentsUserId : 사용자 userId(UUID)
      * @return LettersResponseDTO : 변환된 텍스트 responseDTO
      * */
-    public LettersResponseDTO createText(String voiceUrl){
+    public LettersResponseDTO createText(String voiceUrl, String parentsUserId){
         log.info("{ LetterService.createText() } : 텍스트화 메서드");
         String[] vrr = voiceUrl.split("/");
         System.out.println(Arrays.toString(vrr));
