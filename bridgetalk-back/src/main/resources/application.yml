@@ -41,8 +41,9 @@ spring:
     type: redis
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: 6379
+      host: ${CACHE_REDIS_HOST}
+      port: ${CACHE_REDIS_PORT}
+      password: ${CACHE_REDIS_PASSWORD}
 
 # swagger 설정
 springdoc:
