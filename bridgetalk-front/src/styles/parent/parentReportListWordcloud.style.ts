@@ -1,5 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { color } from './common.style';
+
+const shadow = css`
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+`;
 
 export const Wrapper = styled.div`
     width: 100%;
@@ -14,6 +24,18 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &::after {
+        ${shadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 1svh 0.4svh ${color(0.5).bright};
+    }
+
+    &::before {
+        ${shadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 -1svh 0.4svh ${color(0.25).dark};
+    }
 
     .title {
         position: absolute;
@@ -38,29 +60,15 @@ export const Wrapper = styled.div`
         align-items: center;
 
         &::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            content: '';
-            width: 100%;
-            height: 100%;
+            ${shadow}
             border-radius: 1svw;
-            box-shadow: inset 0 -1svh 0.8svh ${color(0.25).dark};
-            z-index: 0;
-            pointer-events: none;
+            box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
         }
 
         &::before {
-            position: absolute;
-            top: 0;
-            left: 0;
-            content: '';
-            width: 100%;
-            height: 100%;
+            ${shadow}
             border-radius: 1svw;
-            box-shadow: inset 0 1svh 0.8svh ${color(0.5).bright};
-            z-index: 0;
-            pointer-events: none;
+            box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
         }
     }
 `;
