@@ -83,6 +83,11 @@ export const ButtonWrapper = styled.button<{ $isRecording: boolean }>`
     color: ${color(1).bright};
     transition: all 0.2s ease-in-out;
 
+    div {
+        font-family: 'CherryBomb';
+        font-size: 2svw;
+    }
+
     &::before {
         ${virtual}
         box-shadow: 0 1svh 0.5svw ${color(0.8).dark};

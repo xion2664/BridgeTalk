@@ -41,14 +41,6 @@ export const ParentReportDetailRecorder = memo(() => {
         };
     }, []);
 
-    function getAudioFrequency(dataArray: Uint8Array, bufferLength: number): number {
-        let total = 0;
-        for (let i = 0; i < bufferLength; i++) {
-            total += dataArray[i];
-        }
-        return total / bufferLength;
-    }
-
     useEffect(() => {
         let volumeCheckInterval: any = null;
 
