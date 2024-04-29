@@ -27,6 +27,13 @@ export const Container = styled.div`
         z-index: 1;
         transform: translateY(-50%);
 
+        div {
+            font-family: 'DNF';
+            font-size: 3svw;
+            color: ${color(1).bright};
+            position: relative;
+        }
+
         img {
             width: 10svw;
         }
@@ -41,6 +48,17 @@ export const Container = styled.div`
         padding: 1svh 1svw;
         border-radius: 1svw;
 
+        .calendar {
+            display: flex;
+            align-items: center;
+            gap: 0.3svw;
+
+            font-size: 1.7svw;
+
+            div {
+                font-family: 'DNF';
+            }
+        }
         .due {
             background-color: ${color(1).bright};
             border-radius: 1svw;

@@ -20,6 +20,8 @@ export const Wrapper = styled.div`
         top: -3svh;
         left: 10svw;
         font-size: 2svw;
+        font-family: 'DNF';
+        color: ${color(1).bright};
     }
 
     .cloud {

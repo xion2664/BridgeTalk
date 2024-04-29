@@ -46,12 +46,12 @@ export function ParentReportListRight() {
         <S.Container>
             <div className="title">
                 <img src={`/assets/img/letter.svg`} />
-                아이 속마음 리포트
+                <div>아이 속마음 리포트</div>
             </div>
             <div className="filter">
-                <div>
+                <div className="calendar">
                     <FaCalendarAlt />
-                    날짜
+                    <div>날짜</div>
                 </div>
                 <button className="due"></button>
                 <div>~</div>

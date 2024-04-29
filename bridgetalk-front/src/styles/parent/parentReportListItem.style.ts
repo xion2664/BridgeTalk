@@ -7,7 +7,6 @@ export const Container = styled.div`
     padding: 2svh 1svw;
     color: ${color(1).bright};
     border-radius: 1svw;
-    font-weight: bold;
 
     box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
 
@@ -15,7 +14,7 @@ export const Container = styled.div`
     cursor: pointer;
 
     div {
-        font-family: 'Esa';
+        font-family: 'DNF';
         font-size: 1.5svw;
     }
 
