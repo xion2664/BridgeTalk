@@ -2,7 +2,7 @@ package com.ssafy.bridgetalkback.auth.controller;
 
 import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsLoginResponseDto;
+import com.ssafy.bridgetalkback.auth.dto.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
@@ -125,7 +125,7 @@ public class AuthControllerTest extends ControllerTest {
         @DisplayName("로그인에 성공한다")
         void success() throws Exception {
             // given
-            doReturn(ParentsLoginResponseDto())
+            doReturn(loginResponseDto())
                     .when(authService)
                     .login(any());
 
@@ -221,6 +221,56 @@ public class AuthControllerTest extends ControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("프로필 선택 (로그인) API 테스트 [GET /api/auth/profileLogin/{profileLogin}]")
+    class profileLogin {
+        private static final String BASE_URL = "/api/auth/profileLogin/{profileLogin}";
+        private static final String PROFILE_ID = "7cfadd66-e491-4cb2-9d8f-6aa2e285dc46";
+
+        @Test
+        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
+        void throwExceptionByInvalidPermission() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, PROFILE_ID);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+
+        }
+
+        @Test
+        @DisplayName("프로필 선택 (로그인)에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(loginResponseDto())
+                    .when(authService)
+                    .profileLogin(UUID.randomUUID());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, PROFILE_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());
@@ -230,8 +280,8 @@ public class AuthControllerTest extends ControllerTest {
         return new LoginRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword());
     }
 
-    private ParentsLoginResponseDto ParentsLoginResponseDto() {
-        return new ParentsLoginResponseDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
+    private LoginResponseDto loginResponseDto() {
+        return new LoginResponseDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
                 SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
     }
 
