@@ -6,15 +6,23 @@ export const Container = styled.div`
 `;
 
 export const GlobalStyle = createGlobalStyle`
-  @font-face {
+  /* @font-face {
     font-family: 'CherryBomb';
-    src: url('@/fonts/CherryBombOne-Regular.ttf') format('truetype'); /* 폰트 파일의 경로에 맞게 수정 */
-    font-weight: normal;
-    font-style: normal;
+    src: url('@/assets/fonts/CherryBombOne-Regular.ttf')
   }
 
   @font-face {
-    font-family: 'DNF';
-    src: url('@/fonts/DNFForgedBlade-Bold.ttf')
+    font-family: 'DNF-Bold';
+    src: url('@/assets/fonts/DNFForgedBlade-Bold.ttf')
   }
+
+  @font-face {
+    font-family: 'DNF-Light';
+    src: url('@/assets/fonts/DNFForgedBlade-Light.ttf')
+  }
+
+  @font-face {
+    font-family: 'DNF-Medium';
+    src: url('@/assets/fonts/DNFForgedBlade-Medium.ttf')
+  } */
 `;

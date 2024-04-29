@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* font-family: 'Esa'; */
 }
 
 body {
@@ -9,11 +10,26 @@ body {
 }
 
 @font-face {
-    font-family: CherryBomb;
-    src: url('@/fonts/CherryBombOne-Regular.ttf');
+    font-family: 'CherryBomb';
+    src: url('@/assets/fonts/CherryBombOne-Regular.ttf');
 }
 
 @font-face {
-    font-family: DNF;
-    src: url('@/fonts/DNFForgedBlade-Bold.ttf');
+    font-family: 'DNF-Bold';
+    src: url('@/assets/fonts/DNFForgedBlade-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'DNF-Light';
+    src: url('@/assets/fonts/DNFForgedBlade-Light.ttf');
+}
+
+@font-face {
+    font-family: 'DNF-Medium';
+    src: url('@/assets/fonts/DNFForgedBlade-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Esa';
+    src: url('@/assets/fonts/Esamanru-Bold.ttf');
 }

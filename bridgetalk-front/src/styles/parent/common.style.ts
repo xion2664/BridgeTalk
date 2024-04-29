@@ -3,11 +3,14 @@ import styled, { createGlobalStyle, css } from 'styled-components';
 export function color(alpha: number) {
     return {
         main: `rgba(108, 149, 255, ${alpha})`,
-        sub: `rgba(204, 205, 234, ${alpha})`,
+        sub: `rgba(166,169,235,${alpha})`,
+        sub2: `rgba(204, 205, 234, ${alpha})`,
+        black: `rgba(17, 17, 17, ${alpha})`,
         dark: `rgba(34, 34, 34, ${alpha})`,
         red: `rgba(255, 97, 97, ${alpha})`,
         shadowTop: `rgba(185, 204, 255, ${alpha})`,
         bright: `rgba(238, 238, 238, ${alpha})`,
+        light: `rgba(224,233,255, ${alpha})`,
     };
 }
 
