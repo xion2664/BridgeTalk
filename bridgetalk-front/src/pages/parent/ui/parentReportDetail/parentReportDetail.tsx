@@ -25,7 +25,7 @@ export function ParentReportDetail() {
             <S.ContentContainer>
                 <div className="leftside">
                     <div className="title">
-                        {date[0]}년 {date[1]}월 {date[2]}일 아이의 기록
+                        {date[0]}년 {date[1]}월 {date[2]}일 분석 리포트
                     </div>
                     <div className="content-container">
                         <div className="content">

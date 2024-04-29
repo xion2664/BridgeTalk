@@ -1,11 +1,5 @@
 import styled, { css } from 'styled-components';
-import { color } from './common.style';
-
-const textShadowBlue = css`
-    text-shadow: 0.2svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
-        -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
-        0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
-`;
+import { color, textShadowBlue } from './common.style';
 
 export const Container = styled.div`
     display: flex;

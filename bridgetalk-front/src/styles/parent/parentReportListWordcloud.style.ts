@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { color } from './common.style';
+import { color, textShadowBlue } from './common.style';
 
 const shadow = css`
     position: absolute;
@@ -9,12 +9,6 @@ const shadow = css`
     width: 100%;
     height: 100%;
     pointer-events: none;
-`;
-
-const textShadowBlue = css`
-    text-shadow: 0.3svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
-        -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
-        0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
 `;
 
 export const Wrapper = styled.div`
