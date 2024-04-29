@@ -6,25 +6,34 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
-import com.ssafy.bridgetalkback.letters.dto.request.TranscriptionDTO;
+import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDTO;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
+import com.ssafy.bridgetalkback.letters.dto.response.TranslationResultsDTO;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.transcribe.model.BadRequestException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 @Service
 @Transactional
@@ -40,6 +49,12 @@ public class LettersService {
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
+
+    @Value("${PAPAGO_CLIENTID}")
+    private String clientId;
+
+    @Value("${PAPAGO_CLIENT_SECRET}")
+    private String clientSecret;
 
 
     /**
@@ -67,9 +82,10 @@ public class LettersService {
         log.info(">> fileName : {}", fileName);
 
         // stt api 호출
-        String extractText = stt(fileName);
+        String extractOriginText = stt(fileName);
 
         // 번역 api 호출
+        String extractTranslationText = translation(extractOriginText);
 
         return LettersResponseDTO.builder().build();
     }
@@ -116,10 +132,60 @@ public class LettersService {
      * @param orignal : 원본 텍스트
      * @return String : 번역본 텍스트
      * */
-    private String translation(String orignal) {
-        log.info("{ LetterService.saveVoiceFile() } : 번역 api 호출 메서드 ");
+    public String translation(String orignal) {
+        log.info("{ LetterService.translation() } : 번역 api 호출 메서드 ");
 
-        return "";
+        String extractTranslationText = "";
+        try {
+            String text = URLEncoder.encode(orignal, "UTF-8");
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+            con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+            // post request
+            // 1. 베트남어(vi) -> 한국어(ko)
+            // 2. 베트남어(vi) -> 영어(en) -> 한국어(ko)
+            String postParams = "source=vi&target=ko&text=" + text;
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(postParams);
+            wr.flush();
+            wr.close();
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if (responseCode == 200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 오류 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+
+            String inputLine;
+            while ((inputLine = br.readLine()) != null) {
+                // JSON 객체 생성
+                JSONTokener tokener = new JSONTokener(inputLine);
+                JSONObject jsonObject = new JSONObject(tokener);
+                log.info(">> jsonObject : {}", jsonObject);
+                // extract translated text
+                JSONObject message = (JSONObject) jsonObject.get("message");
+                JSONObject result = (JSONObject) message.get("result");
+
+                extractTranslationText = result.get("translatedText").toString();
+                log.info(">>>> translatedText : {}", extractTranslationText);
+            }
+
+            br.close();
+        }catch (BadRequestException be){
+            log.error(be.getMessage());
+            throw BaseException.type(LettersErrorCode.TRANSLATION_BAD_REQUEST);
+
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            throw BaseException.type(GlobalErrorCode.INTERNAL_SERVER_ERROR);
+        }
+
+        return extractTranslationText;
     }
 
 

@@ -35,6 +35,14 @@ public class LettersController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PostMapping("/translation")
+    public ResponseEntity<?> translation(@ExtractPayload String userId, @RequestParam String originText){
+        log.info("{ LettersController -test} : [test] 부모 음성 편지 번역 컨틀롤러");
+        log.info(">> OriginText : {}", originText);
 
+        lettersService.translation(originText);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 }
