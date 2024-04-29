@@ -43,6 +43,18 @@ export const Container = styled.div`
         z-index: 0;
         pointer-events: none;
     }
+
+    transition: all 0.1s;
+
+    &:hover {
+        transform: translateY(0.25svh);
+        box-shadow: 0 0.25svh 0.4svh ${color(0.5).black};
+    }
+
+    &:active {
+        transform: translateY(0.5svh);
+        box-shadow: 0 0svh 0.4svh ${color(0.5).black};
+    }
 `;
 
 export const Content = styled.div`
