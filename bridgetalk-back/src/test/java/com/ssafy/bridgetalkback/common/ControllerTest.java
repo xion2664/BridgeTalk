@@ -13,6 +13,7 @@ import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
+import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -66,6 +67,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected TokenReissueService tokenReissueService;
+
+    @MockBean
+    protected TtsService ttsService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
