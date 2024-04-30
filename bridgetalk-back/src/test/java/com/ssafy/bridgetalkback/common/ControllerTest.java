@@ -12,6 +12,7 @@ import com.ssafy.bridgetalkback.global.config.SecurityConfig;
 import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.letters.controller.LettersController;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
 import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
@@ -31,7 +32,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @WebMvcTest({
         AuthController.class,
         TokenReissueController.class,
-        ProfileListController.class
+        ProfileListController.class,
+        LettersController.class,
 })
 public abstract class ControllerTest {
     @Autowired
