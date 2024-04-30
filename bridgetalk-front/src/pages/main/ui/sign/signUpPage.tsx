@@ -1,5 +1,5 @@
 // src/components/RegisterComponent.tsx
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useRegister } from '@/pages/main/query/register';
 import * as S from '@/styles/main/signUp.style';
 import { InputEmail } from './components/inputEmail';

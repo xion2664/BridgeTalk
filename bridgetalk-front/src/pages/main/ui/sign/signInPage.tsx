@@ -50,7 +50,14 @@ export function SignInPage() {
         <div className="password__title">Password</div>
         <input type="text" className="password__input" />
       </div>
-      <button className="button">다음</button>
+      <button
+        className="button"
+        onClick={() => {
+          navigate('/profile');
+        }}
+      >
+        다음
+      </button>
       {/* <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
       {/* <button onClick={handleLogin}>로그인</button> */}
