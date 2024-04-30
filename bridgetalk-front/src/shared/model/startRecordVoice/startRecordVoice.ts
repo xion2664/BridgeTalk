@@ -14,7 +14,7 @@ export function startRecordVoice(
     };
 
     recorderRef.current.onstop = () => {
-      const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mp3' });
+      const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mpeg' });
 
       voiceChunk.splice(0, voiceChunk.length);
 
