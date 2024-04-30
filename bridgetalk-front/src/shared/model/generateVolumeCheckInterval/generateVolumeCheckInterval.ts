@@ -4,7 +4,7 @@ export function generateVolumeCheckInterval(
     bufferLength: number,
     setVolume: (volume: number) => void,
 ) {
-    // 30ms마다 볼륨체크하는 인터벌 생성
+    // 일정 주기마다 볼륨체크하는 인터벌 생성
 
     let interval = setInterval(() => {
         analyser.getByteFrequencyData(dataArray);

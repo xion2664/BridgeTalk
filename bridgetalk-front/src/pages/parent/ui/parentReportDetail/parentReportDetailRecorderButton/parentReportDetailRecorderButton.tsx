@@ -25,8 +25,10 @@ export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }
                 }
             }}
         >
-            <FaMicrophone />
-            {isRecording ? 'Đang ghi' : 'Trả lời'}
+            <div>
+                <FaMicrophone />
+            </div>
+            <div>{isRecording ? 'Đang ghi' : 'Trả lời'}</div>
         </S.ButtonWrapper>
     );
 }

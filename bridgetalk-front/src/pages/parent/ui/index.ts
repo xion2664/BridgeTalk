@@ -5,5 +5,5 @@ export * from '@/pages/parent/ui/parentInformationNews/parentInformationNews';
 export * from '@/pages/parent/ui/parentInformationNewsDetail/parentInformationNewsDetail';
 export * from '@/pages/parent/ui/parentInformationMain/parentInformationMain';
 export * from '@/pages/parent/ui/parentInformationWord/parentInformationWord';
-export * from '@/pages/parent/ui/parentReportDetail/parentInformationDetail';
+export * from '@/pages/parent/ui/parentReportDetail/parentReportDetail';
 export * from '@/pages/parent/ui/parentReportList/parentReportList';

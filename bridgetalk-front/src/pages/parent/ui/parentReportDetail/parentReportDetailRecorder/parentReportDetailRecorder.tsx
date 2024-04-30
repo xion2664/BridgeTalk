@@ -44,7 +44,7 @@ export const ParentReportDetailRecorder = memo(() => {
     useEffect(() => {
         let volumeCheckInterval: any = null;
 
-        if (isRecording) {
+        if (isRecording && !volumeCheckInterval) {
             // 음량 체크
             const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContex(streamRef)!;
             volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
@@ -65,6 +65,7 @@ export const ParentReportDetailRecorder = memo(() => {
 
     return (
         <S.Container>
+            <div className="title">답장하기</div>
             <ParentReportDetailVolumeChecker isRecording={isRecording} />
             <div>
                 <button>한국어</button>
