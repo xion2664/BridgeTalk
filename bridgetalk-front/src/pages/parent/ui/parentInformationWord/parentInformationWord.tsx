@@ -1,4 +1,4 @@
-import { ParentBackButton } from '@/shared';
+import { BackButton } from '@/shared';
 import * as S from '@/styles/parent/parentInformationWord.style';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ export function ParentInformationWord() {
 
     return (
         <>
-            <ParentBackButton path="../information" navigate={navigate} />
+            <BackButton path="../information" navigate={navigate} />
             <S.Container>
                 <S.Header>
                     <button>tiếng lóng</button>

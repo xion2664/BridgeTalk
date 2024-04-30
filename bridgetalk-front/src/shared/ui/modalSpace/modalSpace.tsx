@@ -1,6 +1,5 @@
 import { useVoiceStore } from '@/pages';
 import * as S from '@/styles/shared/modalSpace.style';
-import { useEffect, useState } from 'react';
 
 export function ModalSpace() {
     const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
@@ -24,12 +23,14 @@ function ParentVoiceRecordModalArea() {
     return (
         <S.Container className="closable" onClick={handleClose}>
             <S.AudioContainer>
-                <audio src={audioURL} preload={'auto'} controls></audio>
+                <div className="title">녹음이 완료됐어요!</div>
+                <audio className="audio" src={audioURL} preload={'auto'} controls></audio>
                 <div className="buttons" style={{ display: 'flex', gap: '2svw' }}>
-                    <button className="closable" onClick={handleClose}>
+                    <button className="closable close" onClick={handleClose}>
                         Bỏ
                     </button>
                     <button
+                        className="send"
                         onClick={() => {
                             if (confirm('해당 편지를 전달할까요?')) {
                                 alert('전달 애니메이션 보여주기');

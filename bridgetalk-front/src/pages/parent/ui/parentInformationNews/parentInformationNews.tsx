@@ -1,8 +1,9 @@
 import * as S from '@/styles/parent/parentInformationNews.style';
-import { ParentBackButton } from '@/shared';
+
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ParentInformationNewsListItem } from './parentInformationNewsListItem/parentInformationNewsListItem';
+import { BackButton } from '@/shared';
 
 interface News {
     newsId: number;
@@ -35,7 +36,7 @@ export function ParentInformationNews() {
 
     return (
         <>
-            <ParentBackButton path="../information" navigate={navigate} />
+            <BackButton path="../information" navigate={navigate} />
             <S.Container>
                 <S.NewsList>
                     {newsList.length > 0 &&

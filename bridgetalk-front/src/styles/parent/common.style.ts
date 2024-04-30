@@ -3,11 +3,14 @@ import styled, { createGlobalStyle, css } from 'styled-components';
 export function color(alpha: number) {
     return {
         main: `rgba(108, 149, 255, ${alpha})`,
-        sub: `rgba(204, 205, 234, ${alpha})`,
+        sub: `rgba(166,169,235,${alpha})`,
+        sub2: `rgba(204, 205, 234, ${alpha})`,
+        black: `rgba(17, 17, 17, ${alpha})`,
         dark: `rgba(34, 34, 34, ${alpha})`,
         red: `rgba(255, 97, 97, ${alpha})`,
         shadowTop: `rgba(185, 204, 255, ${alpha})`,
-        bright: `rgba(238, 238, 238, ${alpha})`,
+        bright: `rgba(245, 245, 245, ${alpha})`,
+        light: `rgba(224,233,255, ${alpha})`,
     };
 }
 
@@ -66,4 +69,9 @@ export const CommonContainer = css`
     background-color: ${color(0.7).sub};
     border-radius: 1svw;
     ${embossing}
+`;
+export const textShadowBlue = css`
+    text-shadow: 0.2svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
+        -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
+        0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
 `;
