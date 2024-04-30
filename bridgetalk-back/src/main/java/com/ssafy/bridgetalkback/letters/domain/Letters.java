@@ -32,8 +32,7 @@ public class Letters extends BaseEntity {
 
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
-
-    @Builder
+    
     private Letters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         this.parents = parents;
         this.reports = reports;

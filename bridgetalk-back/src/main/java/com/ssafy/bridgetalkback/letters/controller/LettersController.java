@@ -28,13 +28,10 @@ public class LettersController {
         log.info(">> LetterRequestDTO : {}", lettersRequestDTO);
 
         // 음성편지 s3 업로드
-        String voiceUrl = lettersService.saveVoiceFile(lettersRequestDTO);
+        String voiceUrl = lettersService.saveVoiceFile(lettersRequestDTO.lettersFile());
         // stt 실행
-        LettersResponseDTO responseDTO = lettersService.createText(voiceUrl, userId);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(lettersService.createText(voiceUrl, userId, lettersRequestDTO.reportsId()));
     }
-
 
 
 }

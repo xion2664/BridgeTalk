@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptConfig;
+import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.dto.request.ChatGptRequestDto;
 import com.ssafy.bridgetalkback.chatgpt.dto.response.Choice;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
@@ -32,10 +33,10 @@ public class ChatGptService {
     @Value("${OPENAI_URL}")
     private String legacyPromptUrl;
 
-    public String createPrompt(String originText) {
-        log.info("{ ChatGptService } : 텍스트요약 진입");
+    public String createPrompt(String originText, ChatGptRequestCode gptRequestCode) {
+        log.info("{ ChatGptService } : {} 진입", gptRequestCode);
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
-                .prompt(createText(originText))
+                .prompt(createText(originText, gptRequestCode))
                 .build();
 
         HttpHeaders headers = chatGptConfig.httpHeaders();
@@ -64,13 +65,20 @@ public class ChatGptService {
         String result = (String) textMap.get("text");
         result = result.substring(2);
 
-        log.info("{ ChatGptService } : 텍스트요약 성공");
+        log.info("{ ChatGptService } : {} 성공", gptRequestCode);
+        log.info(">> result : {}", result);
         return result;
     }
 
 
-    public String createText(String origin) {
-        origin += " 3줄 요약해줘";
+    public String createText(String origin, ChatGptRequestCode gptRequestCode) {
+        if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)){
+            origin += " 3줄 요약해줘";
+        } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)){
+//            origin += " 이 문단을 부드럽고 친근한 엄마의 어조로 바꿔줘";
+            origin += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
+            log.info(">> prompt : {}", origin);
+        }
         return origin;
     }
 
