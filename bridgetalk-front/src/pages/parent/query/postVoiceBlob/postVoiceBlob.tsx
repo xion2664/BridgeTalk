@@ -2,12 +2,9 @@ import { customAxios } from '@/shared';
 
 export function postVoiceBlob(reportId: number, voice: Blob) {
   const formData = new FormData();
-  const voiceFile = new File([voice], 'testfile.mp3', { type: 'audio/mpeg' });
 
   formData.append('reportsId', String(reportId));
-  formData.append('lettersFile', voiceFile);
-
-  console.log(URL.createObjectURL(voice), voice, voiceFile);
+  formData.append('lettersFile', voice);
 
   customAxios
     .post('/letters/upload', formData, {
