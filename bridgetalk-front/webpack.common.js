@@ -18,7 +18,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'], // 다음의 확장자를 가진 파일들의 경우
         alias: {
-            '@': path.resolve(__dirname, './src'), // '@'를 통해 절대경로로 접근할 수 있게 한다
+            '@': path.resolve(__dirname, './src/'), // '@'를 통해 절대경로로 접근할 수 있게 한다
         },
     },
     module: {
@@ -49,6 +49,19 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i, // 해당 확장자의 파일의 경우
                 type: 'asset/resource', // 별도의 파일을 내보내고 URL을 추출한다.
             },
+            // {
+            //     test: /\.(woff|woff2|eot|ttf|otf)$/i,
+            //     use: [
+            //         {
+            //             loader: 'file-loader',
+            //             options: {
+            //                 name: '[name].[hash:8].[ext]',
+            //                 outputPath: 'fonts/', // 폰트 파일이 저장될 경로 설정
+            //                 publicPath: '/fonts/', // 웹팩이 폰트 파일을 로드할 때 사용할 웹 경로 설정
+            //             },
+            //         },
+            //     ],
+            // },
         ],
     },
     performance: {
@@ -73,16 +86,16 @@ module.exports = {
             // CopyWebpackplugin: 정적 asset 파일 빌드시 복사
             patterns: [{ from: 'public', to: 'assets/' }],
         }),
-        new ImageMinimizerPlugin({
-            // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인
-            exclude: /node_modules/,
-            minimizer: {
-                implementation: ImageMinimizerPlugin.imageminMinify,
-                options: {
-                    plugins: [['optipng', { optimizationLevel: 1 }]], // optipng: png 파일 최적화
-                },
-            },
-        }),
+        // new ImageMinimizerPlugin({
+        //     // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인
+        //     exclude: /node_modules/,
+        //     minimizer: {
+        //         implementation: ImageMinimizerPlugin.imageminMinify,
+        //         options: {
+        //             plugins: [['optipng', { optimizationLevel: 1 }]], // optipng: png 파일 최적화
+        //         },
+        //     },
+        // }),
     ],
 };
 
