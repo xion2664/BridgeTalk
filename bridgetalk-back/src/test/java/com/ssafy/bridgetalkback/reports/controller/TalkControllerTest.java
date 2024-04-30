@@ -1,29 +1,20 @@
 package com.ssafy.bridgetalkback.reports.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
