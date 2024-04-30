@@ -1,6 +1,14 @@
 import * as S from '@/styles/main/selectDino.style';
+import { Dispatch, SetStateAction } from 'react';
 
-export function SelectDino() {
+interface Props {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  dino: string;
+  setDino: Dispatch<SetStateAction<string>>;
+}
+
+export function SelectDino({ page, setPage, dino, setDino }: Props) {
   return (
     <S.Container>
       <div className="title">SELECT CHARACTER</div>
@@ -13,8 +21,22 @@ export function SelectDino() {
         </div>
       </div>
       <div className="buttons">
-        <button className="buttons__prev">이전</button>
-        <button className="buttons__next">다음</button>
+        <button
+          className="buttons__prev"
+          onClick={() => {
+            setPage((page) => page - 1);
+          }}
+        >
+          이전
+        </button>
+        <button
+          className="buttons__next"
+          onClick={() => {
+            setPage((page) => page + 1);
+          }}
+        >
+          다음
+        </button>
       </div>
     </S.Container>
   );

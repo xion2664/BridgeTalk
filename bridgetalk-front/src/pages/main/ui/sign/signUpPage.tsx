@@ -9,12 +9,16 @@ import { SelectCountry } from './components/selectCountry';
 import { useNavigate } from 'react-router-dom';
 
 export function SignUpPage() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [dino, setDino] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [country, setCountry] = useState<string>('');
+  const [page, setPage] = useState<number>(0);
 
   // const registerMutation = useRegister();
 
@@ -27,9 +31,6 @@ export function SignUpPage() {
   //     parentsDino: dino,
   //   });
   // };
-  const [page, setPage] = useState<number>(0);
-
-  const navigate = useNavigate();
 
   return (
     <S.Container>
@@ -56,8 +57,8 @@ export function SignUpPage() {
           setPage={setPage}
         />
       )}
-      {page === 2 && <SelectDino />}
-      {page === 3 && <SelectCountry />}
+      {page === 2 && <SelectDino dino={dino} setDino={setDino} page={page} setPage={setPage} />}
+      {page === 3 && <SelectCountry country={country} setCountry={setCountry} page={page} setPage={setPage} />}
     </S.Container>
   );
 }
