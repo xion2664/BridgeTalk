@@ -6,6 +6,7 @@ import { InputEmail } from './components/inputEmail';
 import { InputName } from './components/inputName';
 import { SelectDino } from './components/selectDino';
 import { SelectCountry } from './components/selectCountry';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -28,10 +29,19 @@ export function SignUpPage() {
   // };
   const [page, setPage] = useState<number>(0);
 
+  const navigate = useNavigate();
+
   return (
     <S.Container>
-      <button className="back">뒤로가기</button>
-      {page === 0 && <InputEmail email={email} setEmail={setEmail} setPage={setPage} />}
+      <button
+        className="back"
+        onClick={() => {
+          navigate('../start');
+        }}
+      >
+        홈으로
+      </button>
+      {page === 0 && <InputEmail email={email} setEmail={setEmail} page={page} setPage={setPage} />}
       {page === 1 && (
         <InputName
           password={password}
@@ -42,6 +52,8 @@ export function SignUpPage() {
           setPasswordCheck={setPasswordCheck}
           nickname={nickname}
           setNickname={setNickname}
+          page={page}
+          setPage={setPage}
         />
       )}
       {page === 2 && <SelectDino />}

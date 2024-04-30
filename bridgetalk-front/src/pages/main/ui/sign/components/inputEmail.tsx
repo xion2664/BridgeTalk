@@ -4,10 +4,11 @@ import * as S from '@/styles/main/inputEmail.style';
 interface EmailProps {
   email: string;
   setEmail: Dispatch<SetStateAction<string>>;
+  page: number;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-export function InputEmail({ email, setEmail, setPage }: EmailProps) {
+export function InputEmail({ email, setEmail, page, setPage }: EmailProps) {
   return (
     <S.Container>
       <div className="email">
@@ -22,7 +23,7 @@ export function InputEmail({ email, setEmail, setPage }: EmailProps) {
       <button
         className="next"
         onClick={() => {
-          setPage(1);
+          setPage((page) => page + 1);
         }}
       >
         다음
