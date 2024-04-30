@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /**
  * 메인 페이지 색상 팔레트
@@ -19,7 +19,7 @@ export function color(alpha: number) {
   };
 }
 
-export const bg = styled.div`
+export const bg = css`
   display: flex;
   justify-content: center;
   align-items: center;
