@@ -33,3 +33,9 @@ export const textShadowRed = css`
     -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
     0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
 `;
+
+export const backButton = css`
+  position: fixed;
+  top: 3svh;
+  left: 3svw;
+`;
