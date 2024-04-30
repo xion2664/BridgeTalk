@@ -40,10 +40,7 @@ public class ChatGptService {
                 .build();
 
         HttpHeaders headers = chatGptConfig.httpHeaders();
-
         HttpEntity<ChatGptRequestDto> requestEntity = new HttpEntity<>(chatGptRequestDto, headers);
-
-
 
         Map<String, Object> resultMap = new HashMap<>();
         try {
@@ -71,54 +68,18 @@ public class ChatGptService {
     }
 
 
-    public String createText(String origin, ChatGptRequestCode gptRequestCode) {
-        if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)){
-            origin += " 3줄 요약해줘";
-        } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)){
-//            origin += " 이 문단을 부드럽고 친근한 엄마의 어조로 바꿔줘";
-            origin += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
-            log.info(">> prompt : {}", origin);
+    public String createText(String text, ChatGptRequestCode gptRequestCode) {
+        if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
+            text += " 3줄 요약해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
+            text += " 베트남어로 번역해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)) {
+            text += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
+            log.info(">> prompt : {}", text);
         }
-        return origin;
-    }
-
-    public String translatePrompt(String summaryText) {
-        log.info("{ ChatGptService } : 요약본번역 진입");
-        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
-                .prompt(translateText(summaryText))
-                .build();
-
-        HttpHeaders headers = chatGptConfig.httpHeaders();
-
-        HttpEntity<ChatGptRequestDto> requestEntity = new HttpEntity<>(chatGptRequestDto, headers);
-        ResponseEntity<String> response = chatGptConfig
-                .restTemplate()
-                .exchange(legacyPromptUrl, HttpMethod.POST, requestEntity, String.class);
-
-
-        Map<String, Object> resultMap = new HashMap<>();
-        try {
-            ObjectMapper om = new ObjectMapper();
-            resultMap = om.readValue(response.getBody(), new TypeReference<>() {
-            });
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
-        List<Choice> choices = (List<Choice>) resultMap.get("choices");
-        Map<String, Object> textMap = (Map<String, Object>) choices.get(0);
-        String result = (String) textMap.get("text");
-        result = result.substring(2);
-
-        log.info("{ ChatGptService } : 요약본번역 성공");
-        return result;
-    }
-
-
-    public String translateText(String summary) {
-        summary += " 베트남어로 번역해줘";
-        return summary;
+        return text;
     }
 
 }

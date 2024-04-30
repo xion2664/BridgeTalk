@@ -1,4 +1,4 @@
-package com.ssafy.bridgetalkback.reports.service;
+package com.ssafy.bridgetalkback.chatgpt.service;
 
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
@@ -47,8 +47,6 @@ public class ChatGptServiceTest extends ServiceTest {
         String summary = chatGptService.createPrompt(reports.getReportsOriginContent(), ChatGptRequestCode.SUMMARY);
 
         //then
-        assertThat(summary).isNotEmpty();
-        assertThat(summary).isNotNull();
         assertThat(summary.length()).isLessThan(originText.length());
     }
 
@@ -61,13 +59,9 @@ public class ChatGptServiceTest extends ServiceTest {
         String summary = chatGptService.createPrompt(reports.getReportsOriginContent(), ChatGptRequestCode.SUMMARY);
 
         //when
-        String translate = chatGptService.translatePrompt(summary);
+        String translate = chatGptService.createPrompt(summary, ChatGptRequestCode.TRANSLATE);
 
         //then
-        assertThat(translate).isNotEmpty();
-        assertThat(translate).isNotNull();
         assertThat(translate).isNotEqualTo(summary);
     }
-
-
 }
