@@ -1,5 +1,15 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { TeestZustand, Test, TestCamera, TestDraw, TestPuzzle, TestVoice, TestWordcloud, ErrorPage } from '@/pages';
+import {
+    TeestZustand,
+    Test,
+    TestCamera,
+    TestDraw,
+    TestPuzzle,
+    TestVoice,
+    TestWordcloud,
+    TestCharacter,
+    ErrorPage,
+} from '@/pages';
 
 export function AppRoutes() {
     return (
@@ -12,6 +22,8 @@ export function AppRoutes() {
                 <Route path="voice" element={<TestVoice />} />
                 <Route path="wordcloud" element={<TestWordcloud />} />
                 <Route path="zustand" element={<TeestZustand />} />
+
+                <Route path="character" element={<TestCharacter />} />
             </Route>
             <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
