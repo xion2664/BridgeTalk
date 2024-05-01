@@ -50,16 +50,22 @@ export function ProfilePage() {
               <div className="main__profilelist-item-title">{it.name}</div>
             </div>
           ))}
-
           <div className="main__profilelist-empty">
-            <img src={'assets/img/main/addProfile.svg'} />
+            <button
+              onClick={() => {
+                navigate('/addProfile');
+              }}
+            >
+              <img src={'assets/img/main/addProfile.svg'} />
+            </button>
           </div>
         </div>
         <div className="main__button">
           <button
             className="main__button-start"
             onClick={() => {
-              navigate('/addProfile');
+              navigate('/parent');
+              // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
             }}
           >
             START!

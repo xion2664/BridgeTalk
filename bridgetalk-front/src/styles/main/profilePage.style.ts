@@ -89,6 +89,11 @@ export const Container = styled.div`
         position: relative;
         box-shadow: 0 0.5svh 0.4svh ${color(0.25).black};
 
+        button {
+          background-color: transparent;
+          border: none;
+        }
+
         &::after {
           ${insetShadow}
           border-radius: 3svw;
