@@ -12,7 +12,7 @@ export function color(alpha: number) {
     sub: `rgba(255, 159, 153, ${alpha})`,
     line: `rgba(255, 232, 232, ${alpha})`,
     light: `rgba(255, 232, 232, ${alpha})`,
-    gray: `rgba(170, 170, 170, ${alpha})`,
+    gray: `rgba(177, 177, 177, ${alpha})`,
     white: `rgba(255, 255, 255, ${alpha})`,
     dark: `rgba(64, 64, 64, ${alpha})`,
     black: `rgba(17, 17, 17, ${alpha})`,

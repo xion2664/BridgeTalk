@@ -14,11 +14,21 @@ export function SelectCountry({ country, setCountry, page, setPage }: Props) {
 
   return (
     <S.Container>
-      <div className="title">Select Your Country</div>
-      <div className="countrylist">
-        <button className="countrylist__taiwan">Taiwan</button>
-        <button className="countrylist__vietnam">Vietnam</button>
-        <button className="countrylist__china">China</button>
+      <div className="top">
+        <div className="title">
+          <img src={'assets/img/main/selectYourCountry.svg'} />
+        </div>
+        <div className="countrylist">
+          <button className="countrylist__taiwan">
+            Taiwan
+            <img src={'assets/img/main/commingSoon.svg'} />
+          </button>
+          <button className="countrylist__vietnam">Vietnam</button>
+          <button className="countrylist__china">
+            China
+            <img src={'assets/img/main/commingSoon.svg'} />
+          </button>
+        </div>
       </div>
       <div className="buttons">
         <button
@@ -27,10 +37,12 @@ export function SelectCountry({ country, setCountry, page, setPage }: Props) {
             setPage((page) => page - 1);
           }}
         >
+          <img src={'assets/img/previcon.svg'} />
           이전
         </button>
         <button className="buttons__next" onClick={() => navigate('/start')}>
           완료
+          <img src={'assets/img/main/star.svg'} />
         </button>
       </div>
     </S.Container>
