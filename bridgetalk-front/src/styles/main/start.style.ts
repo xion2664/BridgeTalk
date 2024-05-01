@@ -10,11 +10,11 @@ export const Container = styled.div`
 
   .title {
     position: fixed;
-    top: 9svh;
+    top: 11.2svh;
     right: 8svw;
 
     img {
-      width: 38svw;
+      width: 38.9svw;
     }
   }
 
@@ -33,20 +33,20 @@ export const Container = styled.div`
       border: none;
 
       color: ${color(1).white};
-      font-size: 3.5svw;
+      font-size: 3.3svw;
       font-family: 'DNF';
 
       img {
-        width: 5svw;
+        width: 4svw;
       }
 
-      width: 30svw;
-      height: 17svh;
+      width: 28.8svw;
+      height: 17.8svh;
 
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2svw;
+      gap: 1.5svw;
 
       ${BUTTON_RADIUS}
 

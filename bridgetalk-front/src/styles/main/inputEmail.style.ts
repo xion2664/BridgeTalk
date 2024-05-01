@@ -75,13 +75,12 @@ export const Container = styled.div`
 
   .next {
     ${button}
+    width: 19.2svw;
+    height: 12svh;
+    font-size: 2.5svw;
 
-    font-size: 3.5svw;
     img {
-      width: 4svw;
+      width: 3svw;
     }
-
-    width: 27svw;
-    height: 17svh;
   }
 `;

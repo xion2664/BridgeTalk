@@ -65,9 +65,9 @@ export const Container = styled.div`
     button {
       ${button}
 
-      font-size: 3svw;
-      width: 20svw;
+      width: 19.2svw;
       height: 12svh;
+      font-size: 2.5svw;
 
       img {
         width: 3svw;

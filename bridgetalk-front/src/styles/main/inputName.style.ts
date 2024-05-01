@@ -66,16 +66,17 @@ export const Container = styled.div`
   .buttons {
     display: flex;
     justify-content: center;
+    gap: 3svw;
 
     button {
       ${button}
 
-      font-size: 3svw;
-      width: 22svw;
-      height: 13svh;
+      width: 19.2svw;
+      height: 12svh;
+      font-size: 2.5svw;
 
       img {
-        width: 4svw;
+        width: 3svw;
       }
     }
   }
