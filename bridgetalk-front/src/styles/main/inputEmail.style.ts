@@ -14,11 +14,12 @@ export const Container = styled.div`
 
   input {
     border-radius: 15svw;
-    border: 1.5svw solid ${color(1).main};
+    border: 1svw solid ${color(1).main};
     font-size: 3svw;
     font-family: 'DNF';
     padding: 1.2svh 2svw;
-    height: 16svh;
+    height: 13.3svh;
+    width: 47.4svw;
   }
 
   .email {
@@ -30,7 +31,7 @@ export const Container = styled.div`
 
     &__title {
       img {
-        width: 16svw;
+        width: 13.6svw;
       }
     }
 
@@ -40,13 +41,14 @@ export const Container = styled.div`
     &__verify {
       position: absolute;
       top: 50%;
-      right: 1svw;
+      right: 0.9svw;
 
       background-color: ${color(1).main};
 
       border: none;
       border-radius: 15svw;
-      height: calc(16svh - 2svw);
+      height: 9.6svh;
+      width: 11.5svw;
 
       color: ${color(1).white};
       font-family: 'CherryBomb';
@@ -68,7 +70,7 @@ export const Container = styled.div`
 
     &__title {
       img {
-        width: 16svw;
+        width: 13.6svw;
       }
     }
   }
