@@ -23,7 +23,6 @@ public class ReportsCreateService {
     private final ChatGptService chatGptService;
     private final ReportsFindService reportsFindService;
 
-    @Transactional
     public void createReport(Long reportsId) {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
 
