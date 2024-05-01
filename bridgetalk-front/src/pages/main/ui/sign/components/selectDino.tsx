@@ -11,13 +11,21 @@ interface Props {
 export function SelectDino({ page, setPage, dino, setDino }: Props) {
   return (
     <S.Container>
-      <div className="title">SELECT CHARACTER</div>
+      <div className="title">
+        <img src={'assets/img/main/selectCharacter.svg'} />
+      </div>
       <div className="selectbox">
         <div className="selectbox__title">캐릭터를 선택해주세요</div>
         <div className="selectbox__content">
-          <button className="selectbox__content-prev">{'<'}</button>
-          <div className="selectbox__content-dino">공룡캐릭터</div>
-          <button className="selectbox__content-next">{'>'}</button>
+          <button className="selectbox__content-prev">
+            <img src={'assets/img/prevTriangle.svg'} />
+          </button>
+          <div className="selectbox__content-dino">
+            <img src={'assets/img/D1.svg'} />
+          </div>
+          <button className="selectbox__content-next">
+            <img src={'assets/img/nextTriangle.svg'} />
+          </button>
         </div>
       </div>
       <div className="buttons">
@@ -27,6 +35,7 @@ export function SelectDino({ page, setPage, dino, setDino }: Props) {
             setPage((page) => page - 1);
           }}
         >
+          <img src={'assets/img/previcon.svg'} />
           이전
         </button>
         <button
@@ -36,6 +45,7 @@ export function SelectDino({ page, setPage, dino, setDino }: Props) {
           }}
         >
           다음
+          <img src={'assets/img/nexticon.svg'} />
         </button>
       </div>
     </S.Container>
