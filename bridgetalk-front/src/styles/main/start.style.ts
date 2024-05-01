@@ -40,8 +40,8 @@ export const Container = styled.div`
         width: 5svw;
       }
 
-      width: 27svw;
-      height: 16svh;
+      width: 30svw;
+      height: 17svh;
 
       display: flex;
       align-items: center;
