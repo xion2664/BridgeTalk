@@ -8,6 +8,10 @@ export const Container = styled.div`
   justify-content: center;
   gap: 5.5svh;
 
+  width: 100svw;
+  height: 100svh;
+  background-color: ${color(0.2).black};
+
   input {
     border-radius: 15svw;
     border: 1svw solid ${color(1).main};

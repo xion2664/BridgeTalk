@@ -1,33 +1,51 @@
 import * as S from '@/styles/main/profilePage.style';
+import { useNavigate } from 'react-router-dom';
 
 export function ProfilePage() {
+  const navigate = useNavigate();
+
   const user = [
     {
       id: 0,
-      dino: 'DINO캐릭터',
+      dino: 'assets/img/D1.svg',
       name: '이름1',
     },
     {
       id: 1,
-      dino: 'DINO캐릭터',
+      dino: 'assets/img/D1.svg',
       name: '이름2',
     },
   ];
   return (
     <S.Container>
-      <button className="logout">로그아웃</button>
-      <button className="setting">설정</button>
+      <button
+        className="logout"
+        onClick={() => {
+          navigate('/start');
+        }}
+      >
+        <img src={'assets/img/main/logout.svg'} />
+      </button>
+      <button className="setting">
+        <img src={'assets/img/main/setting.svg'} />
+      </button>
       <div className="main">
-        <div className="main__title">PROFILE</div>
+        <div className="main__title">
+          <img src={'assets/img/main/profile.svg'} />
+        </div>
         <div className="main__profilelist">
           {user.map((it) => (
             <div className="main__profilelist-item" key={it.id}>
-              <div className="main__profilelist-item-dino">{it.dino}</div>
+              <div className="main__profilelist-item-dino">
+                <img src={it.dino} alt="캐릭터" />
+              </div>
               <div className="main__profilelist-item-title">{it.name}</div>
             </div>
           ))}
 
-          <div className="main__profilelist-empty">+</div>
+          <div className="main__profilelist-empty">
+            <img src={'assets/img/main/addProfile.svg'} />
+          </div>
         </div>
         <div className="main__button">
           <button className="main__button-start">START!</button>
