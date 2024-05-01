@@ -50,6 +50,10 @@ export const insetShadow = css`
   content: '';
 `;
 
+/**
+ * button : 버튼 CSS
+ * font-size, width, height 따로 지정 필요
+ */
 export const button = css`
   background-color: ${color(1).main};
 

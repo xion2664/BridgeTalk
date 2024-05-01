@@ -29,19 +29,27 @@ export function InputName({
   return (
     <S.Container>
       <div className="name">
-        <div className="name__title">Name</div>
+        <div className="name__title">
+          <img src={'assets/img/main/nameicon.svg'} />
+        </div>
         <input className="name__input" type="text" />
       </div>
       <div className="nickname">
-        <div className="nickname__title">Nickname</div>
+        <div className="nickname__title">
+          <img src={'assets/img/main/nicknameicon.svg'} />
+        </div>
         <input className="nickname__input" type="text" />
       </div>
       <div className="password">
-        <div className="password__title">Password</div>
+        <div className="password__title">
+          <img src={'assets/img/main/passwordicon.svg'} />
+        </div>
         <input className="password__input" type="text" />
       </div>
       <div className="passwordcheck">
-        <div className="passwordcheck__title">PasswordCheck</div>
+        <div className="passwordcheck__title">
+          <img src={'assets/img/main/passwordcheckicon.svg'} />
+        </div>
         <input className="passwordcheck__input" type="text" />
       </div>
       <div className="buttons">
@@ -51,6 +59,7 @@ export function InputName({
             setPage((page) => page - 1);
           }}
         >
+          <img src={'assets/img/previcon.svg'} />
           이전
         </button>
         <button
@@ -60,6 +69,7 @@ export function InputName({
           }}
         >
           다음
+          <img src={'assets/img/nexticon.svg'} />
         </button>
       </div>
     </S.Container>

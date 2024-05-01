@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { button, color, insetShadow } from './common.style';
+import { button, color } from './common.style';
 
 export const Container = styled.div`
   display: flex;
