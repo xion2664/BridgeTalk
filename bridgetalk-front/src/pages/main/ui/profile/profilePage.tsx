@@ -36,6 +36,14 @@ export function ProfilePage() {
         <div className="main__profilelist">
           {user.map((it) => (
             <div className="main__profilelist-item" key={it.id}>
+              <button
+                className="main__profilelist-item-edit"
+                onClick={() => {
+                  navigate('/editProfile');
+                }}
+              >
+                <img src={'assets/img/main/editProfileIcon.svg'} />
+              </button>
               <div className="main__profilelist-item-dino">
                 <img src={it.dino} alt="캐릭터" />
               </div>
@@ -48,7 +56,14 @@ export function ProfilePage() {
           </div>
         </div>
         <div className="main__button">
-          <button className="main__button-start">START!</button>
+          <button
+            className="main__button-start"
+            onClick={() => {
+              navigate('/addProfile');
+            }}
+          >
+            START!
+          </button>
         </div>
       </div>
     </S.Container>

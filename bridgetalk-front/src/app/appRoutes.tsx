@@ -23,6 +23,7 @@ import {
   SignUpPage,
 } from '@/pages';
 import { Main } from '@/pages/main/ui/main/main';
+import { EditProfilePage } from '@/pages/main/ui/profile/editProfilePage';
 
 export function AppRoutes() {
   return (
@@ -33,6 +34,8 @@ export function AppRoutes() {
         <Route path="signin" element={<SignInPage />} />
         <Route path="signup" element={<SignUpPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="addProfile" element={<EditProfilePage type="new" />} />
+        <Route path="editProfile" element={<EditProfilePage type="edit" />} />
       </Route>
 
       {/* 부모 관련 */}

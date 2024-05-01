@@ -59,6 +59,21 @@ export const Container = styled.div`
 
       gap: 3.1svw;
 
+      &-item {
+        &-edit {
+          background-color: transparent;
+          border: none;
+
+          position: absolute;
+          top: 3svh;
+          right: 2svw;
+
+          img {
+            width: 1svw;
+          }
+        }
+      }
+
       &-item,
       &-empty {
         display: flex;
