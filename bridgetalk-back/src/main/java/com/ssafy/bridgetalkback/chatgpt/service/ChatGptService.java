@@ -18,10 +18,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -32,6 +34,22 @@ public class ChatGptService {
 
     @Value("${OPENAI_URL}")
     private String legacyPromptUrl;
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createSummary(String originText){
+        String[] summary = new String[2];
+        summary[0] = createPrompt(originText, ChatGptRequestCode.SUMMARY);
+        summary[1] = createPrompt(summary[0], ChatGptRequestCode.TRANSLATE);
+        return CompletableFuture.completedFuture(summary);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createKeywords(String originText){
+        String[] keywords = new String[2];
+        keywords[0] = createPrompt(originText, ChatGptRequestCode.KEYWORD);
+        keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE);
+        return CompletableFuture.completedFuture(keywords);
+    }
 
     public String createPrompt(String originText, ChatGptRequestCode gptRequestCode) {
         log.info("{ ChatGptService } : {} 진입", gptRequestCode);
