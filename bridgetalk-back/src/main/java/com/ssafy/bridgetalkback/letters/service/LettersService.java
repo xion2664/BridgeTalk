@@ -4,7 +4,6 @@ import com.amazonaws.services.kms.model.NotFoundException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
@@ -12,10 +11,8 @@ import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
-import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
-import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDTO;
-import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
-import com.ssafy.bridgetalkback.letters.dto.response.TranslationResultsDTO;
+import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
+import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.exception.TranslateBadRequestException;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
@@ -32,7 +29,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.transcribe.model.BadRequestException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,7 +82,7 @@ public class LettersService {
      * @param parentsUserId : 사용자 userId(UUID)
      * @return LettersResponseDTO : 변환된 텍스트 responseDTO
      * */
-    public LettersResponseDTO createText(String voiceUrl, String parentsUserId, Long reportsId){
+    public LettersResponseDto createText(String voiceUrl, String parentsUserId, Long reportsId){
         log.info("{ LetterService.createText() } : 텍스트화 메서드");
         String[] vrr = voiceUrl.split("/");
         System.out.println(Arrays.toString(vrr));
@@ -116,7 +112,7 @@ public class LettersService {
         Letters newLetter = Letters.createLetters(parents, reports, extractOriginText, transformedText);
         lettersRepository.save(newLetter);
 
-        return LettersResponseDTO.of(newLetter);
+        return LettersResponseDto.of(newLetter);
     }
 
     /**
@@ -135,7 +131,7 @@ public class LettersService {
             log.info(">> s3Object : {}",s3Object);
             S3ObjectInputStream objectContent = s3Object.getObjectContent();
             // Transcript json -> DTO
-            TranscriptionDTO jsonData = objectMapper.readValue(objectContent, TranscriptionDTO.class);
+            TranscriptionDto jsonData = objectMapper.readValue(objectContent, TranscriptionDto.class);
             log.info(">> jsonToObject : {}", jsonData);
             Map<String, Object> results = jsonData.results();
             List<Map<String, String>> transcriptList = (List<Map<String, String>>) results.get("transcripts");

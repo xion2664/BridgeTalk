@@ -1,33 +1,24 @@
 package com.ssafy.bridgetalkback.letters.controller;
 
 import com.ssafy.bridgetalkback.common.ControllerTest;
-import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
-import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
+import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class LettersControllerTest extends ControllerTest {
@@ -66,8 +57,8 @@ class LettersControllerTest extends ControllerTest {
     private String createUploadUrl() {
         return "https://birdgetalk/uploadUrl.com";
     }
-    private LettersResponseDTO createLettersResponseDto() {
-        return LettersResponseDTO.builder()
+    private LettersResponseDto createLettersResponseDto() {
+        return LettersResponseDto.builder()
                 .lettersId(1L)
                 .lettersOriginalContent("originContent")
                 .lettersTranslationContent("translationContent")
