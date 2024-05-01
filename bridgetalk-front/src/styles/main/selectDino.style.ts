@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4svh;
+  gap: 2svh;
 
   .title {
     img {
