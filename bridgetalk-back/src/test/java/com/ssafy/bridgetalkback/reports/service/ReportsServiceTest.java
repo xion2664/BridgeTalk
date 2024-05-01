@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.HYUNYOUNG;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
@@ -47,7 +48,7 @@ public class ReportsServiceTest extends ServiceTest {
 
 
     @BeforeEach
-    void setup() {
+    void setup() throws ExecutionException, InterruptedException {
         parents = parentsRepository.save(SUNKYOUNG.toParents());
         kids[0] = kidsRepository.save(JIYEONG.toKids(parents));
         kids[1] = kidsRepository.save(HYUNYOUNG.toKids(parents));
@@ -57,8 +58,8 @@ public class ReportsServiceTest extends ServiceTest {
         originText[1] = "디노야, 오늘은 정말 탕후루를 먹고 싶어! 아침부터 엄마에게 계속해서 말했는데, 엄마는 항상 바쁘다며 내 얘기를 잘 못 알아들어줘. 나는 탕후루를 먹으면서 달콤한 맛을 즐기고, 매끄러운 식감도 느끼고 싶어! 큰 사이즈의 탕후루를 주문하고, 그 위에는 맛있는 탑핑들을 올려서 내가 원하는 대로 꾸며보고 싶어! 엄마야, 내가 탕후루를 먹고 싶은 이유를 알아줘! 나는 너무나도 설레고 기대돼. 그냥 빨리 탕후루를 먹고 싶어서 말이야!";
         reports[0] = reportsRepository.save(Reports.createReports(kids[0], originText[0]));
         reports[1] = reportsRepository.save(Reports.createReports(kids[0], originText[1]));
-        reportsCreateService.createReport(reports[0].getReportsId());
-        reportsCreateService.createReport(reports[1].getReportsId());
+        reportsCreateService.createReportAsync(reports[0].getReportsId());
+        reportsCreateService.createReportAsync(reports[1].getReportsId());
 
         profileList = profileListService.profileList(parents.getUuid());
         profileResponseDto = profileList.profileList().get(1);

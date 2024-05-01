@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.ExecutionException;
+
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,10 +30,6 @@ public class ReportsCreateServiceTest extends ServiceTest {
 
     @Autowired
     private ReportsFindService reportsFindService;
-
-    @Autowired
-    private ProfileListService profileListService;
-
 
     @BeforeEach
     void setup() {
@@ -62,4 +60,27 @@ public class ReportsCreateServiceTest extends ServiceTest {
                 () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet())
         );
     }
+
+    @Test
+    @DisplayName("(비동기) 아이 속마음 레포트 저장에 성공한다.")
+    void createReportsAsync() throws ExecutionException, InterruptedException {
+        //given
+        Long reportsId = reports.getReportsId();
+
+        //when
+        reportsService.createReportAsync(reportsId);
+        Reports newReports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
+
+        //then
+        assertAll(
+                () -> assertThat(newReports.getReportsId()).isEqualTo(reports.getReportsId()),
+                () -> assertThat(newReports.getKids()).isEqualTo(reports.getKids()),
+                () -> assertThat(newReports.getReportsOriginContent()).isEqualTo(reports.getReportsOriginContent()),
+                () -> assertThat(newReports.getReportsSummaryKor()).isEqualTo(reports.getReportsSummaryKor()),
+                () -> assertThat(newReports.getReportsSummaryViet()).isEqualTo(reports.getReportsSummaryViet()),
+                () -> assertThat(newReports.getReportsKeywordsKor()).isEqualTo(reports.getReportsKeywordsKor()),
+                () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet())
+        );
+    }
+
 }
