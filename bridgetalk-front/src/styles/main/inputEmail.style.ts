@@ -15,7 +15,7 @@ export const Container = styled.div`
   input {
     border-radius: 15svw;
     border: 1svw solid ${color(1).main};
-    font-size: 3svw;
+    font-size: 2.5svw;
     font-family: 'DNF';
     padding: 1.2svh 2svw;
     height: 13.3svh;

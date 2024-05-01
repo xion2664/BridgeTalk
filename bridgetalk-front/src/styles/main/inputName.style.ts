@@ -13,10 +13,10 @@ export const Container = styled.div`
     border-radius: 15svw;
     border: 1.5svw solid ${color(1).main};
     padding: 1.2svh 2svw;
-    height: 14svh;
+    height: 13.3svh;
     width: 100%;
 
-    font-size: 3svw;
+    font-size: 2.5svw;
     font-family: 'DNF';
   }
 
