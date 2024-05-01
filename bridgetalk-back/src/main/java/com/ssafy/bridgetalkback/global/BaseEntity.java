@@ -22,6 +22,12 @@ public class BaseEntity {
 
     @Column(columnDefinition = "integer default 0")
     private int isDeleted;
+
+    public void updateIsDeleted() {
+        if (this.isDeleted == 0) {
+            this.isDeleted = 1;
+        }
+    }
 }
 
 
