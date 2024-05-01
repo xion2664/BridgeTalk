@@ -6,7 +6,9 @@ export function StartPage() {
 
   return (
     <S.Container>
-      <div className="title">BRIDGETALK</div>
+      <div className="title">
+        <img src={'assets/img/bridgetalk_red.svg'} />
+      </div>
       <div className="buttons">
         <button
           className="buttons__signup"
@@ -14,6 +16,7 @@ export function StartPage() {
             navigate('../signup');
           }}
         >
+          <img src={'assets/img/signupicon.svg'} />
           회원가입
         </button>
         <button
@@ -22,6 +25,7 @@ export function StartPage() {
             navigate('../signin');
           }}
         >
+          <img src={'assets/img/signinicon.svg'} />
           로그인
         </button>
       </div>
