@@ -57,14 +57,14 @@ export const Container = styled.div`
         ${insetShadow}
 
         ${BUTTON_RADIUS}
-        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).white};
+        box-shadow: inset 0 1svh 0.8svh ${color(0.5).white};
       }
 
       &::before {
         ${insetShadow}
 
         ${BUTTON_RADIUS}
-        box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).black};
+        box-shadow: inset 0 -1svh 0.8svh ${color(0.25).black};
       }
     }
   }

@@ -12,12 +12,16 @@ export function InputEmail({ email, setEmail, page, setPage }: EmailProps) {
   return (
     <S.Container>
       <div className="email">
-        <div className="email__title">Email</div>
+        <div className="email__title">
+          <img src={'assets/img/main/emailicon.svg'} />
+        </div>
         <input className="email__input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" />
-        <button className="email__submit">Verify</button>
+        <button className="email__verify">Verify</button>
       </div>
       <div className="confirm">
-        <div className="confirm__title">EmailVerifyNumber</div>
+        <div className="confirm__title">
+          <img src={'assets/img/main/emailverifynumbericon.svg'} />
+        </div>
         <input className="confirm__input" />
       </div>
       <button
@@ -27,6 +31,7 @@ export function InputEmail({ email, setEmail, page, setPage }: EmailProps) {
         }}
       >
         다음
+        <img src={'assets/img/nexticon.svg'} />
       </button>
     </S.Container>
   );

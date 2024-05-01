@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 /**
  * 메인 페이지 색상 팔레트
- * 사용예: ${color(0.5).main}
+ * 사용 예: ${color(0.5).main}
  * @param alpha
  * @returns
  */
@@ -48,4 +48,37 @@ export const insetShadow = css`
   height: 100%;
   pointer-events: none;
   content: '';
+`;
+
+export const button = css`
+  background-color: ${color(1).main};
+
+  border: none;
+
+  color: ${color(1).white};
+  font-family: 'DNF';
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2svw;
+
+  border-radius: 7svw;
+
+  position: relative;
+  box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+
+  &::after {
+    ${insetShadow}
+
+    border-radius: 7svw;
+    box-shadow: inset 0 1svh 1svh ${color(0.5).white};
+  }
+
+  &::before {
+    ${insetShadow}
+
+    border-radius: 7svw;
+    box-shadow: inset 0 -1svh 1svh ${color(0.25).black};
+  }
 `;
