@@ -35,13 +35,19 @@ export function SignInPage() {
   return (
     <S.Container>
       <HomeButton navigate={navigate} />
-      <div className="title">LOGIN</div>
+      <div className="title">
+        <img src={'assets/img/main/login.svg'} />
+      </div>
       <div className="email">
-        <div className="email__title">Email</div>
+        <div className="email__title">
+          <img src={'assets/img/main/emailicon.svg'} />
+        </div>
         <input type="text" className="email__input" />
       </div>
       <div className="password">
-        <div className="password__title">Password</div>
+        <div className="password__title">
+          <img src={'assets/img/main/passwordicon.svg'} />
+        </div>
         <input type="text" className="password__input" />
       </div>
       <button
@@ -51,6 +57,7 @@ export function SignInPage() {
         }}
       >
         다음
+        <img src={'assets/img/nexticon.svg'} />
       </button>
       {/* <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
