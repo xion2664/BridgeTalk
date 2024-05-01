@@ -27,11 +27,11 @@ public class TalkService {
             "벌써 마칠 시간이네. 언제 어디서든 너를 응원할 게! 다음에 또 만나"
     };
     private final String[] startComment = {
-            "안녕 반가워!",
-            "안녕 무슨일이야? ",
-            "안녕 언제 봐도 반가워",
-            "안녕 너랑 이야기할 게 기대돼",
-            "안녕 기다리고 있었어!"
+            "안녕, 반가워!",
+            "안녕, 무슨일이야? ",
+            "안녕, 언제 봐도 반가워",
+            "안녕, 너랑 이야기할 게 기대돼",
+            "안녕, 기다리고 있었어!"
 
     };
 
@@ -57,7 +57,7 @@ public class TalkService {
     public Resource startTalk(UUID userId) {
         log.info("{ TalkService } : 대화 시작하기 진입");
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-        String startGreetingText = kids.getKidsNickname() + " " + startComment[randomIdx()];
+        String startGreetingText = kids.getKidsNickname() + ", " + startComment[randomIdx()];
         log.info("{ TalkService } : 대화 시작 text - " + startGreetingText);
         Resource startGreeting = ttsService.textToSpeech(startGreetingText);
         log.info("{ TalkService } : startGreeting - " + startGreeting.toString());
