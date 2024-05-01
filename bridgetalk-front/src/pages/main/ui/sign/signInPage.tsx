@@ -3,6 +3,7 @@ import { useLogin } from '@/pages/main/query/login';
 import { useUserStore } from '@/pages/main/store/user';
 import { useNavigate } from 'react-router-dom';
 import * as S from '@/styles/main/signIn.style';
+import { HomeButton } from '@/shared';
 
 export function SignInPage() {
   const navigate = useNavigate();
@@ -33,14 +34,7 @@ export function SignInPage() {
 
   return (
     <S.Container>
-      <button
-        className="back"
-        onClick={() => {
-          navigate('../start');
-        }}
-      >
-        홈으로
-      </button>
+      <HomeButton navigate={navigate} />
       <div className="title">LOGIN</div>
       <div className="email">
         <div className="email__title">Email</div>

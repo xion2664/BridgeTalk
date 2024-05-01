@@ -7,6 +7,7 @@ import { InputName } from './components/inputName';
 import { SelectDino } from './components/selectDino';
 import { SelectCountry } from './components/selectCountry';
 import { useNavigate } from 'react-router-dom';
+import { HomeButton } from '@/shared';
 
 export function SignUpPage() {
   const navigate = useNavigate();
@@ -34,14 +35,7 @@ export function SignUpPage() {
 
   return (
     <S.Container>
-      <button
-        className="back"
-        onClick={() => {
-          navigate('../start');
-        }}
-      >
-        홈으로
-      </button>
+      <HomeButton navigate={navigate} />
       {page === 0 && <InputEmail email={email} setEmail={setEmail} page={page} setPage={setPage} />}
       {page === 1 && (
         <InputName
