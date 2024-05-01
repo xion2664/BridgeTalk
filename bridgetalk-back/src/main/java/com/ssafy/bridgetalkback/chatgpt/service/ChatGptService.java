@@ -70,7 +70,7 @@ public class ChatGptService {
 
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
-            text += " 3줄 요약해줘";
+            text += " 3줄 요약해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
             text += " 베트남어로 번역해줘";
@@ -79,7 +79,7 @@ public class ChatGptService {
             text += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
-            text += " 핵심 키워드 3개 추출해줘";
+            text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
         }
         return text;
