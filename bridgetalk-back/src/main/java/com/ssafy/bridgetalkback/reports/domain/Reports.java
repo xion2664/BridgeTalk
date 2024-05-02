@@ -75,4 +75,8 @@ public class Reports extends BaseEntity {
         this.reportsKeywordsKor = List.of(keywordKorArr);
         this.reportsKeywordsViet = List.of(keywordVietArr);
     }
+
+    public void updateReportsOriginContent(String updateContent) {
+        this.reportsOriginContent = updateContent;
+    }
 }
