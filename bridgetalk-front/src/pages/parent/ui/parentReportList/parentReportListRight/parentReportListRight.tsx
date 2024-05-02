@@ -1,7 +1,6 @@
 import * as S from '@/styles/parent/parentReportListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 import { FaSearch, FaCalendarAlt } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
 import { useReportStore } from '@/pages/parent/store';
 
 export function ParentReportListRight() {
