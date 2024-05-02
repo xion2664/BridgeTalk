@@ -27,13 +27,22 @@ public class Reports extends BaseEntity {
     private String reportsOriginContent;
 
     @Column(columnDefinition = "TEXT")
-    private String reportsSummary;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> reportsKeywords;
+    private String reportsSummaryKor;
 
     @Column(columnDefinition = "TEXT")
-    private String reportsSolution;
+    private String reportsSummaryViet;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> reportsKeywordsKor;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> reportsKeywordsViet;
+
+    @Column(columnDefinition = "TEXT")
+    private String reportsSolutionKor;
+
+    @Column(columnDefinition = "TEXT")
+    private String reportsSolutionViet;
 
     private Reports(Kids kids, String reportsOriginContent) {
         this.kids = kids;
@@ -42,5 +51,28 @@ public class Reports extends BaseEntity {
 
     public static Reports createReports(Kids kids, String reportsOriginContent) {
         return new Reports(kids, reportsOriginContent);
+    }
+
+    public void updateSummaryKor(String summaryText) {
+        this.reportsSummaryKor = summaryText;
+    }
+
+    public void updateSummaryViet(String translateText) {
+        this.reportsSummaryViet = translateText;
+    }
+
+    public void updateKeywordsKor(String[] keywordKorArr) {
+        this.reportsKeywordsKor = List.of(keywordKorArr);
+    }
+
+    public void updateKeywordsViet(String[] keywordVietArr) {
+        this.reportsKeywordsViet = List.of(keywordVietArr);
+    }
+
+    public void updateReports(String summaryText, String translateText, String[] keywordKorArr, String[] keywordVietArr){
+        this.reportsSummaryKor = summaryText;
+        this.reportsSummaryViet = translateText;
+        this.reportsKeywordsKor = List.of(keywordKorArr);
+        this.reportsKeywordsViet = List.of(keywordVietArr);
     }
 }

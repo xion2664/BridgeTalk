@@ -18,10 +18,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -32,6 +34,22 @@ public class ChatGptService {
 
     @Value("${OPENAI_URL}")
     private String legacyPromptUrl;
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createSummary(String originText){
+        String[] summary = new String[2];
+        summary[0] = createPrompt(originText, ChatGptRequestCode.SUMMARY);
+        summary[1] = createPrompt(summary[0], ChatGptRequestCode.TRANSLATE);
+        return CompletableFuture.completedFuture(summary);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createKeywords(String originText){
+        String[] keywords = new String[2];
+        keywords[0] = createPrompt(originText, ChatGptRequestCode.KEYWORD);
+        keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE);
+        return CompletableFuture.completedFuture(keywords);
+    }
 
     public String createPrompt(String originText, ChatGptRequestCode gptRequestCode) {
         log.info("{ ChatGptService } : {} 진입", gptRequestCode);
@@ -70,7 +88,7 @@ public class ChatGptService {
 
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
-            text += " 3줄 요약해줘";
+            text += " 3줄 요약해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
             text += " 베트남어로 번역해줘";
@@ -79,7 +97,7 @@ public class ChatGptService {
             text += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
-            text += " 핵심 키워드 3개 추출해줘";
+            text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
         }
         return text;
