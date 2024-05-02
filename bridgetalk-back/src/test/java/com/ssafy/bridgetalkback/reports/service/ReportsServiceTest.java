@@ -138,4 +138,32 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionViet())
         );
     }
+
+    @Test
+    @DisplayName("아이 음성 파일 stt 변환에 성공한다")
+    void createText() {
+        // given
+        // s3에 미리 올려둔 파일
+        String fileName = "reports/talktest.m4a";
+
+        // when
+        String extractText = reportsService.stt(fileName);
+
+        // then
+        assertThat(extractText).isNotNull();
+    }
+
+    @Test
+    @DisplayName("아이 대화를 추가해서 reports 수정에 성공한다")
+    void updateOriginContent() {
+        // given
+        String talkText = "그래서 화가 났어";
+
+        // when
+        String oldText = reports[0].getReportsOriginContent();
+        reportsService.updateOriginContent(kids[0].getUuid(), reports[0].getReportsId(), talkText);
+
+        // then
+        assertThat(reports[0].getReportsOriginContent()).isEqualTo(oldText+"\n"+talkText);
+    }
 }
