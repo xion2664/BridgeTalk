@@ -11,6 +11,7 @@ export function ParentReportDetail() {
   const params = useParams();
 
   const language = useReportStore((state) => state.language);
+  const reports_UUID = useReportStore((state) => state.reports_UUID);
 
   const [report, setReport] = useState<any>('');
   const [date, setDate] = useState<string[]>([]);
@@ -19,11 +20,11 @@ export function ParentReportDetail() {
     async function fetchData() {
       try {
         const data: any = await getReportDetail(
-          '5810bfe0-5218-41cd-8b71-77417e5b8b44', // [**] 해당 아이디는 로그인 기능 구현 후 맞춰서 수정 필요
+          reports_UUID.get(Number(params.reportsId)),
           Number(params.reportsId),
           language,
         );
-        console.log(data.data);
+
         setReport(data.data);
         setDate(data.data.createdAt.split('T')[0].split('-'));
       } catch (err) {

@@ -11,15 +11,17 @@ export function ParentReportList() {
   const navigate = useNavigate();
 
   const setReportList = useReportStore((state) => state.setReportList);
-  const setChildrenInfo = useReportStore((state) => state.setChildrenInfo);
+  const setReports_UUID = useReportStore((state) => state.setReports_UUID);
   const language = useReportStore((state) => state.language);
   const childrenList = useReportStore((state) => state.childrenList);
-  const childrenInfo = useReportStore((state) => state.childrenInfo);
 
   useEffect(() => {
     async function fetchData() {
       // childMap: {UUID: {name, nickname}}
       const childMap = new Map();
+
+      // {reportsId: UUID}
+      const reports_UUID = new Map();
 
       // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
       const promises = childrenList.map((child: any) => {
@@ -38,8 +40,13 @@ export function ParentReportList() {
         it.UUID = childUUID;
         it.name = child.name;
         it.nickname = child.nickname;
+
+        it.value.data.forEach((report: any) => {
+          reports_UUID.set(report.reportsId, it.UUID);
+        });
       });
 
+      setReports_UUID(reports_UUID);
       setReportList(data);
     }
 
