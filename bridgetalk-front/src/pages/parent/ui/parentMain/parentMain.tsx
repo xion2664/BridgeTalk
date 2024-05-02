@@ -7,6 +7,25 @@ import { useReportStore } from '../../store';
 export function ParentMain() {
   const navigate = useNavigate();
 
+  const setChildrenList = useReportStore((state) => state.setChildrenList);
+
+  useEffect(() => {
+    customAxios
+      .get('/profile')
+      .then((res) => {
+        // 부모의 프로필에서 자녀들의 정보를 빼 childrneList에 저장
+        const childrenList: any = [];
+        const profileList = res.data.profileList;
+
+        for (let i = 1; i < profileList.length; i++) {
+          childrenList.push(profileList[i]);
+        }
+
+        setChildrenList(childrenList);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <S.Container>
       <button
