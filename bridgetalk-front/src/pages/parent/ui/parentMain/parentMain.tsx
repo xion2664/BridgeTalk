@@ -6,16 +6,23 @@ export function ParentMain() {
 
   return (
     <S.Container>
+      <button className="home">
+        <img src={'/assets/img/parent/homeIcon.svg'} />
+      </button>
       <div className="logo">
         <img src={'/assets/img/parent/bridgeTalkLogo.svg'} />
       </div>
       <div className="main">
-        <button onClick={() => navigate('../report')}>
-          <div>nỗi lòng con cái</div>
+        <button className="main__report" onClick={() => navigate('../report')}>
+          nỗi lòng <br />
+          con cái
         </button>
-        <div>DINO</div>
-        <button onClick={() => navigate('../information')}>
-          <div>lấy thông tin</div>
+        <div className="main__character">
+          <img src={'/assets/img/parent/dino.svg'} />
+        </div>
+        <button className="main__info" onClick={() => navigate('../information')}>
+          lấy <br />
+          thông tin
         </button>
       </div>
     </S.Container>
