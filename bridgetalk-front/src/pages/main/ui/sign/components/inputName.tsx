@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/main/inputName.style';
 import { useSignupStore } from '@/pages/main/store';
-import { validateNickname, validatePassword } from '@/pages/main/model';
+import { validateName, validateNickname, validatePassword } from '@/pages/main/model';
 
 interface Props {
   setPage: Dispatch<SetStateAction<number>>;
@@ -89,11 +89,14 @@ export function InputName({ setPage }: Props) {
           onClick={() => {
             let alert = '';
 
+            if (!validateName(name)) {
+              alert += '이름은 영어, 한글, 숫자만 허용되며 1 ~ 20자 이내여야 합니다.';
+            }
             if (!validateNickname(nickname)) {
-              alert += '닉네임은 영어, 한글, 숫자, 공백만 허용되며 1자 ~ 20자 이내여야 합니다.\n';
+              alert += '닉네임은 영어, 한글, 숫자, 공백만 허용되며 1 ~ 20자 이내여야 합니다.\n';
             }
             if (!validatePassword(password)) {
-              alert += '비밀번호는 영문, 숫자 포함 8자 ~ 20자 이내이며\n특수문자(!@#$%^&*+=-)를 포함할 수 있습니다.\n';
+              alert += '비밀번호는 영문, 숫자 포함 8 ~ 20자 이내이며\n특수문자(!@#$%^&*+=-)를 포함할 수 있습니다.\n';
             }
             if (password !== passwordCheck) {
               alert += '입력한 비밀번호가 일치하지 않습니다.';
