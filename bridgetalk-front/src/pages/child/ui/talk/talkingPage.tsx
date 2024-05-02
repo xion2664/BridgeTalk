@@ -19,28 +19,51 @@ export function TalkingPage() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const setAudioURL = useVoiceStore((state) => state.setAudioURL);
   const setVolume = useVoiceStore((state) => state.setVolume);
+  const volume = useVoiceStore((state) => state.volume);
 
+  useEffect(() => {
+    console.log(volume);
+  }, [volume]);
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
+
+  const [closingComment, setClosingComment] = useState<any>();
 
   useEffect(() => {
     // 오디오 스트림 연결
     if (!streamRef.current) {
       connectAudioStream(streamRef);
     }
+    // 토큰 체크
     console.log(process.env.REACT_APP_CHILD_TOKEN);
 
+    // 대화 시작 API - 아직 머지 안됨
+    // customAxios
+    //   .get(`reports/create-reports`, {
+    //     headers: {
+    //       Authorization: `Bearer ${process.env.REACT_APP_CHILD_TOKEN}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => console.log(err));
+
     customAxios
-      .get(`reports/create-reports`, {
+      .get(`/reports/talk-stop`, {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_CHILD_TOKEN}`,
+          responsType: 'Blob',
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(URL.createObjectURL(res.data));
+        setClosingComment(URL.createObjectURL(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
 
     return () => {
       // 오디오 스트림 해제
@@ -83,6 +106,10 @@ export function TalkingPage() {
         <div className="talking__container-talk">
           <p>dino's dialogue</p>
           <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
+          <div>
+            종료대화
+            {closingComment && <audio src={closingComment} controls hidden />}
+          </div>
         </div>
       </div>
     </div>
