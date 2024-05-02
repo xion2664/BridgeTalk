@@ -21,11 +21,13 @@ import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
+import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +43,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.UUID;
 
+
 @Service
 @Transactional
 @Slf4j
@@ -55,6 +58,7 @@ public class LettersService {
     private final LettersRepository lettersRepository;
     private final ParentsRepository parentsRepository;
     private final ReportsRepository reportsRepository;
+    private final TtsService ttsService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -104,7 +108,7 @@ public class LettersService {
 
         // db에 저장
         Parents parents = parentsRepository.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId), 0)
-                                .orElseThrow(() -> BaseException.type(ParentsErrorCode.PARENTS_NOT_FOUND));
+                .orElseThrow(() -> BaseException.type(ParentsErrorCode.PARENTS_NOT_FOUND));
         /**
          * @todo : isDeleted가 false인 조건 추가해야 함.
          * */
@@ -231,6 +235,31 @@ public class LettersService {
         log.info(">> transformedText : {}", transformedText);
 
         return transformedText;
+    }
+
+
+    /**
+     * pk로 편지 정보 조회 후, 데이터 삭제여부까지 확인하는 메서드
+     *
+     * @param lettersId
+     * @return pk에 해당하는 Letters 객체
+     */
+    public Letters findById(Long lettersId) {
+        log.info("{LettersService} : Id(Pk)로 편지 정보 조회");
+        return lettersRepository.findByLettersIdAndIsDeleted(lettersId, 0)
+                .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND));
+    }
+    /**
+     * pk에 해당하는 편지의 번역된 한국어 text를 음성데이터로 반환하는 메서드
+     *
+     * @param lettersId
+     * @return 번역문의 음성데이터
+     */
+    public Resource findLettersVoice(Long lettersId) {
+        Letters letter = findById(lettersId);
+        letter.updateIsChecked();
+        String inputText = letter.getLettersTranslationContent();
+        return ttsService.textToSpeech(inputText);
     }
 
 }
