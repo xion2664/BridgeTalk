@@ -40,7 +40,7 @@ public class TalkServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("대화 종료 멘트 tts 변환에 성공한다")
-    void findProfileList() throws IOException {
+    void stopTalk() throws IOException {
         // given
         when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
 

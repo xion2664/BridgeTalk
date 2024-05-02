@@ -90,7 +90,7 @@ public abstract class ControllerTest {
     protected LettersService lettersService;
 
     @MockBean
-    protected  TalkService talkService;
+    protected TalkService talkService;
 
     @MockBean
     protected ReportsService reportsService;
