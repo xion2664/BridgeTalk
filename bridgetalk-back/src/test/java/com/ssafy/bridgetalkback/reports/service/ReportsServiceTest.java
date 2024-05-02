@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.reports.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.dto.ProfileListResponseDto;
@@ -10,7 +11,11 @@ import com.ssafy.bridgetalkback.reports.domain.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
-import org.junit.jupiter.api.*;
+import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -36,12 +41,14 @@ public class ReportsServiceTest extends ServiceTest {
 
     private ProfileResponseDto profileResponseDto;
     private UUID kidsId;
+    private Reports reports1, reports2;
+    private Kids kid;
 
     @Autowired
     private ReportsService reportsService;
 
     @Autowired
-    private ReportsCreateService reportsCreateService;
+    private ReportsUpdateService reportsCreateService;
 
     @Autowired
     private ProfileListService profileListService;
@@ -52,7 +59,12 @@ public class ReportsServiceTest extends ServiceTest {
         parents = parentsRepository.save(SUNKYOUNG.toParents());
         kids[0] = kidsRepository.save(JIYEONG.toKids(parents));
         kids[1] = kidsRepository.save(HYUNYOUNG.toKids(parents));
+
         flushAndClear();
+
+        kid = kidsRepository.save(JIYEONG.toKids(parents));
+        reports1 = reportsRepository.save(Reports.createReports(kid, "속마음 원본"));
+        reports2 = reportsRepository.save(Reports.createReports(kid, "속마음 원본2"));
 
         originText[0] = "디노야, 오늘은 정말 놀이동산에 가고 싶어! 아침부터 엄마에게 계속해서 말했는데, 엄마는 항상 바쁘다며 내 얘기를 잘 못 알아들어줘. 나는 놀이동산에서 내가 좋아하는 모든 놀이기구를 타고 싶고, 큰 풍선도 사고 싶고, 푸른 하늘을 날고 싶어! 미끄럼틀에서 빠르게 내려가면서 내 친구들과 함께 즐거운 시간을 보내고 싶어! 그리고 맛있는 아이스크림도 먹고 싶어! 엄마야, 내가 놀이동산에 가고 싶은 이유를 알아줘! 나는 너무나도 설레고 기대돼. 그냥 빨리 놀이동산에 가고 싶어서 말이야!";
         originText[1] = "디노야, 오늘은 정말 탕후루를 먹고 싶어! 아침부터 엄마에게 계속해서 말했는데, 엄마는 항상 바쁘다며 내 얘기를 잘 못 알아들어줘. 나는 탕후루를 먹으면서 달콤한 맛을 즐기고, 매끄러운 식감도 느끼고 싶어! 큰 사이즈의 탕후루를 주문하고, 그 위에는 맛있는 탑핑들을 올려서 내가 원하는 대로 꾸며보고 싶어! 엄마야, 내가 탕후루를 먹고 싶은 이유를 알아줘! 나는 너무나도 설레고 기대돼. 그냥 빨리 탕후루를 먹고 싶어서 말이야!";
@@ -137,5 +149,50 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsViet().toString()),
                 () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionViet())
         );
+    }
+
+    @Test
+    @DisplayName("ID(PK)로 삭제되지 않은 편지 정보를 조회한다")
+    void findById() {
+        // given
+        reports2.updateIsDeleted();
+
+        // when
+        Reports existReports = reportsService.findByIdAndIsDeleted(reports1.getReportsId());
+
+        // then
+        assertThat(existReports).isEqualTo(reports1);
+
+        Assertions.assertThatThrownBy(() -> reportsService.findByIdAndIsDeleted(reports2.getReportsId()))
+                .isInstanceOf(BaseException.class)
+                .hasMessageContaining(ReportsErrorCode.REPORTS_NOT_FOUND.getMessage());
+    }
+
+    @Test
+    @DisplayName("아이 음성 파일 stt 변환에 성공한다")
+    void createText() {
+        // given
+        // s3에 미리 올려둔 파일
+        String fileName = "reports/talktest.m4a";
+
+        // when
+        String extractText = reportsService.stt(fileName);
+
+        // then
+        assertThat(extractText).isNotNull();
+    }
+
+    @Test
+    @DisplayName("아이 대화를 추가해서 reports 수정에 성공한다")
+    void updateOriginContent() {
+        // given
+        String talkText = "그래서 화가 났어";
+
+        // when
+        String oldText = reports[0].getReportsOriginContent();
+        reportsService.updateOriginContent(kids[0].getUuid(), reports[0].getReportsId(), talkText);
+
+        // then
+        assertThat(reports[0].getReportsOriginContent()).isEqualTo(oldText+"\n"+talkText);
     }
 }

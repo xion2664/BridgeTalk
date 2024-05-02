@@ -19,8 +19,10 @@ import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
+import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
+import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,8 +59,9 @@ public class LettersService {
     private final ObjectMapper objectMapper;
     private final LettersRepository lettersRepository;
     private final ParentsRepository parentsRepository;
-    private final ReportsRepository reportsRepository;
     private final TtsService ttsService;
+    private final ReportsService reportsService;
+    private final ParentsFindService parentsFindService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -107,12 +110,9 @@ public class LettersService {
         String transformedText = changeToConversation(extractOriginText);
 
         // db에 저장
-        Parents parents = parentsRepository.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId), 0)
-                .orElseThrow(() -> BaseException.type(ParentsErrorCode.PARENTS_NOT_FOUND));
-        /**
-         * @todo : isDeleted가 false인 조건 추가해야 함.
-         * */
-        Reports reports = reportsRepository.getReferenceById(reportsId);
+        Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
+
+        Reports reports = reportsService.findByIdAndIsDeleted(reportsId);
         Letters newLetter = Letters.createLetters(parents, reports, extractOriginText, transformedText);
         lettersRepository.save(newLetter);
 
@@ -262,4 +262,8 @@ public class LettersService {
         return ttsService.textToSpeech(inputText);
     }
 
+    public void deleteLetters(Long lettersId) {
+        Letters letters = findById(lettersId);
+        letters.updateIsDeleted();
+    }
 }

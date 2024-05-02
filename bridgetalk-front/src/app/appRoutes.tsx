@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import PuzzlePage from '@/pages/child/ui/game/puzzle/puzzlePage';
 import {
   Parent,
   ParentInformationMain,
@@ -22,6 +23,7 @@ import {
   SignInPage,
   SignUpPage,
 } from '@/pages';
+
 import { Main } from '@/pages/main/ui/main/main';
 import { EditProfilePage } from '@/pages/main/ui/profile/editProfilePage';
 
@@ -38,11 +40,50 @@ export function AppRoutes() {
         <Route path="editProfile" element={<EditProfilePage type="edit" />} />
       </Route>
 
+      {/* 아이 관련 */}
+      <Route path="/puzzle" element={<PuzzlePage />} />
+
+      {/* <Route path="/child" element={<Child />}>
+        <Route path="main" element={<ChildMain />} />
+        
+        <Route path="game" element={<GameMain />}>
+        </Route>
+      </Route> */}
+
+      {/* <Route path="/child" element={<Child />}>
+        <Route path="main" element={<ChildMain />} />
+        <Route path="talk" element={<TalkingPage />} />
+        <Route path="talk/warn" element={<WarningPage />} />
+        <Route path="talk/message" element={<MessagePage />}>
+          <Route path="list" element={<MessageListPage />} />
+          <Route path="read" element={<MessageReadPage />} />
+        </Route>
+
+        <Route path="game" element={<GameMain />} />
+        <Route path="puzzle/select" element={<SelectPuzzle />}>
+          <Route path="stages" element={<SelectStage />} />
+          <Route path=":puzzleId" element={<StageInfo />} />
+        </Route>
+        <Route path="puzzle/start" element={<Puzzle />}>
+          <Route path=":puzzleId" element={<DoPuzzle />} />
+          <Route path=":puzzleId/complete" element={<PuzzleComplete />} />
+        </Route>
+        <Route path="dress" element={<SelectDress />} />
+        <Route path="dress/:dressId" element={<DressingPage />}>
+          <Route path="coloring" element={<Coloring />} />
+          <Route path="select" element={<SelectBackground />} />
+        </Route>
+        <Route path="dress/wearing" element={<WearDress />}>
+          <Route path="cam" element={<CaptureDress />} />
+          <Route path="pic" element={<SaveDress />} />
+        </Route>
+      </Route> */}
+
       {/* 부모 관련 */}
       <Route path="/parent" element={<Parent />}>
         <Route path="main" element={<ParentMain />} />
         <Route path="report" element={<ParentReportList />} />
-        <Route path="report/:reportId" element={<ParentReportDetail />} />
+        <Route path="report/:reportsId" element={<ParentReportDetail />} />
         <Route path="information" element={<ParentInformationMain />} />
         <Route path="information/news" element={<ParentInformationNews />} />
         <Route path="information/news/:newsId" element={<ParentInformationNewsDetail />} />

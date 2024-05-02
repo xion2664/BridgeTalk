@@ -1,14 +1,10 @@
 package com.ssafy.bridgetalkback.chatgpt.service;
 
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
-import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.common.ServiceTest;
-import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
-import io.lettuce.core.ScriptOutputType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("ChatGpt [Service Layer] -> ChatGptService 테스트")

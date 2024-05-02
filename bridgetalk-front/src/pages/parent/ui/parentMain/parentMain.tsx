@@ -1,5 +1,8 @@
+import { customAxios } from '@/shared';
 import * as S from '@/styles/parent/parentMain.style';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useReportStore } from '../../store';
 
 export function ParentMain() {
   const navigate = useNavigate();
