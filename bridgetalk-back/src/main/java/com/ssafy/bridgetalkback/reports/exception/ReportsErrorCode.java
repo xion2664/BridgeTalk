@@ -1,6 +1,5 @@
 package com.ssafy.bridgetalkback.reports.exception;
 
-import ch.qos.logback.core.spi.ErrorCodes;
 import com.ssafy.bridgetalkback.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

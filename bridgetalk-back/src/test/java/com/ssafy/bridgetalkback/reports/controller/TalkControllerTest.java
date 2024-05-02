@@ -16,7 +16,6 @@ import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
