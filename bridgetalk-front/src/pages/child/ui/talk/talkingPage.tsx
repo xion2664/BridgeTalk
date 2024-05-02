@@ -8,7 +8,7 @@ import {
   stopRecordVoice,
 } from '@/shared';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { getTalkStart, postMakeReport } from '../../model';
+import { getTalkStart, postMakeReport, postSendTalk } from '../../model';
 
 export function TalkingPage() {
   interface AudioContext {
@@ -135,9 +135,7 @@ function RecordButton({ isRecording, setIsRecording }: any) {
       onClick={() => {
         if (isRecording) {
           setIsRecording(false);
-          // setTimeout(() => {
-          //   setIsRecordFinished(true);
-          // }, 250);
+          postSendTalk(1);
         } else {
           setIsRecording(true);
         }
