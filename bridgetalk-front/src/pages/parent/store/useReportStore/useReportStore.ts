@@ -3,6 +3,12 @@ import { create } from 'zustand';
 interface Store {
   reportList: Report[];
   setReportList: (reportList: Report[]) => void;
+  language: Language['type'];
+  setLangauge: (language: Language['type']) => void;
+}
+
+interface Language {
+  type: 'kor' | 'viet';
 }
 
 interface Report {
@@ -41,4 +47,6 @@ export const useReportStore = create<Store>()((set) => ({
     },
   ],
   setReportList: (reportList: Report[]) => set({ reportList: reportList }),
+  language: 'kor',
+  setLangauge: (language: Language['type']) => set({ language: language }),
 }));
