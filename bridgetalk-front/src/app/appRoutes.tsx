@@ -30,7 +30,7 @@ export function AppRoutes() {
   return (
     <Routes>
       {/* 메인화면 관련 */}
-      <Route path="/" element={<Main />}>
+      <Route path="/" element={<TalkingPage />}>
         <Route path="start" element={<StartPage />} />
         <Route path="signin" element={<SignInPage />} />
         <Route path="signup" element={<SignUpPage />} />
@@ -53,6 +53,7 @@ export function AppRoutes() {
 
       {/* 아이 관련 */}
       <Route path="/child/talk" element={<TalkingPage />}></Route>
+
       {/* 기능 테스트용 페이지 - 추후 삭제 */}
       <Route path="/test" element={<Test />}>
         <Route path="camera" element={<TestCamera />} />
