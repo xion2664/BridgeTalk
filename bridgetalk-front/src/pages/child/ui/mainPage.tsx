@@ -1,3 +1,5 @@
+import * as S from '@/styles/parent/parentInformationNews.style';
+
 export function mainPage() {
   return (
     <div className="childMain">
