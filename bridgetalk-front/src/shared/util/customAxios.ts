@@ -4,10 +4,10 @@ import Swal from 'sweetalert2';
 
 export const customAxios: AxiosInstance = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}`,
-  headers: {
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZmE1NDRiNDktZTRkNS00MTE2LWIxYzktMzdmYjAyZDNiYjlhIiwiaWF0IjoxNzE0NTcxMzQ4LCJleHAiOjE3MTU3ODA5NDh9.1PDLELRTo3ljR2F2bIMRW0bmF86WqH-9Dwdq-7U9yNo',
-  },
+  // headers: {
+  //   Authorization:
+  //     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZmE1NDRiNDktZTRkNS00MTE2LWIxYzktMzdmYjAyZDNiYjlhIiwiaWF0IjoxNzE0NTcxMzQ4LCJleHAiOjE3MTU3ODA5NDh9.1PDLELRTo3ljR2F2bIMRW0bmF86WqH-9Dwdq-7U9yNo',
+  // },
 });
 
 // export const dataAxios: AxiosInstance = axios.create({

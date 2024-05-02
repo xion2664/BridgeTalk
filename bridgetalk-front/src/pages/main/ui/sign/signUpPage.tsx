@@ -36,7 +36,7 @@ export function SignUpPage() {
       parentsPassword: password,
       parentsName: name,
       parentsNickname: nickname,
-      parnetsDino: dino,
+      parentsDino: dino,
     }).then((res) => console.log(res));
   }
 
