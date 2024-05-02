@@ -5,14 +5,27 @@ import { BackButton, customAxios } from '@/shared';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getReportList } from '../../query';
+import { useReportStore } from '../../store';
 
 export function ParentReportList() {
   const navigate = useNavigate();
 
+  const reportList = useReportStore((state) => state.reportList);
+  const setReportList = useReportStore((state) => state.setReportList);
+
   useEffect(() => {
-    const fetchData = getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', 'kor');
-    console.log(fetchData);
+    async function fetchData() {
+      try {
+        const data = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', 'kor');
+        // setReportList(data); 타입 지정 필요
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchData();
   }, []);
+
   return (
     <>
       <BackButton path="../main" navigate={navigate} />
