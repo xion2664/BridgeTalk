@@ -18,6 +18,7 @@ import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.parents.service.ProfileListService;
 import com.ssafy.bridgetalkback.reports.controller.TalkController;
+import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,6 +89,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected  TalkService talkService;
+
+    @MockBean
+    protected ReportsService reportsService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

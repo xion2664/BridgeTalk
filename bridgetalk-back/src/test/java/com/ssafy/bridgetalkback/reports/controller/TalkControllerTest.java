@@ -78,4 +78,31 @@ public class TalkControllerTest extends ControllerTest {
                     .andExpect(status().isOk());
         }
     }
+
+
+    @Nested
+    @DisplayName("대화 시작 API [GET /api/reports/talk-start]")
+    class startTalk {
+        private static final String BASE_URL = "/api/reports/talk-start";
+
+        @Test
+        @DisplayName("대화 시작하기에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            Resource mockResource = mock(Resource.class);
+            doReturn(mockResource)
+                    .when(talkService)
+                    .startTalk(UUID.randomUUID());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isOk());
+        }
+    }
 }
