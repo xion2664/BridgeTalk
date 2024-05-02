@@ -12,13 +12,8 @@ export function ParentReportDetail() {
 
   const language = useReportStore((state) => state.language);
 
-  const [report, setReport] = useState({
-    reportsSummary: '오늘 학교에서 친구와 싸워서 기분이 안좋다. 나랑 탕후루 먹으러 같이 안가줘서 서운하다.',
-    reportsKeywords: ['학교', '친구', '싸움'],
-    reportsSolution: '친구와 싸워서 서운하겠다. 엄마랑 함께 탕후루를 먹으러 가자. 너 기분이 좋아지길 바랄게',
-    createdAt: '2024-04-23 24:00:00',
-  });
-  const [date, setDate] = useState<string[]>(report.createdAt.split(' ')[0].split('-'));
+  const [report, setReport] = useState<any>('');
+  const [date, setDate] = useState<string[]>([]);
 
   useEffect(() => {
     console.log(params);
@@ -30,8 +25,8 @@ export function ParentReportDetail() {
           language,
         );
 
-        // setReport(data);
-        // setDate(data.createdAt.split(' ')[0].split('-'));
+        setReport(data.data);
+        setDate(data.data.createdAt.split('T')[0].split('-'));
       } catch (err) {
         console.log(err);
       }
@@ -45,21 +40,25 @@ export function ParentReportDetail() {
       <BackButton path="../report" navigate={navigate} />
       <S.ContentContainer>
         <div className="leftside">
-          <div className="title">
-            {date[0]}년 {date[1]}월 {date[2]}일 분석 리포트
-            {/* <TransltaionButton isKor={isKor} setIsKor={setIsKor} /> */}
-          </div>
-          <div className="content-container">
-            <div className="content">
-              <S.Keywords>
-                {report.reportsKeywords.map((keyword) => (
-                  <div className="keyword">#{keyword}</div>
-                ))}
-              </S.Keywords>
-              <S.Summary>{report.reportsSummary}</S.Summary>
-            </div>
-            <div className="solution">{report.reportsSolution}</div>
-          </div>
+          {report && (
+            <>
+              <div className="title">
+                {date[0]}년 {date[1]}월 {date[2]}일 분석 리포트
+                {/* <TransltaionButton isKor={isKor} setIsKor={setIsKor} /> */}
+              </div>
+              <div className="content-container">
+                <div className="content">
+                  <S.Keywords>
+                    {report.reportsKeywords.map((keyword: any) => (
+                      <div className="keyword">#{keyword}</div>
+                    ))}
+                  </S.Keywords>
+                  <S.Summary>{report.reportsSummary}</S.Summary>
+                </div>
+                <div className="solution">{report.reportsSolution}</div>
+              </div>
+            </>
+          )}
         </div>
         <ParentReportDetailRecorder />
       </S.ContentContainer>
