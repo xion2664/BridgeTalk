@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLogin } from '@/pages/main/query/login';
-import { useUserStore } from '@/pages/main/store/user';
+import { useUserStore } from '@/pages/main/store/useUserStore/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import * as S from '@/styles/main/signIn.style';
 import { HomeButton } from '@/shared';
@@ -9,6 +9,8 @@ import { handleSignin } from '../../model';
 
 export function SignInPage() {
   const navigate = useNavigate();
+
+  const userStore = useUserStore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,10 +47,14 @@ export function SignInPage() {
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSignin({
-                email,
-                password,
-              });
+              handleSignin(
+                {
+                  email,
+                  password,
+                },
+                userStore,
+                navigate,
+              );
             }
           }}
         />
@@ -56,12 +62,14 @@ export function SignInPage() {
       <button
         className="button"
         onClick={() => {
-          handleSignin({
-            email,
-            password,
-          });
-
-          // navigate('/profile');
+          handleSignin(
+            {
+              email,
+              password,
+            },
+            userStore,
+            navigate,
+          );
         }}
       >
         다음
