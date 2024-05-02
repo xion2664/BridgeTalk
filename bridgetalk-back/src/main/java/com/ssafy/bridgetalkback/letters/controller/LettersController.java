@@ -37,7 +37,13 @@ public class LettersController {
         return ResponseEntity.ok(lettersService.createText(voiceUrl, userId, lettersRequestDTO.reportsId()));
     }
 
-
+    @DeleteMapping("/{lettersId}")
+    public ResponseEntity<?> deleteLettersVoice(@ExtractPayload String userId, @PathVariable Long lettersId){
+        log.info("{LettersController} : 음성편지 삭제 컨트롤러 진입");
+        log.info(" >> LettersId : "+ lettersId );
+        lettersService.deleteLetters(lettersId);
+        return ResponseEntity.ok().build();
+    }
 
 
 }

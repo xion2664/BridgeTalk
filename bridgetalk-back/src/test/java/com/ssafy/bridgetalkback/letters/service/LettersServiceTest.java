@@ -18,8 +18,10 @@ import org.springframework.core.io.Resource;
 
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SOYOUNG;
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -161,6 +163,24 @@ public class LettersServiceTest extends ServiceTest {
         assertThat(voiceResource).isEqualTo(expectedVoice);
         assertThat(existLetters.getIsChecked()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("음성 편지 삭제에 성공한다.")
+    void deleteLettersSuccess() {
+        // given
+        deletedLetters.updateIsDeleted();
+
+        // when
+        lettersService.deleteLetters(existLetters.getLettersId());
+
+        // then
+        assertThat(existLetters.getIsDeleted()).isEqualTo(1);
+
+        Assertions.assertThatThrownBy(() -> lettersService.findById(deletedLetters.getLettersId()))
+                .isInstanceOf(BaseException.class)
+                .hasMessageContaining(LettersErrorCode.LETTERS_NOT_FOUND.getMessage());
+    }
+
 
 
 }

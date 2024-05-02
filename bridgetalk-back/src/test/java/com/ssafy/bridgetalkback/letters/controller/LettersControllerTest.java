@@ -115,5 +115,23 @@ class LettersControllerTest extends ControllerTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("음성 편지 삭제에 성공한다.")
+    void deleteSuccess() throws Exception {
+        // given
+        given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+        doNothing().when(lettersService).deleteLetters(any(Long.class));
+
+        // when
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .delete(BASE_URL + "/" + any(Long.class))
+                .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
+                .accept(MediaType.APPLICATION_JSON);
+
+        // then
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk());
+    }
 }
 

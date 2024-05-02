@@ -204,7 +204,7 @@ public class ReportsControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("Reports 생성 API [GET /api/reports/create-reports]")
+    @DisplayName("Reports 생성 API [GET /api/reports]")
     class createReports {
 
         private static final String BASE_URL = "/api/reports";
@@ -214,7 +214,7 @@ public class ReportsControllerTest extends ControllerTest {
         void throwExceptionByInvalidPermission() throws Exception {
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .post(BASE_URL + "/create-reports");
+                    .post(BASE_URL );
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -244,7 +244,7 @@ public class ReportsControllerTest extends ControllerTest {
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .post(BASE_URL + "/create-reports")
+                    .post(BASE_URL)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
             // then
