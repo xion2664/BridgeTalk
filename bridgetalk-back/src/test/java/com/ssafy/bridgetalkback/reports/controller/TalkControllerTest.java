@@ -2,7 +2,6 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
