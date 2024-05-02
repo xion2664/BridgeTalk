@@ -29,6 +29,7 @@ export function TalkingPage() {
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
 
   const [closingComment, setClosingComment] = useState<any>();
+  const [startComment, setStartComment] = useState<any>();
 
   useEffect(() => {
     // 오디오 스트림 연결
@@ -108,7 +109,6 @@ export function TalkingPage() {
                   console.log(res.data);
                   setClosingComment(URL.createObjectURL(res.data));
                 })
-
                 .catch((err) => console.log(err));
             }}
           >
@@ -120,7 +120,7 @@ export function TalkingPage() {
           <button
             onClick={() => {
               customAxios
-                .get(`/reports/create-reports`, {
+                .post(`/reports/create-reports`, {
                   headers: {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM`,
                   },
@@ -145,11 +145,15 @@ export function TalkingPage() {
                   },
                   responseType: 'blob',
                 })
-                .then((res) => console.log(res))
+                .then((res) => {
+                  console.log(res);
+                  setStartComment(URL.createObjectURL(res.data));
+                })
                 .catch((err) => console.log(err));
             }}
           >
             대화 시작
+            {startComment && <audio src={startComment} controls />}
           </button>
         </div>
       </div>
