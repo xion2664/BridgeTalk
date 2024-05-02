@@ -4,33 +4,14 @@ import { useUserStore } from '@/pages/main/store/user';
 import { useNavigate } from 'react-router-dom';
 import * as S from '@/styles/main/signIn.style';
 import { HomeButton } from '@/shared';
+import { postSignin } from '../../query';
+import { handleSignin } from '../../model';
 
 export function SignInPage() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // const loginMutation = useLogin();
-  // const setUserData = useUserStore((state) => state.setUserData);
-
-  // const handleLogin = () => {
-  //   loginMutation.mutate(
-  //     { parents_email: email, parents_password: password },
-  //     {
-  //       onSuccess: (data) => {
-  //         // Zustand를 사용하여 사용자 데이터 저장
-  //         setUserData({
-  //           userId: data.data.userId,
-  //           userName: data.data.userName,
-  //           userEmail: data.data.userEmail,
-  //           userNickname: data.data.userNickname,
-  //           userDino: data.data.userDino,
-  //         });
-  //       },
-  //     },
-  //   );
-  // };
 
   return (
     <S.Container>
@@ -42,18 +23,45 @@ export function SignInPage() {
         <div className="email__title">
           <img src={'assets/img/main/emailicon.svg'} />
         </div>
-        <input type="text" className="email__input" />
+        <input
+          type="email"
+          className="email__input"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
       </div>
       <div className="password">
         <div className="password__title">
           <img src={'assets/img/main/passwordicon.svg'} />
         </div>
-        <input type="text" className="password__input" />
+        <input
+          type="password"
+          className="password__input"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSignin({
+                email,
+                password,
+              });
+            }
+          }}
+        />
       </div>
       <button
         className="button"
         onClick={() => {
-          navigate('/profile');
+          handleSignin({
+            email,
+            password,
+          });
+
+          // navigate('/profile');
         }}
       >
         다음
