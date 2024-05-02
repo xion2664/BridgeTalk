@@ -9,6 +9,8 @@ interface Store {
   setNickname: (nickname: string) => void;
   password: string;
   setPassword: (password: string) => void;
+  passwordCheck: string;
+  setPasswordCheck: (passwordCheck: string) => void;
   country: string;
   setCountry: (country: string) => void;
   dino: string;
@@ -24,6 +26,8 @@ export const useSignupStore = create<Store>()((set) => ({
   setNickname: (nickname: string) => set({ nickname: nickname }),
   password: '',
   setPassword: (password: string) => set({ password: password }),
+  passwordCheck: '',
+  setPasswordCheck: (passwordCheck: string) => set({ passwordCheck: passwordCheck }),
   country: '',
   setCountry: (country: string) => set({ country: country }),
   dino: '',

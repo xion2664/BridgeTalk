@@ -3,11 +3,10 @@ import * as S from '@/styles/main/inputEmail.style';
 import { useSignupStore } from '@/pages/main/store';
 
 interface EmailProps {
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-export function InputEmail({ page, setPage }: EmailProps) {
+export function InputEmail({ setPage }: EmailProps) {
   const { email, setEmail } = useSignupStore((state) => ({ email: state.email, setEmail: state.setEmail }));
 
   return (

@@ -1,31 +1,24 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/main/inputName.style';
+import { useSignupStore } from '@/pages/main/store';
 
 interface Props {
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
-  nickname: string;
-  setNickname: Dispatch<SetStateAction<string>>;
-  password: string;
-  setPassword: Dispatch<SetStateAction<string>>;
-  passwordCheck: string;
-  setPasswordCheck: Dispatch<SetStateAction<string>>;
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-export function InputName({
-  name,
-  setName,
-  nickname,
-  setNickname,
-  password,
-  setPassword,
-  passwordCheck,
-  setPasswordCheck,
-  page,
-  setPage,
-}: Props) {
+export function InputName({ setPage }: Props) {
+  const { name, setName, nickname, setNickname, password, setPassword, passwordCheck, setPasswordCheck } =
+    useSignupStore((state) => ({
+      name: state.name,
+      setName: state.setName,
+      nickname: state.nickname,
+      setNickname: state.setNickname,
+      password: state.password,
+      setPassword: state.setPassword,
+      passwordCheck: state.passwordCheck,
+      setPasswordCheck: state.setPasswordCheck,
+    }));
+
   return (
     <S.Container>
       <div className="name">

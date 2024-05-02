@@ -60,7 +60,7 @@ export function SignUpPage() {
     <S.Container>
       <HomeButton navigate={navigate} />
       {page === 0 && <InputEmail page={page} setPage={setPage} />}
-      {page === 1 && <InputName page={page} setPage={setPage} />}
+      {page === 1 && <InputName setPage={setPage} />}
       {page === 2 && <SelectDino page={page} setPage={setPage} />}
       {page === 3 && <SelectCountry page={page} setPage={setPage} handleSignup={handleSignup} />}
     </S.Container>
