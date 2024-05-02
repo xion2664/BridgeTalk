@@ -26,8 +26,8 @@ public class ReportsController {
     @PostMapping("/create-reports")
     public ResponseEntity<?> createReports(@ExtractPayload String userId) {
         log.info("{ ReportsController } : Reports 생성 진입");
-        ReportsCreateResponseDto reportsId = reportsService.createReports(UUID.fromString(userId));
+        ReportsCreateResponseDto reports = reportsService.createReports(UUID.fromString(userId));
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(reportsId);
+                .body(reports);
     }
 }

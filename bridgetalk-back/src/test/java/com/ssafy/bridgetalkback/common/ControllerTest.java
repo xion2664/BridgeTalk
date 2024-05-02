@@ -17,6 +17,7 @@ import com.ssafy.bridgetalkback.letters.service.LettersService;
 import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.parents.service.ProfileListService;
+import com.ssafy.bridgetalkback.reports.controller.ReportsController;
 import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
@@ -37,7 +38,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         TokenReissueController.class,
         ProfileListController.class,
         LettersController.class,
-        TalkController.class
+        TalkController.class,
+        ReportsController.class
 })
 public abstract class ControllerTest {
     @Autowired

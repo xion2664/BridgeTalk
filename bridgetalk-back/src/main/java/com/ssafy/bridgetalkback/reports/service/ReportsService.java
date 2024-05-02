@@ -23,9 +23,8 @@ public class ReportsService {
     private final KidsFindService kidsFindService;
     private final ReportsRepository reportsRepository;
 
-    // @TODO : reports를 생성하지 못할 때 에러 코드 보여주기
     @Transactional
-    public ReportsCreateResponseDto createReports(UUID userId) {
+    public ReportsCreateResponseDto  createReports(UUID userId) {
         log.info("{ReportsService} :  reports 생성 ");
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
         Reports reports = Reports.createReports(kids, "");
