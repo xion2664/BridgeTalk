@@ -167,11 +167,20 @@ public class LettersServiceTest extends ServiceTest {
     @Test
     @DisplayName("음성 편지 삭제에 성공한다.")
     void deleteLettersSuccess() {
+        // given
+        deletedLetters.updateIsDeleted();
+
         // when
         lettersService.deleteLetters(existLetters.getLettersId());
+
         // then
         assertThat(existLetters.getIsDeleted()).isEqualTo(1);
+
+        Assertions.assertThatThrownBy(() -> lettersService.findById(deletedLetters.getLettersId()))
+                .isInstanceOf(BaseException.class)
+                .hasMessageContaining(LettersErrorCode.LETTERS_NOT_FOUND.getMessage());
     }
+
 
 
 }
