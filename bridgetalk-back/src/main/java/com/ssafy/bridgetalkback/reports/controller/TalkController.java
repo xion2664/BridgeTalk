@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @Slf4j
-@Tag(name = "talk", description = "TalkController")@RestController
+@Tag(name = "talk", description = "TalkController")
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reports")
 public class TalkController {
@@ -29,6 +30,15 @@ public class TalkController {
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.stopTalk(UUID.fromString(userId)));
     }
+
+    @GetMapping("/talk-start")
+    public ResponseEntity<Resource> startTalk(@ExtractPayload String userId) {
+        log.info("{ TalkController } : 대화 시작 진입");
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("audio/mpeg"))
+                .body(talkService.startTalk(UUID.fromString(userId)));
+    }
+
 
     @PatchMapping("/talk-send/{reportsId}")
     public ResponseEntity<Resource> sendTalk(@ExtractPayload String userId, @PathVariable Long reportsId,
