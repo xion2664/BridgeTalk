@@ -20,7 +20,7 @@ export function ParentReportDetail() {
     async function fetchData() {
       try {
         const data: any = await getReportDetail(
-          '5810bfe0-5218-41cd-8b71-77417e5b8b44',
+          '5810bfe0-5218-41cd-8b71-77417e5b8b44', // [**] 해당 아이디는 로그인 기능 구현 후 맞춰서 수정 필요
           Number(params.reportsId),
           language,
         );

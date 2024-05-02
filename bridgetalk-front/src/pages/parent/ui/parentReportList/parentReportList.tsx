@@ -10,14 +10,16 @@ import { useReportStore } from '../../store';
 export function ParentReportList() {
   const navigate = useNavigate();
 
-  const reportList = useReportStore((state) => state.reportList);
   const setReportList = useReportStore((state) => state.setReportList);
   const language = useReportStore((state) => state.language);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data: any = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', language);
+        const data: any = await getReportList(
+          '5810bfe0-5218-41cd-8b71-77417e5b8b44', // [**] 해당 아이디는 로그인 기능 구현 후 수정 필요
+          language,
+        );
         setReportList(data);
       } catch (err) {
         console.log(err);
