@@ -16,7 +16,6 @@ export function ParentReportDetail() {
   const [date, setDate] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(params);
     async function fetchData() {
       try {
         const data: any = await getReportDetail(
@@ -24,7 +23,7 @@ export function ParentReportDetail() {
           Number(params.reportsId),
           language,
         );
-
+        console.log(data.data);
         setReport(data.data);
         setDate(data.data.createdAt.split('T')[0].split('-'));
       } catch (err) {

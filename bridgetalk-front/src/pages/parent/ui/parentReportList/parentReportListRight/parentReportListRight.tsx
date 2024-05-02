@@ -8,7 +8,7 @@ export function ParentReportListRight() {
   const reportList = useReportStore((state) => state.reportList);
 
   useEffect(() => {
-    console.log(reportList.data);
+    console.log(reportList);
   }, [reportList]);
   return (
     <S.Container>
@@ -31,8 +31,7 @@ export function ParentReportListRight() {
       <div className="content">
         <div className="list">
           {reportList &&
-            reportList.data &&
-            reportList.data.map((report: any) => (
+            reportList.map((report: any) => (
               <ParentReportListItem
                 key={report.reportsId}
                 reportsId={report.reportsId}
