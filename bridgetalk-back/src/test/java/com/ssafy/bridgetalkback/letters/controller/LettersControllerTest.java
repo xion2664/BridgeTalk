@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Letter [Controller Layer] -> LetterController 테스트")
 class LettersControllerTest extends ControllerTest {
 
-    private static final String BASE_URL = "/api/letters/upload";
+    private static final String BASE_URL = "/api/letters";
     private static final String FILE_PATH = "src/test/resources/files/";
 
 
@@ -53,7 +53,7 @@ class LettersControllerTest extends ControllerTest {
 
         // when
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(BASE_URL)
+                .post(BASE_URL+"/upload")
                 .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
         // then
@@ -75,6 +75,7 @@ class LettersControllerTest extends ControllerTest {
             return new MockMultipartFile(dir, fileName, contentType, stream);
         }
     }
+
 
     @Test
     @DisplayName("음성데이터타입(audio) 값을 반환한다.")
