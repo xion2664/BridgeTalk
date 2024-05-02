@@ -1,7 +1,11 @@
 package com.ssafy.bridgetalkback.reports.service;
 
+import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
+import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +22,7 @@ import java.util.UUID;
 public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
+    private final ChatGptService chatGptService;
 
     @Transactional
     public Resource stopTalk(UUID userId) {
@@ -32,6 +37,19 @@ public class TalkService {
         return endGreeting;
     }
 
+    @Transactional
+    public Resource sendTalk(UUID userId, String talkText) {
+        log.info("{ TalkService } : 대화 하기 (답장) 진입");
+
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String answer = createAnswer(talkText);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - "+answer);
+
+        Resource sendTalk = ttsService.textToSpeech(answer);
+        log.info("{ TalkService } : sendTalk - "+sendTalk.toString());
+        return sendTalk;
+    }
+
     // 0 ~ 4
     private int randomIdx() {
         return (int)(Math.random() * 5);
@@ -44,4 +62,17 @@ public class TalkService {
             "너와 함께할 수 있어서 즐거웠어. 다음에 또 만나자",
             "벌써 마칠 시간이네. 언제 어디서든 너를 응원할 게! 다음에 또 만나"
     };
+
+    public String createAnswer(String talkText) {
+        log.info("{ TalkService.createAnswer }");
+        String transformedText = "";
+        if (talkText.isEmpty()){
+            log.error("!! 아이 음성 텍스트가 비어었습니다.");
+            throw BaseException.type(ReportsErrorCode.CHATGPT_EMPTY_TEXT);
+        }
+        transformedText = chatGptService.createPrompt(talkText, ChatGptRequestCode.ANSWER);
+        log.info(">> transformedText : {}", transformedText);
+
+        return transformedText;
+    }
 }
