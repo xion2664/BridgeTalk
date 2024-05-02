@@ -38,18 +38,6 @@ export function TalkingPage() {
     // 토큰 체크
     console.log(process.env.REACT_APP_CHILD_TOKEN);
 
-    // 대화 시작 API - 아직 머지 안됨
-    // customAxios
-    //   .get(`reports/create-reports`, {
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.REACT_APP_CHILD_TOKEN}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   })
-    //   .catch((err) => console.log(err));
-
     customAxios
       .get(`/reports/talk-stop`, {
         headers: {
@@ -106,10 +94,63 @@ export function TalkingPage() {
         <div className="talking__container-talk">
           <p>dino's dialogue</p>
           <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
-          <div>
-            종료대화
-            {closingComment && <audio src={closingComment} controls hidden />}
-          </div>
+          <button
+            onClick={() => {
+              customAxios
+                .get('/reports/talk-stop', {
+                  headers: {
+                    Authorization:
+                      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM',
+                  },
+                  responseType: 'blob',
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  setClosingComment(URL.createObjectURL(res.data));
+                })
+
+                .catch((err) => console.log(err));
+            }}
+          >
+            대화 종료
+            {closingComment && <audio src={closingComment} controls />}
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              customAxios
+                .get(`/reports/create-reports`, {
+                  headers: {
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM`,
+                  },
+                })
+                .then((res) => {
+                  console.log(res.data);
+                })
+                .catch((err) => console.log(err));
+            }}
+          >
+            리포트 만들기
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              customAxios
+                .get(`/reports/talk-start`, {
+                  headers: {
+                    Authorization:
+                      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM',
+                  },
+                  responseType: 'blob',
+                })
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+            }}
+          >
+            대화 시작
+          </button>
         </div>
       </div>
     </div>
