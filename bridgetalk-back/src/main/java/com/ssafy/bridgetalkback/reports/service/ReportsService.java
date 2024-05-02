@@ -9,7 +9,6 @@ import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
-import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.exception.KidsErrorCode;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
@@ -40,7 +39,6 @@ public class ReportsService {
     private final ReportsRepository reportsRepository;
     private final ReportsFindService reportsFindService;
     private final KidsRepository kidsRepository;
-    private final KidsFindService kidsFindService;
     private final S3FileService s3FileService;
     private final AmazonS3 s3Client;
     private final ObjectMapper objectMapper;

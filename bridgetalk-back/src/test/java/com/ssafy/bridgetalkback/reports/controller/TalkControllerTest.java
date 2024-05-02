@@ -24,13 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName("Talk [Controller Layer] -> TalkController 테스트")
 public class TalkControllerTest extends ControllerTest {
-    private final String FILE_PATH = "src/test/resources/files/";
-
-    @AfterEach
-    public void tearDown() {
-
-    }
-
     @Nested
     @DisplayName("대화 종료 API [GET /api/reports/talk-stop]")
     class stopTalk {
