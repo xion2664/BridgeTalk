@@ -9,17 +9,11 @@ import { SelectCountry } from './components/selectCountry';
 import { useNavigate } from 'react-router-dom';
 import { HomeButton } from '@/shared';
 import { postSignup } from '../../query';
+import { useSignupStore } from '../../store';
 
 export function SignUpPage() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [dino, setDino] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [country, setCountry] = useState<string>('');
   const [page, setPage] = useState<number>(0);
 
   // const registerMutation = useRegister();
@@ -34,18 +28,8 @@ export function SignUpPage() {
   //   });
   // };
 
-  function handleSignup(
-    email: string,
-    password: string,
-    passwordCheck: string,
-    name: string,
-    nickname: string,
-    dino: string,
-  ) {
-    if (password !== passwordCheck) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
+  function handleSignup(email: string, password: string, name: string, nickname: string, dino: string) {
+    console.log(email, password, name, nickname, dino);
 
     postSignup({
       parentsEmail: email,
@@ -53,16 +37,16 @@ export function SignUpPage() {
       parentsName: name,
       parentsNickname: nickname,
       parnetsDino: dino,
-    });
+    }).then((res) => console.log(res));
   }
 
   return (
     <S.Container>
       <HomeButton navigate={navigate} />
-      {page === 0 && <InputEmail page={page} setPage={setPage} />}
+      {page === 0 && <InputEmail setPage={setPage} />}
       {page === 1 && <InputName setPage={setPage} />}
-      {page === 2 && <SelectDino page={page} setPage={setPage} />}
-      {page === 3 && <SelectCountry page={page} setPage={setPage} handleSignup={handleSignup} />}
+      {page === 2 && <SelectDino setPage={setPage} />}
+      {page === 3 && <SelectCountry setPage={setPage} handleSignup={handleSignup} />}
     </S.Container>
   );
 }

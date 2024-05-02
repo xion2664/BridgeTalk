@@ -25,25 +25,53 @@ export function InputName({ setPage }: Props) {
         <div className="name__title">
           <img src={'assets/img/main/nameicon.svg'} />
         </div>
-        <input className="name__input" type="text" />
+        <input
+          className="name__input"
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
       </div>
       <div className="nickname">
         <div className="nickname__title">
           <img src={'assets/img/main/nicknameicon.svg'} />
         </div>
-        <input className="nickname__input" type="text" />
+        <input
+          className="nickname__input"
+          type="text"
+          value={nickname}
+          onChange={(e) => {
+            setNickname(e.target.value);
+          }}
+        />
       </div>
       <div className="password">
         <div className="password__title">
           <img src={'assets/img/main/passwordicon.svg'} />
         </div>
-        <input className="password__input" type="text" />
+        <input
+          className="password__input"
+          type="text"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
       </div>
       <div className="passwordcheck">
         <div className="passwordcheck__title">
           <img src={'assets/img/main/passwordcheckicon.svg'} />
         </div>
-        <input className="passwordcheck__input" type="text" />
+        <input
+          className="passwordcheck__input"
+          type="text"
+          value={passwordCheck}
+          onChange={(e) => {
+            setPasswordCheck(e.target.value);
+          }}
+        />
       </div>
       <div className="buttons">
         <button
@@ -58,6 +86,11 @@ export function InputName({ setPage }: Props) {
         <button
           className="buttons__next"
           onClick={() => {
+            if (password !== passwordCheck) {
+              alert('입력한 비밀번호가 일치하지 않습니다.');
+              return;
+            }
+
             setPage((page) => page + 1);
           }}
         >

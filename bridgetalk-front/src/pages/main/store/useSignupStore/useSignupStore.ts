@@ -28,8 +28,8 @@ export const useSignupStore = create<Store>()((set) => ({
   setPassword: (password: string) => set({ password: password }),
   passwordCheck: '',
   setPasswordCheck: (passwordCheck: string) => set({ passwordCheck: passwordCheck }),
-  country: '',
+  country: 'viet',
   setCountry: (country: string) => set({ country: country }),
-  dino: '',
+  dino: 'D1',
   setDino: (dino: string) => set({ dino: dino }),
 }));

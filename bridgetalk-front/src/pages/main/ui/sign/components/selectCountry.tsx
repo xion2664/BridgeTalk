@@ -1,17 +1,23 @@
+import { useSignupStore } from '@/pages/main/store';
 import * as S from '@/styles/main/selectCountry.style';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  country: string;
-  setCountry: Dispatch<SetStateAction<string>>;
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
   handleSignup: any;
 }
 
-export function SelectCountry({ country, setCountry, page, setPage, handleSignup }: Props) {
+export function SelectCountry({ setPage, handleSignup }: Props) {
   const navigate = useNavigate();
+
+  const { email, password, name, nickname, dino } = useSignupStore((state) => ({
+    email: state.email,
+    password: state.password,
+    name: state.name,
+    nickname: state.nickname,
+    dino: state.dino,
+  }));
 
   return (
     <S.Container>
@@ -44,7 +50,7 @@ export function SelectCountry({ country, setCountry, page, setPage, handleSignup
         <button
           className="buttons__next"
           onClick={() => {
-            handleSignup();
+            handleSignup(email, password, name, nickname, dino);
             navigate('/start');
           }}
         >
