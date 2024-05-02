@@ -10,18 +10,17 @@ import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
+import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
-import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
+import com.ssafy.bridgetalkback.letters.dto.response.LettersTextResponseDto;
+import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.exception.TranslateBadRequestException;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
-import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
-import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +33,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,10 +58,10 @@ public class LettersService {
     private final AmazonS3 s3Client;
     private final ObjectMapper objectMapper;
     private final LettersRepository lettersRepository;
-    private final ParentsRepository parentsRepository;
     private final TtsService ttsService;
     private final ReportsService reportsService;
     private final ParentsFindService parentsFindService;
+    private final KidsFindService kidsFindService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -266,4 +266,25 @@ public class LettersService {
         Letters letters = findById(lettersId);
         letters.updateIsDeleted();
     }
+
+    public LettersTextResponseDto findLettersText(Long lettersId) {
+        log.info("{ LetterService.findLettersText() } : 편지 텍스트 조회 메서드");
+        Letters letters = findById(lettersId);
+        return LettersTextResponseDto.of(letters);
+    }
+
+    public List<LettersTextResponseDto> findAllKidsLetters(UUID kidsUuid) {
+        log.info("{LettersService} :Kids에 해당하는 모든 편지의 번역본, id, 등록날짜 반환 서비스 진입");
+        List<Letters> lettersByKidsList = findAllByKids(kidsUuid);
+        List<LettersTextResponseDto> lettersTextList = lettersByKidsList.stream().map(letters -> LettersTextResponseDto.of(letters)).collect(Collectors.toList());
+        return lettersTextList;
+    }
+
+    public List<Letters> findAllByKids(UUID kidsUuid) {
+        log.info("{LettersService} :Kids에 해당하는 삭제되지 않은 모든 편지 조회 서비스 진입");
+        kidsFindService.findKidsByUuidAndIsDeleted(kidsUuid);
+        List<Letters> lettersByKidsList = lettersRepository.findAllByReportsKidsUuid(kidsUuid);
+        return lettersByKidsList;
+    }
+
 }
