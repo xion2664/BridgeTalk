@@ -6,7 +6,12 @@ export function ParentMain() {
 
   return (
     <S.Container>
-      <button className="home">
+      <button
+        className="home"
+        onClick={() => {
+          navigate('/profile');
+        }}
+      >
         <img src={'/assets/img/parent/homeIcon.svg'} />
       </button>
       <div className="logo">
