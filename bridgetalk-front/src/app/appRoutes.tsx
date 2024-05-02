@@ -21,6 +21,7 @@ import {
   ProfilePage,
   SignInPage,
   SignUpPage,
+  TalkingPage,
 } from '@/pages';
 import { Main } from '@/pages/main/ui/main/main';
 import { EditProfilePage } from '@/pages/main/ui/profile/editProfilePage';
@@ -50,6 +51,8 @@ export function AppRoutes() {
         <Route path="*" element={<ErrorPage />} />
       </Route>
 
+      {/* 아이 관련 */}
+      <Route path="/child/talk" element={<TalkingPage />}></Route>
       {/* 기능 테스트용 페이지 - 추후 삭제 */}
       <Route path="/test" element={<Test />}>
         <Route path="camera" element={<TestCamera />} />
