@@ -1,6 +1,21 @@
 import { create } from 'zustand';
 
-export const useSignupStore = create<any>()((set) => ({
+interface Store {
+  email: string;
+  setEmail: (email: string) => void;
+  name: string;
+  setName: (name: string) => void;
+  nickname: string;
+  setNickname: (nickname: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+  country: string;
+  setCountry: (country: string) => void;
+  dino: string;
+  setDino: (dino: string) => void;
+}
+
+export const useSignupStore = create<Store>()((set) => ({
   email: '',
   setEmail: (email: string) => set({ email: email }),
   name: '',

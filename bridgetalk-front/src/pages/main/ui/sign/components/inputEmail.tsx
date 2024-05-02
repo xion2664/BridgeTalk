@@ -1,14 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/main/inputEmail.style';
+import { useSignupStore } from '@/pages/main/store';
 
 interface EmailProps {
-  email: string;
-  setEmail: Dispatch<SetStateAction<string>>;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-export function InputEmail({ email, setEmail, page, setPage }: EmailProps) {
+export function InputEmail({ page, setPage }: EmailProps) {
+  const { email, setEmail } = useSignupStore((state) => ({ email: state.email, setEmail: state.setEmail }));
+
   return (
     <S.Container>
       <div className="email">
