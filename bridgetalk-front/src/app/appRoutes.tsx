@@ -19,10 +19,11 @@ import {
   ParentInformationNewsDetail,
   StartPage,
   ProfilePage,
+  SignInPage,
+  SignUpPage,
 } from '@/pages';
 import { Main } from '@/pages/main/ui/main/main';
-import LoginComponent from '@/pages/main/ui/sign/signInPage';
-import RegisterComponent from '@/pages/main/ui/sign/signUpPage';
+import { EditProfilePage } from '@/pages/main/ui/profile/editProfilePage';
 
 export function AppRoutes() {
   return (
@@ -30,9 +31,11 @@ export function AppRoutes() {
       {/* 메인화면 관련 */}
       <Route path="/" element={<Main />}>
         <Route path="start" element={<StartPage />} />
-        <Route path="signin" element={<LoginComponent />} />
-        <Route path="signup" element={<RegisterComponent />} />
+        <Route path="signin" element={<SignInPage />} />
+        <Route path="signup" element={<SignUpPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="addProfile" element={<EditProfilePage type="new" />} />
+        <Route path="editProfile" element={<EditProfilePage type="edit" />} />
       </Route>
 
       {/* 부모 관련 */}
