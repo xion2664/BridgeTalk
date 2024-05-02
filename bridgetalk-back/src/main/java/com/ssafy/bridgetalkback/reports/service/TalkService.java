@@ -23,7 +23,6 @@ public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
     private final ChatGptService chatGptService;
-    private final ReportsService reportsService;
     private final String[] stopComment = {
             "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
             "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!",

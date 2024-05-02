@@ -25,16 +25,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Talk [Controller Layer] -> TalkController 테스트")
 public class TalkControllerTest extends ControllerTest {
     @Nested
-    @DisplayName("대화 종료 API [GET /api/reports/talk-stop]")
+    @DisplayName("대화 종료 API [GET /api/reports/talk-stop/{reportsId}]")
     class stopTalk {
-        private static final String BASE_URL = "/api/reports/talk-stop";
+        private static final String BASE_URL = "/api/reports/talk-stop/{reportsId}";
+        private static final Long REPORTS_ID = 1L;
 
         @Test
         @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
         void throwExceptionByInvalidPermission() throws Exception {
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL);
+                    .get(BASE_URL, REPORTS_ID);
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -57,13 +58,16 @@ public class TalkControllerTest extends ControllerTest {
             // given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             Resource mockResource = mock(Resource.class);
+            doNothing()
+                    .when(reportsUpdateService)
+                    .createReportAsync(REPORTS_ID);
             doReturn(mockResource)
                     .when(talkService)
                     .stopTalk(UUID.randomUUID());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL)
+                    .get(BASE_URL, REPORTS_ID)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
             // then
