@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
+import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Tag(name = "talk", description = "TalkController")
@@ -22,10 +24,12 @@ import java.util.UUID;
 public class TalkController {
     private final TalkService talkService;
     private final ReportsService reportsService;
+    private final ReportsUpdateService reportsUpdateService;
 
-    @GetMapping("/talk-stop")
-    public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId) {
+    @GetMapping("/talk-stop/{reportsId}")
+    public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId, @PathVariable Long reportsId) throws ExecutionException, InterruptedException {
         log.info("{ TalkController } : 대화 종료 진입");
+        reportsUpdateService.createReportAsync(reportsId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.stopTalk(UUID.fromString(userId)));

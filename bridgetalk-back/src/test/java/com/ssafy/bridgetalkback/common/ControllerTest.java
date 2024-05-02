@@ -20,6 +20,7 @@ import com.ssafy.bridgetalkback.parents.service.ProfileListService;
 import com.ssafy.bridgetalkback.reports.controller.ReportsController;
 import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
+import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +95,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ReportsService reportsService;
+
+    @MockBean
+    protected ReportsUpdateService reportsUpdateService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
