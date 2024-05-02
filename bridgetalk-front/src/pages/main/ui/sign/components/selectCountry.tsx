@@ -7,9 +7,10 @@ interface Props {
   setCountry: Dispatch<SetStateAction<string>>;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  handleSignup: any;
 }
 
-export function SelectCountry({ country, setCountry, page, setPage }: Props) {
+export function SelectCountry({ country, setCountry, page, setPage, handleSignup }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -40,7 +41,13 @@ export function SelectCountry({ country, setCountry, page, setPage }: Props) {
           <img src={'assets/img/previcon.svg'} />
           이전
         </button>
-        <button className="buttons__next" onClick={() => navigate('/start')}>
+        <button
+          className="buttons__next"
+          onClick={() => {
+            handleSignup();
+            navigate('/start');
+          }}
+        >
           완료
           <img src={'assets/img/main/star.svg'} />
         </button>

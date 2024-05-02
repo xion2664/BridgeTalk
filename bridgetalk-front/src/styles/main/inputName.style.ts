@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   input {
     border-radius: 15svw;
-    border: 1.5svw solid ${color(1).main};
+    border: 1svw solid ${color(1).main};
     padding: 1.2svh 2svw;
     height: 13.3svh;
     width: 100%;

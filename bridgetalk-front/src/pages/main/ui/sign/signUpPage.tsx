@@ -8,6 +8,7 @@ import { SelectDino } from './components/selectDino';
 import { SelectCountry } from './components/selectCountry';
 import { useNavigate } from 'react-router-dom';
 import { HomeButton } from '@/shared';
+import { postSignup } from '../../query';
 
 export function SignUpPage() {
   const navigate = useNavigate();
@@ -33,26 +34,35 @@ export function SignUpPage() {
   //   });
   // };
 
+  function handleSignup(
+    email: string,
+    password: string,
+    passwordCheck: string,
+    name: string,
+    nickname: string,
+    dino: string,
+  ) {
+    if (password !== passwordCheck) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    postSignup({
+      parentsEmail: email,
+      parentsPassword: password,
+      parentsName: name,
+      parentsNickname: nickname,
+      parnetsDino: dino,
+    });
+  }
+
   return (
     <S.Container>
       <HomeButton navigate={navigate} />
-      {page === 0 && <InputEmail email={email} setEmail={setEmail} page={page} setPage={setPage} />}
-      {page === 1 && (
-        <InputName
-          password={password}
-          setPassword={setPassword}
-          name={name}
-          setName={setName}
-          passwordCheck={passwordCheck}
-          setPasswordCheck={setPasswordCheck}
-          nickname={nickname}
-          setNickname={setNickname}
-          page={page}
-          setPage={setPage}
-        />
-      )}
-      {page === 2 && <SelectDino dino={dino} setDino={setDino} page={page} setPage={setPage} />}
-      {page === 3 && <SelectCountry country={country} setCountry={setCountry} page={page} setPage={setPage} />}
+      {page === 0 && <InputEmail page={page} setPage={setPage} />}
+      {page === 1 && <InputName page={page} setPage={setPage} />}
+      {page === 2 && <SelectDino page={page} setPage={setPage} />}
+      {page === 3 && <SelectCountry page={page} setPage={setPage} handleSignup={handleSignup} />}
     </S.Container>
   );
 }

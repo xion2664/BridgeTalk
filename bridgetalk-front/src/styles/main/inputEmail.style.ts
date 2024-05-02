@@ -36,6 +36,7 @@ export const Container = styled.div`
     }
 
     &__input {
+      padding-right: 11.5svw;
     }
 
     &__verify {
