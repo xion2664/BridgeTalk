@@ -48,7 +48,7 @@ public class ReportsServiceTest extends ServiceTest {
     private ReportsService reportsService;
 
     @Autowired
-    private ReportsCreateService reportsCreateService;
+    private ReportsUpdateService reportsCreateService;
 
     @Autowired
     private ProfileListService profileListService;

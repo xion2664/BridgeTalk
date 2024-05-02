@@ -3,7 +3,6 @@ package com.ssafy.bridgetalkback.reports.service;
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.service.ProfileListService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,15 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("Reports [Service Layer] -> ReportsCreateService 테스트")
-public class ReportsCreateServiceTest extends ServiceTest {
+public class ReportsUpdateServiceTest extends ServiceTest {
 
     private Parents parents;
     private Kids kids;
-
     private Reports reports;
 
     @Autowired
-    private ReportsCreateService reportsService;
+    private ReportsUpdateService reportsService;
 
     @Autowired
     private ReportsFindService reportsFindService;
@@ -41,7 +39,7 @@ public class ReportsCreateServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("아이 속마음 레포트 저장에 성공한다.")
-    void createReports() {
+    void updateReports() {
         //given
         Long reportsId = reports.getReportsId();
 
@@ -63,7 +61,7 @@ public class ReportsCreateServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("(비동기) 아이 속마음 레포트 저장에 성공한다.")
-    void createReportsAsync() throws ExecutionException, InterruptedException {
+    void updateReportsAsync() throws ExecutionException, InterruptedException {
         //given
         Long reportsId = reports.getReportsId();
 
