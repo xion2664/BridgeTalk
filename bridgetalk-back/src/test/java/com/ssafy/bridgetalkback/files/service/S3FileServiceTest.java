@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Import(S3MockConfig.class)
 @DisplayName("File [Service Layer] -> FileService 테스트")
-class S3FileServiceTest extends ServiceTest {
+class FileServiceTest extends ServiceTest {
     @Autowired
     private S3FileService fileService;
 

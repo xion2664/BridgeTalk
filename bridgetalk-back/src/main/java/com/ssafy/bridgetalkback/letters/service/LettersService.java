@@ -5,27 +5,22 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
-import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
 import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
+import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDTO;
+import com.ssafy.bridgetalkback.letters.dto.request.TranscriptionDTO;
+import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
-import com.ssafy.bridgetalkback.letters.exception.TranslateBadRequestException;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
-import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
-import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
-import com.ssafy.bridgetalkback.reports.domain.Reports;
-import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
+import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +41,8 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class LettersService {
+
+    private final TtsService ttsService;
 
     private final S3FileService s3FileService;
     private final ChatGptService chatGptService;
@@ -231,6 +228,29 @@ public class LettersService {
         log.info(">> transformedText : {}", transformedText);
 
         return transformedText;
+    }
+    /**
+     * pk로 편지 정보 조회 후, 데이터 삭제여부까지 확인하는 메서드
+     *
+     * @param lettersId
+     * @return pk에 해당하는 Letters 객체
+     */
+    public Letters findById(Long lettersId) {
+        log.info("{LettersService} : Id(Pk)로 편지 정보 조회");
+        return lettersRepository.findByLettersIdAndIsDeleted(lettersId, 0)
+                .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND));
+    }
+    /**
+     * pk에 해당하는 편지의 번역된 한국어 text를 음성데이터로 반환하는 메서드
+     *
+     * @param lettersId
+     * @return 번역문의 음성데이터
+     */
+    public Resource findLettersVoice(Long lettersId) {
+        Letters letter = findById(lettersId);
+        letter.updateIsChecked();
+        String inputText = letter.getLettersTranslationContent();
+        return ttsService.textToSpeech(inputText);
     }
 
 }

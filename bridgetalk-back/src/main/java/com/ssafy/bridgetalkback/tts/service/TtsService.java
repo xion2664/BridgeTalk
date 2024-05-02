@@ -55,10 +55,7 @@ public class TtsService {
                     fos.write(buffer, 0, len);
                 }
             }
-            Resource resource = new FileSystemResource(tempFile);
-            tempFile.deleteOnExit();
-
-            return resource;
+            return new FileSystemResource(tempFile);
         } catch (Exception e) {
             throw new BaseException(TtsErrorCode.CLOVA_API_ERROR);
         }

@@ -1,37 +1,55 @@
 package com.ssafy.bridgetalkback.letters.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
-import com.ssafy.bridgetalkback.files.exception.S3FileErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
-import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
+import com.ssafy.bridgetalkback.kids.domain.Kids;
+import com.ssafy.bridgetalkback.letters.domain.Letters;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.reports.domain.Reports;
+import com.ssafy.bridgetalkback.tts.service.TtsService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.Resource;
 
-import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
+import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SOYOUNG;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Letters [Service Layer] -> LettersService 테스트")
 public class LettersServiceTest extends ServiceTest {
 
     @Autowired
     private LettersService lettersService;
+    @MockBean
+    private TtsService ttsService;
     private Parents parents;
+    private Letters existLetters, deletedLetters;
+    private Kids kids;
+    private Reports reports1, reports2;
+
     @BeforeEach
     void setup() {
-        parents = parentsRepository.save(SUNKYOUNG.toParents());
+        parents = parentsRepository.save(SOYOUNG.toParents());
+        kids = kidsRepository.save(JIYEONG.toKids(parents));
+        reports1 = reportsRepository.save(Reports.createReports(kids, "속마음 원본"));
+        reports2 = reportsRepository.save(Reports.createReports(kids, "속마음 원본2"));
+        existLetters = lettersRepository.save(Letters.createLetters(parents, reports1, "편지원문", "편지번역본"));
+        deletedLetters = lettersRepository.save(Letters.createLetters(parents, reports2, "편지원문2", "편지번역본2"));
     }
 
     @Test
     @DisplayName("stt로 변환할 텍스트 파일의 존재여부 확인 : 음성 파일 url")
     void throwExceptionByExistFile() {
         //given
-        String noneS3FileUrl = "https://bridge-talk.s3.ap-northeast-2.amazonaws.com/"+" "+"/"+" ";
+        String noneS3FileUrl = "https://bridge-talk.s3.ap-northeast-2.amazonaws.com/" + " " + "/" + " ";
         Long reportsId = 1L;
 
         //when-then
@@ -109,6 +127,39 @@ public class LettersServiceTest extends ServiceTest {
         // then
         assertThat(result).isNotEmpty();
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    @DisplayName("ID(PK)로 삭제되지 않은 편지 정보를 조회한다")
+    void findById() {
+        // given
+        deletedLetters.updateIsDeleted();
+
+        // when
+        Letters findLetters = lettersService.findById(existLetters.getLettersId());
+
+        // then
+        assertThat(findLetters).isEqualTo(existLetters);
+
+        Assertions.assertThatThrownBy(() -> lettersService.findById(deletedLetters.getLettersId()))
+                .isInstanceOf(BaseException.class)
+                .hasMessageContaining(LettersErrorCode.LETTERS_NOT_FOUND.getMessage());
+    }
+
+    @Test
+    @DisplayName("번역된 텍스트의 음성 데이터를 반환하고 읽음 여부가 체크된다.")
+    void findLettersVoice() {
+        // given
+        String inputText = existLetters.getLettersTranslationContent();
+        Resource expectedVoice = mock(Resource.class);
+        when(ttsService.textToSpeech(inputText)).thenReturn(expectedVoice);
+
+        // when
+        Resource voiceResource = lettersService.findLettersVoice(existLetters.getLettersId());
+
+        // then
+        assertThat(voiceResource).isEqualTo(expectedVoice);
+        assertThat(existLetters.getIsChecked()).isEqualTo(1);
     }
 
 
