@@ -17,7 +17,7 @@ export function ParentReportListRight() {
         <img src={`/assets/img/letter.svg`} />
         <div>아이 속마음 리포트</div>
       </div>
-      <div className="filter">
+      {/* <div className="filter">
         <div className="calendar">
           <FaCalendarAlt />
           <div>날짜</div>
@@ -28,7 +28,7 @@ export function ParentReportListRight() {
         <button className="search">
           <FaSearch />
         </button>
-      </div>
+      </div> */}
       <div className="content">
         <div className="list">
           {Array.isArray(reportList) &&

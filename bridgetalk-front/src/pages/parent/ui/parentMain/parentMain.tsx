@@ -25,15 +25,33 @@ export function ParentMain() {
       })
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <S.Container>
-      <button onClick={() => navigate('../report')}>
-        <div>nỗi lòng con cái</div>
+      <button
+        className="home"
+        onClick={() => {
+          navigate('/profile');
+        }}
+      >
+        <img src={'/assets/img/parent/homeIcon.svg'} />
       </button>
-      <div>DINO</div>
-      <button onClick={() => navigate('../information')}>
-        <div>lấy thông tin</div>
-      </button>
+      <div className="logo">
+        <img src={'/assets/img/parent/bridgeTalkLogo.svg'} />
+      </div>
+      <div className="main">
+        <button className="main__report" onClick={() => navigate('../report')}>
+          nỗi lòng <br />
+          con cái
+        </button>
+        <div className="main__character">
+          <img src={'/assets/img/parent/dino.svg'} />
+        </div>
+        <button className="main__info" onClick={() => navigate('../information')}>
+          lấy <br />
+          thông tin
+        </button>
+      </div>
     </S.Container>
   );
 }
