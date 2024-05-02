@@ -54,7 +54,7 @@ export function InputName({ setPage }: Props) {
         </div>
         <input
           className="password__input"
-          type="text"
+          type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -67,7 +67,7 @@ export function InputName({ setPage }: Props) {
         </div>
         <input
           className="passwordcheck__input"
-          type="text"
+          type="password"
           value={passwordCheck}
           onChange={(e) => {
             setPasswordCheck(e.target.value);
