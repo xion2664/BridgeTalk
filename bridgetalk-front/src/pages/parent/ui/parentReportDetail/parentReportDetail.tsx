@@ -4,10 +4,12 @@ import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentR
 import { BackButton } from '@/shared';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getReportDetail } from '../../query';
+import { useReportStore } from '../../store';
 
 export function ParentReportDetail() {
   const navigate = useNavigate();
-  // const [isKor, setIsKor] = useState<boolean>(true);
+
+  const language = useReportStore((state) => state.language);
 
   const [report, setReport] = useState({
     reportsSummary: '오늘 학교에서 친구와 싸워서 기분이 안좋다. 나랑 탕후루 먹으러 같이 안가줘서 서운하다.',
@@ -20,7 +22,8 @@ export function ParentReportDetail() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // const data = await getReportDetail('kidsId', '');
+        const data: any = await getReportDetail('kidsId', 1, language);
+
         // setReport(data);
         // setDate(data.createdAt.split(' ')[0].split('-'));
       } catch (err) {

@@ -12,11 +12,12 @@ export function ParentReportList() {
 
   const reportList = useReportStore((state) => state.reportList);
   const setReportList = useReportStore((state) => state.setReportList);
+  const language = useReportStore((state) => state.language);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', 'kor');
+        const data = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', language);
         // setReportList(data); 타입 지정 필요
       } catch (err) {
         console.log(err);
