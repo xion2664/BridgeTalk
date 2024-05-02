@@ -44,7 +44,7 @@ public class TalkService {
         log.info("{ TalkService } : 대화 그만하기 진입");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-        String endGreetingText = kids.getKidsNickname() + " " + stopComment[randomIdx()];
+        String endGreetingText = kids.getKidsNickname() + ", " + stopComment[randomIdx()];
         log.info("{ TalkService } : 대화 종료 text - " + endGreetingText);
 
         Resource endGreeting = ttsService.textToSpeech(endGreetingText);
