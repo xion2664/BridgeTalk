@@ -20,7 +20,7 @@ interface AudioContext {
 export const ParentReportDetailRecorder = memo(() => {
   const [lang, setLang] = useState<number>(0);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const setAudioURL = useVoiceStore((state) => state.setAudioURL);
+  const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const setVolume = useVoiceStore((state) => state.setVolume);
 
   // 녹음 관련
@@ -50,7 +50,7 @@ export const ParentReportDetailRecorder = memo(() => {
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
-      startRecordVoice(streamRef, recorderRef, setAudioURL);
+      startRecordVoice(streamRef, recorderRef, setAudioBlob);
     }
 
     return () => {

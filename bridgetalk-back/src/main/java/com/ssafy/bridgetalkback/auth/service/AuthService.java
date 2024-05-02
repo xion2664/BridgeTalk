@@ -65,7 +65,7 @@ public class AuthService {
     }
 
     @Transactional
-    public UUID kidsSignup(KidsSingupRequestDto requestDto) {
+    public UUID kidsSignup(KidsSignupRequestDto requestDto) {
         log.info("{ AuthService } : 아이 회원가입 진입");
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(requestDto.parentsId()));
 

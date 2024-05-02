@@ -20,7 +20,7 @@ public class ReportsFindService {
 
     public Reports findByReportsIdAndIsDeleted(Long reportsId) {
         log.info("{ ReportsFindService } : Id(Pk)로 레포트 정보 조회 - " + reportsId);
-        return reportsRepository.findReportsByReportsIdAndIsDeleted(reportsId, 0)
+        return reportsRepository.findByReportsIdAndIsDeleted(reportsId, 0)
                 .orElseThrow(() -> BaseException.type(ReportsErrorCode.REPORTS_NOT_FOUND));
     }
 }

@@ -18,7 +18,7 @@ export function TalkingPage() {
   }
 
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const setAudioURL = useVoiceStore((state) => state.setAudioURL);
+  const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const setVolume = useVoiceStore((state) => state.setVolume);
   const volume = useVoiceStore((state) => state.volume);
 
@@ -57,7 +57,7 @@ export function TalkingPage() {
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
-      startRecordVoice(streamRef, recorderRef, setAudioURL);
+      startRecordVoice(streamRef, recorderRef, setAudioBlob);
     }
 
     return () => {
@@ -128,20 +128,27 @@ export function TalkingPage() {
 
 function RecordButton({ isRecording, setIsRecording }: any) {
   const setIsRecordFinished = useVoiceStore((state) => state.setIsRecordFinished);
-  const audioURL = useVoiceStore((state) => state.audioURL);
+  const audioBlob = useVoiceStore((state) => state.audioBlob);
+
+  useEffect(() => {
+    if (audioBlob && audioBlob.size >= 1024) {
+      console.log(audioBlob);
+      postSendTalk(2, audioBlob).then((res) => console.log(res));
+    }
+  }, [audioBlob]);
 
   return (
     <button
       onClick={() => {
         if (isRecording) {
           setIsRecording(false);
-          postSendTalk(1);
+          // postSendTalk(15, audioBlob!);
         } else {
           setIsRecording(true);
         }
       }}
     >
-      {audioURL && <audio src={audioURL} controls />}
+      {audioBlob && <audio src={URL.createObjectURL(audioBlob)} controls />}
       {isRecording ? '녹음중단' : '녹음시작'}
     </button>
   );
