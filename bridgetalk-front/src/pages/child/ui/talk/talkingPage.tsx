@@ -8,6 +8,7 @@ import {
   stopRecordVoice,
 } from '@/shared';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { getTalkStart, postMakeReport } from '../../model';
 
 export function TalkingPage() {
   interface AudioContext {
@@ -38,21 +39,6 @@ export function TalkingPage() {
     }
     // 토큰 체크
     console.log(process.env.REACT_APP_CHILD_TOKEN);
-
-    customAxios
-      .get(`/reports/talk-stop`, {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_CHILD_TOKEN}`,
-          responsType: 'Blob',
-        },
-      })
-      .then((res) => {
-        console.log(URL.createObjectURL(res.data));
-        setClosingComment(URL.createObjectURL(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
 
     return () => {
       // 오디오 스트림 해제
@@ -119,16 +105,7 @@ export function TalkingPage() {
         <div>
           <button
             onClick={() => {
-              customAxios
-                .post(`/reports/create-reports`, {
-                  headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM`,
-                  },
-                })
-                .then((res) => {
-                  console.log(res.data);
-                })
-                .catch((err) => console.log(err));
+              postMakeReport();
             }}
           >
             리포트 만들기
@@ -137,19 +114,7 @@ export function TalkingPage() {
         <div>
           <button
             onClick={() => {
-              customAxios
-                .get(`/reports/talk-start`, {
-                  headers: {
-                    Authorization:
-                      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM',
-                  },
-                  responseType: 'blob',
-                })
-                .then((res) => {
-                  console.log(res);
-                  setStartComment(URL.createObjectURL(res.data));
-                })
-                .catch((err) => console.log(err));
+              getTalkStart(setStartComment);
             }}
           >
             대화 시작
