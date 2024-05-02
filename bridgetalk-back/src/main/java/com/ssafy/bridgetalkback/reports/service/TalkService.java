@@ -18,25 +18,7 @@ import java.util.UUID;
 public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
-
-    @Transactional
-    public Resource stopTalk(UUID userId) {
-        log.info("{ TalkService } : 대화 그만하기 진입");
-
-        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-        String endGreetingText = kids.getKidsNickname()+" "+stopComment[randomIdx()];
-        log.info("{ TalkService } : 대화 종료 text - "+endGreetingText);
-
-        Resource endGreeting = ttsService.textToSpeech(endGreetingText);
-        log.info("{ TalkService } : endGreeting - "+endGreeting.toString());
-        return endGreeting;
-    }
-
-    // 0 ~ 4
-    private int randomIdx() {
-        return (int)(Math.random() * 5);
-    }
-
+    private final ReportsService reportsService;
     private final String[] stopComment = {
             "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
             "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!",
@@ -44,4 +26,45 @@ public class TalkService {
             "너와 함께할 수 있어서 즐거웠어. 다음에 또 만나자",
             "벌써 마칠 시간이네. 언제 어디서든 너를 응원할 게! 다음에 또 만나"
     };
+    private final String[] startComment = {
+            "안녕, 반가워!",
+            "안녕, 무슨일이야? ",
+            "안녕, 언제 봐도 반가워",
+            "안녕, 너랑 이야기할 게 기대돼",
+            "안녕, 기다리고 있었어!"
+
+    };
+
+    @Transactional
+    public Resource stopTalk(UUID userId) {
+        log.info("{ TalkService } : 대화 그만하기 진입");
+
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String endGreetingText = kids.getKidsNickname() + " " + stopComment[randomIdx()];
+        log.info("{ TalkService } : 대화 종료 text - " + endGreetingText);
+
+        Resource endGreeting = ttsService.textToSpeech(endGreetingText);
+        log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
+        return endGreeting;
+    }
+
+    // 0 ~ 4
+    private int randomIdx() {
+        return (int) (Math.random() * 5);
+    }
+
+    @Transactional
+    public Resource startTalk(UUID userId) {
+        log.info("{ TalkService } : 대화 시작하기 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String startGreetingText = kids.getKidsNickname() + ", " + startComment[randomIdx()];
+        log.info("{ TalkService } : 대화 시작 text - " + startGreetingText);
+        Resource startGreeting = ttsService.textToSpeech(startGreetingText);
+        log.info("{ TalkService } : startGreeting - " + startGreeting.toString());
+
+        return startGreeting;
+
+    }
+
+
 }

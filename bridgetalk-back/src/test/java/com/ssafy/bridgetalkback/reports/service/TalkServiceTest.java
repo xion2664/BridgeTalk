@@ -47,4 +47,17 @@ public class TalkServiceTest extends ServiceTest {
         // Then
         assertThat(response).isInstanceOf(FileSystemResource.class);
     }
+
+    @Test
+    @DisplayName("대화 시작 멘트 tts 변환에 성공한다")
+    void startCommentTts() throws IOException {
+        // given
+        when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
+
+        // when
+        Resource response = talkService.startTalk(kids.getUuid());
+
+        // Then
+        assertThat(response).isInstanceOf(FileSystemResource.class);
+    }
 }
