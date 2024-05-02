@@ -1,3 +1,4 @@
+import { Children } from 'react';
 import { create } from 'zustand';
 
 interface Store {
@@ -5,6 +6,8 @@ interface Store {
   setReportList: (reportList: any[]) => void;
   language: Language['type'];
   setLangauge: (language: Language['type']) => void;
+  childrenList: any;
+  setChildrenList: (childrenList: any) => void;
 }
 
 interface Language {
@@ -23,4 +26,6 @@ export const useReportStore = create<Store>()((set) => ({
   setReportList: (reportList: any) => set({ reportList: reportList }),
   language: 'kor',
   setLangauge: (language: Language['type']) => set({ language: language }),
+  childrenList: [],
+  setChildrenList: (childrenList: any) => set({ childrenList: childrenList }),
 }));

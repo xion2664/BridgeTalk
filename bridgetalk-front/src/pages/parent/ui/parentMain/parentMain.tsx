@@ -1,9 +1,19 @@
+import { customAxios } from '@/shared';
 import * as S from '@/styles/parent/parentMain.style';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function ParentMain() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    customAxios
+      .get('/profile')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <S.Container>
       <button onClick={() => navigate('../report')}>
