@@ -4,15 +4,12 @@ import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "letters")
+@Table(name="letters")
 public class Letters extends BaseEntity {
 
     @Id
@@ -35,8 +32,7 @@ public class Letters extends BaseEntity {
 
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
-
-    @Builder
+    
     private Letters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         this.parents = parents;
         this.reports = reports;
@@ -51,4 +47,5 @@ public class Letters extends BaseEntity {
     public void updateIsChecked() {
         this.isChecked = 1;
     }
+
 }

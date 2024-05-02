@@ -2,7 +2,6 @@ package com.ssafy.bridgetalkback.letters.controller;
 
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
-import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
@@ -19,11 +18,9 @@ import java.util.UUID;
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,8 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Letter [Controller Layer] -> LetterController 테스트")
 class LettersControllerTest extends ControllerTest {
 
-    private static final String BASE_URL = "/api/letters";
+    private static final String BASE_URL = "/api/letters/upload";
     private static final String FILE_PATH = "src/test/resources/files/";
+
 
     @Test
     @DisplayName("부모 음성 편지 업로드 테스트")
