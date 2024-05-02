@@ -68,8 +68,8 @@ export const ParentReportDetailRecorder = memo(() => {
       <div className="title">답장하기</div>
       <ParentReportDetailVolumeChecker isRecording={isRecording} />
       <div>
-        <button>한국어</button>
-        <button>베트남어</button>
+        {/* <button>한국어</button>
+        <button>베트남어</button> */}
       </div>
       <ParentReportDetailRecorderButton
         isRecording={isRecording}

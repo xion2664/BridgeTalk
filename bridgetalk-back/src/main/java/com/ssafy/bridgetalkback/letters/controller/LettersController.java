@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/api/letters")
 @RequiredArgsConstructor
@@ -37,7 +39,27 @@ public class LettersController {
         return ResponseEntity.ok(lettersService.createText(voiceUrl, userId, lettersRequestDTO.reportsId()));
     }
 
+    @DeleteMapping("/{lettersId}")
+    public ResponseEntity<?> deleteLettersVoice(@ExtractPayload String userId, @PathVariable Long lettersId){
+        log.info("{LettersController} : 음성편지 삭제 컨트롤러 진입");
+        log.info(" >> LettersId : "+ lettersId );
+        lettersService.deleteLetters(lettersId);
+        return ResponseEntity.ok().build();
+    }
 
+    @GetMapping("/text/{lettersId}")
+    public ResponseEntity<?> findLettersText(@ExtractPayload String userId, @PathVariable Long lettersId){
+        log.info("{LettersController} : 편지 번역본 조회 컨트롤러 진입");
+        log.info(" >> LettersId : "+ lettersId );
 
+        return ResponseEntity.ok(lettersService.findLettersText(lettersId));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findAllKidsLetters(@ExtractPayload String userId){
+        log.info("{LettersController} : 아이의 삭제되지 않은 편지 리스트 조회 컨트롤러 진입");
+
+        return ResponseEntity.ok(lettersService.findAllKidsLetters(UUID.fromString(userId)));
+    }
 
 }

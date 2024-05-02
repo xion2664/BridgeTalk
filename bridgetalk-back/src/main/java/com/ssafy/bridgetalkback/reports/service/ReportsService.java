@@ -54,10 +54,7 @@ public class ReportsService {
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
         Reports reports = Reports.createReports(kids, "");
         reportsRepository.save(reports);
-        Long reportsId = reports.getReportsId();
-        return ReportsCreateResponseDto.builder()
-                .reportsId(reportsId)
-                .build();
+        return ReportsCreateResponseDto.fromReportsId(reports);
     }
 
     public Reports findByIdAndIsDeleted(Long reportsId) {

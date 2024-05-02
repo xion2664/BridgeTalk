@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ReportsCreateService {
+public class ReportsUpdateService {
 
     private final ChatGptService chatGptService;
     private final ReportsFindService reportsFindService;
