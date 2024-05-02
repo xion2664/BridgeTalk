@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.KidsSingupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.KidsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
@@ -207,7 +207,7 @@ public class AuthControllerTest extends ControllerTest {
                     .kidsSignup(any());
 
             // when
-            final KidsSingupRequestDto request = createKidsSingupRequestDto();
+            final KidsSignupRequestDto request = createKidsSingupRequestDto();
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                     .post(BASE_URL)
                     .contentType(APPLICATION_JSON)
@@ -285,7 +285,7 @@ public class AuthControllerTest extends ControllerTest {
                 SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
     }
 
-    private KidsSingupRequestDto createKidsSingupRequestDto() {
-        return new KidsSingupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+    private KidsSignupRequestDto createKidsSingupRequestDto() {
+        return new KidsSignupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
     }
 }

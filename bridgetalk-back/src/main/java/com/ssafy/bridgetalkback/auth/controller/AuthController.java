@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping("/kids")
-    public ResponseEntity<Void> kidsSignup(@RequestBody KidsSingupRequestDto requestDto) {
+    public ResponseEntity<Void> kidsSignup(@RequestBody KidsSignupRequestDto requestDto) {
         log.info("{ AuthController } : 아이 회원가입 (프로필 추가) 진입");
         authService.kidsSignup(requestDto);
         log.info("{ AuthService } : 아이 회원가입 성공");

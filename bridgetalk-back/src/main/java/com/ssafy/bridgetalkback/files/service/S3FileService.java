@@ -1,7 +1,7 @@
 package com.ssafy.bridgetalkback.files.service;
 
-import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.ssafy.bridgetalkback.files.exception.S3FileErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.IOException;
 import java.util.UUID;
 
@@ -20,6 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class S3FileService {
     private static final String LETTERS = "letters";
+    private static final String REPORTS = "reports";
     private final AmazonS3 amazonS3;
 
     @Value("${S3_BUCKET_NAME}")
@@ -37,6 +37,20 @@ public class S3FileService {
         log.info(">> 파일 타입 확인 : {}", file.getContentType());
         validateAudioContentType(file);
         return uploadFile(LETTERS, file);
+    }
+
+    /**
+     * uploadReportsFiles() : 음성 파일 S3 업로드 함수
+     * @param file : 입력 파일
+     * @return String : 업로드 된 S3 주소
+     * */
+    public String uploadReportsFiles(MultipartFile file) {
+        log.info("{ S3FileService } : S3 파일 업로드 서비스");
+        log.info(">> 파일 존재 여부 확인");
+        validateFileExists(file);
+        log.info(">> 파일 타입 확인 : {}", file.getContentType());
+        validateAudioContentType(file);
+        return uploadFile(REPORTS, file);
     }
 
     /**
@@ -60,7 +74,7 @@ public class S3FileService {
      * */
     private void validateAudioContentType(MultipartFile file) {
         String contentType = file.getContentType();
-        if (!(contentType.equals("audio/mpeg"))) {
+        if (!((contentType.equals("audio/mpeg")) || (contentType.equals("audio/mp4")))) {
             throw BaseException.type(S3FileErrorCode.NOT_AN_AUDIO);
         }
     }
@@ -127,7 +141,8 @@ public class S3FileService {
         String uuidName = UUID.randomUUID() + "_" + originalFileName;
 
         return switch (dir) {
-            case LETTERS -> String.format("letters/%s", uuidName);
+            case LETTERS -> String.format(dir+"letters/%s", uuidName);
+            case REPORTS -> String.format(dir+"reports/%s", uuidName);
             default -> throw BaseException.type(S3FileErrorCode.INVALID_DIR);
         };
     }
