@@ -17,7 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.UUID;
@@ -167,5 +166,33 @@ public class ReportsServiceTest extends ServiceTest {
         Assertions.assertThatThrownBy(() -> reportsService.findByIdAndIsDeleted(reports2.getReportsId()))
                 .isInstanceOf(BaseException.class)
                 .hasMessageContaining(ReportsErrorCode.REPORTS_NOT_FOUND.getMessage());
+    }
+
+    @Test
+    @DisplayName("아이 음성 파일 stt 변환에 성공한다")
+    void createText() {
+        // given
+        // s3에 미리 올려둔 파일
+        String fileName = "reports/talktest.m4a";
+
+        // when
+        String extractText = reportsService.stt(fileName);
+
+        // then
+        assertThat(extractText).isNotNull();
+    }
+
+    @Test
+    @DisplayName("아이 대화를 추가해서 reports 수정에 성공한다")
+    void updateOriginContent() {
+        // given
+        String talkText = "그래서 화가 났어";
+
+        // when
+        String oldText = reports[0].getReportsOriginContent();
+        reportsService.updateOriginContent(kids[0].getUuid(), reports[0].getReportsId(), talkText);
+
+        // then
+        assertThat(reports[0].getReportsOriginContent()).isEqualTo(oldText+"\n"+talkText);
     }
 }

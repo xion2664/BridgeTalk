@@ -1,7 +1,11 @@
 package com.ssafy.bridgetalkback.reports.service;
 
+import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
+import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +22,7 @@ import java.util.UUID;
 public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
+    private final ChatGptService chatGptService;
     private final ReportsService reportsService;
     private final String[] stopComment = {
             "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
@@ -48,11 +53,6 @@ public class TalkService {
         return endGreeting;
     }
 
-    // 0 ~ 4
-    private int randomIdx() {
-        return (int) (Math.random() * 5);
-    }
-
     @Transactional
     public Resource startTalk(UUID userId) {
         log.info("{ TalkService } : 대화 시작하기 진입");
@@ -66,5 +66,34 @@ public class TalkService {
 
     }
 
+    @Transactional
+    public Resource sendTalk(UUID userId, String talkText) {
+        log.info("{ TalkService } : 대화 하기 (답장) 진입");
 
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String answer = createAnswer(talkText);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - "+answer);
+
+        Resource sendTalk = ttsService.textToSpeech(answer);
+        log.info("{ TalkService } : sendTalk - "+sendTalk.toString());
+        return sendTalk;
+    }
+
+    // 0 ~ 4
+    private int randomIdx() {
+        return (int) (Math.random() * 5);
+    }
+
+    public String createAnswer(String talkText) {
+        log.info("{ TalkService.createAnswer }");
+        String transformedText = "";
+        if (talkText.isEmpty()){
+            log.error("!! 아이 음성 텍스트가 비어었습니다.");
+            throw BaseException.type(ReportsErrorCode.CHATGPT_EMPTY_TEXT);
+        }
+        transformedText = chatGptService.createPrompt(talkText, ChatGptRequestCode.ANSWER);
+        log.info(">> transformedText : {}", transformedText);
+
+        return transformedText;
+    }
 }

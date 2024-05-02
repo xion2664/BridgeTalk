@@ -16,9 +16,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
-import org.springframework.scheduling.annotation.Async;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +98,9 @@ public class ChatGptService {
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
             text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.ANSWER)) {
+            text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 대답해줘";
             log.info(">> prompt : {}", text);
         }
         return text;

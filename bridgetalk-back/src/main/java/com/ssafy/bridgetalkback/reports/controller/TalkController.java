@@ -9,9 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -40,4 +39,21 @@ public class TalkController {
                 .body(talkService.startTalk(UUID.fromString(userId)));
     }
 
+
+    @PatchMapping("/talk-send/{reportsId}")
+    public ResponseEntity<Resource> sendTalk(@ExtractPayload String userId, @PathVariable Long reportsId,
+                                             @RequestPart(value = "reportsFile") MultipartFile multipartFile) {
+        log.info("{ TalkController } : 대화 하기 진입");
+
+        // 아이 음성 파일 업로드 및 stt
+        String talkText = reportsService.createText(multipartFile);
+
+        // 변환 텍스트 포함 하도록 DB 원본 레포트 업데이트
+        String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);
+
+        // 변환 텍스트에 대한 답장 생성 및 tts로 변환
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("audio/mpeg"))
+                .body(talkService.sendTalk(UUID.fromString(userId), reportsText));
+    }
 }
