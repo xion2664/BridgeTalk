@@ -17,8 +17,8 @@ export function ParentReportList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', language);
-        // setReportList(data); 타입 지정 필요
+        const data: any = await getReportList('5810bfe0-5218-41cd-8b71-77417e5b8b44', language);
+        setReportList(data);
       } catch (err) {
         console.log(err);
       }

@@ -2,10 +2,14 @@ import * as S from '@/styles/parent/parentReportListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 import { FaSearch, FaCalendarAlt } from 'react-icons/fa';
 import { useReportStore } from '@/pages/parent/store';
+import { useEffect } from 'react';
 
 export function ParentReportListRight() {
   const reportList = useReportStore((state) => state.reportList);
 
+  useEffect(() => {
+    console.log(reportList.data);
+  }, [reportList]);
   return (
     <S.Container>
       <div className="title">
@@ -26,15 +30,17 @@ export function ParentReportListRight() {
       </div>
       <div className="content">
         <div className="list">
-          {reportList.map((report) => (
-            <ParentReportListItem
-              key={report.reportsId}
-              reportsId={report.reportsId}
-              reportsSummary={report.reportsSummary}
-              reportsKeywords={report.reportsKeywords}
-              createdAt={report.createdAt}
-            />
-          ))}
+          {reportList &&
+            reportList.data &&
+            reportList.data.map((report: any) => (
+              <ParentReportListItem
+                key={report.reportsId}
+                reportsId={report.reportsId}
+                reportsSummary={report.reportsSummary}
+                reportsKeywords={report.reportsKeywords}
+                createdAt={report.createdAt}
+              />
+            ))}
         </div>
         <div className="scrollbar"></div>
       </div>
