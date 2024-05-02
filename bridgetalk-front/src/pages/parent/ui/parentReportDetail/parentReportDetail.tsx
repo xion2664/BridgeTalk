@@ -1,5 +1,5 @@
 import * as S from '@/styles/parent/parentReportDetail.style';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
 import { BackButton } from '@/shared';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ import { useReportStore } from '../../store';
 
 export function ParentReportDetail() {
   const navigate = useNavigate();
+  const params = useParams();
 
   const language = useReportStore((state) => state.language);
 
@@ -20,9 +21,14 @@ export function ParentReportDetail() {
   const [date, setDate] = useState<string[]>(report.createdAt.split(' ')[0].split('-'));
 
   useEffect(() => {
+    console.log(params);
     async function fetchData() {
       try {
-        const data: any = await getReportDetail('kidsId', 1, language);
+        const data: any = await getReportDetail(
+          '5810bfe0-5218-41cd-8b71-77417e5b8b44',
+          Number(params.reportsId),
+          language,
+        );
 
         // setReport(data);
         // setDate(data.createdAt.split(' ')[0].split('-'));

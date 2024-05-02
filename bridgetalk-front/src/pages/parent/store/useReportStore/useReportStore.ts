@@ -28,6 +28,12 @@ export const useReportStore = create<Store>()((set) => ({
       createdAt: '2024-04-23 24:00:00',
     },
     {
+      reportsId: 2,
+      reportsSummary: '엄마랑 놀이동산에 가고 싶은데 내 마음을 몰라준다.',
+      reportsKeywords: ['놀이동산', '엄마'],
+      createdAt: '2024-04-23 24:00:00',
+    },
+    {
       reportsId: 3,
       reportsSummary: '엄마랑 놀이동산에 가고 싶은데 내 마음을 몰라준다.',
       reportsKeywords: ['놀이동산', '엄마'],
@@ -35,12 +41,6 @@ export const useReportStore = create<Store>()((set) => ({
     },
     {
       reportsId: 4,
-      reportsSummary: '엄마랑 놀이동산에 가고 싶은데 내 마음을 몰라준다.',
-      reportsKeywords: ['놀이동산', '엄마'],
-      createdAt: '2024-04-23 24:00:00',
-    },
-    {
-      reportsId: 7,
       reportsSummary: '엄마랑 놀이동산에 가고 싶은데 내 마음을 몰라준다.',
       reportsKeywords: ['놀이동산', '엄마'],
       createdAt: '2024-04-23 24:00:00',
