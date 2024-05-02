@@ -50,6 +50,11 @@ export function ParentReportListRight() {
                 );
               });
 
+              // 저장한 리포트 리스트를 최근 순으로 정렬하기
+              arr.sort((a: any, b: any) => {
+                return b.props.createdAt - a.props.createdAt;
+              });
+
               return arr;
             })}
         </div>

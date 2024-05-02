@@ -24,7 +24,6 @@ export function ParentReportListItem({
   const navigate = useNavigate();
   const [date, setDate] = useState<string[]>([]);
 
-  console.log(reportsId, reportsKeywords, reportsSummary);
   useEffect(() => {
     setDate(createdAt.split('T')[0].split('-'));
   }, []);
