@@ -32,8 +32,7 @@ public class Letters extends BaseEntity {
 
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
-
-    @Builder
+    
     private Letters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         this.parents = parents;
         this.reports = reports;
@@ -44,4 +43,9 @@ public class Letters extends BaseEntity {
     public static Letters createLetters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         return new Letters(parents, reports, lettersOriginalContent, lettersTranslationContent);
     }
+
+    public void updateIsChecked() {
+        this.isChecked = 1;
+    }
+
 }

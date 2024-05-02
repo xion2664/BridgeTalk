@@ -214,7 +214,7 @@ public class AuthServiceTest extends ServiceTest {
         return new LoginRequestDto(SOYOUNG.getParentsEmail(), "wrong"+SOYOUNG.getParentsPassword());
     }
 
-    private KidsSingupRequestDto createKidsSingupRequestDto() {
-        return new KidsSingupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+    private KidsSignupRequestDto createKidsSingupRequestDto() {
+        return new KidsSignupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
     }
 }

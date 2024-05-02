@@ -1,5 +1,11 @@
 import styled, { css } from 'styled-components';
 
+/**
+ * 부모 페이지 색상 팔레트
+ * 사용예: ${color(0.5).main}
+ * @param alpha
+ * @returns
+ */
 export function color(alpha: number) {
   return {
     main: `rgba(108, 149, 255, ${alpha})`,
