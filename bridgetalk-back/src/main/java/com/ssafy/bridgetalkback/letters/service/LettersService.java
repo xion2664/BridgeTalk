@@ -13,7 +13,6 @@ import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
-import com.ssafy.bridgetalkback.letters.dto.response.LettersTextResponseDto;
 import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.exception.TranslateBadRequestException;
@@ -267,16 +266,16 @@ public class LettersService {
         letters.updateIsDeleted();
     }
 
-    public LettersTextResponseDto findLettersText(Long lettersId) {
+    public LettersResponseDto findLettersText(Long lettersId) {
         log.info("{ LetterService.findLettersText() } : 편지 텍스트 조회 메서드");
         Letters letters = findById(lettersId);
-        return LettersTextResponseDto.of(letters);
+        return LettersResponseDto.of(letters);
     }
 
-    public List<LettersTextResponseDto> findAllKidsLetters(UUID kidsUuid) {
+    public List<LettersResponseDto> findAllKidsLetters(UUID kidsUuid) {
         log.info("{LettersService} :Kids에 해당하는 모든 편지의 번역본, id, 등록날짜 반환 서비스 진입");
         List<Letters> lettersByKidsList = findAllByKids(kidsUuid);
-        List<LettersTextResponseDto> lettersTextList = lettersByKidsList.stream().map(letters -> LettersTextResponseDto.of(letters)).collect(Collectors.toList());
+        List<LettersResponseDto> lettersTextList = lettersByKidsList.stream().map(letters -> LettersResponseDto.of(letters)).collect(Collectors.toList());
         return lettersTextList;
     }
 
