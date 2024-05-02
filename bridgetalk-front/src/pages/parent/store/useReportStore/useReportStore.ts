@@ -8,6 +8,8 @@ interface Store {
   setLangauge: (language: Language['type']) => void;
   childrenList: any;
   setChildrenList: (childrenList: any) => void;
+  childrenInfo: any;
+  setChildrenInfo: (childrenInfo: any) => void;
 }
 
 interface Language {
@@ -28,4 +30,6 @@ export const useReportStore = create<Store>()((set) => ({
   setLangauge: (language: Language['type']) => set({ language: language }),
   childrenList: [],
   setChildrenList: (childrenList: any) => set({ childrenList: childrenList }),
+  childrenInfo: new Map(),
+  setChildrenInfo: (childrenInfo: any) => set({ childrenInfo: childrenInfo }),
 }));

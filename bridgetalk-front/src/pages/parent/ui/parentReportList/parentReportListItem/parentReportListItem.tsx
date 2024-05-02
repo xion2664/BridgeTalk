@@ -7,9 +7,20 @@ interface Props {
   reportsSummary: string;
   reportsKeywords: string[];
   createdAt: string;
+  uuid: string;
+  name: string;
+  nickname: string;
 }
 
-export function ParentReportListItem({ reportsId, reportsSummary, reportsKeywords, createdAt }: Props) {
+export function ParentReportListItem({
+  reportsId,
+  reportsSummary,
+  reportsKeywords,
+  createdAt,
+  uuid,
+  name,
+  nickname,
+}: Props) {
   const navigate = useNavigate();
   const [date, setDate] = useState<string[]>([]);
 

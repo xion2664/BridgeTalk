@@ -5,11 +5,12 @@ import { useReportStore } from '@/pages/parent/store';
 import { useEffect } from 'react';
 
 export function ParentReportListRight() {
-  const reportList = useReportStore((state) => state.reportList);
+  const reportList: [] = useReportStore((state) => state.reportList);
 
   useEffect(() => {
     console.log(reportList);
   }, [reportList]);
+
   return (
     <S.Container>
       <div className="title">
@@ -30,16 +31,27 @@ export function ParentReportListRight() {
       </div>
       <div className="content">
         <div className="list">
-          {reportList &&
-            reportList.map((report: any) => (
-              <ParentReportListItem
-                key={report.reportsId}
-                reportsId={report.reportsId}
-                reportsSummary={report.reportsSummary}
-                reportsKeywords={report.reportsKeywords}
-                createdAt={report.createdAt}
-              />
-            ))}
+          {Array.isArray(reportList) &&
+            reportList.map((report: any) => {
+              const reportData = report.value.data;
+
+              const arr = reportData.map((it: any) => {
+                return (
+                  <ParentReportListItem
+                    key={it.reportsId}
+                    reportsId={it.reportsId}
+                    reportsSummary={it.reportsSummary}
+                    reportsKeywords={it.reportsKeywords}
+                    createdAt={it.createdAt}
+                    uuid={report.UUID}
+                    name={report.name}
+                    nickname={report.nickname}
+                  />
+                );
+              });
+
+              return arr;
+            })}
         </div>
         <div className="scrollbar"></div>
       </div>

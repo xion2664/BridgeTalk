@@ -11,20 +11,36 @@ export function ParentReportList() {
   const navigate = useNavigate();
 
   const setReportList = useReportStore((state) => state.setReportList);
+  const setChildrenInfo = useReportStore((state) => state.setChildrenInfo);
   const language = useReportStore((state) => state.language);
+  const childrenList = useReportStore((state) => state.childrenList);
+  const childrenInfo = useReportStore((state) => state.childrenInfo);
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const data: any = await getReportList(
-          '5810bfe0-5218-41cd-8b71-77417e5b8b44', // [**] 해당 아이디는 로그인 기능 구현 후 수정 필요
-          language,
-        );
-        console.log(data.data);
-        setReportList(data.data);
-      } catch (err) {
-        console.log(err);
-      }
+      // childMap: {UUID: {name, nickname}}
+      const childMap = new Map();
+
+      // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
+      const promises = childrenList.map((child: any) => {
+        childMap.set(child.userId, { name: child.userName, nickname: child.userNickname });
+        return getReportList(child.userId, language);
+      });
+
+      // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
+      const data = await Promise.allSettled(promises);
+      data.forEach((it: any) => {
+        const childUUID = it.value.request.responseURL.split('/')[5];
+
+        // child = {name, nickname}
+        const child = childMap.get(childUUID);
+
+        it.UUID = childUUID;
+        it.name = child.name;
+        it.nickname = child.nickname;
+      });
+
+      setReportList(data);
     }
 
     fetchData();

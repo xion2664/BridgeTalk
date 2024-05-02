@@ -7,7 +7,7 @@ import { useReportStore } from '../../store';
 export function ParentMain() {
   const navigate = useNavigate();
 
-  const setChildrenList = useReportStore((state) => state.childrenList);
+  const setChildrenList = useReportStore((state) => state.setChildrenList);
 
   useEffect(() => {
     customAxios
@@ -22,7 +22,6 @@ export function ParentMain() {
         }
 
         setChildrenList(childrenList);
-        console.log(childrenList);
       })
       .catch((err) => console.log(err));
   }, []);
