@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/main/inputName.style';
 import { useSignupStore } from '@/pages/main/store';
+import { validatePassword } from '@/pages/main/model';
 
 interface Props {
   setPage: Dispatch<SetStateAction<number>>;
@@ -86,6 +87,10 @@ export function InputName({ setPage }: Props) {
         <button
           className="buttons__next"
           onClick={() => {
+            if (!validatePassword(password)) {
+              alert('비밀번호는 영문, 숫자 포함 8자 ~ 20자 이내이며\n특수문자(!@#$%^&*+=-)를 포함할 수 있습니다.');
+              return;
+            }
             if (password !== passwordCheck) {
               alert('입력한 비밀번호가 일치하지 않습니다.');
               return;
