@@ -262,4 +262,8 @@ public class LettersService {
         return ttsService.textToSpeech(inputText);
     }
 
+    public void deleteLetters(Long lettersId) {
+        Letters letters = findById(lettersId);
+        letters.updateIsDeleted();
+    }
 }
