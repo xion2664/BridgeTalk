@@ -15,6 +15,7 @@ import com.ssafy.bridgetalkback.reports.domain.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
+import com.ssafy.bridgetalkback.reports.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import lombok.RequiredArgsConstructor;
@@ -74,7 +75,7 @@ public class ReportsService {
         log.info("{ ReportsService } : 아이 대화 원본 update 진입");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-        Reports reports = reportsFindService.findReportsByReportsIdAndIsDeleted(reportsId);
+        Reports reports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
 
         String updateReportsContent = reports.getReportsOriginContent() + "\n" + talkText;
         reports.updateReportsOriginContent(updateReportsContent);
