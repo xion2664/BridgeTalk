@@ -43,4 +43,9 @@ public class Letters extends BaseEntity {
     public static Letters createLetters(Parents parents, Reports reports, String lettersOriginalContent, String lettersTranslationContent) {
         return new Letters(parents, reports, lettersOriginalContent, lettersTranslationContent);
     }
+
+    public void updateIsChecked() {
+        this.isChecked = 1;
+    }
+
 }

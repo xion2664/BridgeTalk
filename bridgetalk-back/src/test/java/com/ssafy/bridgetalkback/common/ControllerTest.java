@@ -87,7 +87,7 @@ public abstract class ControllerTest {
     protected LettersService lettersService;
 
     @MockBean
-    protected TalkService talkService;
+    protected  TalkService talkService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
