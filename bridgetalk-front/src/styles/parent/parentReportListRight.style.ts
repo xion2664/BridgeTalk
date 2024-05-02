@@ -12,10 +12,14 @@ export const Container = styled.div`
   height: 100%;
 
   border-radius: 2svw;
-  padding: 5svh 1svw 1svh 1svw;
+  padding: 10svh 1svw 1svh 1svw;
 
   box-shadow: 0 1svh 0.4svh ${color(0.5).dark};
   position: relative;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   &::after {
     position: absolute;
