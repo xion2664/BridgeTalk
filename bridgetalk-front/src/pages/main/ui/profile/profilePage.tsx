@@ -16,21 +16,6 @@ export function ProfilePage() {
 
   const [profileList, setProfileList] = useState<Profile[]>([]);
 
-  const user = [
-    {
-      userId: 0,
-      dino: 'assets/img/D1.svg',
-      name: '이름1',
-    },
-    {
-      userId: 'aea81011-0743-4423-8c41-170ff790a5f9',
-      userName: '김부모',
-      userEmail: 'ssafy123@gamil.com',
-      userNickname: '부모닉네임',
-      userDino: 'D1',
-    },
-  ];
-
   useEffect(() => {
     getProfileList().then((res: any) => {
       if (res && res.data) {
@@ -44,7 +29,10 @@ export function ProfilePage() {
       <button
         className="logout"
         onClick={() => {
-          navigate('/start');
+          if (confirm('로그아웃 하시겠습니까?')) {
+            sessionStorage.clear();
+            navigate('/start');
+          }
         }}
       >
         <img src={'assets/img/main/logout.svg'} />
