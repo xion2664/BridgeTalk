@@ -36,7 +36,7 @@ export const Container = styled.div`
       border-radius: 5.2svw;
       border: none;
 
-      font-family: 'CherryBomb';
+      font-family: 'CherryBomb', 'DNF';
       font-size: 4.1svw;
       color: ${color(1).bright};
 

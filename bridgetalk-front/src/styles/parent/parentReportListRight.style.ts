@@ -78,6 +78,7 @@ export const Container = styled.div`
         font-family: 'DNF';
       }
     }
+
     .due {
       background-color: ${color(1).bright};
       border-radius: 1svw;
@@ -107,6 +108,8 @@ export const Container = styled.div`
     overflow-y: scroll;
     border-radius: 1svw;
 
+    position: relative;
+
     .list {
       width: 100%;
       min-height: 100%;
@@ -115,10 +118,28 @@ export const Container = styled.div`
 
       display: flex;
       flex-direction: column;
+
       gap: 2svh;
 
       padding: 1svh 1svw;
       border-radius: 1svw;
+
+      &__noReport {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 44.8svw;
+        }
+      }
     }
   }
 `;
