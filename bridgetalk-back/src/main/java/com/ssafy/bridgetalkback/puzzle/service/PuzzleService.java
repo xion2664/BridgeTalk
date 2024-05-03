@@ -1,6 +1,8 @@
 package com.ssafy.bridgetalkback.puzzle.service;
 
+import com.ssafy.bridgetalkback.files.service.S3FileService;
 import com.ssafy.bridgetalkback.puzzle.domain.Puzzle;
+import com.ssafy.bridgetalkback.puzzle.dto.request.PuzzleRequestDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleListResponseDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleResponseDto;
 import com.ssafy.bridgetalkback.puzzle.repository.PuzzleRepository;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,21 @@ import java.util.List;
 public class PuzzleService {
     private final PuzzleRepository puzzleRepository;
     private final PuzzleFindService puzzleFindService;
+    private final S3FileService s3FileService;
+
+    public String savePuzzleFiles(MultipartFile puzzleFile){
+        log.info("{ PuzzleService.uploadPuzzleFiles() } : 퍼즐 이미지 s3업로드 메서드");
+        return s3FileService.uploadPuzzleFiles(puzzleFile);
+    }
+
+    @Transactional
+    public Long createPuzzle(PuzzleRequestDto requestDto, String imageUrl) {
+        log.info("{ PuzzleService } : 퍼즐 등록 진입");
+        Puzzle puzzle = Puzzle.createPuzzle(requestDto.puzzleNation(), imageUrl, requestDto.puzzleLandmarkName(),
+                requestDto.puzzleLandmarkContent());
+
+        return puzzleRepository.save(puzzle).getPuzzleId();
+    }
 
     public PuzzleResponseDto puzzleDetail(Long puzzleId) {
         log.info("{ PuzzleService } : 퍼즐 상세 조회 진입");

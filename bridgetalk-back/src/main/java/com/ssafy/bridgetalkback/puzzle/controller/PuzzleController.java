@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.puzzle.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
+import com.ssafy.bridgetalkback.puzzle.dto.request.PuzzleRequestDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleListResponseDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleResponseDto;
 import com.ssafy.bridgetalkback.puzzle.service.PuzzleService;
@@ -17,6 +18,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/puzzle")
 public class PuzzleController {
     private final PuzzleService puzzleService;
+
+    // 사용자 사용x, 관리자만 사용
+    @PostMapping
+    public ResponseEntity<Void> createPuzzle(@ExtractPayload String userId, @RequestPart(value = "request") PuzzleRequestDto requestDto,
+                                             @RequestPart(value = "puzzleFile") MultipartFile multipartFile) {
+        log.info("{ PuzzleController } : 퍼즐 등록 진입");
+        String imageUrl = puzzleService.savePuzzleFiles(multipartFile);
+        puzzleService.createPuzzle(requestDto, imageUrl);
+        log.info("{ PuzzleController } : 퍼즐 등록 성공");
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/{puzzleId}")
     public ResponseEntity<PuzzleResponseDto> puzzleDetail(@ExtractPayload String userId, @PathVariable Long puzzleId) {
