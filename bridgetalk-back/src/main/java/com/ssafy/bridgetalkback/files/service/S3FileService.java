@@ -20,6 +20,7 @@ import java.util.UUID;
 public class S3FileService {
     private static final String LETTERS = "letters";
     private static final String REPORTS = "reports";
+    private static final String PUZZLE = "game-puzzle";
     private final AmazonS3 amazonS3;
 
     @Value("${S3_BUCKET_NAME}")
@@ -51,6 +52,20 @@ public class S3FileService {
         log.info(">> 파일 타입 확인 : {}", file.getContentType());
         validateAudioContentType(file);
         return uploadFile(REPORTS, file);
+    }
+
+    /**
+     * uploadPuzzleFiles() : 이미지 파일 S3 업로드 함수
+     * @param file : 입력 파일
+     * @return String : 업로드 된 S3 주소
+     * */
+    public String uploadPuzzleFiles(MultipartFile file) {
+        log.info("{ S3FileService } : S3 파일 업로드 서비스");
+        log.info(">> 파일 존재 여부 확인");
+        validateFileExists(file);
+        log.info(">> 파일 타입 확인 : {}", file.getContentType());
+        validateImageContentType(file);
+        return uploadFile(PUZZLE, file);
     }
 
     /**
@@ -141,8 +156,9 @@ public class S3FileService {
         String uuidName = UUID.randomUUID() + "_" + originalFileName;
 
         return switch (dir) {
-            case LETTERS -> String.format(dir+"letters/%s", uuidName);
-            case REPORTS -> String.format(dir+"reports/%s", uuidName);
+            case LETTERS -> String.format("letters/%s", uuidName);
+            case REPORTS -> String.format("reports/%s", uuidName);
+            case PUZZLE -> String.format("game-puzzle/%s", uuidName);
             default -> throw BaseException.type(S3FileErrorCode.INVALID_DIR);
         };
     }

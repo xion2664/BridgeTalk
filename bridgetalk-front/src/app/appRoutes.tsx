@@ -1,4 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
+
+import { ChildPage } from '@/pages/child/ui/childPage';
+
+import { MessagePage } from '@/pages/child/ui/talk/messagePage';
 import PuzzlePage from '@/pages/child/ui/game/puzzle/puzzlePage';
 import {
   Parent,
@@ -27,12 +31,14 @@ import {
 
 import { Main } from '@/pages/main/ui/main/main';
 import { EditProfilePage } from '@/pages/main/ui/profile/editProfilePage';
+import { MessageList } from '@/pages/child/ui/talk/components/messageList';
+import { Message } from '@/pages/child/ui/talk/components/message';
 
 export function AppRoutes() {
   return (
     <Routes>
       {/* 메인화면 관련 */}
-      <Route path="/" element={<TalkingPage />}>
+      <Route path="/" element={<Main />}>
         <Route path="start" element={<StartPage />} />
         <Route path="signin" element={<SignInPage />} />
         <Route path="signup" element={<SignUpPage />} />
@@ -42,6 +48,12 @@ export function AppRoutes() {
       </Route>
 
       {/* 아이 관련 */}
+      <Route path="/child" element={<ChildPage />} />
+      <Route path="/talk" element={<TalkingPage />} />
+      <Route path="/message" element={<MessagePage />}>
+        <Route path="list" element={<MessageList />} />
+        <Route path=":id" element={<Message />} />
+      </Route>
       <Route path="/puzzle" element={<PuzzlePage />} />
 
       {/* <Route path="/child" element={<Child />}>

@@ -1,4 +1,3 @@
-import * as S from '@/styles/child/talk/talkingPage.style';
 import { useVoiceStore } from '@/pages/parent';
 import {
   connectAudioStream,
@@ -11,13 +10,11 @@ import {
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '../../model';
 import { useTalkStore } from '../../store';
+import * as S from '@/styles/child/talk/talk.style';
+import { useNavigate } from 'react-router-dom';
 
 export function TalkingPage() {
-  interface AudioContext {
-    analyser: AnalyserNode;
-    bufferLength: number;
-    dataArray: Uint8Array;
-  }
+  const navigate = useNavigate();
 
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
@@ -60,7 +57,7 @@ export function TalkingPage() {
 
     if (isRecording && !volumeCheckInterval) {
       // 음량 체크
-      const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContext(streamRef)!;
+      const { analyser, bufferLength, dataArray }: any = generateAudioContext(streamRef)!;
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
@@ -80,30 +77,48 @@ export function TalkingPage() {
   return (
     <S.Container>
       <div className="talking">
-        <div className="talking__header"></div>
-        <div className="talking__container">
-          <div className="talking__container-guide"></div>
-          <div className="talking__container-dino"></div>
-          <div className="talking__container-talk">
-            <button
-              onClick={() => {
-                getTalkStart(setStartComment);
-                postMakeReport(setReportsId);
-              }}
-            >
-              대화 시작 & 리포트 만들기
-              {startComment && <audio src={startComment} controls autoPlay hidden />}
-            </button>
-            <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
-            <button
-              onClick={() => {
-                getTalkStop(4, setClosingComment);
-              }}
-            >
-              대화 종료
-              {closingComment && <audio src={closingComment} controls autoPlay hidden />}
-            </button>
+        <div className="talking__header">
+          {/* <TalkingHeader /> */}
+          <div className="talking__header-end">
+            <img src={'assets/img/pic/end.svg'} />
           </div>
+          <div className="talking__header-message">
+            <img
+              src={'assets/img/pic/message.svg'}
+              onClick={() => {
+                navigate('/message');
+              }}
+            />
+          </div>
+        </div>
+        <div className="talking__container">
+          <div className="talking__container-guide">
+            <p>user guide & state announcement</p>
+          </div>
+          <div className="talking__container-dino">
+            <img src={'assets/img/pic/pink.svg'} />
+          </div>
+          <div className="talking__container-talk">
+            <p>dino's dialogue</p>
+          </div>
+          <button
+            onClick={() => {
+              getTalkStart(setStartComment);
+              postMakeReport(setReportsId);
+            }}
+          >
+            대화 시작 & 리포트 만들기
+            {startComment && <audio src={startComment} controls autoPlay hidden />}
+          </button>
+          <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
+          <button
+            onClick={() => {
+              getTalkStop(4, setClosingComment);
+            }}
+          >
+            대화 종료
+            {closingComment && <audio src={closingComment} controls autoPlay hidden />}
+          </button>
         </div>
       </div>
     </S.Container>

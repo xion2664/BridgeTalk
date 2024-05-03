@@ -5,7 +5,7 @@ import ReactWordcloud from 'react-wordcloud';
 
 export function ParentReportListWordcloud() {
   const reportList = useReportStore((state) => state.reportList);
-  const [keywords, setKeywords] = useState<any>();
+  const [keywords, setKeywords] = useState<any>([]);
 
   useEffect(() => {
     const keywordsMap = new Map();
@@ -42,16 +42,21 @@ export function ParentReportListWordcloud() {
     setKeywords(newKeywords);
   }, [reportList]);
 
-  const wordCloud = (
-    <ReactWordcloud
-      words={keywords}
-      options={{
-        fontFamily: 'DNF',
-        rotations: 2, // 단어 회전을 두 가지 방향으로 제한
-        rotationAngles: [0, 90],
-      }}
-    />
-  );
+  const wordCloud =
+    keywords.length > 0 ? (
+      <ReactWordcloud
+        words={keywords}
+        options={{
+          fontFamily: 'DNF',
+          rotations: 2, // 단어 회전을 두 가지 방향으로 제한
+          rotationAngles: [0, 90],
+        }}
+      />
+    ) : (
+      <div>
+        <img src={'/assets/img/parent/empty.svg'} />
+      </div>
+    );
 
   return (
     <S.Wrapper>
