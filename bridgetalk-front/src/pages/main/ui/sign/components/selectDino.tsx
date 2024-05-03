@@ -1,14 +1,17 @@
+import { useSignupStore } from '@/pages/main/store';
 import * as S from '@/styles/main/selectDino.style';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  dino: string;
-  setDino: Dispatch<SetStateAction<string>>;
 }
 
-export function SelectDino({ page, setPage, dino, setDino }: Props) {
+export function SelectDino({ setPage }: Props) {
+  const { dino, setDino } = useSignupStore((state) => ({
+    dino: state.dino,
+    setDino: state.setDino,
+  }));
+
   return (
     <S.Container>
       <div className="title">
