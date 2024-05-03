@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.puzzle.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.puzzle.domain.Puzzle;
+import com.ssafy.bridgetalkback.puzzle.dto.request.PuzzleRequestDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleListResponseDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleResponseDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,24 @@ public class PuzzleServiceTest extends ServiceTest {
         puzzles[1] = puzzleRepository.save(PUZZLE_02.toPuzzle());
         puzzles[2] = puzzleRepository.save(PUZZLE_03.toPuzzle());
         puzzles[3] = puzzleRepository.save(PUZZLE_04.toPuzzle());
+    }
+
+    @Test
+    @DisplayName("퍼즐 등록에 성공한다")
+    void createPuzzle() {
+        // when
+        Long puzzleId = puzzleService.createPuzzle(createPuzzleRequestDto(), "imageUrl");
+
+        // then
+        Puzzle findPuzzle = puzzleFindService.findByPuzzleIdAndIsDeleted(puzzleId);
+        assertAll(
+                () -> assertThat(findPuzzle.getPuzzleId()).isEqualTo(puzzleId),
+                () -> assertThat(findPuzzle.getPuzzleNation()).isEqualTo(PUZZLE_01.getPuzzleNation()),
+                () -> assertThat(findPuzzle.getPuzzleImageUrl()).isEqualTo(PUZZLE_01.getPuzzleImageUrl()),
+                () -> assertThat(findPuzzle.getPuzzleLandmarkName()).isEqualTo(PUZZLE_01.getPuzzleLandmarkName()),
+                () -> assertThat(findPuzzle.getPuzzleLandmarkContent()).isEqualTo(PUZZLE_01.getPuzzleLandmarkContent()),
+                () -> assertThat(findPuzzle.getIsDeleted()).isEqualTo(0)
+        );
     }
 
     @Test
@@ -63,5 +82,9 @@ public class PuzzleServiceTest extends ServiceTest {
                 () -> assertThat(responseDto.puzzleList().get(0).puzzleLandmarkName()).isEqualTo(puzzles[0].getPuzzleLandmarkName()),
                 () -> assertThat(responseDto.puzzleList().get(0).puzzleLandmarkContent()).isEqualTo(puzzles[0].getPuzzleLandmarkContent())
         );
+    }
+
+    private PuzzleRequestDto createPuzzleRequestDto() {
+        return new PuzzleRequestDto(PUZZLE_01.getPuzzleNation(), PUZZLE_01.getPuzzleLandmarkName(), PUZZLE_01.getPuzzleLandmarkContent());
     }
 }
