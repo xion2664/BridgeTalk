@@ -22,7 +22,7 @@ export function ParentReportDetail() {
         const data: any = await getReportDetail(
           reports_UUID.get(Number(params.reportsId)),
           Number(params.reportsId),
-          'viet',
+          language,
         );
 
         setReport(data.data);
