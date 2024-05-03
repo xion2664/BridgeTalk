@@ -3,6 +3,7 @@ import * as S from '@/styles/parent/parentMain.style';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useReportStore } from '../../store';
+import { getProfile } from '../../query';
 
 export function ParentMain() {
   const navigate = useNavigate();
@@ -10,20 +11,7 @@ export function ParentMain() {
   const setChildrenList = useReportStore((state) => state.setChildrenList);
 
   useEffect(() => {
-    customAxios
-      .get('/profile')
-      .then((res) => {
-        // 부모의 프로필에서 자녀들의 정보를 빼 childrneList에 저장
-        const childrenList: any = [];
-        const profileList = res.data.profileList;
-
-        for (let i = 1; i < profileList.length; i++) {
-          childrenList.push(profileList[i]);
-        }
-
-        setChildrenList(childrenList);
-      })
-      .catch((err) => console.log(err));
+    getProfile(setChildrenList);
   }, []);
 
   return (
