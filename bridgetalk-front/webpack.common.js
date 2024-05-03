@@ -98,7 +98,3 @@ module.exports = {
     // }),
   ],
 };
-
-// console.log(JSON.stringify(process.env));
-// console.log(JSON.stringify(process.env.development));
-// console.log(JSON.stringify(process.env.production));

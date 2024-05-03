@@ -9,6 +9,7 @@ export const customAxios: AxiosInstance = axios.create({
     Authorization: sessionStorage.getItem(btoa('access' + process.env.REACT_APP_SECURE_CODE))
       ? 'Bearer ' + decodeToken('access')
       : '',
+    // 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZmE1NDRiNDktZTRkNS00MTE2LWIxYzktMzdmYjAyZDNiYjlhIiwiaWF0IjoxNzE0NTcxMzQ4LCJleHAiOjE3MTU3ODA5NDh9.1PDLELRTo3ljR2F2bIMRW0bmF86WqH-9Dwdq-7U9yNo',
   },
 });
 

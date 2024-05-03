@@ -78,6 +78,7 @@ export const Container = styled.div`
         font-family: 'DNF';
       }
     }
+
     .due {
       background-color: ${color(1).bright};
       border-radius: 1svw;
@@ -110,20 +111,29 @@ export const Container = styled.div`
     .list {
       width: 100%;
       min-height: 100%;
+      height: 100%;
 
       background-color: ${color(1).light};
 
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+
       gap: 2svh;
 
       padding: 1svh 1svw;
       border-radius: 1svw;
 
-      img {
-        width: 44.8svw;
+      &__noReport {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: 44.8svw;
+        }
       }
     }
   }

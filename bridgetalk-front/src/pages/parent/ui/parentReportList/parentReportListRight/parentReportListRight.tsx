@@ -58,7 +58,9 @@ export function ParentReportListRight() {
               return arr;
             })
           ) : (
-            <img src={'/assets/img/parent/noReports.svg'} />
+            <div className="list__noReport">
+              <img src={'/assets/img/parent/noReports.svg'} />
+            </div>
           )}
         </div>
         <div className="scrollbar"></div>
