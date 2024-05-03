@@ -1,17 +1,28 @@
-export function messagePage() {
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import * as S from '@/styles/child/talk/message.style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+
+export function MessagePage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('list');
+  }, []);
+
   return (
-    <div className="messagePage">
-      <div className="messagePage__header">
-        <div className="messagePage__header-toBack">
-          <span>돌아가기</span>
-        </div>
-        <div className="messagePage__container">
-          <div className="messagePage__container-messageList"></div>
-          <div className="messagePage__container-dino">
-            <div className="messagePage__container-dino-description">user information</div>
+    <S.Container>
+      <div className="messagePage">
+        <div className="messagePage__header">
+          <div className="messagePage__header-toBack">
+            <FontAwesomeIcon icon={faCaretLeft} />
+            <span>돌아가기</span>
           </div>
         </div>
+        <div className="messagePage__container">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </S.Container>
   );
 }
