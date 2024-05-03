@@ -45,7 +45,13 @@ export function ProfilePage() {
                 <img src={'assets/img/main/editProfileIcon.svg'} />
               </button>
               <div className="main__profilelist-item-dino">
-                <img src={it.dino} alt="캐릭터" />
+                <img
+                  src={it.dino}
+                  alt="캐릭터"
+                  onClick={() => {
+                    navigate('/child');
+                  }}
+                />
               </div>
               <div className="main__profilelist-item-title">{it.name}</div>
             </div>
