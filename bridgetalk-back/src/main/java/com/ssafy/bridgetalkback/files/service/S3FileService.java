@@ -55,7 +55,7 @@ public class S3FileService {
     }
 
     /**
-     * uploadReportsFiles() : 이미지 파일 S3 업로드 함수
+     * uploadPuzzleFiles() : 이미지 파일 S3 업로드 함수
      * @param file : 입력 파일
      * @return String : 업로드 된 S3 주소
      * */
@@ -64,7 +64,7 @@ public class S3FileService {
         log.info(">> 파일 존재 여부 확인");
         validateFileExists(file);
         log.info(">> 파일 타입 확인 : {}", file.getContentType());
-        validateAudioContentType(file);
+        validateImageContentType(file);
         return uploadFile(PUZZLE, file);
     }
 
