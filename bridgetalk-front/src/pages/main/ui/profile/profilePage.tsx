@@ -1,8 +1,9 @@
 import * as S from '@/styles/main/profilePage.style';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProfileList, postProfileLogin } from '../../query';
-import { setToken } from '@/shared';
+import { decodeToken, setToken } from '@/shared';
+import { useUserStore } from '../../store';
 
 interface Profile {
   userId: string;
@@ -17,12 +18,20 @@ export function ProfilePage() {
 
   const [profileList, setProfileList] = useState<Profile[]>([]);
 
+  const { refreshToken, accessToken } = useUserStore((state) => ({
+    refreshToken: state.refreshToken,
+    accessToken: state.accessToken,
+  }));
+
   useEffect(() => {
-    getProfileList().then((res: any) => {
-      if (res && res.data) {
-        setProfileList(res.data.profileList);
-      }
-    });
+    if (accessToken) {
+      console.log(accessToken);
+      getProfileList(accessToken).then((res: any) => {
+        if (res && res.data) {
+          setProfileList(res.data.profileList);
+        }
+      });
+    }
   }, []);
 
   return (
