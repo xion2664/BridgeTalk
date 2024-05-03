@@ -4,6 +4,7 @@ export function startRecordVoice(
   streamRef: MutableRefObject<MediaStream | null>,
   recorderRef: MutableRefObject<MediaRecorder | null>,
   setAudioBlob: (audioBlob: Blob) => void,
+  audioData?: any,
 ) {
   if (streamRef.current) {
     recorderRef.current = new MediaRecorder(streamRef.current);

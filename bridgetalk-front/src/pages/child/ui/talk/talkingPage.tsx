@@ -1,3 +1,4 @@
+import * as S from '@/styles/child/talk/talkingPage.style';
 import { useVoiceStore } from '@/pages/parent';
 import {
   connectAudioStream,
@@ -8,7 +9,8 @@ import {
   stopRecordVoice,
 } from '@/shared';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { getTalkStart, postMakeReport, postSendTalk } from '../../model';
+import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '../../model';
+import { useTalkStore } from '../../store';
 
 export function TalkingPage() {
   interface AudioContext {
@@ -21,10 +23,15 @@ export function TalkingPage() {
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const setVolume = useVoiceStore((state) => state.setVolume);
   const volume = useVoiceStore((state) => state.volume);
+  const { reportsId, setReportsId } = useTalkStore((state) => ({
+    reportsId: state.reportsId,
+    setReportsId: state.setReportsId,
+  }));
 
   useEffect(() => {
-    console.log(volume);
+    // console.log(volume);
   }, [volume]);
+
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
@@ -71,85 +78,81 @@ export function TalkingPage() {
   }, [isRecording]);
 
   return (
-    <div className="talking">
-      <div className="talking__header"></div>
-      <div className="talking__container">
-        <div className="talking__container-guide">
-          <p>user guide & state announcement</p>
-        </div>
-        <div className="talking__container-dino"></div>
-        <div className="talking__container-talk">
-          <p>dino's dialogue</p>
-          <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
-          <button
-            onClick={() => {
-              customAxios
-                .get('/reports/talk-stop', {
-                  headers: {
-                    Authorization:
-                      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiNTgxMGJmZTAtNTIxOC00MWNkLThiNzEtNzc0MTdlNWI4YjQ0IiwiaWF0IjoxNzE0NTcyMzIxLCJleHAiOjE3MTU3ODE5MjF9.nBXZXPoO1UM4jS5_LaeVttS9l8XMYfStecwvORVOFvM',
-                  },
-                  responseType: 'blob',
-                })
-                .then((res) => {
-                  console.log(res.data);
-                  setClosingComment(URL.createObjectURL(res.data));
-                })
-                .catch((err) => console.log(err));
-            }}
-          >
-            대화 종료
-            {closingComment && <audio src={closingComment} controls />}
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              postMakeReport();
-            }}
-          >
-            리포트 만들기
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              getTalkStart(setStartComment);
-            }}
-          >
-            대화 시작
-            {startComment && <audio src={startComment} controls />}
-          </button>
+    <S.Container>
+      <div className="talking">
+        <div className="talking__header"></div>
+        <div className="talking__container">
+          <div className="talking__container-guide"></div>
+          <div className="talking__container-dino"></div>
+          <div className="talking__container-talk">
+            <button
+              onClick={() => {
+                getTalkStart(setStartComment);
+                postMakeReport(setReportsId);
+              }}
+            >
+              대화 시작 & 리포트 만들기
+              {startComment && <audio src={startComment} controls autoPlay hidden />}
+            </button>
+            <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
+            <button
+              onClick={() => {
+                getTalkStop(reportsId, setClosingComment);
+              }}
+            >
+              대화 종료
+              {closingComment && <audio src={closingComment} controls autoPlay hidden />}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </S.Container>
   );
 }
 
 function RecordButton({ isRecording, setIsRecording }: any) {
-  const setIsRecordFinished = useVoiceStore((state) => state.setIsRecordFinished);
   const audioBlob = useVoiceStore((state) => state.audioBlob);
+  const reportsId = useTalkStore((state) => state.reportsId);
+  const [reply, setReply] = useState<any>();
+  const audioData = useRef<any>();
+  console.log(audioData.current);
 
   useEffect(() => {
-    if (audioBlob && audioBlob.size >= 1024) {
-      console.log(audioBlob);
-      postSendTalk(2, audioBlob).then((res) => console.log(res));
+    if (audioBlob && !isRecording) {
+      postSendTalk(reportsId, audioBlob!).then((res: any) => {
+        if (res && res.data) {
+          setReply(URL.createObjectURL(res.data));
+        }
+      });
     }
   }, [audioBlob]);
 
   return (
-    <button
-      onClick={() => {
-        if (isRecording) {
+    <div className="record">
+      <button
+        onClick={() => {
+          if (isRecording) {
+            setIsRecording(false);
+          } else {
+            setIsRecording(true);
+          }
+        }}
+      >
+        {isRecording ? '녹음중단' : '녹음시작'}
+      </button>
+      {reply && <div>답장 내용</div>}
+      <button
+        onClick={() => {
           setIsRecording(false);
-          // postSendTalk(15, audioBlob!);
-        } else {
-          setIsRecording(true);
-        }
-      }}
-    >
-      {audioBlob && <audio src={URL.createObjectURL(audioBlob)} controls />}
-      {isRecording ? '녹음중단' : '녹음시작'}
-    </button>
+
+          setTimeout(() => {
+            setIsRecording(true);
+          }, 500);
+        }}
+      >
+        한 마디 전송하기
+      </button>
+      <audio src={reply} autoPlay hidden />
+    </div>
   );
 }
