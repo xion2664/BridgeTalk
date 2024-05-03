@@ -10,8 +10,7 @@ export async function getTalkStop(reportsId: number, setClosingComment: any) {
       responseType: 'blob',
     })
     .then((res) => {
-      console.log(res);
-      //   setClosingComment(res.data);
+      setClosingComment(res.data);
     })
     .catch((err) => console.log(err));
 }

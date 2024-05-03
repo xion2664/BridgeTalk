@@ -97,7 +97,7 @@ export function TalkingPage() {
             <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
             <button
               onClick={() => {
-                getTalkStop(reportsId, setClosingComment);
+                getTalkStop(4, setClosingComment);
               }}
             >
               대화 종료
@@ -115,7 +115,6 @@ function RecordButton({ isRecording, setIsRecording }: any) {
   const reportsId = useTalkStore((state) => state.reportsId);
   const [reply, setReply] = useState<any>();
   const audioData = useRef<any>();
-  console.log(audioData.current);
 
   useEffect(() => {
     if (audioBlob && !isRecording) {
