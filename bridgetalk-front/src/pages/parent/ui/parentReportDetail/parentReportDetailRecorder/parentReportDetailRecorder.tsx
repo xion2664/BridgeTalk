@@ -1,6 +1,6 @@
 import {
   connectAudioStream,
-  generateAudioContex,
+  generateAudioContext,
   generateVolumeCheckInterval,
   startRecordVoice,
   stopRecordVoice,
@@ -46,7 +46,7 @@ export const ParentReportDetailRecorder = memo(() => {
 
     if (isRecording && !volumeCheckInterval) {
       // 음량 체크
-      const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContex(streamRef)!;
+      const { analyser, bufferLength, dataArray }: AudioContext = generateAudioContext(streamRef)!;
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작

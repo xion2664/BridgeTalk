@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { ChildPage } from '@/pages/child/ui/childPage';
-import { TalkingPage } from '@/pages/child/ui/talk/talkingPage';
+
 import { MessagePage } from '@/pages/child/ui/talk/messagePage';
 import PuzzlePage from '@/pages/child/ui/game/puzzle/puzzlePage';
 import {
@@ -26,6 +26,7 @@ import {
   ProfilePage,
   SignInPage,
   SignUpPage,
+  TalkingPage,
 } from '@/pages';
 
 import { Main } from '@/pages/main/ui/main/main';
@@ -102,6 +103,9 @@ export function AppRoutes() {
         <Route path="information/word" element={<ParentInformationWord />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
+
+      {/* 아이 관련 */}
+      <Route path="/child/talk" element={<TalkingPage />}></Route>
 
       {/* 기능 테스트용 페이지 - 추후 삭제 */}
       <Route path="/test" element={<Test />}>
