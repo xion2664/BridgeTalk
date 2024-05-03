@@ -50,7 +50,8 @@ public class TalkController {
         log.info("{ TalkController } : 대화 하기 진입");
 
         // 아이 음성 파일 업로드 및 stt
-        String talkText = reportsService.createText(multipartFile);
+        String fileUrl = reportsService.saveReportsFiles(multipartFile);
+        String talkText = reportsService.createText(fileUrl);
 
         // 변환 텍스트 포함 하도록 DB 원본 레포트 업데이트
         String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);

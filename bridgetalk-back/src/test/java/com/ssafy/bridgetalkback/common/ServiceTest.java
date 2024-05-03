@@ -4,6 +4,7 @@ import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
+import com.ssafy.bridgetalkback.puzzle.repository.PuzzleRepository;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
@@ -30,6 +31,9 @@ public class ServiceTest {
 
     @Autowired
     protected LettersRepository lettersRepository;
+
+    @Autowired
+    protected PuzzleRepository puzzleRepository;
 
     @AfterEach
     void clearDatabase() {
