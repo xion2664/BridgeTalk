@@ -8,7 +8,10 @@ import { getProfile } from '../../query';
 export function ParentMain() {
   const navigate = useNavigate();
 
-  const setChildrenList = useReportStore((state) => state.setChildrenList);
+  const { setChildrenList, language } = useReportStore((state) => ({
+    setChildrenList: state.setChildrenList,
+    language: state.language,
+  }));
 
   useEffect(() => {
     getProfile(setChildrenList);
