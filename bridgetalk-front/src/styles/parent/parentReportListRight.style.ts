@@ -115,10 +115,16 @@ export const Container = styled.div`
 
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 2svh;
 
       padding: 1svh 1svw;
       border-radius: 1svw;
+
+      img {
+        width: 44.8svw;
+      }
     }
   }
 `;

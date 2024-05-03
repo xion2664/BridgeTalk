@@ -31,7 +31,7 @@ export function ParentReportListRight() {
       </div> */}
       <div className="content">
         <div className="list">
-          {Array.isArray(reportList) &&
+          {reportList.length > 0 ? (
             reportList.map((report: any) => {
               const reportData = report.value.data;
 
@@ -56,7 +56,10 @@ export function ParentReportListRight() {
               });
 
               return arr;
-            })}
+            })
+          ) : (
+            <img src={'/assets/img/parent/noReports.svg'} />
+          )}
         </div>
         <div className="scrollbar"></div>
       </div>
