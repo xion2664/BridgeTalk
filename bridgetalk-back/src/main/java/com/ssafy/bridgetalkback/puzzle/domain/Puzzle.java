@@ -18,10 +18,10 @@ public class Puzzle extends BaseEntity {
     @Column(nullable = false, length = 30)
     private String puzzleNation;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 500)
     private String puzzleImageUrl;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 50)
     private String puzzleLandmarkName;
 
     @Column(columnDefinition = "TEXT", nullable = false)
