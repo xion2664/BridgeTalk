@@ -1,16 +1,23 @@
+import { useSignupStore } from '@/pages/main/store';
 import * as S from '@/styles/main/selectCountry.style';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  country: string;
-  setCountry: Dispatch<SetStateAction<string>>;
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  handleSignup: any;
 }
 
-export function SelectCountry({ country, setCountry, page, setPage }: Props) {
+export function SelectCountry({ setPage, handleSignup }: Props) {
   const navigate = useNavigate();
+
+  const { email, password, name, nickname, dino } = useSignupStore((state) => ({
+    email: state.email,
+    password: state.password,
+    name: state.name,
+    nickname: state.nickname,
+    dino: state.dino,
+  }));
 
   return (
     <S.Container>
@@ -40,7 +47,13 @@ export function SelectCountry({ country, setCountry, page, setPage }: Props) {
           <img src={'assets/img/previcon.svg'} />
           이전
         </button>
-        <button className="buttons__next" onClick={() => navigate('/start')}>
+        <button
+          className="buttons__next"
+          onClick={() => {
+            handleSignup(email, password, name, nickname, dino);
+            navigate('/start');
+          }}
+        >
           완료
           <img src={'assets/img/main/star.svg'} />
         </button>

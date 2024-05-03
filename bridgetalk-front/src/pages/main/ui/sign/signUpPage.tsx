@@ -8,17 +8,12 @@ import { SelectDino } from './components/selectDino';
 import { SelectCountry } from './components/selectCountry';
 import { useNavigate } from 'react-router-dom';
 import { HomeButton } from '@/shared';
+import { postSignup } from '../../query';
+import { useSignupStore } from '../../store';
 
 export function SignUpPage() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [dino, setDino] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [country, setCountry] = useState<string>('');
   const [page, setPage] = useState<number>(0);
 
   // const registerMutation = useRegister();
@@ -33,26 +28,25 @@ export function SignUpPage() {
   //   });
   // };
 
+  function handleSignup(email: string, password: string, name: string, nickname: string, dino: string) {
+    console.log(email, password, name, nickname, dino);
+
+    postSignup({
+      parentsEmail: email,
+      parentsPassword: password,
+      parentsName: name,
+      parentsNickname: nickname,
+      parentsDino: dino,
+    }).then((res) => console.log(res));
+  }
+
   return (
     <S.Container>
       <HomeButton navigate={navigate} />
-      {page === 0 && <InputEmail email={email} setEmail={setEmail} page={page} setPage={setPage} />}
-      {page === 1 && (
-        <InputName
-          password={password}
-          setPassword={setPassword}
-          name={name}
-          setName={setName}
-          passwordCheck={passwordCheck}
-          setPasswordCheck={setPasswordCheck}
-          nickname={nickname}
-          setNickname={setNickname}
-          page={page}
-          setPage={setPage}
-        />
-      )}
-      {page === 2 && <SelectDino dino={dino} setDino={setDino} page={page} setPage={setPage} />}
-      {page === 3 && <SelectCountry country={country} setCountry={setCountry} page={page} setPage={setPage} />}
+      {page === 0 && <InputEmail setPage={setPage} />}
+      {page === 1 && <InputName setPage={setPage} />}
+      {page === 2 && <SelectDino setPage={setPage} />}
+      {page === 3 && <SelectCountry setPage={setPage} handleSignup={handleSignup} />}
     </S.Container>
   );
 }
