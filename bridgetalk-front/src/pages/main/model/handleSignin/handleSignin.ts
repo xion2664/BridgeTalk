@@ -20,7 +20,9 @@ export function handleSignin(requestDto: any, userStore: any, navigate: Navigate
         userStore.setUserDino(data.userDino);
         userStore.setUserEmail(data.userEmail);
         userStore.setUserName(data.name);
-        userStore.setUserNickname(data.usetNickname);
+        userStore.setUserNickname(data.userNickname);
+        userStore.setAccessToken(data.accessToken);
+        userStore.setRefreshToken(data.refreshToken);
 
         navigate('/profile');
       }

@@ -25,7 +25,6 @@ export function ProfilePage() {
 
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       getProfileList(accessToken).then((res: any) => {
         if (res && res.data) {
           setProfileList(res.data.profileList);
