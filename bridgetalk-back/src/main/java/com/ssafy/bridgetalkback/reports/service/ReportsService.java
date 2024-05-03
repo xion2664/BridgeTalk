@@ -102,10 +102,12 @@ public class ReportsService {
         return updateReportsContent;
     }
 
-    public String createText(MultipartFile reportsFile) {
+    public String saveReportsFiles(MultipartFile puzzleFile){
         log.info("{ ReportsService.saveReportsFile() } : 아이 음성 s3업로드 메서드");
-        String fileUrl = s3FileService.uploadReportsFiles(reportsFile);
+        return s3FileService.uploadReportsFiles(puzzleFile);
+    }
 
+    public String createText(String fileUrl) {
         log.info("{ ReportsService.createText() } : 텍스트화 메서드");
         String[] vrr = fileUrl.split("/");
         System.out.println(Arrays.toString(vrr));

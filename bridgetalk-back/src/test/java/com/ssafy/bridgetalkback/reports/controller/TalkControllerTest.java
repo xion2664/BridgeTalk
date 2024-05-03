@@ -172,7 +172,7 @@ public class TalkControllerTest extends ControllerTest {
             String updateTalkText = "동생이 내 그림에 물을 부었어 그래서 화가 났어";
             doReturn(createTalkText())
                     .when(reportsService)
-                    .createText(file);
+                    .createText(anyString());
             doReturn(createUpdateTalkText())
                     .when(reportsService)
                     .updateOriginContent(UUID.randomUUID(), REPORTS_ID, talkText);
