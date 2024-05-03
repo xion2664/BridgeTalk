@@ -77,5 +77,9 @@ export const Wrapper = styled.div`
       border-radius: 1svw;
       box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
     }
+
+    img {
+      width: 11.6svw;
+    }
   }
 `;
