@@ -13,6 +13,7 @@ import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.controller.LettersController;
+import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
 import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
@@ -104,6 +105,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected PuzzleService puzzleService;
+
+    @MockBean
+    protected ClovaSpeechService clovaSpeechService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

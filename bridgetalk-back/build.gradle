@@ -3,12 +3,29 @@ plugins {
 	id 'org.springframework.boot' version '3.2.5'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'org.sonarqube' version '4.4.1.3373'
+	id "com.google.protobuf" version "0.8.17"
 }
 
 sonar {
 	properties {
 		property "sonar.projectKey", "bridgetalk"
 		property "sonar.projectName", "bridgetalk"
+	}
+}
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.14.0"
+	}
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:1.35.0"
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {}
+		}
 	}
 }
 
@@ -73,6 +90,16 @@ dependencies {
 
 	// Json
 	implementation group: 'org.json', name: 'json', version: '20231013'
+
+	// Google Cloud
+	implementation 'com.google.cloud:google-cloud-speech:4.36.0'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.8.RELEASE'
+
+	// CLOVA Speech
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+	implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.13'
+
+
 
 }
 
