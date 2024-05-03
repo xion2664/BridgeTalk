@@ -1,7 +1,8 @@
 import * as S from '@/styles/main/profilePage.style';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfileList } from '../../query';
+import { getProfileList, postProfileLogin } from '../../query';
+import { setToken } from '@/shared';
 
 interface Profile {
   userId: string;
@@ -46,7 +47,7 @@ export function ProfilePage() {
         </div>
         <div className="main__profilelist">
           {profileList.length > 0 &&
-            profileList.map((it) => (
+            profileList.map((it, idx) => (
               <div className="main__profilelist-item" key={it.userId}>
                 <button
                   className="main__profilelist-item-edit"
@@ -61,7 +62,17 @@ export function ProfilePage() {
                     src={`assets/img/${it.userDino}.svg`}
                     alt="캐릭터"
                     onClick={() => {
-                      navigate('/child');
+                      postProfileLogin(it.userId).then((res) => {
+                        if (res && res.data) {
+                          setToken(res.data.accessToken, res.data.refreshToken);
+                        }
+                      });
+
+                      if (idx > 0) {
+                        navigate('/child');
+                      } else {
+                        navigate('/parent');
+                      }
                     }}
                   />
                 </div>
