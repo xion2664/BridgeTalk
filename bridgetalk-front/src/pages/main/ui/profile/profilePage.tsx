@@ -34,8 +34,7 @@ export function ProfilePage() {
   useEffect(() => {
     getProfileList().then((res: any) => {
       if (res && res.data) {
-        console.log(res.data.profileList);
-        setProfileList(res.data);
+        setProfileList(res.data.profileList);
       }
     });
   }, []);
