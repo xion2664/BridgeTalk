@@ -82,6 +82,24 @@ export function TalkingPage() {
           <div className="talking__header-end">
             <img src={'assets/img/pic/end.svg'} />
           </div>
+          <button
+            onClick={() => {
+              getTalkStart(setStartComment);
+              postMakeReport(setReportsId);
+            }}
+          >
+            대화 시작 & 리포트 만들기
+            {startComment && <audio src={startComment} controls autoPlay hidden />}
+          </button>
+          <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
+          <button
+            onClick={() => {
+              getTalkStop(4, setClosingComment);
+            }}
+          >
+            대화 종료
+            {closingComment && <audio src={closingComment} controls autoPlay hidden />}
+          </button>
           <div className="talking__header-message">
             <img
               src={'assets/img/pic/message.svg'}
@@ -101,24 +119,6 @@ export function TalkingPage() {
           <div className="talking__container-talk">
             <p>dino's dialogue</p>
           </div>
-          <button
-            onClick={() => {
-              getTalkStart(setStartComment);
-              postMakeReport(setReportsId);
-            }}
-          >
-            대화 시작 & 리포트 만들기
-            {startComment && <audio src={startComment} controls autoPlay hidden />}
-          </button>
-          <RecordButton isRecording={isRecording} setIsRecording={setIsRecording} />
-          <button
-            onClick={() => {
-              getTalkStop(4, setClosingComment);
-            }}
-          >
-            대화 종료
-            {closingComment && <audio src={closingComment} controls autoPlay hidden />}
-          </button>
         </div>
       </div>
     </S.Container>

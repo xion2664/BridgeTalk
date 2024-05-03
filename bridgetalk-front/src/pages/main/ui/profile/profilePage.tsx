@@ -16,24 +16,10 @@ export function ProfilePage() {
 
   const [profileList, setProfileList] = useState<Profile[]>([]);
 
-  const user = [
-    {
-      userId: 0,
-      dino: 'assets/img/D1.svg',
-      name: '이름1',
-    },
-    {
-      userId: 'aea81011-0743-4423-8c41-170ff790a5f9',
-      userName: '김부모',
-      userEmail: 'ssafy123@gamil.com',
-      userNickname: '부모닉네임',
-      userDino: 'D1',
-    },
-  ];
-
   useEffect(() => {
     getProfileList().then((res: any) => {
       if (res && res.data) {
+        console.log(res.data.profileList);
         setProfileList(res.data.profileList);
       }
     });
