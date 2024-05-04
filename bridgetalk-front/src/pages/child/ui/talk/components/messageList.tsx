@@ -10,12 +10,12 @@ export function MessageList() {
   return (
     <S.Container>
       <div className="messageList">
-        <div className="messageList__header">
-          <img src={'/assets/img/pic/envelop.svg'} />
-          <img src={'/assets/img/pic/mailbox.svg'} />
-        </div>
-        <div className="messageList__container">
-          <div className="messageList__container-list">
+        <div className="messageList__list">
+          <div className="messageList__list-header">
+            <img src={'/assets/img/pic/envelop.svg'} />
+            <img src={'/assets/img/pic/mailbox.svg'} />
+          </div>
+          <div className="messageList__list-content">
             {/* {letters?.map((letter: any) => ( */}
             {/* <MessageListItem key={letter.lettersId} date={letter.lettersRegDate} /> */}
             {/* ))} */}
@@ -26,14 +26,14 @@ export function MessageList() {
             <MessageListItem id="4" />
             <MessageListItem id="5" />
           </div>
-          <div className="messageList__container-info">
-            <span>
-              익명의 다이노 친구가
-              <br />
-              보낸 편지들이야!
-            </span>
-            <img src={'/assets/img/pic/pink.svg'} />
-          </div>
+        </div>
+        <div className="messageList__info">
+          <span>
+            익명의 다이노 친구가
+            <br />
+            보낸 편지들이야!
+          </span>
+          <img src={'/assets/img/pic/pink.svg'} />
         </div>
       </div>
     </S.Container>
