@@ -18,9 +18,15 @@ export function LoginGuard({ children }: Props) {
 
   useEffect(() => {
     if (decodeToken('access') === null) {
-      setTimeout(() => {
-        navigate('/start');
-      }, 0);
+      if (loginLimitPath.some((it) => it === pathname)) {
+        setTimeout(() => {
+          navigate(pathname);
+        });
+      } else {
+        setTimeout(() => {
+          navigate('/start');
+        }, 0);
+      }
     } else {
       if (loginLimitPath.some((it) => it === pathname)) {
         setTimeout(() => {
