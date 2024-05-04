@@ -29,7 +29,7 @@ function ParentVoiceRecordModalArea() {
   return (
     <S.Container className="closable" onClick={handleClose}>
       <S.AudioContainer>
-        {/* <div className="title">녹음이 완료됐어요!</div>
+        <div className="title">녹음이 완료됐어요!</div>
         <audio className="audio" src={URL.createObjectURL(audioBlob!)} preload={'auto'} controls></audio>
         <div className="buttons" style={{ display: 'flex', gap: '2svw' }}>
           <button className="closable close" onClick={handleClose}>
@@ -47,7 +47,7 @@ function ParentVoiceRecordModalArea() {
           >
             Gửi
           </button>
-        </div> */}
+        </div>
       </S.AudioContainer>
     </S.Container>
   );

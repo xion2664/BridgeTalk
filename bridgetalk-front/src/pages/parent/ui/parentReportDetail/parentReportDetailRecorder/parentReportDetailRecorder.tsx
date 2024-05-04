@@ -60,16 +60,13 @@ export const ParentReportDetailRecorder = memo(() => {
         clearInterval(volumeCheckInterval);
         stopRecordVoice(recorderRef);
         setVolume(0);
+
+        setTimeout(() => {
+          setAudioBlob(audioDataRef.current!);
+        }, 0);
       }
     };
   }, [isRecording]);
-
-  useEffect(() => {
-    console.log(audioDataRef.current);
-    if (audioDataRef.current) {
-      setAudioBlob(audioDataRef.current!);
-    }
-  }, [audioDataRef.current]);
 
   return (
     <S.Container>
