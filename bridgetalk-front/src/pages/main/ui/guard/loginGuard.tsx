@@ -14,13 +14,25 @@ export function LoginGuard({ children }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const loginLimitPath = ['/', '/start', '/signin', '/signup'];
+
   useEffect(() => {
     if (decodeToken('access') === null) {
-      navigate('/start');
+      setTimeout(() => {
+        navigate('/start');
+      }, 0);
     } else {
-      navigate(pathname);
+      if (loginLimitPath.some((it) => it === pathname)) {
+        setTimeout(() => {
+          navigate('/profile');
+        }, 0);
+      } else {
+        setTimeout(() => {
+          navigate(pathname);
+        }, 0);
+      }
     }
-  }, []);
+  }, [pathname]);
 
   return <>{children}</>;
 }
