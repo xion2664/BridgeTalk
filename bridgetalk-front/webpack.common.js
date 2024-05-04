@@ -21,6 +21,9 @@ module.exports = {
       '@': path.resolve(__dirname, './src/'), // '@'를 통해 절대경로로 접근할 수 있게 한다
     },
   },
+  devServer: {
+    allowedHosts: 'all',
+  },
   module: {
     rules: [
       {
