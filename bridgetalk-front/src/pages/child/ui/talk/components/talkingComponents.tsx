@@ -10,10 +10,9 @@ import {
 } from '@/shared';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
-export function TalkingComponents() {
+export function TalkingComponents({ reply, setReply }: any) {
   // State
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [reply, setReply] = useState<any>();
   const [isSend, setIsSend] = useState<boolean>(false);
 
   // Global State
