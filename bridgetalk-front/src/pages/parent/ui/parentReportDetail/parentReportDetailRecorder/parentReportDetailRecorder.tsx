@@ -65,7 +65,8 @@ export const ParentReportDetailRecorder = memo(() => {
   }, [isRecording]);
 
   useEffect(() => {
-    if (audioDataRef.current!.size > 1024) {
+    console.log(audioDataRef.current);
+    if (audioDataRef.current) {
       setAudioBlob(audioDataRef.current!);
     }
   }, [audioDataRef.current]);

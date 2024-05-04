@@ -44,6 +44,7 @@ export function ProfilePage() {
     if (profileList.length > 0) {
       setIsLoading(false);
     }
+    console.log(decodeToken('access'));
   }, [profileList]);
 
   return (
