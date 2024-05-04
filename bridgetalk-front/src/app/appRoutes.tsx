@@ -64,9 +64,30 @@ export function AppRoutes() {
             </LoginGuard>
           }
         />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="addProfile" element={<EditProfilePage type="new" />} />
-        <Route path="editProfile" element={<EditProfilePage type="edit" />} />
+        <Route
+          path="profile"
+          element={
+            <LoginGuard>
+              <ProfilePage />
+            </LoginGuard>
+          }
+        />
+        <Route
+          path="addProfile"
+          element={
+            <LoginGuard>
+              <EditProfilePage type="new" />
+            </LoginGuard>
+          }
+        />
+        <Route
+          path="editProfile"
+          element={
+            <LoginGuard>
+              <EditProfilePage type="edit" />
+            </LoginGuard>
+          }
+        />
       </Route>
 
       {/* 아이 관련 */}

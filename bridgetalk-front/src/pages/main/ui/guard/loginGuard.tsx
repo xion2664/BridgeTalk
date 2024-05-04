@@ -1,6 +1,6 @@
 import { decodeToken } from '@/shared';
 import { ReactNode, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
@@ -12,12 +12,15 @@ interface Props {
  */
 export function LoginGuard({ children }: Props) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (decodeToken('access') !== null) {
-      navigate('/profile');
+    if (decodeToken('access') === null) {
+      navigate('/start');
+    } else {
+      navigate(pathname);
     }
-  });
+  }, []);
 
   return <>{children}</>;
 }
