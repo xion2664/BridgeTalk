@@ -3,7 +3,7 @@ import { MutableRefObject } from 'react';
 export function startRecordVoice(
   streamRef: MutableRefObject<MediaStream | null>,
   recorderRef: MutableRefObject<MediaRecorder | null>,
-  audioDataRef: MutableRefObject<Blob | null>,
+  audioDataRef: any,
 ) {
   if (streamRef.current) {
     recorderRef.current = new MediaRecorder(streamRef.current);
