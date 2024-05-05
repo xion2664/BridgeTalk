@@ -1,3 +1,4 @@
+import { getAvgVolume } from '@/pages/child/model';
 import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
@@ -8,7 +9,7 @@ import {
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply }: any) {
   // State
@@ -25,6 +26,7 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
+  const getAvgVolumeData = useRef<any>(null);
 
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -32,7 +34,14 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   // 볼륨 체크
   useEffect(() => {
-    console.log(volume);
+    if (isRecording && getAvgVolumeData.current) {
+      console.log(
+        volume,
+        getAvgVolumeData.current(volume),
+        typeof getAvgVolumeData.current,
+        typeof getAvgVolumeData.current(volume),
+      );
+    }
   }, [volume]);
 
   // 오디오 스트림 연결 및 해제
@@ -59,6 +68,12 @@ export function TalkingComponents({ reply, setReply }: any) {
 
       // 녹음 시작
       startRecordVoice(streamRef, recorderRef, audioDataRef);
+    }
+
+    if (!isRecording) {
+      console.log('함수 재선언');
+
+      getAvgVolumeData.current = getAvgVolume();
     }
 
     return () => {
