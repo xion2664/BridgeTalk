@@ -27,6 +27,7 @@ export function TalkingComponents({ reply, setReply }: any) {
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
   const getAvgVolumeData = useRef<any>(null);
+  const devounceTimerRef = useRef<any>(null);
 
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -35,12 +36,18 @@ export function TalkingComponents({ reply, setReply }: any) {
   // 볼륨 체크
   useEffect(() => {
     if (isRecording && getAvgVolumeData.current) {
-      console.log(
-        volume,
-        getAvgVolumeData.current(volume),
-        typeof getAvgVolumeData.current,
-        typeof getAvgVolumeData.current(volume),
-      );
+      console.log(volume, getAvgVolumeData.current(volume));
+      if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.6)) {
+        console.log('현재 볼륨이 평균 볼륨의 60% 이상이기에 타이머를 실행시킵니다.');
+
+        if (devounceTimerRef.current) {
+          clearTimeout(devounceTimerRef.current);
+        }
+        devounceTimerRef.current = setTimeout(() => {
+          setIsSend(true);
+          setIsRecording(false);
+        }, 2000);
+      }
     }
   }, [volume]);
 
@@ -72,7 +79,6 @@ export function TalkingComponents({ reply, setReply }: any) {
 
     if (!isRecording) {
       console.log('함수 재선언');
-
       getAvgVolumeData.current = getAvgVolume();
     }
 
