@@ -222,9 +222,9 @@ public class AuthControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("프로필 선택 (로그인) API 테스트 [GET /api/auth/profileLogin/{profileLogin}]")
+    @DisplayName("프로필 선택 (로그인) API 테스트 [GET /api/auth/profileLogin/{profileId}]")
     class profileLogin {
-        private static final String BASE_URL = "/api/auth/profileLogin/{profileLogin}";
+        private static final String BASE_URL = "/api/auth/profileLogin/{profileId}";
         private static final String PROFILE_ID = "7cfadd66-e491-4cb2-9d8f-6aa2e285dc46";
 
         @Test
