@@ -6,7 +6,7 @@ import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.exception.KidsErrorCode;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.dto.UpdateProfileRequestDto;
+import com.ssafy.bridgetalkback.parents.dto.request.UpdateProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.exception.ParentsErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,7 +1,7 @@
 package com.ssafy.bridgetalkback.parents.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
-import com.ssafy.bridgetalkback.parents.dto.UpdateProfileRequestDto;
+import com.ssafy.bridgetalkback.parents.dto.request.UpdateProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.service.ProfileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

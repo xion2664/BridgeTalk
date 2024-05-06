@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.TokenResponseDto;
+import com.ssafy.bridgetalkback.auth.dto.response.TokenResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import com.ssafy.bridgetalkback.global.exception.BaseException;

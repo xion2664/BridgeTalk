@@ -1,9 +1,9 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.KidsSignupRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.LoginRequestDto;
-import com.ssafy.bridgetalkback.auth.dto.LoginResponseDto;
-import com.ssafy.bridgetalkback.auth.dto.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import com.ssafy.bridgetalkback.global.exception.BaseException;

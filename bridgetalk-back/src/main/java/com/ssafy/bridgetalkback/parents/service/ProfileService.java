@@ -7,7 +7,7 @@ import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.dto.UpdateProfileRequestDto;
+import com.ssafy.bridgetalkback.parents.dto.request.UpdateProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

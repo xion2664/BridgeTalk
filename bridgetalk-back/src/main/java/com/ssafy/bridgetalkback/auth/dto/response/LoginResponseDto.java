@@ -1,4 +1,4 @@
-package com.ssafy.bridgetalkback.auth.dto;
+package com.ssafy.bridgetalkback.auth.dto.response;
 
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
