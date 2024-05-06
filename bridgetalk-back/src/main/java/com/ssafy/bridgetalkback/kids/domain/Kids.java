@@ -58,4 +58,9 @@ public class Kids extends BaseEntity {
     public void updateKidsEmail(String updateKidsEmail) {
         this.kidsEmail = updateKidsEmail;
     }
+
+    public void updateProfile(String nickname, String dino) {
+        this.kidsNickname = nickname;
+        this.kidsDino = dino;
+    }
 }

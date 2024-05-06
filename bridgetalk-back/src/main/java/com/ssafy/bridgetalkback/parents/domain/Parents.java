@@ -61,4 +61,9 @@ public class Parents extends BaseEntity {
     public static Parents createParents(String parentsName, Email parentsEmail, Password parentsPassword, String parentsNickname, String parentsDino) {
         return new Parents(parentsName, parentsEmail, parentsPassword, parentsNickname, parentsDino);
     }
+
+    public void updateProfile(String nickname, String dino) {
+        this.parentsNickname = nickname;
+        this.parentsDino = dino;
+    }
 }

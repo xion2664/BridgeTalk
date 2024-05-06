@@ -2,8 +2,8 @@ package com.ssafy.bridgetalkback.parents.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
-import com.ssafy.bridgetalkback.parents.dto.ProfileListResponseDto;
-import com.ssafy.bridgetalkback.parents.dto.ProfileResponseDto;
+import com.ssafy.bridgetalkback.parents.dto.response.ProfileListResponseDto;
+import com.ssafy.bridgetalkback.parents.dto.response.ProfileResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

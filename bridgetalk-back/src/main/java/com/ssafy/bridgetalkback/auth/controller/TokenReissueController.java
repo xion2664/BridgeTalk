@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.auth.controller;
 
-import com.ssafy.bridgetalkback.auth.dto.TokenResponseDto;
+import com.ssafy.bridgetalkback.auth.dto.response.TokenResponseDto;
 import com.ssafy.bridgetalkback.auth.service.TokenReissueService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.global.annotation.ExtractToken;
