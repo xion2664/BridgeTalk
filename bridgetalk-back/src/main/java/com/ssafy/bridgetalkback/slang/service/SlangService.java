@@ -7,6 +7,7 @@ import com.ssafy.bridgetalkback.slang.exception.SlangErrorCode;
 import com.ssafy.bridgetalkback.slang.repository.SlangRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class SlangService {
 
     private final SlangRepository slangRepository;
 
+    @Cacheable(cacheNames = "slangs", key = "'slangList-' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<SlangListResponseDto> findAllSlang(Pageable pageable) {
         log.info("{SlangService} : 삭제되지 않은 모든 slang 리스트 반환");
         Page<Slang> slangByIsDeletedPage = findAllSlangByIsDeleted(pageable);
