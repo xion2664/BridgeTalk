@@ -23,6 +23,9 @@ module.exports = {
   },
   devServer: {
     allowedHosts: 'all',
+    client: {
+      webSocketURL: { hostname: undefined, pathname: undefined, port: '0' },
+    },
   },
   module: {
     rules: [
