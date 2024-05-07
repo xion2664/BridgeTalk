@@ -29,5 +29,15 @@ public class Slang extends BaseEntity {
 
     private String vietnameseTranslation;
 
-    // 생성자 만들 필요 없음
+    private Slang(String slangWord, String originalWord, String meaning, String vietnamesePronunciation, String vietnameseTranslation) {
+        this.slangWord = slangWord;
+        this.originalWord = originalWord;
+        this.meaning = meaning;
+        this.vietnamesePronunciation = vietnamesePronunciation;
+        this.vietnameseTranslation = vietnameseTranslation;
+    }
+
+    public static Slang createSlang(String slangWord, String originalWord, String meaning, String vietnamesePronunciation, String vietnameseTranslation) {
+        return new Slang(slangWord, originalWord, meaning, vietnamesePronunciation, vietnameseTranslation);
+    }
 }
