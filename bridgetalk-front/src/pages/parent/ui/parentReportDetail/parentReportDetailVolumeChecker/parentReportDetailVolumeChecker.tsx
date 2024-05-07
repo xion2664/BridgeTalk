@@ -12,8 +12,12 @@ export function ParentReportDetailVolumeChecker({ isRecording }: Props) {
   return (
     <div className="volume-checker">
       <S.Volume>
-        {[...Array(9)].map((it, idx) => (
-          <S.VolumeBar volume={volume} idx={idx} key={idx} />
+        {[...Array(15)].map((it, idx) => (
+          <S.VolumeBar
+            className="bar"
+            style={{ height: `${Math.min(0.2 + ((volume / 20) * Math.random()) / Math.abs(7.5 - idx), 4)}svw` }}
+            key={idx}
+          />
         ))}
       </S.Volume>
       <div className="dino">

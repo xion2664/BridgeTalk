@@ -135,9 +135,8 @@ export const Volume = styled.div`
   height: 6svh;
 `;
 
-export const VolumeBar = styled.div<{ volume: number; idx: number }>`
-  width: 0.4svw;
-  height: ${(props) => Math.min(0.2 + ((props.volume / 20) * Math.random()) / Math.abs(4.5 - props.idx), 4)}svw;
+export const VolumeBar = styled.div`
+  width: 0.3svw;
   background-color: ${color(0.7).dark};
   transition: height 0.2s;
 `;
