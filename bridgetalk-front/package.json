@@ -55,7 +55,7 @@
     "zustand": "^4.5.2"
   },
   "scripts": {
-    "prod": "webpack serve --config webpack.prod.js --open --port 80",
+    "prod": "webpack serve --config webpack.prod.js --open --port 3000",
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js --hot --open"
   }
