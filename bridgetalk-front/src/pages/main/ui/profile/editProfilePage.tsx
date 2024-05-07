@@ -124,7 +124,6 @@ export function EditProfilePage({ type }: Props) {
                   // new일때는 신규 프로필 추가 로직 작성
                 } else if (type === 'edit') {
                   if (validateName(userName)) {
-                    console.log(dino, userDino);
                     patchEditProfile(
                       {
                         nickname: userName,
