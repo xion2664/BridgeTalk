@@ -25,8 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Slang [Controller Layer] -> SlangController 테스트")
 public class SlangControllerTest extends ControllerTest {
 
-    private Pageable pageable;
-
     @Nested
     @DisplayName("Slang 전체 조회 API [GET /api/slang]")
     class findAllSlang {
