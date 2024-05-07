@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store';
 import { validateName } from '../../model';
-import { patchEditProfile } from '../../query/postEditProfile/postEditProfile';
+import { patchEditProfile } from '../../query/patchEditProfile/patchEditProfile';
 
 interface Props {
   type: string;
@@ -47,7 +47,12 @@ export function EditProfilePage({ type }: Props) {
                   <div className="main__content-box-name-title">
                     <img src={'assets/img/main/nameicon.svg'} />
                   </div>
-                  <input type="text" defaultValue={userName} className="main__content-box-name-input" />
+                  <input
+                    type="text"
+                    defaultValue={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="main__content-box-name-input"
+                  />
                 </div>
               </div>
             </div>

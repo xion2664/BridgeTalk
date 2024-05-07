@@ -5,14 +5,26 @@ import { decodeToken } from '../model';
 
 export const customAxios: AxiosInstance = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}`,
-  headers: {
-    Authorization: sessionStorage.getItem(btoa('access' + process.env.REACT_APP_SECURE_CODE))
-      ? 'Bearer ' + decodeToken('access')
-      : '',
-    // 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZmE1NDRiNDktZTRkNS00MTE2LWIxYzktMzdmYjAyZDNiYjlhIiwiaWF0IjoxNzE0NTcxMzQ4LCJleHAiOjE3MTU3ODA5NDh9.1PDLELRTo3ljR2F2bIMRW0bmF86WqH-9Dwdq-7U9yNo',
-  },
+  // headers: {
+  //   Authorization: sessionStorage.getItem(btoa('access' + process.env.REACT_APP_SECURE_CODE))
+  //     ? 'Bearer ' + decodeToken('access')
+  //     : '',
+  //   // 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZmE1NDRiNDktZTRkNS00MTE2LWIxYzktMzdmYjAyZDNiYjlhIiwiaWF0IjoxNzE0NTcxMzQ4LCJleHAiOjE3MTU3ODA5NDh9.1PDLELRTo3ljR2F2bIMRW0bmF86WqH-9Dwdq-7U9yNo',
+  // },
 });
 
+customAxios.interceptors.request.use(
+  (config) => {
+    const accessToken = decodeToken('access');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 // export const dataAxios: AxiosInstance = axios.create({
 //   baseURL: `${process.env.REACT_APP_DATA_URL}`,
 // });
