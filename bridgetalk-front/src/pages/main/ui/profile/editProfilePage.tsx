@@ -1,5 +1,6 @@
+import { decodeToken, getUUIDbyToken } from '@/shared';
 import * as S from '@/styles/main/editProfilePage.style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -8,6 +9,12 @@ interface Props {
 export function EditProfilePage({ type }: Props) {
   const [page, setPage] = useState<number>(0);
   const navigate = useNavigate();
+
+  const [name, setName] = useState<string>('');
+
+  useEffect(() => {
+    console.log(getUUIDbyToken());
+  }, []);
 
   return (
     <S.Container>
