@@ -10,15 +10,25 @@ interface Props {
   type: string;
 }
 export function EditProfilePage({ type }: Props) {
-  const [page, setPage] = useState<number>(0);
-  const navigate = useNavigate();
-
   const { userName, setUserName, userDino, setUserDino } = useUserStore((state) => ({
     userName: state.userName,
     setUserName: state.setUserName,
     userDino: state.userDino,
-    setUserDino: state.userName,
+    setUserDino: state.setUserDino,
   }));
+
+  const [page, setPage] = useState<number>(0);
+  const [dino, setDino] = useState<number>(Number());
+  const navigate = useNavigate();
+
+  const dinos: any[] = [];
+  for (let i = 1; i <= 6; i++) {
+    dinos.push(`D${i}`);
+  }
+
+  useEffect(() => {
+    setUserDino(dinos[dino]);
+  }, [dino]);
 
   return (
     <S.Container>
@@ -84,13 +94,23 @@ export function EditProfilePage({ type }: Props) {
             <div className="selectbox">
               <div className="selectbox__title">캐릭터를 선택해주세요</div>
               <div className="selectbox__content">
-                <button className="selectbox__content-prev">
+                <button
+                  className="selectbox__content-prev"
+                  onClick={() => {
+                    setDino((dino) => (dino > 0 ? dino - 1 : dino));
+                  }}
+                >
                   <img src={'assets/img/prevTriangle.svg'} />
                 </button>
                 <div className="selectbox__content-dino">
-                  <img src={`assets/img/${userDino}.svg`} />
+                  <img src={`assets/img/${dinos[dino]}.svg`} />
                 </div>
-                <button className="selectbox__content-next">
+                <button
+                  className="selectbox__content-next"
+                  onClick={() => {
+                    setDino((dino) => (dino < dinos.length - 1 ? dino + 1 : dino));
+                  }}
+                >
                   <img src={'assets/img/nextTriangle.svg'} />
                 </button>
               </div>
@@ -104,6 +124,7 @@ export function EditProfilePage({ type }: Props) {
                   // new일때는 신규 프로필 추가 로직 작성
                 } else if (type === 'edit') {
                   if (validateName(userName)) {
+                    console.log(dino, userDino);
                     patchEditProfile(
                       {
                         nickname: userName,
