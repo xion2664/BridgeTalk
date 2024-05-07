@@ -131,14 +131,13 @@ export function EditProfilePage({ type }: Props) {
                         dino: userDino,
                       },
                       getUUIDbyToken(),
-                    ).then((res: any) => console.log(res));
+                    ).then((res: any) => navigate('/profile'));
                     alert('정보가 변경됐습니다.');
                   } else {
                     alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
                     return;
                   }
                 }
-                navigate('/profile');
               }}
             >
               <img src={'assets/img/main/saveIcon.svg'} />
