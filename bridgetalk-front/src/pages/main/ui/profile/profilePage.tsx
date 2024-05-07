@@ -44,6 +44,7 @@ export function ProfilePage() {
     if (profileList.length > 0) {
       setIsLoading(false);
     }
+    console.log(decodeToken('access'));
   }, [profileList]);
 
   return (
@@ -63,68 +64,66 @@ export function ProfilePage() {
         <img src={'assets/img/main/setting.svg'} />
       </button>
       {!isLoading && (
-        <>
-          <div className="main">
-            <div className="main__title">
-              <img src={'assets/img/main/profile.svg'} />
-            </div>
-            <div className="main__profilelist">
-              {profileList.length > 0 &&
-                profileList.map((it, idx) => (
-                  <div className="main__profilelist-item" key={it.userId}>
-                    <button
-                      className="main__profilelist-item-edit"
+        <div className="main">
+          <div className="main__title">
+            <img src={'assets/img/main/profile.svg'} />
+          </div>
+          <div className="main__profilelist">
+            {profileList.length > 0 &&
+              profileList.map((it, idx) => (
+                <div className="main__profilelist-item" key={it.userId}>
+                  <button
+                    className="main__profilelist-item-edit"
+                    onClick={() => {
+                      navigate('/editProfile');
+                    }}
+                  >
+                    <img src={'assets/img/main/editProfileIcon.svg'} />
+                  </button>
+                  <div className="main__profilelist-item-dino">
+                    <img
+                      src={`assets/img/${it.userDino}.svg`}
+                      alt="캐릭터"
                       onClick={() => {
-                        navigate('/editProfile');
-                      }}
-                    >
-                      <img src={'assets/img/main/editProfileIcon.svg'} />
-                    </button>
-                    <div className="main__profilelist-item-dino">
-                      <img
-                        src={`assets/img/${it.userDino}.svg`}
-                        alt="캐릭터"
-                        onClick={() => {
-                          postProfileLogin(it.userId).then((res) => {
-                            if (res && res.data) {
-                              setToken(res.data.accessToken, res.data.refreshToken);
-                            }
-                          });
-
-                          if (idx > 0) {
-                            navigate('/child');
-                          } else {
-                            navigate('/parent');
+                        postProfileLogin(it.userId).then((res) => {
+                          if (res && res.data) {
+                            setToken(res.data.accessToken, res.data.refreshToken);
                           }
-                        }}
-                      />
-                    </div>
-                    <div className="main__profilelist-item-title">{it.userName}</div>
+                        });
+
+                        if (idx > 0) {
+                          navigate('/child');
+                        } else {
+                          navigate('/parent');
+                        }
+                      }}
+                    />
                   </div>
-                ))}
-              <div className="main__profilelist-empty">
-                <button
-                  onClick={() => {
-                    navigate('/addProfile');
-                  }}
-                >
-                  <img src={'assets/img/main/addProfile.svg'} />
-                </button>
-              </div>
-            </div>
-            <div className="main__button">
+                  <div className="main__profilelist-item-title">{it.userName}</div>
+                </div>
+              ))}
+            <div className="main__profilelist-empty">
               <button
-                className="main__button-start"
                 onClick={() => {
-                  navigate('/parent');
-                  // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
+                  navigate('/addProfile');
                 }}
               >
-                START!
+                <img src={'assets/img/main/addProfile.svg'} />
               </button>
             </div>
           </div>
-        </>
+          <div className="main__button">
+            <button
+              className="main__button-start"
+              onClick={() => {
+                navigate('/parent');
+                // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
+              }}
+            >
+              START!
+            </button>
+          </div>
+        </div>
       )}
     </S.Container>
   );
