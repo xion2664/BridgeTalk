@@ -30,13 +30,13 @@ export function ProfilePage() {
     if (accessToken) {
       getProfileList(accessToken).then((res: any) => {
         if (res && res.data) {
-          setProfileList(res.data.profileList);
+          setProfileList([...res.data.profileList]);
         }
       });
     } else if (decodeToken('access') !== null) {
       getProfileList(decodeToken('access')!).then((res: any) => {
         if (res && res.data) {
-          setProfileList(res.data.profileList);
+          setProfileList([...res.data.profileList]);
         }
       });
     }

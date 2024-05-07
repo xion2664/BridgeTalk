@@ -18,7 +18,7 @@ export function EditProfilePage({ type }: Props) {
   }));
 
   const [page, setPage] = useState<number>(0);
-  const [dino, setDino] = useState<number>(Number());
+  const [dino, setDino] = useState<number>(Number(userDino[1] - 1));
   const navigate = useNavigate();
 
   const dinos: any[] = [];
