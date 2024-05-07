@@ -1,7 +1,7 @@
 package com.ssafy.bridgetalkback.auth.service;
 
 import com.ssafy.bridgetalkback.auth.domain.RefreshToken;
-import com.ssafy.bridgetalkback.auth.dto.TokenResponseDto;
+import com.ssafy.bridgetalkback.auth.dto.response.TokenResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.common.ServiceTest;

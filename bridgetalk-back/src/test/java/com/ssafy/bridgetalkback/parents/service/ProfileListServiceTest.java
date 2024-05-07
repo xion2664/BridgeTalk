@@ -3,7 +3,7 @@ package com.ssafy.bridgetalkback.parents.service;
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.parents.dto.ProfileListResponseDto;
+import com.ssafy.bridgetalkback.parents.dto.response.ProfileListResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

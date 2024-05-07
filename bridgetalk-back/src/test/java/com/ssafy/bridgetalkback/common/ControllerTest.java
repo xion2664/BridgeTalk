@@ -15,9 +15,11 @@ import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.controller.LettersController;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
+import com.ssafy.bridgetalkback.parents.controller.ProfileController;
 import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.parents.service.ProfileListService;
+import com.ssafy.bridgetalkback.parents.service.ProfileService;
 import com.ssafy.bridgetalkback.puzzle.controller.PuzzleController;
 import com.ssafy.bridgetalkback.puzzle.service.PuzzleService;
 import com.ssafy.bridgetalkback.reports.controller.ReportsController;
@@ -47,7 +49,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         TalkController.class,
         ReportsController.class,
         PuzzleController.class,
-        SlangController.class
+        SlangController.class,
+        ProfileController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -87,6 +90,8 @@ public abstract class ControllerTest {
     protected PuzzleService puzzleService;
     @MockBean
     protected ClovaSpeechService clovaSpeechService;
+    @MockBean
+    protected ProfileService profileService;
     @MockBean
     protected SlangService slangService;
 

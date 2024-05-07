@@ -1,7 +1,10 @@
 package com.ssafy.bridgetalkback.auth.service;
 
 import com.ssafy.bridgetalkback.auth.domain.RefreshToken;
-import com.ssafy.bridgetalkback.auth.dto.*;
+import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.common.ServiceTest;
