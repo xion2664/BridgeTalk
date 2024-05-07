@@ -19,7 +19,9 @@ export function ProfilePage() {
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { refreshToken, accessToken } = useUserStore((state) => ({
+  const { setUserName, setUserDino, refreshToken, accessToken } = useUserStore((state) => ({
+    setUserName: state.setUserName,
+    setUserDino: state.setUserDino,
     refreshToken: state.refreshToken,
     accessToken: state.accessToken,
   }));
@@ -75,6 +77,8 @@ export function ProfilePage() {
                     <button
                       className="main__profilelist-item-edit"
                       onClick={() => {
+                        setUserName(it.userName);
+                        setUserDino(it.userDino);
                         navigate('/editProfile');
                       }}
                     >

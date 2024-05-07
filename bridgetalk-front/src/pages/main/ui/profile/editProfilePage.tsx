@@ -2,6 +2,9 @@ import { decodeToken, getUUIDbyToken } from '@/shared';
 import * as S from '@/styles/main/editProfilePage.style';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store';
+import { validateName } from '../../model';
+import { patchEditProfile } from '../../query/postEditProfile/postEditProfile';
 
 interface Props {
   type: string;
@@ -10,11 +13,12 @@ export function EditProfilePage({ type }: Props) {
   const [page, setPage] = useState<number>(0);
   const navigate = useNavigate();
 
-  const [name, setName] = useState<string>('');
-
-  useEffect(() => {
-    console.log(getUUIDbyToken());
-  }, []);
+  const { userName, setUserName, userDino, setUserDino } = useUserStore((state) => ({
+    userName: state.userName,
+    setUserName: state.setUserName,
+    userDino: state.userDino,
+    setUserDino: state.userName,
+  }));
 
   return (
     <S.Container>
@@ -43,7 +47,7 @@ export function EditProfilePage({ type }: Props) {
                   <div className="main__content-box-name-title">
                     <img src={'assets/img/main/nameicon.svg'} />
                   </div>
-                  <input type="text" className="main__content-box-name-input" />
+                  <input type="text" defaultValue={userName} className="main__content-box-name-input" />
                 </div>
               </div>
             </div>
@@ -79,7 +83,7 @@ export function EditProfilePage({ type }: Props) {
                   <img src={'assets/img/prevTriangle.svg'} />
                 </button>
                 <div className="selectbox__content-dino">
-                  <img src={'assets/img/D1.svg'} />
+                  <img src={`assets/img/${userDino}.svg`} />
                 </div>
                 <button className="selectbox__content-next">
                   <img src={'assets/img/nextTriangle.svg'} />
@@ -93,8 +97,20 @@ export function EditProfilePage({ type }: Props) {
               onClick={() => {
                 if (type === 'new') {
                   // new일때는 신규 프로필 추가 로직 작성
-                } else if (type === 'edit;') {
-                  // edit일때는 프로필 수정 로직 작성
+                } else if (type === 'edit') {
+                  if (validateName(userName)) {
+                    patchEditProfile(
+                      {
+                        nickname: userName,
+                        dino: userDino,
+                      },
+                      getUUIDbyToken(),
+                    ).then((res: any) => console.log(res));
+                    alert('정보가 변경됐습니다.');
+                  } else {
+                    alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                    return;
+                  }
                 }
                 navigate('/profile');
               }}
