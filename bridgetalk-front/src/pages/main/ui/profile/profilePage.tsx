@@ -1,9 +1,9 @@
 import * as S from '@/styles/main/profilePage.style';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfileList, postProfileLogin } from '../../query';
+import { getProfileList, deleteDeleteProfile, postProfileLogin } from '../../query';
 import { decodeToken, setToken } from '@/shared';
-import { useUserStore } from '../../store';
+import { useProfileStore, useUserStore } from '../../store';
 
 interface Profile {
   userId: string;
@@ -27,6 +27,8 @@ export function ProfilePage() {
     accessToken: state.accessToken,
     setUserId: state.setUserId,
   }));
+
+  const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
 
   useEffect(() => {
     if (accessToken) {
@@ -98,15 +100,26 @@ export function ProfilePage() {
                   >
                     <img src={'assets/img/main/editProfileIcon.svg'} />
                   </div>
-                  <div
+                  <button
                     className="main__profilelist-item-delete"
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigate('/editProfile');
+                      setDeleteModalOpenState(it.userId);
+                      if (confirm('정말 삭제하시겠습니까?')) {
+                        deleteDeleteProfile(it.userId).then((res) => {
+                          if (res.status === '200') {
+                            alert('삭제 성공');
+                            getProfileList(decodeToken('access')!).then((res) => {
+                              setProfileList([...res!.data.profileList]);
+                            });
+                          }
+                        });
+                      }
+                      // navigate('/editProfile');
                     }}
                   >
                     <img src={'assets/img/main/deleteicon.svg'} />
-                  </div>
+                  </button>
                   <div className="main__profilelist-item-dino">
                     <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
                   </div>
