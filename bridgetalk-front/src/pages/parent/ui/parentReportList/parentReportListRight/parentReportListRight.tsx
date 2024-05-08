@@ -10,9 +10,7 @@ export function ParentReportListRight() {
     setReportList: state.setReportList,
   }));
 
-  useEffect(() => {
-    setReportList(reportList.filter((report: any) => report.reportsSummary !== null));
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <S.Container>
@@ -38,7 +36,8 @@ export function ParentReportListRight() {
             reportList.map((report: any) => {
               if (!report.value) return;
 
-              const reportData = report.value.data;
+              let reportData = report.value.data;
+              reportData = reportData.filter((it: any) => it.reportsSummary);
 
               const arr = reportData.map((it: any) => {
                 return (

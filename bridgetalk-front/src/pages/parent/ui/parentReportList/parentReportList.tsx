@@ -35,7 +35,7 @@ export function ParentReportList() {
 
       data.forEach((it: any) => {
         if (!it.value) return;
-        console.log('통과');
+
         const childUUID = it.value.request.responseURL.split('/')[5];
 
         // child = {name, nickname}
