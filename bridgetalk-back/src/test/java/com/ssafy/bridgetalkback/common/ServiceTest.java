@@ -15,25 +15,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Transactional
 public class ServiceTest {
     @Autowired
-    private DatabaseCleaner databaseCleaner;
-
-    @Autowired
     protected ParentsRepository parentsRepository;
-
     @Autowired
     protected KidsRepository kidsRepository;
-
     @Autowired
     protected ReportsRepository reportsRepository;
-
     @Autowired
     protected RefreshTokenRedisRepository refreshTokenRedisRepository;
-
     @Autowired
     protected LettersRepository lettersRepository;
-
     @Autowired
     protected PuzzleRepository puzzleRepository;
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
 
     @AfterEach
     void clearDatabase() {

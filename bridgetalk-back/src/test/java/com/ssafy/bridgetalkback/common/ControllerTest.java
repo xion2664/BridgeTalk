@@ -27,6 +27,8 @@ import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
+import com.ssafy.bridgetalkback.slang.controller.SlangController;
+import com.ssafy.bridgetalkback.slang.service.SlangService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         TalkController.class,
         ReportsController.class,
         PuzzleController.class,
+        SlangController.class,
         ProfileController.class
 })
 public abstract class ControllerTest {
@@ -55,6 +58,42 @@ public abstract class ControllerTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+    @MockBean
+    protected AuthService authService;
+    @MockBean
+    protected JwtProvider jwtProvider;
+    @MockBean
+    protected JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    @MockBean
+    protected JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    @MockBean
+    protected ParentsFindService parentsFindService;
+    @MockBean
+    protected KidsFindService kidsFindService;
+    @MockBean
+    protected TokenService tokenService;
+    @MockBean
+    protected TokenReissueService tokenReissueService;
+    @MockBean
+    protected TtsService ttsService;
+    @MockBean
+    protected ProfileListService profileListService;
+    @MockBean
+    protected LettersService lettersService;
+    @MockBean
+    protected TalkService talkService;
+    @MockBean
+    protected ReportsService reportsService;
+    @MockBean
+    protected ReportsUpdateService reportsUpdateService;
+    @MockBean
+    protected PuzzleService puzzleService;
+    @MockBean
+    protected ClovaSpeechService clovaSpeechService;
+    @MockBean
+    protected ProfileService profileService;
+    @MockBean
+    protected SlangService slangService;
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext) {
@@ -63,57 +102,6 @@ public abstract class ControllerTest {
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .build();
     }
-
-    @MockBean
-    protected AuthService authService;
-
-    @MockBean
-    protected JwtProvider jwtProvider;
-
-    @MockBean
-    protected JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
-    @MockBean
-    protected JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-    @MockBean
-    protected ParentsFindService parentsFindService;
-
-    @MockBean
-    protected KidsFindService kidsFindService;
-
-    @MockBean
-    protected TokenService tokenService;
-
-    @MockBean
-    protected TokenReissueService tokenReissueService;
-
-    @MockBean
-    protected TtsService ttsService;
-
-    @MockBean
-    protected ProfileListService profileListService;
-
-    @MockBean
-    protected LettersService lettersService;
-
-    @MockBean
-    protected TalkService talkService;
-
-    @MockBean
-    protected ReportsService reportsService;
-
-    @MockBean
-    protected ReportsUpdateService reportsUpdateService;
-
-    @MockBean
-    protected PuzzleService puzzleService;
-
-    @MockBean
-    protected ClovaSpeechService clovaSpeechService;
-
-    @MockBean
-    protected ProfileService profileService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
