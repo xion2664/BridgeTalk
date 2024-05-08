@@ -12,17 +12,19 @@ import {
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply }: any) {
-  // State
-  const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [isSend, setIsSend] = useState<boolean>(false);
-
   // Global State
   const volume = useVoiceStore((state) => state.volume);
   const setVolume = useVoiceStore((state) => state.setVolume);
-  const reportsId = useTalkStore((state) => state.reportsId);
-  const setReportsId = useTalkStore((state) => state.setReportsId);
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const audioBlob = useVoiceStore((state) => state.audioBlob);
+  const { reportsId, setReportsId, isRecording, setIsRecording, isSend, setIsSend } = useTalkStore((state) => ({
+    reportsId: state.reportsId,
+    setReportsId: state.setReportsId,
+    isRecording: state.isRecording,
+    setIsRecording: state.setIsRecording,
+    isSend: state.isSend,
+    setIsSend: state.setIsSend,
+  }));
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -37,9 +39,9 @@ export function TalkingComponents({ reply, setReply }: any) {
   // 볼륨 체크
   useEffect(() => {
     if (isRecording && getAvgVolumeData.current) {
-      console.log(volume, getAvgVolumeData.current(volume));
+      console.log('볼륨:', volume, '평균 볼륨:', getAvgVolumeData.current(volume));
       if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.8)) {
-        console.log('현재 볼륨이 평균 볼륨의 80% 이상이기에 타이머를 실행시킵니다.');
+        console.log('{{볼륨이 평균 볼륨의 80% 이상이므로 2초 타이머 리셋}}');
 
         if (devounceTimerRef.current) {
           clearTimeout(devounceTimerRef.current);
@@ -128,39 +130,17 @@ export function TalkingComponents({ reply, setReply }: any) {
   }, [reply]);
   return (
     <>
-      {/* <button
-        onClick={() => {
-          getTalkStart(setReply);
-          postMakeReport(setReportsId);
-        }}
-      >
-        대화 시작 & 리포트 만들기
-      </button> */}
       <div className="record">
-        <button
-          onClick={() => {
-            if (isRecording) {
-              setIsRecording(false);
-              if (devounceTimerRef.current !== null) {
-                clearInterval(devounceTimerRef.current);
-              }
-            } else {
-              setIsRecording(true);
-            }
-          }}
-        >
-          {isRecording ? '녹음중단' : '녹음시작'}
-        </button>
-        <button
+        {/* <button
           onClick={() => {
             setIsSend(true);
             setIsRecording(false);
           }}
         >
           한 마디 전송하기
-        </button>
+        </button> */}
       </div>
-      <button
+      {/* <button
         onClick={() => {
           getTalkStop(reportsId, setReply);
           setIsRecording(false);
@@ -170,7 +150,7 @@ export function TalkingComponents({ reply, setReply }: any) {
         }}
       >
         대화 종료
-      </button>
+      </button> */}
 
       <audio ref={audioRef} src={reply} hidden autoPlay />
     </>

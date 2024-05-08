@@ -2,7 +2,7 @@ import * as S from '@/styles/child/talk/talk.style';
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 
 export function TalkingPage() {
@@ -14,6 +14,10 @@ export function TalkingPage() {
 
   // GlobalState
   const reportsId = useTalkStore((state) => state.reportsId);
+  const setIsRecording = useTalkStore((state) => state.setIsRecording);
+
+  // Ref
+  const devounceTimerRef = useRef<any>(null);
 
   return (
     <S.Container>
@@ -24,6 +28,10 @@ export function TalkingPage() {
             className="talking__header-end"
             onClick={() => {
               getTalkStop(reportsId, setReply);
+              setIsRecording(false);
+              if (devounceTimerRef.current !== null) {
+                clearInterval(devounceTimerRef.current);
+              }
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
@@ -37,7 +45,7 @@ export function TalkingPage() {
             />
           </div>
         </div>
-        <TalkingComponents reply={reply} setReply={setReply} />
+        <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
           <div className="talking__container-guide">
             <p>user guide & state announcement</p>
