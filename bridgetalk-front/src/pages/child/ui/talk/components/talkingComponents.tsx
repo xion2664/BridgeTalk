@@ -3,6 +3,7 @@ import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '@/pages
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
 import {
+  Timer,
   connectAudioStream,
   generateAudioContext,
   generateVolumeCheckInterval,
@@ -151,6 +152,13 @@ export function TalkingComponents({ reply, setReply }: any) {
       >
         대화 종료
       </button> */}
+      <Timer
+        devounceTimerRef={devounceTimerRef}
+        getTalkStop={getTalkStop}
+        reportsId={reportsId}
+        setIsRecording={setIsRecording}
+        setReply={setReply}
+      />
 
       <audio ref={audioRef} src={reply} hidden autoPlay />
     </>
