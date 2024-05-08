@@ -96,14 +96,7 @@ export function AppRoutes() {
         <Route path="list" element={<MessageList />} />
         <Route path=":id" element={<Message />} />
       </Route>
-      <Route
-        path="/puzzle"
-        element={
-          <LoginGuard>
-            <PuzzlePage />
-          </LoginGuard>
-        }
-      />
+      <Route path="/puzzle" element={<PuzzlePage />} />
 
       {/* 부모 관련 */}
       <Route path="/parent" element={<Parent />}>
