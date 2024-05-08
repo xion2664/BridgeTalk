@@ -5,11 +5,12 @@ import { useReportStore } from '@/pages/parent/store';
 import { useEffect } from 'react';
 
 export function ParentReportListRight() {
-  const reportList: [] = useReportStore((state) => state.reportList);
+  const { reportList, setReportList } = useReportStore((state) => ({
+    reportList: state.reportList,
+    setReportList: state.setReportList,
+  }));
 
-  useEffect(() => {
-    console.log(reportList);
-  }, [reportList]);
+  useEffect(() => {}, []);
 
   return (
     <S.Container>
@@ -33,7 +34,10 @@ export function ParentReportListRight() {
         <div className="list">
           {reportList.length > 0 ? (
             reportList.map((report: any) => {
-              const reportData = report.value.data;
+              if (!report.value) return;
+
+              let reportData = report.value.data;
+              reportData = reportData.filter((it: any) => it.reportsSummary);
 
               const arr = reportData.map((it: any) => {
                 return (
