@@ -131,7 +131,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   return (
     <>
-      <div className="record">
+      {/* <div className="record">
         <button
           onClick={() => {
             setIsSend(true);
@@ -140,7 +140,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         >
           한 마디 전송하기
         </button>
-      </div>
+      </div> */}
       {/* <button
         onClick={() => {
           getTalkStop(reportsId, setReply);
