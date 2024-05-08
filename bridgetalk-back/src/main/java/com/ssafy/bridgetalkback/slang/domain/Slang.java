@@ -1,10 +1,7 @@
 package com.ssafy.bridgetalkback.slang.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +16,18 @@ public class Slang extends BaseEntity {
     @GeneratedValue
     private Long slangId;
 
+    @Column(nullable = false)
     private String slangWord;
 
     private String originalWord;
 
+    @Column(nullable = false)
     private String meaning;
 
+    @Column(nullable = false)
     private String vietnamesePronunciation;
 
+    @Column(nullable = false)
     private String vietnameseTranslation;
 
     private Slang(String slangWord, String originalWord, String meaning, String vietnamesePronunciation, String vietnameseTranslation) {

@@ -48,7 +48,9 @@ public class ProfileListService {
 
         profileList.add(ProfileResponseDto.fromParents(parents));
         for (Kids kids : kidsList){
-            profileList.add(ProfileResponseDto.fromKids(kids));
+            if(kidsRepository.existsKidsByUuidAndIsDeleted(kids.getUuid(), 0)) {
+                profileList.add(ProfileResponseDto.fromKids(kids));
+            }
         }
 
         log.info("{ ProfileListService } : 프로필리스트 조회 성공");

@@ -31,22 +31,22 @@ public class ProfileListServiceTest extends ServiceTest {
     }
 
     @Test
-    @DisplayName("프로필 리스트를 조회한다")
+    @DisplayName("삭제되지(탈퇴하지) 않은 프로필 리스트를 조회한다")
     void findProfileList() {
         // when
+        kids[2].updateIsDeleted();
         flushAndClear();
         ProfileListResponseDto profileList = profileListService.profileList(parents.getUuid());
 
         // then
         assertAll(
-                () -> assertThat(profileList.profileList()).size().isEqualTo(4),
+                () -> assertThat(profileList.profileList()).size().isEqualTo(3),
                 () -> assertThat(profileList.profileList().get(0).userId()).isEqualTo(String.valueOf(parents.getUuid())),
                 () -> assertThat(profileList.profileList().get(0).userName()).isEqualTo(parents.getParentsName()),
                 () -> assertThat(profileList.profileList().get(0).userEmail()).isEqualTo(parents.getParentsEmail().getValue()),
-                () -> assertThat(profileList.profileList().get(3).userId()).isEqualTo(String.valueOf(kids[2].getUuid())),
-                () -> assertThat(profileList.profileList().get(3).userName()).isEqualTo(kids[2].getKidsName()),
-                () -> assertThat(profileList.profileList().get(3).userEmail()).isEqualTo(kids[2].getKidsEmail())
+                () -> assertThat(profileList.profileList().get(2).userId()).isEqualTo(String.valueOf(kids[1].getUuid())),
+                () -> assertThat(profileList.profileList().get(2).userName()).isEqualTo(kids[1].getKidsName()),
+                () -> assertThat(profileList.profileList().get(2).userEmail()).isEqualTo(kids[1].getKidsEmail())
         );
-
     }
 }
