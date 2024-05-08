@@ -11,7 +11,12 @@ export async function postSendTalk(reportsId: number, audio: Blob, setReply: any
 
   const ffmpeg = new FFmpeg();
 
-  await ffmpeg.load();
+  const baseURL = '/@ffmpeg/core/dist/esm';
+
+  await ffmpeg.load({
+    coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+    wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+  });
 
   // webm => mp3 변환
   await ffmpeg.writeFile('input.webm', newFileData);
@@ -21,7 +26,7 @@ export async function postSendTalk(reportsId: number, audio: Blob, setReply: any
   const data: any = await ffmpeg.readFile('output.mp3');
   console.log('{posetSendTalk: readFile}');
   const newBlob = new Blob([data.buffer], { type: 'audio/mpeg' });
-  console.log('{posetSendTalk: create new Blob}');
+  console.log('{posetSendTalk: create new Blob}', newBlob);
 
   formData.append('reportsFile', newBlob);
 
