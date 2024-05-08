@@ -16,6 +16,7 @@ export const Container = styled.div`
     justify-content: baseline;
     gap: 10svh;
 
+    flex: none;
     width: 100svw;
     padding: 0 3svw;
 
@@ -46,6 +47,10 @@ export const Container = styled.div`
           font-family: 'DNF';
         }
       }
+    }
+
+    &__container {
+      flex: 1;
     }
   }
 `;
