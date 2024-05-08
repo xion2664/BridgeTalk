@@ -41,5 +41,4 @@ public class Slang extends BaseEntity {
     public static Slang createSlang(String slangWord, String originalWord, String meaning, String vietnamesePronunciation, String vietnameseTranslation) {
         return new Slang(slangWord, originalWord, meaning, vietnamesePronunciation, vietnameseTranslation);
     }
-
 }
