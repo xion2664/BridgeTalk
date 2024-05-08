@@ -51,6 +51,14 @@ public class ChatGptService {
         return CompletableFuture.completedFuture(keywords);
     }
 
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createSolution(String originText) {
+        String[] solution = new String[2];
+        solution[0] = createPrompt(originText, ChatGptRequestCode.SOLUTION);
+        solution[1] = createPrompt(solution[0], ChatGptRequestCode.TRANSLATE);
+        return CompletableFuture.completedFuture(solution);
+    }
+
     public String createPrompt(String originText, ChatGptRequestCode gptRequestCode) {
         log.info("{ ChatGptService } : {} 진입", gptRequestCode);
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
@@ -99,11 +107,16 @@ public class ChatGptService {
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
             text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.SOLUTION)) {
+            text += "\n 위 문장들에 대해 한국인엄마로서 해줄 수 있는 말로 대답해줘";
+            log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.ANSWER)) {
             text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 친구처럼 대답해줘";
             log.info(">> prompt : {}", text);
         }
+
         return text;
     }
+
 
 }

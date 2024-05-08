@@ -60,6 +60,17 @@ public class ReportsUpdateService {
         log.info(">>>> reports.keywordVietArr : {}", reports.getReportsKeywordsViet().toString());
         log.info(">> keywords_viet 성공: {}", Arrays.toString(keyword_viet_arr));
 
+        log.info(">> solutionTextKor 진입: {}", originText);
+        String solutionTextKor = chatGptService.createPrompt(originText, ChatGptRequestCode.SOLUTION);
+        reports.updateSolutionKor(solutionTextKor);
+        log.info(">>>> reports.solutionKor : {}", reports.getReportsSolutionKor());
+        log.info(">> solutionTextKor 성공: {}", solutionTextKor);
+
+        log.info(">> solutionTextViet 진입: {}", solutionTextKor);
+        String solutionTextViet = chatGptService.createPrompt(solutionTextKor, ChatGptRequestCode.TRANSLATE);
+        reports.updateSolutionViet(solutionTextViet);
+        log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
+        log.info(">> solutionTextViet 성공: {}", solutionTextViet);
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
     }
@@ -76,10 +87,15 @@ public class ReportsUpdateService {
         log.info(">> keywords 진입");
         CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText);
 
+        log.info(">> solution 진입");
+        CompletableFuture<String[]> solution = chatGptService.createSolution(originText);
+
         String[] summaryText = summary.get();
         log.info(">> summaryText 성공: {}", Arrays.toString(summaryText));
         String[] keywordsText = keywords.get();
         log.info(">> keywords 성공: {}", Arrays.toString(keywordsText));
+        String[] solutionText = solution.get();
+        log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
         String[] keyword_kor_arr = keywordsText[0].split(", ");
         if (keyword_kor_arr.length != 3)
             throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
@@ -87,11 +103,13 @@ public class ReportsUpdateService {
         if (keyword_viet_arr.length != 3)
             throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
 
-        reports.updateReports(summaryText[0], summaryText[1], keyword_kor_arr, keyword_viet_arr);
+        reports.updateReports(summaryText[0], summaryText[1], keyword_kor_arr, keyword_viet_arr, solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
         log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());
         log.info(">>>> reports.keywordVietArr : {}", reports.getReportsKeywordsViet().toString());
+        log.info(">>>> reports.solutionKor : {}", reports.getReportsSolutionKor());
+        log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
     }
