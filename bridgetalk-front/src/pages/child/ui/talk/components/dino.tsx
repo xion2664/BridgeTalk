@@ -7,7 +7,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 extend({ OrbitControls });
 
 export function Dino() {
-  const gltf = useLoader(GLTFLoader, '/assets/dino/rainbow/cute.glb');
+  const gltf = useLoader(GLTFLoader, '/assets/dino/pink/happy.glb');
   const mixer = useRef<AnimationMixer | null>(null);
 
   useEffect(() => {
