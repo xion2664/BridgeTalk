@@ -30,8 +30,8 @@ export async function postSendTalk(reportsId: number, audio: Blob, setReply: any
       responseType: 'blob',
     })
     .then((res) => {
-      console.log(res.data);
-      setReply(URL.createObjectURL(res.data));
+      const replyURL = URL.createObjectURL(res.data);
+      setReply(replyURL);
     })
     .catch((err) => console.log(err));
 }

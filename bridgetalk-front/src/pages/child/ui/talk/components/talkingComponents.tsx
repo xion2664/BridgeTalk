@@ -10,7 +10,7 @@ import {
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
-import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 
 export function TalkingComponents({ reply, setReply }: any) {
   // Global State
@@ -105,18 +105,19 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   // 한마디 전송 시
   useEffect(() => {
+    console.log('isSend: ', isSend);
     if (isSend) {
       setTimeout(() => {
         setAudioBlob(audioDataRef.current!);
-        setIsSend(false);
       }, 0);
     }
   }, [isSend]);
 
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
-    console.log(isRecording, isSend);
+    console.log('audioBlob: ', audioBlob, 'isSend: ', isSend);
     if (audioBlob && isSend) {
+      console.log('{한마디 전송 API 요청');
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
         setIsSend(false);
         setIsRecording(true);
@@ -125,6 +126,7 @@ export function TalkingComponents({ reply, setReply }: any) {
   }, [audioBlob]);
 
   useEffect(() => {
+    console.log('reply', reply);
     if (audioRef.current) {
       audioRef.current!.play();
     }

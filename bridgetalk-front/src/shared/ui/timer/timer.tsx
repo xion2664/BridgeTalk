@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, setReply, devounceTimerRef }: Props) {
-  const [time, setTime] = useState<number>(200);
+  const [time, setTime] = useState<number>(0);
   const [isEnd, setIsEnd] = useState<boolean>(false);
 
   useEffect(() => {
