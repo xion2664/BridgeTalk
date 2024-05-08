@@ -54,7 +54,14 @@ export function TalkingComponents({ reply, setReply }: any) {
   // 오디오 스트림 연결 및 해제
   useEffect(() => {
     if (!streamRef.current) {
-      connectAudioStream(streamRef);
+      connectAudioStream(streamRef).then((res) => {
+        if (res instanceof MediaStream) {
+          // 리포트 만들고 대화(녹음) 시작하기
+          getTalkStart(setReply);
+          postMakeReport(setReportsId);
+          setIsRecording(true);
+        }
+      });
     }
 
     return () => {
@@ -97,13 +104,15 @@ export function TalkingComponents({ reply, setReply }: any) {
     if (isSend) {
       setTimeout(() => {
         setAudioBlob(audioDataRef.current!);
+        setIsSend(false);
       }, 0);
     }
   }, [isSend]);
 
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
-    if (audioBlob) {
+    console.log(isRecording, isSend);
+    if (audioBlob && isSend) {
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
         setIsSend(false);
         setIsRecording(true);
@@ -113,19 +122,22 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           getTalkStart(setReply);
           postMakeReport(setReportsId);
         }}
       >
         대화 시작 & 리포트 만들기
-      </button>
+      </button> */}
       <div className="record">
         <button
           onClick={() => {
             if (isRecording) {
               setIsRecording(false);
+              if (devounceTimerRef.current !== null) {
+                clearInterval(devounceTimerRef.current);
+              }
             } else {
               setIsRecording(true);
             }
@@ -146,6 +158,10 @@ export function TalkingComponents({ reply, setReply }: any) {
       <button
         onClick={() => {
           getTalkStop(reportsId, setReply);
+          setIsRecording(false);
+          if (devounceTimerRef.current !== null) {
+            clearInterval(devounceTimerRef.current);
+          }
         }}
       >
         대화 종료
