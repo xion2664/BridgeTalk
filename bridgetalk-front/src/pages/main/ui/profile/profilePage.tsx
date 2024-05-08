@@ -87,7 +87,7 @@ export function ProfilePage() {
                     });
                   }}
                 >
-                  <button
+                  <div
                     className="main__profilelist-item-edit"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -97,7 +97,16 @@ export function ProfilePage() {
                     }}
                   >
                     <img src={'assets/img/main/editProfileIcon.svg'} />
-                  </button>
+                  </div>
+                  <div
+                    className="main__profilelist-item-delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate('/editProfile');
+                    }}
+                  >
+                    <img src={'assets/img/main/deleteicon.svg'} />
+                  </div>
                   <div className="main__profilelist-item-dino">
                     <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
                   </div>

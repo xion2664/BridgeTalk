@@ -64,11 +64,24 @@ export const Container = styled.div`
           border: none;
 
           position: absolute;
-          top: 3svh;
+          top: 2svw;
           right: 2svw;
 
           img {
             width: 1svw;
+          }
+        }
+
+        &-delete {
+          background-color: transparent;
+          border: none;
+
+          position: absolute;
+          top: 2svw;
+          left: 2svw;
+
+          img {
+            width: 2svw;
           }
         }
       }
