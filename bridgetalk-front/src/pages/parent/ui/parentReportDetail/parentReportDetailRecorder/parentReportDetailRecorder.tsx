@@ -22,6 +22,7 @@ export const ParentReportDetailRecorder = memo(() => {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const setVolume = useVoiceStore((state) => state.setVolume);
+  const audioDataRef = useRef<Blob | null>(null);
 
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -50,7 +51,7 @@ export const ParentReportDetailRecorder = memo(() => {
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
-      startRecordVoice(streamRef, recorderRef, setAudioBlob);
+      startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
     return () => {
@@ -59,6 +60,10 @@ export const ParentReportDetailRecorder = memo(() => {
         clearInterval(volumeCheckInterval);
         stopRecordVoice(recorderRef);
         setVolume(0);
+
+        setTimeout(() => {
+          setAudioBlob(audioDataRef.current!);
+        }, 0);
       }
     };
   }, [isRecording]);
@@ -67,10 +72,6 @@ export const ParentReportDetailRecorder = memo(() => {
     <S.Container>
       <div className="title">답장하기</div>
       <ParentReportDetailVolumeChecker isRecording={isRecording} />
-      <div>
-        {/* <button>한국어</button>
-        <button>베트남어</button> */}
-      </div>
       <ParentReportDetailRecorderButton
         isRecording={isRecording}
         setIsRecording={setIsRecording}

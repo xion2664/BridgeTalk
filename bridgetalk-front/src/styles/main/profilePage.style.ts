@@ -60,6 +60,9 @@ export const Container = styled.div`
       gap: 3.1svw;
 
       &-item {
+        outline: none;
+        border: none;
+
         &-edit {
           background-color: transparent;
           border: none;

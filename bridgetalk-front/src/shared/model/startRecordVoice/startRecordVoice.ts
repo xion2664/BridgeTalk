@@ -1,10 +1,9 @@
-import { MutableRefObject, SetStateAction, Dispatch } from 'react';
+import { MutableRefObject } from 'react';
 
 export function startRecordVoice(
   streamRef: MutableRefObject<MediaStream | null>,
   recorderRef: MutableRefObject<MediaRecorder | null>,
-  setAudioBlob: (audioBlob: Blob) => void,
-  audioData?: any,
+  audioDataRef: any,
 ) {
   if (streamRef.current) {
     recorderRef.current = new MediaRecorder(streamRef.current);
@@ -15,11 +14,11 @@ export function startRecordVoice(
     };
 
     recorderRef.current.onstop = () => {
-      const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mpeg' });
+      const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mp3' });
 
       voiceChunk.splice(0, voiceChunk.length);
 
-      setAudioBlob(audioBlob);
+      audioDataRef.current = audioBlob;
     };
 
     recorderRef.current.start();
