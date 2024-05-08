@@ -16,6 +16,7 @@ export function TalkingPage() {
   const reportsId = useTalkStore((state) => state.reportsId);
   const isRecording = useTalkStore((state) => state.isRecording);
   const setIsRecording = useTalkStore((state) => state.setIsRecording);
+  const setIsSend = useTalkStore((state) => state.setIsSend);
 
   // Ref
   const devounceTimerRef = useRef<any>(null);
@@ -31,6 +32,7 @@ export function TalkingPage() {
               if (isRecording) {
                 getTalkStop(reportsId, setReply);
                 setIsRecording(false);
+
                 if (devounceTimerRef.current !== null) {
                   clearInterval(devounceTimerRef.current);
                 }

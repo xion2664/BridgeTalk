@@ -12,7 +12,7 @@ import {
 } from '@/shared';
 import { MutableRefObject, useEffect, useRef } from 'react';
 
-export function TalkingComponents({ reply, setReply }: any) {
+export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // Global State
   const volume = useVoiceStore((state) => state.volume);
   const setVolume = useVoiceStore((state) => state.setVolume);
@@ -30,7 +30,6 @@ export function TalkingComponents({ reply, setReply }: any) {
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
   const getAvgVolumeData = useRef<any>(null);
-  const devounceTimerRef = useRef<any>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // 녹음 관련
@@ -48,6 +47,7 @@ export function TalkingComponents({ reply, setReply }: any) {
           clearTimeout(devounceTimerRef.current);
         }
         devounceTimerRef.current = setTimeout(() => {
+          console.log('타이머 작동');
           setIsSend(true);
           setIsRecording(false);
         }, 2000);
@@ -105,7 +105,6 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   // 한마디 전송 시
   useEffect(() => {
-    console.log('isSend: ', isSend);
     if (isSend) {
       setTimeout(() => {
         setAudioBlob(audioDataRef.current!);
@@ -115,7 +114,6 @@ export function TalkingComponents({ reply, setReply }: any) {
 
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
-    console.log('audioBlob: ', audioBlob, 'isSend: ', isSend);
     if (audioBlob && isSend) {
       console.log('{한마디 전송 API 요청');
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
@@ -126,22 +124,22 @@ export function TalkingComponents({ reply, setReply }: any) {
   }, [audioBlob]);
 
   useEffect(() => {
-    console.log('reply', reply);
     if (audioRef.current) {
       audioRef.current!.play();
     }
   }, [reply]);
+
   return (
     <>
       <div className="record">
-        {/* <button
+        <button
           onClick={() => {
             setIsSend(true);
             setIsRecording(false);
           }}
         >
           한 마디 전송하기
-        </button> */}
+        </button>
       </div>
       {/* <button
         onClick={() => {
