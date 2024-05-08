@@ -19,12 +19,13 @@ export function ProfilePage() {
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { setUserNickname, setUserName, setUserDino, refreshToken, accessToken } = useUserStore((state) => ({
+  const { setUserNickname, setUserName, setUserDino, refreshToken, accessToken, setUserId } = useUserStore((state) => ({
     setUserNickname: state.setUserNickname,
     setUserName: state.setUserName,
     setUserDino: state.setUserDino,
     refreshToken: state.refreshToken,
     accessToken: state.accessToken,
+    setUserId: state.setUserId,
   }));
 
   useEffect(() => {
@@ -107,6 +108,7 @@ export function ProfilePage() {
             <div className="main__profilelist-empty">
               <button
                 onClick={() => {
+                  setUserId(profileList[0].userId);
                   navigate('/addProfile');
                 }}
               >

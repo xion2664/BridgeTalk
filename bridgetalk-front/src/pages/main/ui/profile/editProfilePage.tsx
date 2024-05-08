@@ -5,19 +5,23 @@ import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store';
 import { validateName, validateNickname } from '../../model';
 import { patchEditProfile } from '../../query/patchEditProfile/patchEditProfile';
+import { postAddProfile } from '../../query';
 
 interface Props {
   type: string;
 }
 export function EditProfilePage({ type }: Props) {
-  const { userName, setUserName, userNickname, setUserNickname, userDino, setUserDino } = useUserStore((state) => ({
-    userName: state.userName,
-    setUserName: state.setUserName,
-    userNickname: state.userNickname,
-    setUserNickname: state.setUserNickname,
-    userDino: state.userDino,
-    setUserDino: state.setUserDino,
-  }));
+  const { userName, setUserName, userNickname, setUserNickname, userDino, setUserDino, parentToken } = useUserStore(
+    (state) => ({
+      userName: state.userName,
+      setUserName: state.setUserName,
+      userNickname: state.userNickname,
+      setUserNickname: state.setUserNickname,
+      userDino: state.userDino,
+      setUserDino: state.setUserDino,
+      parentToken: state.userId,
+    }),
+  );
 
   const [page, setPage] = useState<number>(0);
   const [dino, setDino] = useState<number>(type === 'edit' ? Number(userDino[1] - 1) : 0);
@@ -147,6 +151,15 @@ export function EditProfilePage({ type }: Props) {
                 if (type === 'new') {
                   // 신규 프로필 작성 로직
                   if (validateName(userName) && validateNickname(userNickname)) {
+                    postAddProfile({
+                      parentsId: parentToken,
+                      kidsName: userName,
+                      kidsDino: userDino,
+                      kidsNickname: userNickname,
+                    }).then((res: any) => {
+                      alert('프로필이 성공적으로 추가됐습니다');
+                      navigate('/profile');
+                    });
                   } else if (!validateName(userName)) {
                     alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
                   } else if (!validateNickname(userNickname)) {
