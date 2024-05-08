@@ -56,13 +56,9 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-
       gap: 3.1svw;
 
       &-item {
-        outline: none;
-        border: none;
-
         &-edit {
           background-color: transparent;
           border: none;
@@ -86,7 +82,8 @@ export const Container = styled.div`
 
         background-color: ${color(1).sub};
         width: 20.8svw;
-        height: 37svh;
+        /* height: 37svh; */
+        height: 30svw;
         border-radius: 3svw;
 
         position: relative;
@@ -116,6 +113,12 @@ export const Container = styled.div`
         }
 
         &-title {
+          color: ${color(1).white};
+          font-family: 'DNF';
+          font-size: 1.6svw;
+        }
+
+        &-nickname {
           color: ${color(1).white};
           font-family: 'DNF';
           font-size: 3.3svw;

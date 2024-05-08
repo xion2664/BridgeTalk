@@ -78,6 +78,9 @@ export const Container = styled.div`
             height: 13.9svh;
             border: 1svw solid ${color(1).main};
             border-radius: 5.2svw;
+            font-family: 'DNF';
+            font-size: 3.3svw;
+            padding: 1.2svh 2svw;
           }
         }
       }

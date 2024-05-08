@@ -72,7 +72,7 @@ export function ProfilePage() {
           <div className="main__profilelist">
             {profileList.length > 0 &&
               profileList.map((it, idx) => (
-                <button
+                <div
                   className="main__profilelist-item"
                   key={it.userId}
                   onClick={(e) => {
@@ -89,17 +89,19 @@ export function ProfilePage() {
                     className="main__profilelist-item-edit"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setUserDino(profileList[idx].userDino);
+                      setUserDino(it.userDino);
+                      setUserName(it.userNickname);
                       navigate('/editProfile');
                     }}
                   >
                     <img src={'assets/img/main/editProfileIcon.svg'} />
                   </button>
-                  <button className="main__profilelist-item-dino">
+                  <div className="main__profilelist-item-dino">
                     <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
-                  </button>
+                  </div>
                   <div className="main__profilelist-item-title">{it.userName}</div>
-                </button>
+                  <div className="main__profilelist-item-nickname">{it.userNickname}</div>
+                </div>
               ))}
             <div className="main__profilelist-empty">
               <button
