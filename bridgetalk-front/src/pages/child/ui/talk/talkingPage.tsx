@@ -14,6 +14,7 @@ export function TalkingPage() {
 
   // GlobalState
   const reportsId = useTalkStore((state) => state.reportsId);
+  const isRecording = useTalkStore((state) => state.isRecording);
   const setIsRecording = useTalkStore((state) => state.setIsRecording);
 
   // Ref
@@ -27,10 +28,12 @@ export function TalkingPage() {
           <div
             className="talking__header-end"
             onClick={() => {
-              getTalkStop(reportsId, setReply);
-              setIsRecording(false);
-              if (devounceTimerRef.current !== null) {
-                clearInterval(devounceTimerRef.current);
+              if (isRecording) {
+                getTalkStop(reportsId, setReply);
+                setIsRecording(false);
+                if (devounceTimerRef.current !== null) {
+                  clearInterval(devounceTimerRef.current);
+                }
               }
             }}
           >
