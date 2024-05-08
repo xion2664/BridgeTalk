@@ -64,7 +64,7 @@ export const Container = styled.div`
       }
 
       &-dino {
-        img {
+        * {
           height: 50svh;
         }
       }

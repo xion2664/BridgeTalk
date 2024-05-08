@@ -1,45 +1,61 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { Cube } from '../../model/setCharacter/cube';
+import { useRef, useEffect } from 'react';
+import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { AnimationMixer } from 'three';
 
-export function TestCharacter() {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const cube = new Cube();
+extend({ OrbitControls });
+
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, '/assets/dino/DinoCute.glb');
+  const mixer = useRef<AnimationMixer | null>(null);
 
   useEffect(() => {
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x808080);
-
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(0, 2, 12);
-    scene.add(pointLight);
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    if (mountRef.current) {
-      mountRef.current.appendChild(renderer.domElement);
+    if (gltf.animations.length > 0) {
+      mixer.current = new AnimationMixer(gltf.scene);
+      const action = mixer.current.clipAction(gltf.animations[0]);
+      action.play();
     }
-    scene.add(cube.cube);
-    camera.position.z = 5;
-
-    const animate = function () {
-      requestAnimationFrame(animate);
-      cube.update();
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
     return () => {
-      if (mountRef.current) {
-        mountRef.current?.removeChild(renderer.domElement);
+      if (mixer.current) {
+        mixer.current.stopAllAction();
       }
-      scene.clear();
-      renderer.dispose();
     };
-  }, []);
+  }, [gltf.animations, gltf.scene]);
 
-  return <div ref={mountRef} />;
+  useFrame((state, delta) => {
+    mixer.current?.update(delta);
+  });
+
+  return <primitive object={gltf.scene} scale={1} position={[0, -1, 0]} />;
+};
+
+const CameraControls = () => {
+  const {
+    camera,
+    gl: { domElement },
+  } = useThree();
+
+  useEffect(() => {
+    const controls = new OrbitControls(camera, domElement);
+    controls.minDistance = 1; // 최소 거리 제한
+    controls.maxDistance = 20; // 최대 거리 제한
+    return () => {
+      controls.dispose();
+    };
+  }, [camera, domElement]);
+
+  return null;
+};
+
+export function TestCharacter() {
+  return (
+    <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+      <ambientLight intensity={2} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+      <pointLight position={[-10, -10, -10]} />
+      <Model />
+      <CameraControls />
+    </Canvas>
+  );
 }
