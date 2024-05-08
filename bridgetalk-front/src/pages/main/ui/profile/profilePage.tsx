@@ -19,7 +19,8 @@ export function ProfilePage() {
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { setUserName, setUserDino, refreshToken, accessToken } = useUserStore((state) => ({
+  const { setUserNickname, setUserName, setUserDino, refreshToken, accessToken } = useUserStore((state) => ({
+    setUserNickname: state.setUserNickname,
     setUserName: state.setUserName,
     setUserDino: state.setUserDino,
     refreshToken: state.refreshToken,
@@ -90,7 +91,7 @@ export function ProfilePage() {
                     onClick={(e) => {
                       e.stopPropagation();
                       setUserDino(it.userDino);
-                      setUserName(it.userNickname);
+                      setUserNickname(it.userNickname);
                       navigate('/editProfile');
                     }}
                   >

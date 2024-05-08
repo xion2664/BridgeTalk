@@ -1,24 +1,26 @@
 import { decodeToken, getUUIDbyToken } from '@/shared';
 import * as S from '@/styles/main/editProfilePage.style';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store';
-import { validateName } from '../../model';
+import { validateName, validateNickname } from '../../model';
 import { patchEditProfile } from '../../query/patchEditProfile/patchEditProfile';
 
 interface Props {
   type: string;
 }
 export function EditProfilePage({ type }: Props) {
-  const { userName, setUserName, userDino, setUserDino } = useUserStore((state) => ({
+  const { userName, setUserName, userNickname, setUserNickname, userDino, setUserDino } = useUserStore((state) => ({
     userName: state.userName,
     setUserName: state.setUserName,
+    userNickname: state.userNickname,
+    setUserNickname: state.setUserNickname,
     userDino: state.userDino,
     setUserDino: state.setUserDino,
   }));
 
   const [page, setPage] = useState<number>(0);
-  const [dino, setDino] = useState<number>(Number(userDino[1] - 1));
+  const [dino, setDino] = useState<number>(type === 'edit' ? Number(userDino[1] - 1) : 0);
   const navigate = useNavigate();
 
   const dinos: any[] = [];
@@ -29,6 +31,14 @@ export function EditProfilePage({ type }: Props) {
   useEffect(() => {
     setUserDino(dinos[dino]);
   }, [dino]);
+
+  const title: any = useMemo(
+    () => ({
+      edit: '닉네임을 입력해주세요',
+      new: '사용자 정보를 입력해주세요',
+    }),
+    [],
+  );
 
   return (
     <S.Container>
@@ -52,17 +62,31 @@ export function EditProfilePage({ type }: Props) {
                 )}
               </div>
               <div className="main__content-box">
-                <div className="main__content-box-title">닉네임을 입력해주세요</div>
+                <div className="main__content-box-title">{title[type]}</div>
                 <div className="main__content-box-name">
-                  <div className="main__content-box-name-title">
-                    <img src={'assets/img/main/nicknameicon.svg'} />
+                  {type === 'new' && (
+                    <div className="flex">
+                      <div className="main__content-box-name-title">
+                        <img src={'assets/img/main/nameicon.svg'} />
+                      </div>
+                      <input
+                        type="text"
+                        onChange={(e) => setUserName(e.target.value)}
+                        className="main__content-box-name-input"
+                      />
+                    </div>
+                  )}
+                  <div className="flex">
+                    <div className="main__content-box-nickname-title">
+                      <img src={'assets/img/main/nicknameicon.svg'} />
+                    </div>
+                    <input
+                      type="text"
+                      defaultValue={type === 'edit' ? userNickname : ''}
+                      onChange={(e) => setUserNickname(e.target.value)}
+                      className="main__content-box-nickname-input"
+                    />
                   </div>
-                  <input
-                    type="text"
-                    defaultValue={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    className="main__content-box-name-input"
-                  />
                 </div>
               </div>
             </div>
@@ -121,12 +145,19 @@ export function EditProfilePage({ type }: Props) {
               className="buttons__next"
               onClick={() => {
                 if (type === 'new') {
-                  // new일때는 신규 프로필 추가 로직 작성
+                  // 신규 프로필 작성 로직
+                  if (validateName(userName) && validateNickname(userNickname)) {
+                  } else if (!validateName(userName)) {
+                    alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                  } else if (!validateNickname(userNickname)) {
+                    alert('닉네임은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                  }
                 } else if (type === 'edit') {
-                  if (validateName(userName)) {
+                  // 프로필 수정 로직
+                  if (validateName(userNickname)) {
                     patchEditProfile(
                       {
-                        nickname: userName,
+                        nickname: userNickname,
                         dino: userDino,
                       },
                       getUUIDbyToken(),
