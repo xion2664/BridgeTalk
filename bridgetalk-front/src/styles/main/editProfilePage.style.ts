@@ -69,7 +69,7 @@ export const Container = styled.div`
 
           &-title {
             img {
-              width: 14svw;
+              width: 24svw;
             }
           }
 

@@ -52,10 +52,10 @@ export function EditProfilePage({ type }: Props) {
                 )}
               </div>
               <div className="main__content-box">
-                <div className="main__content-box-title">이름을 입력해주세요</div>
+                <div className="main__content-box-title">닉네임을 입력해주세요</div>
                 <div className="main__content-box-name">
                   <div className="main__content-box-name-title">
-                    <img src={'assets/img/main/nameicon.svg'} />
+                    <img src={'assets/img/main/nicknameicon.svg'} />
                   </div>
                   <input
                     type="text"

@@ -85,6 +85,7 @@ export const Container = styled.div`
         /* height: 37svh; */
         height: 30svw;
         border-radius: 3svw;
+        padding: 2svw;
 
         position: relative;
         box-shadow: 0 0.5svh 0.4svh ${color(0.25).black};
@@ -121,7 +122,11 @@ export const Container = styled.div`
         &-nickname {
           color: ${color(1).white};
           font-family: 'DNF';
-          font-size: 3.3svw;
+          font-size: 2.7svw;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
