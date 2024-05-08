@@ -28,6 +28,7 @@ export function TalkingComponents({ reply, setReply }: any) {
   const audioDataRef = useRef<Blob | null>(null);
   const getAvgVolumeData = useRef<any>(null);
   const devounceTimerRef = useRef<any>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
@@ -37,8 +38,8 @@ export function TalkingComponents({ reply, setReply }: any) {
   useEffect(() => {
     if (isRecording && getAvgVolumeData.current) {
       console.log(volume, getAvgVolumeData.current(volume));
-      if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.6)) {
-        console.log('현재 볼륨이 평균 볼륨의 60% 이상이기에 타이머를 실행시킵니다.');
+      if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.8)) {
+        console.log('현재 볼륨이 평균 볼륨의 80% 이상이기에 타이머를 실행시킵니다.');
 
         if (devounceTimerRef.current) {
           clearTimeout(devounceTimerRef.current);
@@ -120,6 +121,11 @@ export function TalkingComponents({ reply, setReply }: any) {
     }
   }, [audioBlob]);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current!.play();
+    }
+  }, [reply]);
   return (
     <>
       {/* <button
@@ -145,7 +151,6 @@ export function TalkingComponents({ reply, setReply }: any) {
         >
           {isRecording ? '녹음중단' : '녹음시작'}
         </button>
-        {reply && <div>답장 내용</div>}
         <button
           onClick={() => {
             setIsSend(true);
@@ -166,7 +171,8 @@ export function TalkingComponents({ reply, setReply }: any) {
       >
         대화 종료
       </button>
-      {reply && <audio src={reply} hidden autoPlay />}
+
+      <audio ref={audioRef} src={reply} hidden autoPlay />
     </>
   );
 }
