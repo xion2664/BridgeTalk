@@ -28,7 +28,12 @@ export function ChildPage() {
               <span>환영합니다!</span>
               <img src={'assets/img/pic/pink.svg'} />
             </div>
-            <div className="childMain__container-content-toGame">
+            <div
+              className="childMain__container-content-toGame"
+              onClick={() => {
+                navigate('/game');
+              }}
+            >
               <img src={'assets/img/pic/gameMenu.svg'} />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Main, StartPage, ProfilePage, EditProfilePage, SignInPage, SignUpPage, LoginGuard, ErrorPage } from '@/pages';
-import { ChildPage, TalkingPage, MessagePage, MessageList, Message, PuzzlePage } from '@/pages';
+import { ChildPage, TalkingPage, MessagePage, MessageList, Message, GamingPage, PuzzlePage } from '@/pages';
 import {
   Parent,
   ParentInformationMain,
@@ -96,6 +96,7 @@ export function AppRoutes() {
         <Route path="list" element={<MessageList />} />
         <Route path=":id" element={<Message />} />
       </Route>
+      <Route path="/game" element={<GamingPage />} />
       <Route path="/puzzle" element={<PuzzlePage />} />
 
       {/* 부모 관련 */}
