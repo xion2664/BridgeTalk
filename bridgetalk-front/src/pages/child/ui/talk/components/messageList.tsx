@@ -1,11 +1,30 @@
-import { useLetters } from '@/pages/child/model/useLetter';
+import React, { useEffect, useState } from 'react';
+import { customAxios } from '@/shared';
 import { MessageListItem } from './item/messageListItem';
 import * as S from '@/styles/child/talk/messageList.style';
 
-export function MessageList() {
-  // const { data: letters, isLoading } = useLetters();
+interface Letter {
+  lettersId: number;
+  lettersOriginalContent: string; // 필요한 경우 추가
+  lettersTranslationContent: string; // 필요한 경우 추가
+  lettersRegDate: string;
+}
 
-  // if (isLoading) return <div>Loading...</div>;
+export function MessageList() {
+  const [letters, setLetters] = useState<Letter[]>([]);
+
+  useEffect(() => {
+    const fetchLetters = async () => {
+      try {
+        const response = await customAxios.get('/api/letters');
+        setLetters(response.data);
+      } catch (error) {
+        console.error('Failed to fetch letters:', error);
+      }
+    };
+
+    fetchLetters();
+  }, []);
 
   return (
     <S.Container>
@@ -16,15 +35,9 @@ export function MessageList() {
             <img src={'/assets/img/pic/mailbox.svg'} />
           </div>
           <div className="messageList__list-content">
-            {/* {letters?.map((letter: any) => ( */}
-            {/* <MessageListItem key={letter.lettersId} date={letter.lettersRegDate} /> */}
-            {/* ))} */}
-
-            <MessageListItem id="1" />
-            <MessageListItem id="2" />
-            <MessageListItem id="3" />
-            <MessageListItem id="4" />
-            <MessageListItem id="5" />
+            {letters.map((letter) => (
+              <MessageListItem key={letter.lettersId} id={letter.lettersId.toString()} date={letter.lettersRegDate} />
+            ))}
           </div>
         </div>
         <div className="messageList__info">

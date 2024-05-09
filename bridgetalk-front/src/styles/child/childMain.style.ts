@@ -22,12 +22,19 @@ export const Container = styled.div`
       justify-content: center;
       gap: 5svh;
 
+      &-title {
+        img {
+          width: 90svw;
+        }
+      }
+
       &-content {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 5svw;
+        width: 90svw;
 
         &-toTalk {
           display: flex;

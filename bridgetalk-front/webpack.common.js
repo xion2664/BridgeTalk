@@ -49,7 +49,7 @@ module.exports = {
       {
         test: /\.css$/, // css 파일의 경우
         use: ['style-loader', 'css-loader'], // css-loader, style-loader 순서로 활용해 로드한다.
-        include: path.resolve(__dirname, './src/main.css'), // src 폴더 내부 main.css만 탐색한다
+        // include: path.resolve(__dirname, './src/main.css'), // src 폴더 내부 main.css만 탐색한다
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i, // 해당 확장자의 파일의 경우
