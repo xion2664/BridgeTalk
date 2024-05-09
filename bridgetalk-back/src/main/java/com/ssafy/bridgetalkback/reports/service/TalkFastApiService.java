@@ -23,7 +23,7 @@ public class TalkFastApiService {
 
     @PostConstruct
     public void initWebClient() {
-        webClient = WebClient.create("http://localhost:8000");
+        webClient = WebClient.create("http://bridgetalk.co.kr:8000");
     }
 
     public String callFastApi(String fileUrl) {
