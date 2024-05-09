@@ -102,6 +102,8 @@ dependencies {
 	// Chach
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+	// WebClient
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 }
 

@@ -4,6 +4,7 @@ import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
+import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class TalkController {
     private final ReportsService reportsService;
     private final ReportsUpdateService reportsUpdateService;
     private final ClovaSpeechService clovaSpeechService;
+    private final TalkFastApiService talkFastApiService;
 
     @GetMapping("/talk-stop/{reportsId}")
     public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId, @PathVariable Long reportsId) throws ExecutionException, InterruptedException {
@@ -54,7 +56,8 @@ public class TalkController {
         // 아이 음성 파일 업로드 및 stt
         String fileUrl = reportsService.saveReportsFiles(multipartFile);
 //        String talkText = reportsService.createText(fileUrl);
-        String talkText = clovaSpeechService.stt(fileUrl);
+//        String talkText = clovaSpeechService.stt(fileUrl);
+        String talkText = talkFastApiService.callFastApi(fileUrl);
 
         // 변환 텍스트 포함 하도록 DB 원본 레포트 업데이트
         String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);
