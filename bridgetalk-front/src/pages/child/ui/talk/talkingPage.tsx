@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
+import { useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -15,6 +15,12 @@ export function TalkingPage() {
   const navigate = useNavigate();
   const [reply, setReply] = useState<any>();
   const reportsId = useTalkStore((state) => state.reportsId);
+  const isRecording = useTalkStore((state) => state.isRecording);
+  const setIsRecording = useTalkStore((state) => state.setIsRecording);
+  const setIsSend = useTalkStore((state) => state.setIsSend);
+
+  // Ref
+  const devounceTimerRef = useRef<any>(null);
 
   return (
     <S.Container>
@@ -24,7 +30,14 @@ export function TalkingPage() {
           <div
             className="talking__header-end"
             onClick={() => {
-              getTalkStop(reportsId, setReply);
+              if (isRecording) {
+                getTalkStop(reportsId, setReply);
+                setIsRecording(false);
+
+                if (devounceTimerRef.current !== null) {
+                  clearInterval(devounceTimerRef.current);
+                }
+              }
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
@@ -38,7 +51,7 @@ export function TalkingPage() {
             />
           </div>
         </div>
-        <TalkingComponents reply={reply} setReply={setReply} />
+        <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
           <div className="talking__container-guide">
             <p>user guide & state announcement</p>

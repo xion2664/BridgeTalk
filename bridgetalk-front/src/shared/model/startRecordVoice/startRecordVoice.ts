@@ -1,3 +1,4 @@
+import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { MutableRefObject } from 'react';
 
 export function startRecordVoice(
@@ -17,6 +18,8 @@ export function startRecordVoice(
       const audioBlob: Blob = new Blob(voiceChunk, { type: 'audio/mp3' });
 
       voiceChunk.splice(0, voiceChunk.length);
+
+      const ffmpeg = new FFmpeg();
 
       audioDataRef.current = audioBlob;
     };
