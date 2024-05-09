@@ -9,6 +9,7 @@ import com.ssafy.bridgetalkback.chatgpt.dto.request.ChatGptRequestDto;
 import com.ssafy.bridgetalkback.chatgpt.dto.response.Choice;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
+import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,23 +32,25 @@ import java.util.concurrent.CompletableFuture;
 public class ChatGptService {
 
     private final ChatGptConfig chatGptConfig;
+    private final TranslationService translationService;
+
 
     @Value("${OPENAI_URL}")
     private String legacyPromptUrl;
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createSummary(String originText){
+    public CompletableFuture<String[]> createSummary(String originText) {
         String[] summary = new String[2];
         summary[0] = createPrompt(originText, ChatGptRequestCode.SUMMARY);
-        summary[1] = createPrompt(summary[0], ChatGptRequestCode.TRANSLATE);
+        summary[1] = translationService.translation(summary[0], "ko", "vi");
         return CompletableFuture.completedFuture(summary);
     }
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createKeywords(String originText){
+    public CompletableFuture<String[]> createKeywords(String originText) {
         String[] keywords = new String[2];
         keywords[0] = createPrompt(originText, ChatGptRequestCode.KEYWORD);
-        keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE);
+        keywords[1] = translationService.translation(keywords[0], "ko", "vi");
         return CompletableFuture.completedFuture(keywords);
     }
 
@@ -55,7 +58,7 @@ public class ChatGptService {
     public CompletableFuture<String[]> createSolution(String originText) {
         String[] solution = new String[2];
         solution[0] = createPrompt(originText, ChatGptRequestCode.SOLUTION);
-        solution[1] = createPrompt(solution[0], ChatGptRequestCode.TRANSLATE);
+        solution[1] = translationService.translation(solution[0], "ko", "vi");
         return CompletableFuture.completedFuture(solution);
     }
 
@@ -98,9 +101,6 @@ public class ChatGptService {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
             text += " 3줄 요약해서 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
-        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
-            text += " 베트남어로 번역해줘";
-            log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)) {
             text += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
@@ -114,9 +114,6 @@ public class ChatGptService {
             text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 친구처럼 대답해줘";
             log.info(">> prompt : {}", text);
         }
-
         return text;
     }
-
-
 }

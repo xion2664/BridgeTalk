@@ -5,6 +5,7 @@ import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
+import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ReportsUpdateService {
 
     private final ChatGptService chatGptService;
     private final ReportsFindService reportsFindService;
+    private final TranslationService translationService;
 
     public void createReport(Long reportsId) {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
@@ -37,7 +39,7 @@ public class ReportsUpdateService {
         log.info(">> summaryText 성공: {}", summaryText);
 
         log.info(">> translateText 진입: {}", summaryText);
-        String translateText = chatGptService.createPrompt(summaryText, ChatGptRequestCode.TRANSLATE);
+        String translateText = translationService.translation(summaryText, "ko", "vi");
         reports.updateSummaryViet(translateText);
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
         log.info(">> translateText 성공: {}", translateText);
@@ -52,7 +54,7 @@ public class ReportsUpdateService {
         log.info(">> keywords_kor 성공: {}", Arrays.toString(keyword_kor_arr));
 
         log.info(">> keywords_viet 진입");
-        String keywords_viet = chatGptService.createPrompt(keywords_kor, ChatGptRequestCode.TRANSLATE);
+        String keywords_viet = translationService.translation(keywords_kor, "ko", "vi");
         String[] keyword_viet_arr = keywords_viet.split(", ");
         if (keyword_viet_arr.length != 3)
             throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
@@ -67,7 +69,7 @@ public class ReportsUpdateService {
         log.info(">> solutionTextKor 성공: {}", solutionTextKor);
 
         log.info(">> solutionTextViet 진입: {}", solutionTextKor);
-        String solutionTextViet = chatGptService.createPrompt(solutionTextKor, ChatGptRequestCode.TRANSLATE);
+        String solutionTextViet = translationService.translation(solutionTextKor, "ko", "vi");
         reports.updateSolutionViet(solutionTextViet);
         log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
         log.info(">> solutionTextViet 성공: {}", solutionTextViet);
