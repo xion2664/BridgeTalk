@@ -5,6 +5,7 @@ import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
+import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ public class ChatGptServiceTest extends ServiceTest {
 
     @Autowired
     private ChatGptService chatGptService;
+    @Autowired
+    private TranslationService translationService;
 
     private Parents parents;
 
@@ -53,7 +56,7 @@ public class ChatGptServiceTest extends ServiceTest {
         String summary = chatGptService.createPrompt(reports.getReportsOriginContent(), ChatGptRequestCode.SUMMARY);
 
         //when
-        String translate = chatGptService.createPrompt(summary, ChatGptRequestCode.TRANSLATE);
+        String translate = translationService.translation(summary, "ko", "vi");
 
         //then
         assertThat(translate).isNotEqualTo(summary);
@@ -64,7 +67,7 @@ public class ChatGptServiceTest extends ServiceTest {
     void keywordTest() {
         //when
         String keywords = chatGptService.createPrompt(reports.getReportsOriginContent(), ChatGptRequestCode.KEYWORD);
-        String keywords_viet = chatGptService.createPrompt(keywords, ChatGptRequestCode.TRANSLATE);
+        String keywords_viet = translationService.translation(keywords, "ko", "vi");
 
         String[] keyword_arr = keywords.split(", ");
         String[] keyword_viet_arr = keywords_viet.split(", ");
