@@ -46,7 +46,7 @@ public class SlangServiceTest extends ServiceTest {
         long duration2 = System.currentTimeMillis() - startTime2;
 
         // 캐싱에 의해 두 번째 호출이 더 빠르게 처리되어야 함
-//        System.out.println(duration1 + "     " + duration2);
+        System.out.println("첫번째 호출 시간 : " + duration1 + "두번째 호출 시간 : " + duration2);
         assertThat(duration2).isLessThan(duration1);
     }
 }
