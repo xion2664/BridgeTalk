@@ -1,9 +1,9 @@
 import * as S from '@/styles/main/profilePage.style';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfileList, postProfileLogin } from '../../query';
+import { getProfileList, deleteDeleteProfile, postProfileLogin } from '../../query';
 import { decodeToken, setToken } from '@/shared';
-import { useUserStore } from '../../store';
+import { useProfileStore, useUserStore } from '../../store';
 
 interface Profile {
   userId: string;
@@ -19,22 +19,28 @@ export function ProfilePage() {
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { refreshToken, accessToken } = useUserStore((state) => ({
+  const { setUserNickname, setUserName, setUserDino, refreshToken, accessToken, setUserId } = useUserStore((state) => ({
+    setUserNickname: state.setUserNickname,
+    setUserName: state.setUserName,
+    setUserDino: state.setUserDino,
     refreshToken: state.refreshToken,
     accessToken: state.accessToken,
+    setUserId: state.setUserId,
   }));
+
+  const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
 
   useEffect(() => {
     if (accessToken) {
       getProfileList(accessToken).then((res: any) => {
         if (res && res.data) {
-          setProfileList(res.data.profileList);
+          setProfileList([...res.data.profileList]);
         }
       });
     } else if (decodeToken('access') !== null) {
       getProfileList(decodeToken('access')!).then((res: any) => {
         if (res && res.data) {
-          setProfileList(res.data.profileList);
+          setProfileList([...res.data.profileList]);
         }
       });
     }
@@ -44,7 +50,6 @@ export function ProfilePage() {
     if (profileList.length > 0) {
       setIsLoading(false);
     }
-    console.log(decodeToken('access'));
   }, [profileList]);
 
   return (
@@ -71,40 +76,61 @@ export function ProfilePage() {
           <div className="main__profilelist">
             {profileList.length > 0 &&
               profileList.map((it, idx) => (
-                <div className="main__profilelist-item" key={it.userId}>
-                  <button
+                <div
+                  className="main__profilelist-item"
+                  key={it.userId}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    postProfileLogin(it.userId).then((res) => {
+                      if (res && res.data) {
+                        setToken(res.data.accessToken, res.data.refreshToken);
+                        navigate(idx > 0 ? '/child' : '/parent');
+                      }
+                    });
+                  }}
+                >
+                  <div
                     className="main__profilelist-item-edit"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setUserDino(it.userDino);
+                      setUserNickname(it.userNickname);
                       navigate('/editProfile');
                     }}
                   >
                     <img src={'assets/img/main/editProfileIcon.svg'} />
-                  </button>
-                  <div className="main__profilelist-item-dino">
-                    <img
-                      src={`assets/img/${it.userDino}.svg`}
-                      alt="캐릭터"
-                      onClick={() => {
-                        postProfileLogin(it.userId).then((res) => {
-                          if (res && res.data) {
-                            setToken(res.data.accessToken, res.data.refreshToken);
+                  </div>
+                  <button
+                    className="main__profilelist-item-delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteModalOpenState(it.userId);
+                      if (confirm('정말 삭제하시겠습니까?')) {
+                        deleteDeleteProfile(it.userId).then((res) => {
+                          if (res.status === '200') {
+                            alert('삭제 성공');
+                            getProfileList(decodeToken('access')!).then((res) => {
+                              setProfileList([...res!.data.profileList]);
+                            });
                           }
                         });
-
-                        if (idx > 0) {
-                          navigate('/child');
-                        } else {
-                          navigate('/parent');
-                        }
-                      }}
-                    />
+                      }
+                      // navigate('/editProfile');
+                    }}
+                  >
+                    <img src={'assets/img/main/deleteicon.svg'} />
+                  </button>
+                  <div className="main__profilelist-item-dino">
+                    <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
                   </div>
                   <div className="main__profilelist-item-title">{it.userName}</div>
+                  <div className="main__profilelist-item-nickname">{it.userNickname}</div>
                 </div>
               ))}
             <div className="main__profilelist-empty">
               <button
                 onClick={() => {
+                  setUserId(profileList[0].userId);
                   navigate('/addProfile');
                 }}
               >
@@ -116,8 +142,7 @@ export function ProfilePage() {
             <button
               className="main__button-start"
               onClick={() => {
-                navigate('/parent');
-                // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
+                navigate('/parent'); // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
               }}
             >
               START!

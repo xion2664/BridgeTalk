@@ -55,7 +55,9 @@ public class ReportsUpdateServiceTest extends ServiceTest {
                 () -> assertThat(newReports.getReportsSummaryKor()).isEqualTo(reports.getReportsSummaryKor()),
                 () -> assertThat(newReports.getReportsSummaryViet()).isEqualTo(reports.getReportsSummaryViet()),
                 () -> assertThat(newReports.getReportsKeywordsKor()).isEqualTo(reports.getReportsKeywordsKor()),
-                () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet())
+                () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet()),
+                () -> assertThat(newReports.getReportsSolutionKor()).isEqualTo(reports.getReportsSolutionKor()),
+                () -> assertThat(newReports.getReportsSolutionViet()).isEqualTo(reports.getReportsSolutionViet())
         );
     }
 
@@ -77,7 +79,9 @@ public class ReportsUpdateServiceTest extends ServiceTest {
                 () -> assertThat(newReports.getReportsSummaryKor()).isEqualTo(reports.getReportsSummaryKor()),
                 () -> assertThat(newReports.getReportsSummaryViet()).isEqualTo(reports.getReportsSummaryViet()),
                 () -> assertThat(newReports.getReportsKeywordsKor()).isEqualTo(reports.getReportsKeywordsKor()),
-                () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet())
+                () -> assertThat(newReports.getReportsKeywordsViet()).isEqualTo(reports.getReportsKeywordsViet()),
+                () -> assertThat(newReports.getReportsSolutionKor()).isEqualTo(reports.getReportsSolutionKor()),
+                () -> assertThat(newReports.getReportsSolutionViet()).isEqualTo(reports.getReportsSolutionViet())
         );
     }
 }

@@ -11,6 +11,8 @@ export function ParentReportListWordcloud() {
     const keywordsMap = new Map();
 
     reportList.forEach((report: any) => {
+      if (!report.value) return;
+
       const list = report.value.data;
 
       list.forEach((it: any) => {

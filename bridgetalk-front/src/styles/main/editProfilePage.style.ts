@@ -48,7 +48,7 @@ export const Container = styled.div`
         border-radius: 2.6svw;
 
         width: 71.8svw;
-        height: 38.2svh;
+        height: 30svw;
 
         display: flex;
         flex-direction: column;
@@ -62,10 +62,47 @@ export const Container = styled.div`
           font-size: 3.3svw;
         }
 
+        &-nickname {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2.6svw;
+
+          .flex {
+            display: flex;
+          }
+
+          &-title {
+            img {
+              width: 24svw;
+            }
+          }
+
+          &-input {
+            width: 100%;
+            height: 13.9svh;
+            border: 1svw solid ${color(1).main};
+            border-radius: 5.2svw;
+            font-family: 'DNF';
+            font-size: 3.3svw;
+            padding: 1.2svh 2svw;
+          }
+        }
         &-name {
           display: flex;
+          flex-direction: column;
           align-items: center;
+          justify-content: center;
           gap: 2.6svw;
+          padding: 0 2svw;
+
+          .flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.6svw;
+          }
 
           &-title {
             img {
@@ -74,10 +111,13 @@ export const Container = styled.div`
           }
 
           &-input {
-            width: 36.5svw;
+            width: 100%;
             height: 13.9svh;
             border: 1svw solid ${color(1).main};
             border-radius: 5.2svw;
+            font-family: 'DNF';
+            font-size: 3.3svw;
+            padding: 1.2svh 2svw;
           }
         }
       }

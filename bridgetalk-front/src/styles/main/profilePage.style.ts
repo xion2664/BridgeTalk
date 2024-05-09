@@ -56,7 +56,6 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-
       gap: 3.1svw;
 
       &-item {
@@ -65,11 +64,24 @@ export const Container = styled.div`
           border: none;
 
           position: absolute;
-          top: 3svh;
+          top: 2svw;
           right: 2svw;
 
           img {
             width: 1svw;
+          }
+        }
+
+        &-delete {
+          background-color: transparent;
+          border: none;
+
+          position: absolute;
+          top: 2svw;
+          left: 2svw;
+
+          img {
+            width: 2svw;
           }
         }
       }
@@ -83,8 +95,10 @@ export const Container = styled.div`
 
         background-color: ${color(1).sub};
         width: 20.8svw;
-        height: 37svh;
+        /* height: 37svh; */
+        height: 30svw;
         border-radius: 3svw;
+        padding: 2svw;
 
         position: relative;
         box-shadow: 0 0.5svh 0.4svh ${color(0.25).black};
@@ -115,7 +129,18 @@ export const Container = styled.div`
         &-title {
           color: ${color(1).white};
           font-family: 'DNF';
-          font-size: 3.3svw;
+          font-size: 1.6svw;
+        }
+
+        &-nickname {
+          color: ${color(1).white};
+          font-family: 'DNF';
+          font-size: 2.7svw;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: center;
         }
       }
 

@@ -99,6 +99,9 @@ dependencies {
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 	implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.13'
 
+	// Chach
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
 	// WebClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
