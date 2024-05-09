@@ -53,12 +53,12 @@ public class Reports extends BaseEntity {
         return new Reports(kids, reportsOriginContent);
     }
 
-    public void updateSummaryKor(String summaryText) {
-        this.reportsSummaryKor = summaryText;
+    public void updateSummaryKor(String summaryTextKor) {
+        this.reportsSummaryKor = summaryTextKor;
     }
 
-    public void updateSummaryViet(String translateText) {
-        this.reportsSummaryViet = translateText;
+    public void updateSummaryViet(String summaryTextViet) {
+        this.reportsSummaryViet = summaryTextViet;
     }
 
     public void updateKeywordsKor(String[] keywordKorArr) {
@@ -69,14 +69,26 @@ public class Reports extends BaseEntity {
         this.reportsKeywordsViet = List.of(keywordVietArr);
     }
 
-    public void updateReports(String summaryText, String translateText, String[] keywordKorArr, String[] keywordVietArr){
-        this.reportsSummaryKor = summaryText;
-        this.reportsSummaryViet = translateText;
+    public void updateSolutionKor(String solutionTextKor) {
+        this.reportsSolutionKor = solutionTextKor;
+    }
+
+    public void updateSolutionViet(String solutionTextViet) {
+        this.reportsSolutionViet = solutionTextViet;
+    }
+
+    public void updateReports(String summaryTextKor, String summaryTextViet, String[] keywordKorArr, String[] keywordVietArr, String solutionTextKor, String solutionTextViet) {
+        this.reportsSummaryKor = summaryTextKor;
+        this.reportsSummaryViet = summaryTextViet;
         this.reportsKeywordsKor = List.of(keywordKorArr);
         this.reportsKeywordsViet = List.of(keywordVietArr);
+        this.reportsSolutionKor = solutionTextKor;
+        this.reportsSolutionViet = solutionTextViet;
     }
 
     public void updateReportsOriginContent(String updateContent) {
         this.reportsOriginContent = updateContent;
     }
+
+
 }

@@ -7,6 +7,7 @@ import com.ssafy.bridgetalkback.letters.domain.Letters;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
+import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,8 @@ public class LettersServiceTest extends ServiceTest {
 
     @Autowired
     private LettersService lettersService;
+    @Autowired
+    private TranslationService translationService;
     @MockBean
     private TtsService ttsService;
     private Parents parents;
@@ -110,7 +113,7 @@ public class LettersServiceTest extends ServiceTest {
         String target = "";
 
         // when-then
-        assertThatThrownBy(() -> lettersService.translation(originalText, source, target))
+        assertThatThrownBy(() -> translationService.translation(originalText, source, target))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(LettersErrorCode.TRANSLATION_BAD_REQUEST.getMessage());
     }
@@ -124,7 +127,7 @@ public class LettersServiceTest extends ServiceTest {
         String target = "ko";
 
         // when
-        String result = lettersService.translation(originalText, source, target);
+        String result = translationService.translation(originalText, source, target);
 
         // then
         assertThat(result).isNotEmpty();
