@@ -37,6 +37,14 @@ export function ParentReportDetail() {
     [],
   );
 
+  const menu = useMemo(
+    () => ({
+      kor: ['요약', '솔루션'],
+      viet: ['Tóm tắt', 'Giải pháp'],
+    }),
+    [],
+  );
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -61,22 +69,18 @@ export function ParentReportDetail() {
       <BackButton path="../report" navigate={navigate} />
       <S.ContentContainer>
         <div className="menu">
-          <button
-            className="menu__summary"
-            onClick={() => {
-              setResultPage(0);
-            }}
-          >
-            요약
-          </button>
-          <button
-            className="menu__solution"
-            onClick={() => {
-              setResultPage(1);
-            }}
-          >
-            솔루션
-          </button>
+          {Array(2)
+            .fill(0)
+            .map((it, idx) => (
+              <button
+                className={`menu__summary `}
+                onClick={() => {
+                  setResultPage(idx);
+                }}
+              >
+                {menu[language][idx]}
+              </button>
+            ))}
         </div>
         <div className="leftside">
           {report && (

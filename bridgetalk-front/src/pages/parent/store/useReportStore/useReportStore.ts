@@ -34,6 +34,6 @@ export const useReportStore = create<Store>()((set) => ({
   setChildrenList: (childrenList: any) => set({ childrenList: childrenList }),
   reports_UUID: new Map(),
   setReports_UUID: (reports_UUID: any) => set({ reports_UUID: reports_UUID }),
-  resultPage: 1,
+  resultPage: 0,
   setResultPage: (resultPage: number) => set({ resultPage: resultPage }),
 }));

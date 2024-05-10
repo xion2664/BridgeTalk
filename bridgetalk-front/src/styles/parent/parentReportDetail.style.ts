@@ -13,10 +13,30 @@ export const ContentContainer = styled.div`
   .menu {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2svw;
     z-index: 1;
 
     transform: translateY(-100%);
+
+    display: flex;
+    gap: 1svw;
+
+    button {
+      background-color: ${color(1).sub};
+      border: none;
+
+      border-top-left-radius: 1svw;
+      border-top-right-radius: 1svw;
+
+      color: ${color(1).bright};
+
+      font-size: 1.5svw;
+
+      width: 5svw;
+      height: 5svh;
+
+      cursor: pointer;
+    }
   }
 
   .leftside {
