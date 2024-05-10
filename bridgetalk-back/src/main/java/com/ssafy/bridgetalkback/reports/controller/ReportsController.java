@@ -2,10 +2,12 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.reports.domain.Language;
-import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
+import com.ssafy.bridgetalkback.reports.dto.response.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
+import com.ssafy.bridgetalkback.reports.dto.response.TalkCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
+import com.ssafy.bridgetalkback.reports.service.TalkService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +27,16 @@ public class ReportsController {
 
     private final ReportsService reportsService;
 
-    @PostMapping
-    public ResponseEntity<?> createReports(@ExtractPayload String userId) {
-        log.info("{ ReportsController } : Reports 생성 진입");
-        ReportsCreateResponseDto reports = reportsService.createReports(UUID.fromString(userId));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(reports);
-    }
+//    @PostMapping
+//    public ResponseEntity<?> createReports(@ExtractPayload String userId) {
+//        log.info("{ ReportsController } : Reports 생성 진입");
+//        // @TODO : Reports DB 생성은 추가로 다시
+//                ReportsCreateResponseDto reports = reportsService.createReports(UUID.fromString(userId));
+////        return ResponseEntity.status(HttpStatus.CREATED)
+////                .body(reports);
+//        TalkCreateResponseDto talkCreateResponseDto = ta
+//        return ResponseEntity.ok(talk)
+//    }
 
     @GetMapping("/{kidsId}/{language}")
     public ResponseEntity<List<ReportsListResponseDto>> reportsList(

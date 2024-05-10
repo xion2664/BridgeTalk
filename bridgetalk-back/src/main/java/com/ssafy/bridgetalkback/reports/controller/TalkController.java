@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
+import com.ssafy.bridgetalkback.reports.dto.response.TalkCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
@@ -59,6 +60,9 @@ public class TalkController {
 //        String talkText = clovaSpeechService.stt(fileUrl);
         String talkText = talkFastApiService.callFastApi(fileUrl);
 
+//        // @TODO 비동기로 redis에 업데이트 로직 진행 -> 서비스 단에서 해야 하는지 찾아보기
+//        String reportsText
+
         // 변환 텍스트 포함 하도록 DB 원본 레포트 업데이트
         String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);
 
@@ -66,5 +70,13 @@ public class TalkController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.sendTalk(UUID.fromString(userId), reportsText));
+    }
+
+
+    @PostMapping("/talk")
+    public ResponseEntity<?> createTalk(@ExtractPayload String userId) {
+        log.info("{ Talkontroller } : Talk 생성 진입");
+        talkService.createTalk(UUID.fromString(userId));
+        return ResponseEntity.ok().build();
     }
 }

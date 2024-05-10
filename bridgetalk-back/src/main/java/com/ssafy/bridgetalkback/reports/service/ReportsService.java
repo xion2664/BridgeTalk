@@ -14,7 +14,7 @@ import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
-import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
+import com.ssafy.bridgetalkback.reports.dto.response.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.TranscriptionDto;

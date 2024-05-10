@@ -5,7 +5,9 @@ import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.reports.dto.request.ReportsTalkRequestDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
+import com.ssafy.bridgetalkback.reports.repository.TalkRedisRepository;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -23,19 +26,9 @@ public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
     private final ChatGptService chatGptService;
-    private final String[] stopComment = {
-            "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
-            "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!",
-            "나랑 같이 추억을 쌓아줘서 고마워! 다음에 또 만날 때까지 건강하게 지내",
-            "너와 함께할 수 있어서 즐거웠어. 다음에 또 만나자",
-            "벌써 마칠 시간이네. 언제 어디서든 너를 응원할 게! 다음에 또 만나"
-    };
-    private final String[] startComment = {
-            "안녕, 반가워!",
-            "안녕, 무슨일이야? ",
-            "안녕, 언제 봐도 반가워",
-            "안녕, 너랑 이야기할 게 기대돼",
-            "안녕, 기다리고 있었어!"
+    private final TalkRedisRepository talkRedisRepository;
+    private final String[] stopComment = {"이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내", "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!", "나랑 같이 추억을 쌓아줘서 고마워! 다음에 또 만날 때까지 건강하게 지내", "너와 함께할 수 있어서 즐거웠어. 다음에 또 만나자", "벌써 마칠 시간이네. 언제 어디서든 너를 응원할 게! 다음에 또 만나"};
+    private final String[] startComment = {"안녕, 반가워!", "안녕, 무슨일이야? ", "안녕, 언제 봐도 반가워", "안녕, 너랑 이야기할 게 기대돼", "안녕, 기다리고 있었어!"
 
     };
 
@@ -49,6 +42,7 @@ public class TalkService {
 
         Resource endGreeting = ttsService.textToSpeech(endGreetingText);
         log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
+        // @TODO : 정상 종료시 redis의 내용을 읽어와 mysql에 reports 생성하여 update
         return endGreeting;
     }
 
@@ -71,10 +65,10 @@ public class TalkService {
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
         String answer = createAnswer(talkText);
-        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - "+answer);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
 
         Resource sendTalk = ttsService.textToSpeech(answer);
-        log.info("{ TalkService } : sendTalk - "+sendTalk.toString());
+        log.info("{ TalkService } : sendTalk - " + sendTalk.toString());
         return sendTalk;
     }
 
@@ -86,7 +80,7 @@ public class TalkService {
     public String createAnswer(String talkText) {
         log.info("{ TalkService.createAnswer }");
         String transformedText = "";
-        if (talkText.isEmpty()){
+        if (talkText.isEmpty()) {
             log.error("!! 아이 음성 텍스트가 비어었습니다.");
             throw BaseException.type(ReportsErrorCode.CHATGPT_EMPTY_TEXT);
         }
@@ -95,4 +89,57 @@ public class TalkService {
 
         return transformedText;
     }
+
+    //@TODO : 중복체크 함수를 따로 만들어서 여기서는 중복체크로 할까?
+    @Transactional
+    public void createTalk(UUID userId) {
+        log.info("{TalkService} : 대화 임시 저장 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        talkRedisRepository.findById(userEmail).ifPresentOrElse(existingTalk -> {
+            log.info("{TalkService} : 진행중인 대화가 있습니다.");
+            throw BaseException.type(ReportsErrorCode.TALK_DUPLICATED);
+        }, () -> {
+            ReportsTalkRequestDto newTalk = new ReportsTalkRequestDto(userEmail, " ");
+            talkRedisRepository.save(newTalk);
+        });
+
+    }
+//
+//    //@TODO controller에서 updateDriginContent 대신 쓰이는 거라서 reportsId 파라미터 확인
+//    @Transactional //@TODO redis도 Tracsactional 해야 하는지 확인
+//    public String updateOriginalContent(UUID userId, String talkText){
+//        log.info("{TalkService} : 대화 업데이트 서비스 진입");
+//        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+//        String userEmail = kids.getKidsEmail();
+//        ReportsTalkRequestDto reportsTalkRequestDto = findTalkByEmail(userEmail);
+//        String updateReportsContent = reportsTalkRequestDto.reportsOriginContent() + "\n" + talkText;
+//        reportsTalkRequestDto.updateReportsOriginContent(updateReportsContent);
+//        log.info("{TalkService} : 대화 업데이트 완료" + updateReportsContent);
+//
+//        return updateReportsContent;
+//
+//    }
+
+    public String updateOriginalContent(UUID userId, String talkText){
+        log.info("{TalkService} : 대화 업데이트 서비스 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        ReportsTalkRequestDto reportsTalkRequestDto = findTalkByEmail(userEmail);
+        String updateReportsContent = reportsTalkRequestDto.reportsOriginContent() + "\n" + talkText;
+
+        //        reportsTalkRequestDto.reportsOriginContent()
+//        reportsTalkRequestDto.updateReportsOriginContent(updateReportsContent);
+        log.info("{TalkService} : 대화 업데이트 완료" + updateReportsContent);
+
+        return updateReportsContent;
+
+    }
+
+    public ReportsTalkRequestDto findTalkByEmail(String userEmail){
+        log.info("{Talk Service} : Id(UserEmail)로 진행중인 talk 조회 " + userEmail);
+        return talkRedisRepository.findById(userEmail)
+                .orElseThrow(()-> BaseException.type(ReportsErrorCode.TALK_NOT_FOUND));
+    }
+
 }
