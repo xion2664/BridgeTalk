@@ -162,7 +162,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   return (
     <>
-      <div className="record" style={{ position: 'fixed', bottom: '5', left: '5', opacity: 0.2 }}>
+      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0.1 }}>
         <button
           onClick={() => {
             setIsSend(true);
@@ -172,13 +172,6 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           한 마디 전송하기
         </button>
       </div>
-      <Timer
-        devounceTimerRef={devounceTimerRef}
-        getTalkStop={getTalkStop}
-        reportsId={reportsId}
-        setIsRecording={setIsRecording}
-        setReply={setReply}
-      />
 
       <audio ref={audioRef} src={reply} hidden autoPlay />
     </>

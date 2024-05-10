@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
 import { Dino } from '@/pages/child/ui/talk/components/dino';
 import * as S from '@/styles/child/talk/talk.style';
+import { Timer } from '@/shared';
 
 extend({ OrbitControls });
 
@@ -62,6 +63,13 @@ export function TalkingPage() {
           >
             <img src={'assets/img/pic/end.svg'} />
           </button>
+          <Timer
+            devounceTimerRef={devounceTimerRef}
+            getTalkStop={getTalkStop}
+            reportsId={reportsId}
+            setIsRecording={setIsRecording}
+            setReply={setReply}
+          />
           {/* {!isTalking && !isEnd && (
             <div className="talking__header-guide">
               <p>다이노를 눌러 대화를 시작해보아요!</p>
@@ -113,7 +121,6 @@ export function TalkingPage() {
               <p>다음에 또 보자!</p>
             </div>
           )}
-          <p>{}</p>
         </div>
       </div>
     </S.Container>

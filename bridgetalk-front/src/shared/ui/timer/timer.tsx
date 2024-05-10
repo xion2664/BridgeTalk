@@ -1,5 +1,6 @@
 import { useTalkStore } from '@/pages';
 import { useEffect, useRef, useState } from 'react';
+import * as S from '@/styles/shared/timer.style';
 
 interface Props {
   isRecording?: any;
@@ -62,5 +63,9 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
     }
   }, [time]);
 
-  return <div>{`${Math.floor(time / 60)}`.padStart(2, '0') + ' : ' + `${Math.floor(time % 60)}`.padStart(2, '0')}</div>;
+  return (
+    <S.ChildWrapper>
+      {`${Math.floor(time / 60)}`.padStart(2, '0') + ' : ' + `${Math.floor(time % 60)}`.padStart(2, '0')}
+    </S.ChildWrapper>
+  );
 }
