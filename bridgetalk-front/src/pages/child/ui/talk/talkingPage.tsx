@@ -12,14 +12,20 @@ import * as S from '@/styles/child/talk/talk.style';
 extend({ OrbitControls });
 
 export function TalkingPage() {
+  // Navigate
   const navigate = useNavigate();
+
+  // State
   const [reply, setReply] = useState<any>();
+
+  // GlobalState
   const reportsId = useTalkStore((state) => state.reportsId);
   const isRecording = useTalkStore((state) => state.isRecording);
   const setIsRecording = useTalkStore((state) => state.setIsRecording);
   const setIsSend = useTalkStore((state) => state.setIsSend);
-
-  const [end, setEnd] = useState<boolean>(false);
+  const isEnd = useTalkStore((state) => state.isEnd);
+  const setIsEnd = useTalkStore((state) => state.setIsEnd);
+  const setIsTalking = useTalkStore((state) => state.setIsTalking);
 
   // Ref
   const devounceTimerRef = useRef<any>(null);
@@ -29,7 +35,7 @@ export function TalkingPage() {
       <div className="talking">
         <div className="talking__header">
           {/* <TalkingHeader /> */}
-          <div
+          <button
             className="talking__header-end"
             onClick={() => {
               if (isRecording) {
@@ -40,9 +46,9 @@ export function TalkingPage() {
                   })
                   .then(() => {
                     setTimeout(() => {
-                      setEnd(true);
-                    }),
-                      500;
+                      setIsTalking(false);
+                      setIsEnd(true);
+                    }, 500);
                   });
                 setIsRecording(false);
 
@@ -53,7 +59,7 @@ export function TalkingPage() {
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
-          </div>
+          </button>
           <div className="talking__header-message">
             <img
               src={'assets/img/pic/message.svg'}
@@ -63,7 +69,7 @@ export function TalkingPage() {
             />
           </div>
         </div>
-        {end && (
+        {isEnd && (
           <div style={{ fontFamily: 'DNF', fontSize: `3svw`, position: 'fixed', top: `10svh` }}>대화가 종료됐어요</div>
         )}
         <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />

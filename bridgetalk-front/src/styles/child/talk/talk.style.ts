@@ -24,6 +24,9 @@ export const Container = styled.div`
       padding: 0 3svh;
 
       &-end {
+        background-color: transparent;
+        border: none;
+
         img {
           height: 10svh;
 
