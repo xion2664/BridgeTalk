@@ -1,6 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import { Main, StartPage, ProfilePage, EditProfilePage, SignInPage, SignUpPage, LoginGuard, ErrorPage } from '@/pages';
-import { ChildPage, TalkingPage, MessagePage, MessageList, Message, GamingPage, PuzzlePage } from '@/pages';
+import {
+  ChildPage,
+  TalkingPage,
+  MessagePage,
+  MessageList,
+  Message,
+  GamingPage,
+  PuzzlePage,
+  ColoringPage,
+  DressingPage,
+} from '@/pages';
 import {
   Parent,
   ParentInformationMain,
@@ -11,7 +21,17 @@ import {
   ParentReportList,
   ParentInformationNewsDetail,
 } from '@/pages';
-import { TeestZustand, Test, TestCamera, TestDraw, TestPuzzle, TestVoice, TestWordcloud, TestCharacter } from '@/pages';
+import {
+  TeestZustand,
+  Test,
+  TestColoring,
+  TestCamera,
+  TestDraw,
+  TestPuzzle,
+  TestVoice,
+  TestWordcloud,
+  TestCharacter,
+} from '@/pages';
 
 export function AppRoutes() {
   return (
@@ -98,6 +118,8 @@ export function AppRoutes() {
       </Route>
       <Route path="/game" element={<GamingPage />} />
       <Route path="/puzzle" element={<PuzzlePage />} />
+      <Route path="/color" element={<ColoringPage />} />
+      <Route path="/dress" element={<DressingPage />} />
 
       {/* 부모 관련 */}
       <Route path="/parent" element={<Parent />}>
@@ -120,6 +142,7 @@ export function AppRoutes() {
         <Route path="wordcloud" element={<TestWordcloud />} />
         <Route path="zustand" element={<TeestZustand />} />
         <Route path="character" element={<TestCharacter />} />
+        <Route path="coloring" element={<TestColoring />} />
       </Route>
 
       {/* 에러 페이지 */}

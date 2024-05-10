@@ -90,7 +90,11 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       // CopyWebpackplugin: 정적 asset 파일 빌드시 복사
-      patterns: [{ from: 'public/assets', to: 'assets/' }],
+      patterns: [
+        { from: 'public/assets', to: 'assets/' },
+        { from: 'public/@ffmpeg', to: '@ffmpeg/' },
+        { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
+      ],
     }),
     // new ImageMinimizerPlugin({
     //     // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인

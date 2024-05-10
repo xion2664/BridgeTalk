@@ -46,7 +46,7 @@ export function TalkingPage() {
             <img
               src={'assets/img/pic/message.svg'}
               onClick={() => {
-                navigate('/message');
+                navigate('/message/list');
               }}
             />
           </div>

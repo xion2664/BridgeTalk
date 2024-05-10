@@ -15,6 +15,7 @@ export function handleSignin(requestDto: any, userStore: any, navigate: Navigate
           btoa('refresh' + process.env.REACT_APP_SECURE_CODE),
           btoa(data.refreshToken + process.env.REACT_APP_SECURE_CODE),
         );
+        sessionStorage.setItem('dino', data.userDino);
 
         userStore.setUserId(data.userId);
         userStore.setUserDino(data.userDino);
