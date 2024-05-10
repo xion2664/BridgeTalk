@@ -70,21 +70,11 @@ export function ParentReportDetail() {
                 {/* <TransltaionButton isKor={isKor} setIsKor={setIsKor} /> */}
               </div>
               <div className="content-container">
-                <div className="content">
-                  <S.Keywords>
-                    {report.reportsKeywords.map((keyword: any) => (
-                      <div className="keyword" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
-                        #{keyword.trim()}
-                      </div>
-                    ))}
-                  </S.Keywords>
-                  <S.Summary style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
-                    {report.reportsSummary}
-                  </S.Summary>
-                </div>
-                <div className="solution" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
-                  {report.reportsSolution}
-                </div>
+                <Content
+                  reportsKeywords={report.reportsKeywords}
+                  reportsSolution={report.reportsSolution}
+                  reportsSummary={report.reportsSummary}
+                />
               </div>
             </>
           )}
@@ -96,19 +86,33 @@ export function ParentReportDetail() {
 }
 
 interface Props {
-  readonly isKor: boolean;
-  readonly setIsKor: Dispatch<SetStateAction<boolean>>;
+  reportsKeywords: any[];
+  reportsSummary: string;
+  reportsSolution: string;
 }
 
-function TransltaionButton({ isKor, setIsKor }: Props) {
+function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
+  const resultPage = useReportStore((state) => state.resultPage);
+  const language = useReportStore((state) => state.language);
+
   return (
-    <button
-      className="button"
-      onClick={() => {
-        setIsKor(!isKor);
-      }}
-    >
-      {isKor ? <img src="/assets/img/ktv.svg" /> : <img src="/assets/img/vtk.svg" />}
-    </button>
+    <>
+      {resultPage === 0 ? (
+        <div className="content">
+          <S.Keywords>
+            {reportsKeywords.map((keyword: any) => (
+              <div className="keyword" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+                #{keyword.trim()}
+              </div>
+            ))}
+          </S.Keywords>
+          <S.Summary style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>{reportsSummary}</S.Summary>
+        </div>
+      ) : (
+        <div className="solution" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+          {reportsSolution}
+        </div>
+      )}
+    </>
   );
 }
