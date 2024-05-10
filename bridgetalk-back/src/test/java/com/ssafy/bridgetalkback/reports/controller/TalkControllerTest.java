@@ -24,9 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Talk [Controller Layer] -> TalkController 테스트")
 public class TalkControllerTest extends ControllerTest {
     @Nested
-    @DisplayName("대화 종료 API [GET /api/reports/talk-stop/{reportsId}]")
+    @DisplayName("대화 종료 API [GET /api/reports/talk-stop]")
     class stopTalk {
-        private static final String BASE_URL = "/api/reports/talk-stop/{reportsId}";
+        private static final String BASE_URL = "/api/reports/talk-stop";
         private static final Long REPORTS_ID = 1L;
 
         @Test
@@ -126,9 +126,9 @@ public class TalkControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("대화 하기 API [PATCH /api/reports/talk-send/{reportsId}]")
+    @DisplayName("대화 하기 API [PATCH /api/reports/talk-send")
     class sendTalk {
-        private static final String BASE_URL = "/api/reports/talk-send/{reportsId}";
+        private static final String BASE_URL = "/api/reports/talk-send";
         private static final Long REPORTS_ID = 1L;
 
         @Test
