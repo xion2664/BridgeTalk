@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
+import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
@@ -27,6 +28,7 @@ public class TalkController {
     private final ReportsService reportsService;
     private final ReportsUpdateService reportsUpdateService;
     private final TalkFastApiService talkFastApiService;
+    private final ClovaSpeechService clovaSpeechService;
 
     @GetMapping("/talk-stop")
     public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId) throws ExecutionException, InterruptedException {
