@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
 import { FaMicrophone } from 'react-icons/fa';
-import { useVoiceStore } from '@/pages/parent/store';
+import { useReportStore, useVoiceStore } from '@/pages/parent/store';
 
 interface Props {
   readonly isRecording: boolean;
@@ -10,7 +10,15 @@ interface Props {
 
 export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }: Props) {
   const setIsRecordFinished = useVoiceStore((state) => state.setIsRecordFinished);
+  const language = useReportStore((state) => state.language);
 
+  const buttonWord = useMemo(
+    () => ({
+      kor: !isRecording ? '녹음하기' : '종료하기',
+      viet: !isRecording ? 'Đang ghi' : 'Trả lời',
+    }),
+    [isRecording],
+  );
   return (
     <S.ButtonWrapper
       $isRecording={isRecording}
@@ -28,7 +36,7 @@ export function ParentReportDetailRecorderButton({ isRecording, setIsRecording }
       <div>
         <FaMicrophone />
       </div>
-      <div>{isRecording ? 'Đang ghi' : 'Trả lời'}</div>
+      <div style={{ fontFamily: language === 'kor' ? 'DNF' : 'CherryBomb' }}>{buttonWord[language]}</div>
     </S.ButtonWrapper>
   );
 }
