@@ -2,7 +2,6 @@ import * as S from '@/styles/parent/parentInformationNews.style';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ParentInformationNewsListItem } from './parentInformationNewsListItem/parentInformationNewsListItem';
 import { BackButton } from '@/shared';
 
 interface News {
@@ -37,19 +36,7 @@ export function ParentInformationNews() {
   return (
     <>
       <BackButton path="../information" navigate={navigate} />
-      <S.Container>
-        <S.NewsList>
-          {newsList.length > 0 &&
-            newsList.map((news: News) => (
-              <ParentInformationNewsListItem
-                key={news.newsId}
-                newsId={news.newsId}
-                newsDescription={news.newsDescription}
-                newsTitle={news.newsTitle}
-              />
-            ))}
-        </S.NewsList>
-      </S.Container>
+      <S.Container></S.Container>
     </>
   );
 }
