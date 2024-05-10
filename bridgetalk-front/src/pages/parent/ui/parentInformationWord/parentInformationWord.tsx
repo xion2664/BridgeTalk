@@ -17,15 +17,16 @@ interface Word {
 export function ParentInformationWord() {
   const navigate = useNavigate();
   const [words, setWords] = useState<Word[]>([]);
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
-    getSlang(0, 10).then((res) => {
+    getSlang(page, 7).then((res) => {
       console.log(res);
       if (res.status === 200) {
         setWords(res.data.list);
       }
     });
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -34,71 +35,19 @@ export function ParentInformationWord() {
         <div className="main">
           <div className="main__left">
             <div className="main__left-buttons">
-              <button
-                className="main__left-buttons-button"
-                onClick={() => {
-                  getSlang(0, 10).then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                      setWords(res.data.list);
-                    }
-                  });
-                }}
-              >
-                1
-              </button>
-              <button
-                className="main__left-buttons-button"
-                onClick={() => {
-                  getSlang(1, 10).then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                      setWords(res.data.list);
-                    }
-                  });
-                }}
-              >
-                2
-              </button>
-              <button
-                className="main__left-buttons-button"
-                onClick={() => {
-                  getSlang(2, 10).then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                      setWords(res.data.list);
-                    }
-                  });
-                }}
-              >
-                3
-              </button>
-              <button
-                className="main__left-buttons-button"
-                onClick={() => {
-                  getSlang(3, 10).then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                      setWords(res.data.list);
-                    }
-                  });
-                }}
-              >
-                4
-              </button>
-              <button
-                className="main__left-buttons-button"
-                onClick={() => {
-                  getSlang(4, 10).then((res) => {
-                    console.log(res);
-                    if (res.status === 200) {
-                      setWords(res.data.list);
-                    }
-                  });
-                }}
-              >
-                5
-              </button>
+              {Array(6)
+                .fill(0)
+                .map((it, idx) => (
+                  <button
+                    key={idx + 1}
+                    className={`main__left-buttons-button ${page === idx ? 'active' : null} `}
+                    onClick={() => {
+                      setPage(idx);
+                    }}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
             </div>
             <div className="main__left-list">
               {words.length > 0 && words.map((word: Word) => <div key={word.slangId}>{word.slangWord}</div>)}
