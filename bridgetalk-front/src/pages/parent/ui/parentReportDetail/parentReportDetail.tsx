@@ -82,7 +82,9 @@ export function ParentReportDetail() {
                     {report.reportsSummary}
                   </S.Summary>
                 </div>
-                <div className="solution">{report.reportsSolution}</div>
+                <div className="solution" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+                  {report.reportsSolution}
+                </div>
               </div>
             </>
           )}
