@@ -18,7 +18,17 @@ export const Container = styled.div`
     }
 
     &__reader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5svh;
+
       &-talk {
+        width: 60svw;
+        padding: 5svh;
+        border-radius: 5svh;
+        background-color: #ffffff;
+        box-shadow: 0 1svh 1svh #00000050;
       }
 
       &-dino {
@@ -27,13 +37,10 @@ export const Container = styled.div`
         align-items: center;
         justify-content: end;
 
-        img {
-          height: 40svh;
-        }
+        width: 90svw;
+        height: 60svh;
 
         span {
-          font-size: 4svh;
-          font-family: 'DNF';
         }
       }
     }
