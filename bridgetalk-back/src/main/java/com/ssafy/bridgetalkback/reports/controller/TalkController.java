@@ -27,13 +27,14 @@ public class TalkController {
     private final TalkService talkService;
     private final ReportsService reportsService;
     private final ReportsUpdateService reportsUpdateService;
-    private final ClovaSpeechService clovaSpeechService;
     private final TalkFastApiService talkFastApiService;
+    private final ClovaSpeechService clovaSpeechService;
 
-    @GetMapping("/talk-stop/{reportsId}")
-    public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId, @PathVariable Long reportsId) throws ExecutionException, InterruptedException {
+    @GetMapping("/talk-stop")
+    public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId) throws ExecutionException, InterruptedException {
         log.info("{ TalkController } : 대화 종료 진입");
-        reportsUpdateService.createReportAsync(reportsId);
+        // reports 생성
+        reportsService.createReports(UUID.fromString(userId));
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.stopTalk(UUID.fromString(userId)));
@@ -42,14 +43,15 @@ public class TalkController {
     @GetMapping("/talk-start")
     public ResponseEntity<Resource> startTalk(@ExtractPayload String userId) {
         log.info("{ TalkController } : 대화 시작 진입");
+        talkService.createTalk(UUID.fromString(userId));
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.startTalk(UUID.fromString(userId)));
     }
 
 
-    @PatchMapping("/talk-send/{reportsId}")
-    public ResponseEntity<Resource> sendTalk(@ExtractPayload String userId, @PathVariable Long reportsId,
+    @PatchMapping("/talk-send")
+    public ResponseEntity<Resource> sendTalk(@ExtractPayload String userId,
                                              @RequestPart(value = "reportsFile") MultipartFile multipartFile) {
         log.info("{ TalkController } : 대화 하기 진입");
 
@@ -60,11 +62,11 @@ public class TalkController {
 //        String talkText = talkFastApiService.callFastApi(fileUrl);
 
         // 변환 텍스트 포함 하도록 DB 원본 레포트 업데이트
-        String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);
+//        String reportsText = reportsService.updateOriginContent(UUID.fromString(userId), reportsId, talkText);
 
         // 변환 텍스트에 대한 답장 생성 및 tts로 변환
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
-                .body(talkService.sendTalk(UUID.fromString(userId), reportsText));
+                .body(talkService.sendTalk(UUID.fromString(userId), talkText));
     }
 }

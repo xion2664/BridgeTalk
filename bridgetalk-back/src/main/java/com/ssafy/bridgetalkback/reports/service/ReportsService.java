@@ -23,6 +23,7 @@ import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +44,7 @@ public class ReportsService {
     private final AmazonS3 s3Client;
     private final ObjectMapper objectMapper;
     private final ReportsTranscribeService reportsTranscribeService;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -52,8 +54,13 @@ public class ReportsService {
     public ReportsCreateResponseDto createReports(UUID userId) {
         log.info("{ReportsService} :  reports 생성 ");
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-        Reports reports = Reports.createReports(kids, "");
+        String userEmail = kids.getKidsEmail();
+        // Redis의 대화 내용 가져오기
+        String reportsOriginContent = stringRedisTemplate.opsForValue().get(userEmail);
+        Reports reports = Reports.createReports(kids, reportsOriginContent);
         reportsRepository.save(reports);
+        // Redis에서 삭제
+        stringRedisTemplate.delete(userEmail);
         return ReportsCreateResponseDto.fromReportsId(reports);
     }
 
@@ -97,12 +104,12 @@ public class ReportsService {
 
         String updateReportsContent = reports.getReportsOriginContent() + "\n" + talkText;
         reports.updateReportsOriginContent(updateReportsContent);
-        log.info("{ ReportsService } : 아이 대화 원본 update 성공 - "+updateReportsContent);
+        log.info("{ ReportsService } : 아이 대화 원본 update 성공 - " + updateReportsContent);
 
         return updateReportsContent;
     }
 
-    public String saveReportsFiles(MultipartFile puzzleFile){
+    public String saveReportsFiles(MultipartFile puzzleFile) {
         log.info("{ ReportsService.saveReportsFile() } : 아이 음성 s3업로드 메서드");
         return s3FileService.uploadReportsFiles(puzzleFile);
     }
@@ -112,14 +119,14 @@ public class ReportsService {
         String[] vrr = fileUrl.split("/");
         System.out.println(Arrays.toString(vrr));
         int len = vrr.length;
-        String fileName = vrr[len-2]+"/"+vrr[len-1];
+        String fileName = vrr[len - 2] + "/" + vrr[len - 1];
         log.info(">> fileName : {}", fileName);
 
         String talkText = stt(fileName);
         log.info(">> talkText : {}", talkText);
 
         s3FileService.deleteFiles(fileUrl);
-        log.info("{ ReportsService } : tts 성공 및 원본 음성 파일 삭제 - "+fileUrl);
+        log.info("{ ReportsService } : tts 성공 및 원본 음성 파일 삭제 - " + fileUrl);
 
         return talkText;
     }
@@ -132,7 +139,7 @@ public class ReportsService {
         String extractText = "";
         try {
             S3Object s3Object = s3Client.getObject(bucketName, transcriptFileName);
-            log.info(">> s3Object : {}",s3Object);
+            log.info(">> s3Object : {}", s3Object);
             S3ObjectInputStream objectContent = s3Object.getObjectContent();
             // Transcript json -> DTO
             TranscriptionDto jsonData = objectMapper.readValue(objectContent, TranscriptionDto.class);

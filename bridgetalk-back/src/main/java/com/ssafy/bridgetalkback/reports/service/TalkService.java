@@ -10,6 +10,7 @@ import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,8 @@ public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
     private final ChatGptService chatGptService;
+    private final StringRedisTemplate stringRedisTemplate;
+    private final ReportsService reportsService;
     private final String[] stopComment = {
             "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
             "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!",
@@ -70,11 +73,13 @@ public class TalkService {
         log.info("{ TalkService } : 대화 하기 (답장) 진입");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        updateTalkText(userEmail, talkText);
         String answer = createAnswer(talkText);
-        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - "+answer);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
 
         Resource sendTalk = ttsService.textToSpeech(answer);
-        log.info("{ TalkService } : sendTalk - "+sendTalk.toString());
+        log.info("{ TalkService } : sendTalk - " + sendTalk.toString());
         return sendTalk;
     }
 
@@ -86,7 +91,7 @@ public class TalkService {
     public String createAnswer(String talkText) {
         log.info("{ TalkService.createAnswer }");
         String transformedText = "";
-        if (talkText.isEmpty()){
+        if (talkText.isEmpty()) {
             log.error("!! 아이 음성 텍스트가 비어었습니다.");
             throw BaseException.type(ReportsErrorCode.CHATGPT_EMPTY_TEXT);
         }
@@ -95,4 +100,31 @@ public class TalkService {
 
         return transformedText;
     }
+
+    // RedisTemplate 적용
+
+    // update
+    public void updateTalkText(String userEmail, String newText) {
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            throw BaseException.type(ReportsErrorCode.TALK_NOT_FOUD);
+        } else {
+            stringRedisTemplate.opsForValue().append(userEmail, "\n" + newText);
+        }
+    }
+
+    public void createTalk(UUID userId) {
+        log.info("{TalkService} : 대화 임시 저장 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            stringRedisTemplate.opsForValue().set(userEmail, " ", 310);
+        } else {
+            log.info("{TalkService} : 진행중인 대화가 있습니다.");
+            throw BaseException.type(ReportsErrorCode.TALK_DUPLICATED);
+        }
+
+    }
+
 }
