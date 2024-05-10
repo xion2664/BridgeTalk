@@ -24,6 +24,8 @@ export function TalkingPage() {
   const setIsRecording = useTalkStore((state) => state.setIsRecording);
   const setIsSend = useTalkStore((state) => state.setIsSend);
   const isEnd = useTalkStore((state) => state.isEnd);
+  const isTalking = useTalkStore((state) => state.isTalking);
+  const isWaiting = useTalkStore((state) => state.isWaiting);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
 
@@ -60,6 +62,21 @@ export function TalkingPage() {
           >
             <img src={'assets/img/pic/end.svg'} />
           </button>
+          {!isTalking && !isEnd && (
+            <div className="talking__header-guide">
+              <p>다이노를 눌러 대화를 시작해보아요!</p>
+            </div>
+          )}
+          {isEnd && (
+            <div className="talking__header-guide">
+              <p>대화가 종료됐어요!</p>
+            </div>
+          )}
+          {isWaiting && (
+            <div className="talking__header-guide">
+              <p>다이노가 어떤 이야기를 해줄지 생각중이에요!</p>
+            </div>
+          )}
           <div className="talking__header-message">
             <img
               src={'assets/img/pic/message.svg'}
@@ -69,14 +86,8 @@ export function TalkingPage() {
             />
           </div>
         </div>
-        {isEnd && (
-          <div style={{ fontFamily: 'DNF', fontSize: `3svw`, position: 'fixed', top: `10svh` }}>대화가 종료됐어요</div>
-        )}
         <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
-          <div className="talking__container-guide">
-            <p>user guide & state announcement</p>
-          </div>
           <div className="talking__container-dino">
             <Canvas camera={{ position: [0, 0, 1.2], fov: 50 }}>
               <ambientLight intensity={2} />
@@ -86,9 +97,9 @@ export function TalkingPage() {
               <CameraControls />
             </Canvas>
           </div>
-          <div className="talking__container-talk">
+          {/* <div className="talking__container-talk">
             <p>dino's dialogue</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </S.Container>

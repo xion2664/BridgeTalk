@@ -172,11 +172,6 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           한 마디 전송하기
         </button>
       </div>
-      {isWaiting && (
-        <div style={{ fontFamily: 'DNF', fontSize: `3svw`, position: 'fixed', top: `10svh` }}>
-          다이노가 어떤 말을 해줄지 생각중이에요
-        </div>
-      )}
       <Timer
         devounceTimerRef={devounceTimerRef}
         getTalkStop={getTalkStop}

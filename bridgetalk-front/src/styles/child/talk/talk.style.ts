@@ -36,6 +36,22 @@ export const Container = styled.div`
         }
       }
 
+      &-guide {
+        padding: 3svh;
+
+        text-align: center;
+        font-size: 3svh;
+        font-family: 'DNF';
+
+        border-radius: 1svw;
+        background-color: #00000090;
+        color: white;
+
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       &-message {
         img {
           height: 15svh;
@@ -53,8 +69,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
-      &-guide {
-        width: 40svw;
+      /* &-guide {
         padding: 3svh;
 
         text-align: center;
@@ -64,7 +79,13 @@ export const Container = styled.div`
         border-radius: 1svw;
         background-color: #00000090;
         color: white;
-      }
+
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+      } */
 
       &-dino {
         * {
