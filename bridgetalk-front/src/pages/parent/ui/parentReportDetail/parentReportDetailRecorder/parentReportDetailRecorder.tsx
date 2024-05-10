@@ -6,10 +6,10 @@ import {
   stopRecordVoice,
 } from '@/shared';
 import * as S from '@/styles/parent/parentReportDetailRecorder.style';
-import { memo, useState, useEffect, MutableRefObject, useRef } from 'react';
+import { memo, useState, useEffect, MutableRefObject, useRef, useMemo } from 'react';
 import { ParentReportDetailRecorderButton } from '@/pages/parent/ui/parentReportDetail/parentReportDetailRecorderButton/parentReportDetailRecorderButton';
 import { ParentReportDetailVolumeChecker } from '@/pages/parent/ui/parentReportDetail/parentReportDetailVolumeChecker/parentReportDetailVolumeChecker';
-import { useVoiceStore } from '@/pages/parent/store';
+import { useReportStore, useVoiceStore } from '@/pages/parent/store';
 
 interface AudioContext {
   analyser: AnalyserNode;
@@ -18,14 +18,29 @@ interface AudioContext {
 }
 
 export const ParentReportDetailRecorder = memo(() => {
-  const [lang, setLang] = useState<number>(0);
+  // State
   const [isRecording, setIsRecording] = useState<boolean>(false);
+
+  // Ref
+  const audioDataRef = useRef<Blob | null>(null);
+
+  // Global State
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const setVolume = useVoiceStore((state) => state.setVolume);
+  const language = useReportStore((state) => state.language);
 
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
+
+  // 언어 별 출력 문구
+  const title = useMemo(
+    () => ({
+      kor: '답장하기',
+      viet: 'phúc đáp',
+    }),
+    [],
+  );
 
   useEffect(() => {
     // 오디오 스트림 연결
@@ -50,7 +65,7 @@ export const ParentReportDetailRecorder = memo(() => {
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
-      startRecordVoice(streamRef, recorderRef, setAudioBlob);
+      startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
     return () => {
@@ -59,18 +74,20 @@ export const ParentReportDetailRecorder = memo(() => {
         clearInterval(volumeCheckInterval);
         stopRecordVoice(recorderRef);
         setVolume(0);
+
+        setTimeout(() => {
+          setAudioBlob(audioDataRef.current!);
+        }, 0);
       }
     };
   }, [isRecording]);
 
   return (
     <S.Container>
-      <div className="title">답장하기</div>
-      <ParentReportDetailVolumeChecker isRecording={isRecording} />
-      <div>
-        {/* <button>한국어</button>
-        <button>베트남어</button> */}
+      <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+        {title[language]}
       </div>
+      <ParentReportDetailVolumeChecker isRecording={isRecording} />
       <ParentReportDetailRecorderButton
         isRecording={isRecording}
         setIsRecording={setIsRecording}

@@ -24,6 +24,7 @@ export const Container = styled.div`
 
       border-radius: 5svh;
       background-color: #ff9f99;
+      box-shadow: 0 1svh 1svh #00000050;
 
       &-header {
         display: flex;
@@ -47,21 +48,24 @@ export const Container = styled.div`
     &__info {
       display: flex;
       flex-direction: column;
-      align-item: center;
-      justify-content: center;
+      align-items: end;
+      justify-content: end;
+      gap: 2svh;
 
       span {
         padding: 4svh;
+        margin-right: 1svh;
 
         font-size: 3svh;
         font-family: 'DNF';
 
-        border-radius: 10svh;
+        border-radius: 10svh 10svh 0 10svh;
         background-color: white;
+        box-shadow: 0 1svh 1svh #00000050;
       }
 
       img {
-        height: 20svh;
+        height: 30svh;
       }
     }
   }

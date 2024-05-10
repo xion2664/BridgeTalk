@@ -23,6 +23,9 @@ module.exports = {
   },
   devServer: {
     allowedHosts: 'all',
+    client: {
+      webSocketURL: { hostname: undefined, pathname: undefined, port: '0' },
+    },
   },
   module: {
     rules: [
@@ -46,7 +49,7 @@ module.exports = {
       {
         test: /\.css$/, // css 파일의 경우
         use: ['style-loader', 'css-loader'], // css-loader, style-loader 순서로 활용해 로드한다.
-        include: path.resolve(__dirname, './src/main.css'), // src 폴더 내부 main.css만 탐색한다
+        // include: path.resolve(__dirname, './src/main.css'), // src 폴더 내부 main.css만 탐색한다
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i, // 해당 확장자의 파일의 경우
@@ -75,11 +78,11 @@ module.exports = {
       // HtmlWebpackPlugin: 번들링 결과물 생성
       template: 'public/index.html',
     }),
-    new FaviconsWebpackPlugin({
-      // manifest, logo 파일 번들링 결과물에 포함
-      logo: path.resolve(__dirname, 'public/blender.png'),
-      manifest: path.resolve(__dirname, 'public/manifest.json'),
-    }),
+    // new FaviconsWebpackPlugin({
+    //   // manifest, logo 파일 번들링 결과물에 포함
+    //   logo: path.resolve(__dirname, 'public/blender.png'),
+    //   manifest: path.resolve(__dirname, 'public/manifest.json'),
+    // }),
     new webpack.DefinePlugin({
       // DefinePlugin: 환경 변수 env 파일 인식
       'process.env': JSON.stringify(process.env),
@@ -87,7 +90,11 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       // CopyWebpackplugin: 정적 asset 파일 빌드시 복사
-      patterns: [{ from: 'public', to: 'assets/' }],
+      patterns: [
+        { from: 'public/assets', to: 'assets/' },
+        { from: 'public/@ffmpeg', to: '@ffmpeg/' },
+        { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
+      ],
     }),
     // new ImageMinimizerPlugin({
     //     // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인

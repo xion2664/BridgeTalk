@@ -8,6 +8,7 @@ import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoRepository
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.puzzle.repository.PuzzleRepository;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
+import com.ssafy.bridgetalkback.slang.repository.SlangRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Transactional
 public class ServiceTest {
     @Autowired
-    private DatabaseCleaner databaseCleaner;
-
-    @Autowired
     protected ParentsRepository parentsRepository;
-
     @Autowired
     protected KidsRepository kidsRepository;
-
     @Autowired
     protected ReportsRepository reportsRepository;
-
     @Autowired
     protected RefreshTokenRedisRepository refreshTokenRedisRepository;
-
     @Autowired
     protected LettersRepository lettersRepository;
-
     @Autowired
     protected PuzzleRepository puzzleRepository;
+    @Autowired
+    protected SlangRepository slangRepository;
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
 
     @Autowired
     protected ParentingInfoRepository parentingInfoRepository;

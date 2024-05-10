@@ -1,16 +1,28 @@
 import { useReportStore } from '@/pages/parent/store';
 import * as S from '@/styles/parent/parentReportListWordcloud.style';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactWordcloud from 'react-wordcloud';
 
 export function ParentReportListWordcloud() {
-  const reportList = useReportStore((state) => state.reportList);
+  const { reportList, language } = useReportStore((state) => ({
+    reportList: state.reportList,
+    language: state.language,
+  }));
   const [keywords, setKeywords] = useState<any>([]);
+  const keywordTitle = useMemo(
+    () => ({
+      kor: '키워드 분석',
+      viet: 'Phân tích từ khoá',
+    }),
+    [],
+  );
 
   useEffect(() => {
     const keywordsMap = new Map();
 
     reportList.forEach((report: any) => {
+      if (!report.value) return;
+
       const list = report.value.data;
 
       list.forEach((it: any) => {
@@ -60,7 +72,9 @@ export function ParentReportListWordcloud() {
 
   return (
     <S.Wrapper>
-      <div className="title">키워드 분석</div>
+      <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+        {keywordTitle[language]}
+      </div>
       <div className="cloud">{wordCloud}</div>
     </S.Wrapper>
   );

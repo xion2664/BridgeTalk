@@ -29,6 +29,7 @@ import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
+import com.ssafy.bridgetalkback.slang.controller.SlangController;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         TalkController.class,
         ReportsController.class,
         PuzzleController.class,
+        SlangController.class,
+        ProfileController.class
         ProfileController.class,
         ParentingInfoController.class
 })

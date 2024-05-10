@@ -26,12 +26,16 @@ export function ParentReportList() {
       // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
       const promises = childrenList.map((child: any) => {
         childMap.set(child.userId, { name: child.userName, nickname: child.userNickname });
-        return getReportList(child.userId, language);
+        return getReportList(child.userId, language).catch(() => null);
       });
 
       // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
       const data = await Promise.allSettled(promises);
+      console.log(data);
+
       data.forEach((it: any) => {
+        if (!it.value) return;
+
         const childUUID = it.value.request.responseURL.split('/')[5];
 
         // child = {name, nickname}
@@ -51,7 +55,7 @@ export function ParentReportList() {
     }
 
     fetchData();
-  }, []);
+  }, [language]);
 
   return (
     <>

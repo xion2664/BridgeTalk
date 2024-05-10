@@ -31,5 +31,5 @@ export const useSignupStore = create<Store>()((set) => ({
   country: 'viet',
   setCountry: (country: string) => set({ country: country }),
   dino: 'D1',
-  setDino: (dino: string) => set({ dino: dino }),
+  setDino: (dino: any) => set({ dino: dino }),
 }));
