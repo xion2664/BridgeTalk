@@ -12,6 +12,7 @@ export function Dino() {
   const mixer = useRef<AnimationMixer | null>(null);
 
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
+  const isEnd = useTalkStore((state) => state.isEnd);
 
   useEffect(() => {
     if (gltf.animations.length > 0) {
@@ -33,7 +34,10 @@ export function Dino() {
   return (
     <primitive
       onClick={() => {
-        setIsTalking(true);
+        if (!isEnd) {
+          console.log('{ 대화 시작 }');
+          setIsTalking(true);
+        }
       }}
       object={gltf.scene}
       scale={1}
