@@ -15,13 +15,12 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
 
   const isEnd = useTalkStore((state) => state.isEnd);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);
+  const isTalking = useTalkStore((state) => state.isTalking);
 
   const timerRef = useRef<any>();
 
   useEffect(() => {
-    // let timerRef.current: any = null;
-
-    if (isRecording === undefined) {
+    if (isRecording === undefined && isTalking) {
       timerRef.current = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
@@ -29,7 +28,7 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
       timerRef.current = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
-    } else {
+    } else if (isTalking) {
       setTime(0);
       clearInterval(timerRef.current);
     }
@@ -44,7 +43,7 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
         clearInterval(timerRef.current);
       }
     };
-  }, [isRecording]);
+  }, [isRecording, isTalking]);
 
   useEffect(() => {
     if (isEnd) {
