@@ -16,6 +16,7 @@ export function ParentReportDetail() {
   // Global State
   const language = useReportStore((state) => state.language);
   const reports_UUID = useReportStore((state) => state.reports_UUID);
+  const setResultPage = useReportStore((state) => state.setResultPage);
 
   // State
   const [report, setReport] = useState<any>('');
@@ -59,6 +60,24 @@ export function ParentReportDetail() {
     <>
       <BackButton path="../report" navigate={navigate} />
       <S.ContentContainer>
+        <div className="menu">
+          <button
+            className="menu__summary"
+            onClick={() => {
+              setResultPage(0);
+            }}
+          >
+            요약
+          </button>
+          <button
+            className="menu__solution"
+            onClick={() => {
+              setResultPage(1);
+            }}
+          >
+            솔루션
+          </button>
+        </div>
         <div className="leftside">
           {report && (
             <>

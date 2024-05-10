@@ -10,6 +10,15 @@ export const ContentContainer = styled.div`
   width: 80svw;
   height: 70svh;
 
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    transform: translateY(-100%);
+  }
+
   .leftside {
     display: flex;
     flex-direction: column;
@@ -28,7 +37,7 @@ export const ContentContainer = styled.div`
     .title {
       position: absolute;
       top: 0;
-      left: 2svw;
+      right: 2svw;
       transform: translateY(-50%);
 
       font-family: 'DNF';
@@ -127,7 +136,6 @@ export const Keywords = styled.div`
 
 export const Summary = styled.div`
   width: 100%;
-  overflow-y: auto;
 `;
 
 export const Solution = styled.div`
