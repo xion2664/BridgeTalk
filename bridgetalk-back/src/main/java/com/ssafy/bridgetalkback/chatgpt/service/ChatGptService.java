@@ -85,7 +85,6 @@ public class ChatGptService {
         return result;
     }
 
-
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
             text += " 3줄 요약해서 한줄로 나열해줘";
@@ -101,6 +100,12 @@ public class ChatGptService {
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.ANSWER)) {
             text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 친구처럼 대답해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_ENG)) {
+            text += "\n 위 문장들을 문단별로 영어로 번역해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_VIET)) {
+            text += "\n 위 문장들을 문단별로 베트남어로 번역해줘";
             log.info(">> prompt : {}", text);
         }
         return text;
