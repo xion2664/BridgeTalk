@@ -34,7 +34,7 @@ public class TalkController {
     public ResponseEntity<Resource> stopTalk(@ExtractPayload String userId) throws ExecutionException, InterruptedException {
         log.info("{ TalkController } : 대화 종료 진입");
         // reports 생성
-        reportsService.createReports(UUID.fromString(userId));
+//        reportsService.createReports(UUID.fromString(userId));
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(talkService.stopTalk(UUID.fromString(userId)));
