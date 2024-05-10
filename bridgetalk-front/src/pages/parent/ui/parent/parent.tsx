@@ -10,10 +10,6 @@ export function Parent() {
 
   useEffect(() => {
     navigate('main');
-
-    getSlang().then((res) => {
-      console.log(res);
-    });
   }, []);
 
   return (
