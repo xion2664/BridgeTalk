@@ -4,6 +4,7 @@
   "main": "main.tsx",
   "license": "MIT",
   "devDependencies": {
+    "@types/color": "^3.0.6",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.0",
     "favicons": "^7.2.0",
@@ -40,7 +41,9 @@
     "@types/three": "^0.163.0",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
+    "color": "^4.2.3",
     "dotenv": "^16.4.5",
+    "hex-to-rgba": "^2.0.1",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-cookie": "^7.1.4",
