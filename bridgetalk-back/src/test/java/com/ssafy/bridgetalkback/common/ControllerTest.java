@@ -26,6 +26,7 @@ import com.ssafy.bridgetalkback.reports.controller.ReportsController;
 import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
+import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import com.ssafy.bridgetalkback.slang.controller.SlangController;
 import com.ssafy.bridgetalkback.slang.service.SlangService;
@@ -94,6 +95,8 @@ public abstract class ControllerTest {
     protected ProfileService profileService;
     @MockBean
     protected SlangService slangService;
+    @MockBean
+    protected TalkFastApiService talkFastApiService;
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext) {
