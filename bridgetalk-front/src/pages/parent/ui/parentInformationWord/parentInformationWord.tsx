@@ -18,6 +18,7 @@ export function ParentInformationWord() {
   const navigate = useNavigate();
   const [words, setWords] = useState<Word[]>([]);
   const [page, setPage] = useState<number>(0);
+  const [wordDetail, setWordDetail] = useState<Word | null>(null);
 
   useEffect(() => {
     getSlang(page, 7).then((res) => {
@@ -50,10 +51,37 @@ export function ParentInformationWord() {
                 ))}
             </div>
             <div className="main__left-list">
-              {words.length > 0 && words.map((word: Word) => <div key={word.slangId}>{word.slangWord}</div>)}
+              {words.length > 0 &&
+                words.map((word: Word) => (
+                  <div
+                    className="main__left-list-item"
+                    key={word.slangId}
+                    onClick={() => {
+                      setWordDetail(word);
+                    }}
+                  >
+                    {word.slangWord}
+                  </div>
+                ))}
             </div>
           </div>
-          <div className="main__right"></div>
+          <div className="main__right">
+            <div className="main__right-item">
+              {wordDetail !== null ? (
+                <>
+                  <div className="main__right-item-word">
+                    <div className="main__right-item-word-kor">{wordDetail.slangWord} </div>
+                    <div className="main__right-item-word-viet">{`( ${wordDetail.vietnamesePronunciation} )`}</div>
+                  </div>
+                  <div className="main__right-item-original">{wordDetail.originalWord}</div>
+                  <div className="main__right-item-meaning">{wordDetail.meaning}</div>
+                  <div className="main__right-item-vietmeaning">{wordDetail.vietnameseTranslation}</div>
+                </>
+              ) : (
+                <div>궁금한 단어를 선택해보세요!</div>
+              )}
+            </div>
+          </div>
         </div>
       </S.Container>
     </>
