@@ -3,6 +3,7 @@ import * as S from '@/styles/parent/parent.style';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useReportStore } from '../../store';
+import { getSlang } from '../../query';
 
 export function Parent() {
   const navigate = useNavigate();

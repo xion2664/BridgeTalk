@@ -78,11 +78,11 @@ module.exports = {
       // HtmlWebpackPlugin: 번들링 결과물 생성
       template: 'public/index.html',
     }),
-    new FaviconsWebpackPlugin({
-      // manifest, logo 파일 번들링 결과물에 포함
-      logo: path.resolve(__dirname, 'public/blender.png'),
-      manifest: path.resolve(__dirname, 'public/manifest.json'),
-    }),
+    // new FaviconsWebpackPlugin({
+    //   // manifest, logo 파일 번들링 결과물에 포함
+    //   logo: path.resolve(__dirname, 'public/blender.png'),
+    //   manifest: path.resolve(__dirname, 'public/manifest.json'),
+    // }),
     new webpack.DefinePlugin({
       // DefinePlugin: 환경 변수 env 파일 인식
       'process.env': JSON.stringify(process.env),
@@ -90,7 +90,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       // CopyWebpackplugin: 정적 asset 파일 빌드시 복사
-      patterns: [{ from: 'public', to: 'assets/' }],
+      patterns: [{ from: 'public/assets', to: 'assets/' }],
     }),
     // new ImageMinimizerPlugin({
     //     // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인
