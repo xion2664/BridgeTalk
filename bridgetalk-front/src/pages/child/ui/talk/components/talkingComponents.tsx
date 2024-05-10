@@ -29,6 +29,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   // State
   const [wait, setWait] = useState<boolean>(false);
+  const [end, setEnd] = useState<boolean>(false);
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -64,8 +65,10 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       connectAudioStream(streamRef).then((res) => {
         if (res instanceof MediaStream) {
           // 리포트 만들고 대화(녹음) 시작하기
+          // postMakeReport(setReportsId).then(() => {
           getTalkStart(setReply);
-          postMakeReport(setReportsId);
+          // });
+
           setIsRecording(true);
         }
       });
@@ -122,8 +125,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       setWait(true);
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
         setIsSend(false);
-        setIsRecording(true);
         setWait(false);
+
+        setTimeout(() => {
+          setIsRecording(true);
+        }, 1000);
       });
     }
   }, [audioBlob]);
@@ -157,7 +163,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       >
         대화 종료
       </button> */}
-      {wait && <div style={{ fontFamily: 'DNF', fontSize: `3svw` }}>다이노가 어떤 말을 해줄지 생각중이에요</div>}
+      {wait && (
+        <div style={{ fontFamily: 'DNF', fontSize: `3svw`, position: 'fixed', top: `10svh` }}>
+          다이노가 어떤 말을 해줄지 생각중이에요
+        </div>
+      )}
       <Timer
         devounceTimerRef={devounceTimerRef}
         getTalkStop={getTalkStop}
