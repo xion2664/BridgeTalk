@@ -104,6 +104,9 @@ export const Container = styled.div`
         border-radius: 2svw;
         background-color: white;
         box-shadow: 0 1px 3px #00000050;
+
+        position: fixed;
+        bottom: 3svh;
       }
     }
   }

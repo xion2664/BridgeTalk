@@ -62,7 +62,7 @@ export function TalkingPage() {
           >
             <img src={'assets/img/pic/end.svg'} />
           </button>
-          {!isTalking && !isEnd && (
+          {/* {!isTalking && !isEnd && (
             <div className="talking__header-guide">
               <p>다이노를 눌러 대화를 시작해보아요!</p>
             </div>
@@ -76,7 +76,7 @@ export function TalkingPage() {
             <div className="talking__header-guide">
               <p>다이노가 어떤 이야기를 해줄지 생각중이에요!</p>
             </div>
-          )}
+          )} */}
           <div className="talking__header-message">
             <img
               src={'assets/img/pic/message.svg'}
@@ -97,9 +97,23 @@ export function TalkingPage() {
               <CameraControls />
             </Canvas>
           </div>
-          {/* <div className="talking__container-talk">
-            <p>dino's dialogue</p>
-          </div> */}
+          {!isTalking && !isEnd && (
+            <div className="talking__container-talk">
+              <p>나랑 이야기 하고 싶다면 나를 눌러줘!</p>
+            </div>
+          )}
+
+          {isWaiting && (
+            <div className="talking__container-talk">
+              <p>음.. 너에게 어떤 말을 해주면 좋을까?</p>
+            </div>
+          )}
+          {isEnd && (
+            <div className="talking__container-talk">
+              <p>다음에 또 보자!</p>
+            </div>
+          )}
+          <p>{}</p>
         </div>
       </div>
     </S.Container>
