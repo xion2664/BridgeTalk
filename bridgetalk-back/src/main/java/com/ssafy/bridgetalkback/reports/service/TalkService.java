@@ -105,8 +105,26 @@ public class TalkService {
 
     // update
     public void updateTalkText(String userEmail, String newText) {
-        stringRedisTemplate.opsForValue().append(userEmail, "\n" + newText);
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            throw BaseException.type(ReportsErrorCode.TALK_NOT_FOUD);
+        } else {
+            stringRedisTemplate.opsForValue().append(userEmail, "\n" + newText);
+        }
     }
 
+    public void createTalk(UUID userId) {
+        log.info("{TalkService} : 대화 임시 저장 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            stringRedisTemplate.opsForValue().set(userEmail, " ", 310);
+        } else {
+            log.info("{TalkService} : 진행중인 대화가 있습니다.");
+            throw BaseException.type(ReportsErrorCode.TALK_DUPLICATED);
+        }
+
+    }
 
 }
