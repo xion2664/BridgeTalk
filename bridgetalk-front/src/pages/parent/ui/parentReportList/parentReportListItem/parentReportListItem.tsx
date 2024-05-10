@@ -49,7 +49,7 @@ export function ParentReportListItem({
           <div className="tags">
             {reportsKeywords.map((keyword, idx) => (
               <div className="tag" key={idx} style={{ fontFamily: langauge === 'kor' ? 'DNF' : 'Pretendard' }}>
-                #{keyword}
+                #{keyword.trim()}
               </div>
             ))}
           </div>

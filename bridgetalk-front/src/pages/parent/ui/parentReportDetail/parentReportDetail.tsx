@@ -2,19 +2,39 @@ import * as S from '@/styles/parent/parentReportDetail.style';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
 import { BackButton } from '@/shared';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { getReportDetail } from '../../query';
 import { useReportStore } from '../../store';
 
 export function ParentReportDetail() {
+  // Navigate
   const navigate = useNavigate();
+
+  // Params
   const params = useParams();
 
+  // Global State
   const language = useReportStore((state) => state.language);
   const reports_UUID = useReportStore((state) => state.reports_UUID);
 
+  // State
   const [report, setReport] = useState<any>('');
   const [date, setDate] = useState<string[]>([]);
+
+  const dateWord = useMemo(
+    () => ({
+      kor: ['년', '월', '일'],
+      viet: ['Năm', 'tháng', 'ngày'],
+    }),
+    [],
+  );
+  const title = useMemo(
+    () => ({
+      kor: '분석 리포트',
+      viet: 'Báo cáo',
+    }),
+    [],
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +53,7 @@ export function ParentReportDetail() {
     }
 
     fetchData();
-  }, []);
+  }, [language]);
 
   return (
     <>
@@ -42,18 +62,25 @@ export function ParentReportDetail() {
         <div className="leftside">
           {report && (
             <>
-              <div className="title">
-                {date[0]}년 {date[1]}월 {date[2]}일 분석 리포트
+              <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+                {date[0]}
+                {dateWord[language][0]} {date[1]}
+                {dateWord[language][1]} {date[2]}
+                {dateWord[language][2]} {title[language]}
                 {/* <TransltaionButton isKor={isKor} setIsKor={setIsKor} /> */}
               </div>
               <div className="content-container">
                 <div className="content">
                   <S.Keywords>
                     {report.reportsKeywords.map((keyword: any) => (
-                      <div className="keyword">#{keyword}</div>
+                      <div className="keyword" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+                        #{keyword.trim()}
+                      </div>
                     ))}
                   </S.Keywords>
-                  <S.Summary>{report.reportsSummary}</S.Summary>
+                  <S.Summary style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+                    {report.reportsSummary}
+                  </S.Summary>
                 </div>
                 <div className="solution">{report.reportsSolution}</div>
               </div>
