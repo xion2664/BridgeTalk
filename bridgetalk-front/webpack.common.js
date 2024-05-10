@@ -93,6 +93,7 @@ module.exports = {
       patterns: [
         { from: 'public/assets', to: 'assets/' },
         { from: 'public/@ffmpeg', to: '@ffmpeg/' },
+        { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
       ],
     }),
     // new ImageMinimizerPlugin({

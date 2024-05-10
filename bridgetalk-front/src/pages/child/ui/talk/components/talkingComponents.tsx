@@ -10,7 +10,7 @@ import {
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // Global State
@@ -26,6 +26,9 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     isSend: state.isSend,
     setIsSend: state.setIsSend,
   }));
+
+  // State
+  const [wait, setWait] = useState<boolean>(false);
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -116,9 +119,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   useEffect(() => {
     if (audioBlob && isSend) {
       console.log('{한마디 전송 API 요청');
+      setWait(true);
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
         setIsSend(false);
         setIsRecording(true);
+        setWait(false);
       });
     }
   }, [audioBlob]);
@@ -131,7 +136,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   return (
     <>
-      {/* <div className="record">
+      <div className="record" style={{ position: 'fixed', bottom: '5', left: '5', opacity: 0.2 }}>
         <button
           onClick={() => {
             setIsSend(true);
@@ -140,7 +145,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         >
           한 마디 전송하기
         </button>
-      </div> */}
+      </div>
       {/* <button
         onClick={() => {
           getTalkStop(reportsId, setReply);
@@ -152,6 +157,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       >
         대화 종료
       </button> */}
+      {wait && <div style={{ fontFamily: 'DNF', fontSize: `3svw` }}>다이노가 어떤 말을 해줄지 생각중이에요</div>}
       <Timer
         devounceTimerRef={devounceTimerRef}
         getTalkStop={getTalkStop}
