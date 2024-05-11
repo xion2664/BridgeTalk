@@ -28,8 +28,10 @@ import com.ssafy.bridgetalkback.reports.controller.ReportsController;
 import com.ssafy.bridgetalkback.reports.controller.TalkController;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
+import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
 import com.ssafy.bridgetalkback.reports.service.TalkService;
 import com.ssafy.bridgetalkback.slang.controller.SlangController;
+import com.ssafy.bridgetalkback.slang.service.SlangService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         ReportsController.class,
         PuzzleController.class,
         SlangController.class,
-        ProfileController.class
+        ProfileController.class,
         ProfileController.class,
         ParentingInfoController.class
 })
@@ -120,6 +122,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ProfileService profileService;
+
+    @MockBean
+    protected SlangService slangService;
+
+    @MockBean
+    protected TalkFastApiService talkFastApiService;
 
     @MockBean
     protected ParentingInfoCrawlingService parentingInfoCrawlingService;
