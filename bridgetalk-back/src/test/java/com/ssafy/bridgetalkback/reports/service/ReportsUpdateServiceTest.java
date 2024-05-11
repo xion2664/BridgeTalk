@@ -16,7 +16,7 @@ import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@DisplayName("Reports [Service Layer] -> ReportsCreateService 테스트")
+@DisplayName("Reports [Service Layer] -> ReportsUpdateServiceTest 테스트")
 public class ReportsUpdateServiceTest extends ServiceTest {
 
     private Parents parents;
