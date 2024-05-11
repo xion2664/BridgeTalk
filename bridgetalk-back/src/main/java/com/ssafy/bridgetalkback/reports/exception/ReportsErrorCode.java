@@ -14,6 +14,7 @@ public enum ReportsErrorCode implements ErrorCode {
     CHATGPT_EMPTY_TEXT(HttpStatus.BAD_REQUEST, "REPORTS_004", "[chatgpt api 호출] 아이 음성 텍스트가 비어있습니다."),
     TALK_DUPLICATED(HttpStatus.BAD_REQUEST, "REPORTS_005", "이미 생성된 대화가 있습니다."),
     TALK_NOT_FOUD(HttpStatus.NOT_FOUND, "REPORT_006", "조회된 대화가 없습니다.");
+    YOUTUBE_API_FAILED(HttpStatus.BAD_REQUEST, "REPORTS_007", "YOUTUBE API 호출 실패입니다.");
 
     private final HttpStatus status;
     private final String errorCode;
