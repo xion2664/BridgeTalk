@@ -30,19 +30,23 @@ public class Boards extends BaseEntity {
     @JoinColumn(name = "parents_uuid")
     private Parents parents;
 
+    @Column(nullable = false, length = 100)
+    private String boardsTitle;
+
     @Column(columnDefinition = "TEXT", nullable = false)
     private String boardsContent;
 
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
-    private Boards(Reports reports, Parents parents, String boardsContent) {
+    private Boards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
         this.reports = reports;
         this.parents = parents;
+        this.boardsTitle = boardsTitle;
         this.boardsContent = boardsContent;
     }
 
-    public static Boards createBoards(Reports reports, Parents parents, String boardsContent) {
-        return new Boards(reports, parents, boardsContent);
+    public static Boards createBoards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
+        return new Boards(reports, parents, boardsTitle, boardsContent);
     }
 }
