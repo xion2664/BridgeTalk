@@ -2,7 +2,6 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfo;
-import com.ssafy.bridgetalkback.parentingInfo.dto.response.CustomParentingInfoListResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.ParentingInfoResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoRepository;
 import lombok.RequiredArgsConstructor;
