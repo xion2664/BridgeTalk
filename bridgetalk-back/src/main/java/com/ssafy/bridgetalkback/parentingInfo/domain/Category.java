@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Age implements EnumStandard {
+public enum Category implements EnumStandard {
     PROSPECTIVE("prospective"),
     INFANT_AND_TODDLER("infant_and_toddler"),
     SCHOOL("school"),
@@ -22,9 +22,9 @@ public enum Age implements EnumStandard {
     }
 
     @jakarta.persistence.Converter
-    public static class AgeConverter extends EnumConverter<Age> {
+    public static class AgeConverter extends EnumConverter<Category> {
         public AgeConverter() {
-            super(Age.class);
+            super(Category.class);
         }
     }
 }

@@ -29,11 +29,11 @@ public class ParentingInfo extends BaseEntity {
     @Column(nullable = false, length = 300)
     private String link;
 
-    @Convert(converter = Age.AgeConverter.class)
+    @Convert(converter = Category.AgeConverter.class)
     @Column(nullable = false, length = 20)
-    private Age age;
+    private Category age;
 
-    private ParentingInfo(String title_kor, String title_viet, String content_kor, String content_viet, String link, Age age) {
+    private ParentingInfo(String title_kor, String title_viet, String content_kor, String content_viet, String link, Category age) {
         this.title_kor = title_kor;
         this.title_viet = title_viet;
         this.content_kor = content_kor;
@@ -43,7 +43,7 @@ public class ParentingInfo extends BaseEntity {
     }
 
     public static ParentingInfo createParentingInfo(String title_kor, String title_viet, String content_kor, String content_viet,
-                                                    String link, Age age) {
+                                                    String link, Category age) {
         return new ParentingInfo(title_kor, title_viet, content_kor, content_viet, link, age);
     }
 

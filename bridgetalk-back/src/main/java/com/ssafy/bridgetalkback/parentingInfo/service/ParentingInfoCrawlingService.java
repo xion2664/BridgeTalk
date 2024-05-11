@@ -2,7 +2,7 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
-import com.ssafy.bridgetalkback.parentingInfo.domain.Age;
+import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.BoardNum;
 import com.ssafy.bridgetalkback.parentingInfo.dto.ParentingInfoCrawlingDto;
 import com.ssafy.bridgetalkback.parentingInfo.repository.BoardNumRepository;
@@ -36,16 +36,16 @@ ParentingInfoCrawlingService {
 
         for(String key : map.keySet()) {
             if(!key.equals("75304")) continue;
-            List<String> urlList = createUrlList(key, Age.valueOf(map.get(key)));
+            List<String> urlList = createUrlList(key, Category.valueOf(map.get(key)));
             for(String url : urlList) {
-                ParentingInfoCrawlingDto dto = parentingInfoCrawling(url, Age.valueOf(map.get(key)));
+                ParentingInfoCrawlingDto dto = parentingInfoCrawling(url, Category.valueOf(map.get(key)));
                 parentingInfoService.createParentingInfo(dto.title_kor(), dto.title_viet(),
-                        dto.content_kor(), dto.content_viet(), dto.url(), dto.age());
+                        dto.content_kor(), dto.content_viet(), dto.link(), dto.category());
             }
         }
         log.info("{ ParentingInfoCrawlingService } : startParentingInfoCrawling 완료");
     }
-    public ParentingInfoCrawlingDto parentingInfoCrawling(String url, Age age) throws Exception {
+    public ParentingInfoCrawlingDto parentingInfoCrawling(String url, Category age) throws Exception {
         log.info("{ ParentingInfoCrawlingService } : parentingInfoCrawlingList 진입");
 
 
@@ -88,7 +88,7 @@ ParentingInfoCrawlingService {
         return text;
     }
 
-    public List<String> createUrlList(String code, Age age) {
+    public List<String> createUrlList(String code, Category age) {
         log.info("{ ParentingInfoCrawlingService } : urlList 생성");
         List<BoardNum> boardNumList = boardNumRepository.findBoardNumByAge(age);
         List<String> urlList = new ArrayList<>();
