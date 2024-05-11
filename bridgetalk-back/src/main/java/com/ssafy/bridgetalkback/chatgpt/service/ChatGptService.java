@@ -89,7 +89,12 @@ public class ChatGptService {
         List<Choice> choices = (List<Choice>) resultMap.get("choices");
         Map<String, Object> textMap = (Map<String, Object>) choices.get(0);
         String result = (String) textMap.get("text");
-        result = result.substring(2);
+        // 감정 추출은 trim() 만 실행
+        if (gptRequestCode.equals(ChatGptRequestCode.EMOTION)){
+            result = result.trim();
+        } else{
+            result = result.substring(2);
+        }
 
         log.info("{ ChatGptService } : {} 성공", gptRequestCode);
         log.info(">> result : {}", result);
