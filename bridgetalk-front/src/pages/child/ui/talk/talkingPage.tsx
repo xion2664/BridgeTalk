@@ -19,6 +19,8 @@ export function TalkingPage() {
   const setIsRecording = useTalkStore((state) => state.setIsRecording);
   const setIsSend = useTalkStore((state) => state.setIsSend);
 
+  const [end, setEnd] = useState<boolean>(false);
+
   // Ref
   const devounceTimerRef = useRef<any>(null);
 
@@ -31,7 +33,17 @@ export function TalkingPage() {
             className="talking__header-end"
             onClick={() => {
               if (isRecording) {
-                getTalkStop(reportsId, setReply);
+                getTalkStop(reportsId, setReply)
+                  .catch((err) => {
+                    alert(err);
+                    console.log(err);
+                  })
+                  .then(() => {
+                    setTimeout(() => {
+                      setEnd(true);
+                    }),
+                      500;
+                  });
                 setIsRecording(false);
 
                 if (devounceTimerRef.current !== null) {
@@ -46,11 +58,14 @@ export function TalkingPage() {
             <img
               src={'assets/img/pic/message.svg'}
               onClick={() => {
-                navigate('/message');
+                navigate('/message/list');
               }}
             />
           </div>
         </div>
+        {end && (
+          <div style={{ fontFamily: 'DNF', fontSize: `3svw`, position: 'fixed', top: `10svh` }}>대화가 종료됐어요</div>
+        )}
         <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
           <div className="talking__container-guide">

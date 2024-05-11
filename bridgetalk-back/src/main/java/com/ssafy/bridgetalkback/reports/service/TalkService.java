@@ -5,13 +5,17 @@ import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
+import com.ssafy.bridgetalkback.reports.dto.response.TalkResponseDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.UUID;
 
@@ -23,6 +27,8 @@ public class TalkService {
     private final KidsFindService kidsFindService;
     private final TtsService ttsService;
     private final ChatGptService chatGptService;
+    private final StringRedisTemplate stringRedisTemplate;
+    private final ReportsService reportsService;
     private final String[] stopComment = {
             "이야기해서 너무 좋았어! 나는 이만 가볼게! 오늘도 좋은 하루 보내",
             "오늘 이야기도 너무 즐거웠어! 다음에 또 보자!",
@@ -51,6 +57,18 @@ public class TalkService {
         log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
         return endGreeting;
     }
+    @Transactional
+    public MultiValueMap<String, Object> stopTalkMultipart(UUID userId) {
+        log.info("{ TalkService } : 대화 그만하기 진입 - multipart");
+
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String endGreetingText = kids.getKidsNickname() + ", " + stopComment[randomIdx()];
+        log.info("{ TalkService } : 대화 종료 text - " + endGreetingText);
+
+        Resource endGreeting = ttsService.textToSpeech(endGreetingText);
+        log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
+        return createMultpartResponse(endGreetingText, endGreeting);
+    }
 
     @Transactional
     public Resource startTalk(UUID userId) {
@@ -66,16 +84,46 @@ public class TalkService {
     }
 
     @Transactional
+    public MultiValueMap<String, Object> startTalkByMultiPart(UUID userId) {
+        log.info("{ TalkService } : 대화 시작하기 진입 - multipart");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String startGreetingText = kids.getKidsNickname() + ", " + startComment[randomIdx()];
+        log.info("{ TalkService } : 대화 시작 text - " + startGreetingText);
+        Resource startGreeting = ttsService.textToSpeech(startGreetingText);
+        log.info(">> startGreeting - " + startGreeting.toString());
+
+        return createMultpartResponse(startGreetingText, startGreeting);
+    }
+
+    @Transactional
     public Resource sendTalk(UUID userId, String talkText) {
         log.info("{ TalkService } : 대화 하기 (답장) 진입");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        updateTalkText(userEmail, talkText);
         String answer = createAnswer(talkText);
-        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - "+answer);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
 
         Resource sendTalk = ttsService.textToSpeech(answer);
-        log.info("{ TalkService } : sendTalk - "+sendTalk.toString());
+        log.info("{ TalkService } : sendTalk - " + sendTalk.toString());
         return sendTalk;
+    }
+
+    @Transactional
+    public MultiValueMap<String, Object> sendTalkByMultiPart(UUID userId, String talkText) {
+        log.info("{ TalkService } : 대화 하기 (답장) 진입 - multipart");
+
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+//        String userEmail = kids.getKidsEmail();
+//        updateTalkText(userEmail, talkText);
+        String answer = createAnswer(talkText);
+        log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
+
+        Resource sendTalk = ttsService.textToSpeech(answer);
+        log.info("{ TalkService } : sendTalk - " + sendTalk.toString());
+
+        return createMultpartResponse(answer, sendTalk);
     }
 
     // 0 ~ 4
@@ -86,7 +134,7 @@ public class TalkService {
     public String createAnswer(String talkText) {
         log.info("{ TalkService.createAnswer }");
         String transformedText = "";
-        if (talkText.isEmpty()){
+        if (talkText.isEmpty()) {
             log.error("!! 아이 음성 텍스트가 비어었습니다.");
             throw BaseException.type(ReportsErrorCode.CHATGPT_EMPTY_TEXT);
         }
@@ -95,4 +143,48 @@ public class TalkService {
 
         return transformedText;
     }
+
+    // RedisTemplate 적용
+
+    // update
+    public void updateTalkText(String userEmail, String newText) {
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            throw BaseException.type(ReportsErrorCode.TALK_NOT_FOUD);
+        } else {
+            stringRedisTemplate.opsForValue().append(userEmail, "\n" + newText);
+        }
+    }
+
+    public void createTalk(UUID userId) {
+        log.info("{TalkService} : 대화 임시 저장 진입");
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String userEmail = kids.getKidsEmail();
+        String value = stringRedisTemplate.opsForValue().get(userEmail);
+        if (value == null) {
+            stringRedisTemplate.opsForValue().set(userEmail, " ", 310);
+        } else {
+            log.info("{TalkService} : 진행중인 대화가 있습니다.");
+            throw BaseException.type(ReportsErrorCode.TALK_DUPLICATED);
+        }
+
+    }
+
+    /**
+     * createMultipartResponse() : 감정 생성 및 multipart response 생성
+     * @param text : 자막
+     * @param resource : tts 음성 파일
+     * @return : MultiPartForm Response Data
+     */
+    private MultiValueMap<String, Object> createMultpartResponse(String text, Resource resource){
+        String emotion = chatGptService.createPrompt(text, ChatGptRequestCode.EMOTION);
+        log.info(">> extractEmotion : {}", emotion);
+
+        MultiValueMap<String, Object> responseParts = new LinkedMultiValueMap<>();
+        responseParts.add("subtitles", text);
+        responseParts.add("emotion", emotion);
+        responseParts.add("audio", resource);
+        return responseParts;
+    }
+
 }

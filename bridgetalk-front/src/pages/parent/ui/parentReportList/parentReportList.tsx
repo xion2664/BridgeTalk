@@ -55,7 +55,7 @@ export function ParentReportList() {
     }
 
     fetchData();
-  }, []);
+  }, [language]);
 
   return (
     <>

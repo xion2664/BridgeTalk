@@ -42,11 +42,11 @@ export const Wrapper = styled.div`
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* transform: translateX(50%); */
-    /* transform: translateY(-50%); */
+
+    width: 100%;
+    text-align: center;
 
     font-size: 3svw;
-    font-family: 'DNF';
     color: ${color(1).bright};
     z-index: 1;
 

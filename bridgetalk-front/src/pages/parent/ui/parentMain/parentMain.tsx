@@ -1,6 +1,6 @@
 import { customAxios } from '@/shared';
 import * as S from '@/styles/parent/parentMain.style';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useReportStore } from '../../store';
 import { getProfile } from '../../query';
@@ -17,6 +17,33 @@ export function ParentMain() {
     getProfile(setChildrenList);
   }, []);
 
+  const leftMenu = useMemo(
+    () => ({
+      kor: <>아이의 마음</>,
+      viet: (
+        <>
+          nỗi lòng <br />
+          con cái
+        </>
+      ),
+    }),
+    [],
+  );
+
+  const rightMenu = useMemo(
+    () => ({
+      kor: <>정보</>,
+      viet: (
+        <>
+          {' '}
+          lấy <br />
+          thông tin
+        </>
+      ),
+    }),
+    [],
+  );
+
   return (
     <S.Container>
       <button
@@ -32,15 +59,13 @@ export function ParentMain() {
       </div>
       <div className="main">
         <button className="main__report" onClick={() => navigate('../report')}>
-          nỗi lòng <br />
-          con cái
+          {leftMenu[language]}
         </button>
         <div className="main__character">
           <img src={'/assets/img/parent/dino.svg'} />
         </div>
         <button className="main__info" onClick={() => navigate('../information')}>
-          lấy <br />
-          thông tin
+          {rightMenu[language]}
         </button>
       </div>
     </S.Container>
