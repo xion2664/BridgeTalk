@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useTalkStore } from '@/pages';
+import { useEffect, useRef, useState } from 'react';
+import * as S from '@/styles/shared/timer.style';
 
 interface Props {
   isRecording?: any;
@@ -11,29 +13,44 @@ interface Props {
 
 export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, setReply, devounceTimerRef }: Props) {
   const [time, setTime] = useState<number>(0);
-  const [isEnd, setIsEnd] = useState<boolean>(false);
+
+  const isEnd = useTalkStore((state) => state.isEnd);
+  const setIsEnd = useTalkStore((state) => state.setIsEnd);
+  const isTalking = useTalkStore((state) => state.isTalking);
+
+  const timerRef = useRef<any>();
 
   useEffect(() => {
-    let timer: any = null;
-    if (isRecording === undefined) {
-      timer = setInterval(() => {
+    if (isRecording === undefined && isTalking) {
+      timerRef.current = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else if (isRecording !== undefined && isRecording) {
-      timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
-    } else {
+    } else if (isTalking) {
       setTime(0);
-      clearInterval(timer);
+      clearInterval(timerRef.current);
+    }
+    console.log(`{ Recording 상태 변화 ${isRecording} ${isEnd}}`);
+    if (isEnd) {
+      console.log('{ 타이머 종료 }');
+      clearInterval(timerRef.current);
     }
 
     return () => {
-      if (timer) {
-        clearInterval(timer);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
-  }, [isRecording]);
+  }, [isRecording, isTalking]);
+
+  useEffect(() => {
+    if (isEnd) {
+      clearTimeout(timerRef.current);
+    }
+  }, [isEnd]);
 
   useEffect(() => {
     if (setIsRecording !== null && time >= 60 * 4 + 40 && !isEnd) {
@@ -46,5 +63,9 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
     }
   }, [time]);
 
-  return <div>{`${Math.floor(time / 60)}`.padStart(2, '0') + ' : ' + `${Math.floor(time % 60)}`.padStart(2, '0')}</div>;
+  return (
+    <S.ChildWrapper>
+      {`${Math.floor(time / 60)}`.padStart(2, '0') + ' : ' + `${Math.floor(time % 60)}`.padStart(2, '0')}
+    </S.ChildWrapper>
+  );
 }
