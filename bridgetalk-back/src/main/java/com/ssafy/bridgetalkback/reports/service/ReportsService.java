@@ -18,6 +18,7 @@ import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.TranscriptionDto;
+import com.ssafy.bridgetalkback.reports.dto.response.VideoResponseDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ public class ReportsService {
     private final AmazonS3 s3Client;
     private final ObjectMapper objectMapper;
     private final ReportsTranscribeService reportsTranscribeService;
+    private final ReportsVideoService reportsVideoService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -85,7 +87,9 @@ public class ReportsService {
 
         Reports reports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
         log.info("{ ReportsService } : 아이속마음 상세 조회 성공");
-        return ReportsDetailResponseDto.fromReports(reports, language);
+        List<VideoResponseDto> reportsVideoList = reportsVideoService.searchVideo(reports.getReportsKeywordsKor());
+        log.info("{ ReportsVideoService } : 레포트 유튜브리스트 성공");
+        return ReportsDetailResponseDto.fromReports(reports, reportsVideoList, language);
     }
 
     @Transactional
