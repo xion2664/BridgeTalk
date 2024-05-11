@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfo;
+import com.ssafy.bridgetalkback.parentingInfo.dto.response.CustomParentingInfoListResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.ParentingInfoResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParentingInfoService {
 
     private final ParentingInfoRepository parentingInfoRepository;
+    private final ParentingInfoFindService parentingInfoFindService;
 
     @Transactional
     public Long createParentingInfo(String title_kor, String title_viet, String content_kor, String content_viet,
                            String link, Category category) {
         log.info("{ ParentingInfoService } : 육아정보 등록 진입");
+
         ParentingInfo parentingInfo = ParentingInfo.createParentingInfo(title_kor, title_viet, content_kor,
                 content_viet, link, category);
         ParentingInfo savedParentingInfo = parentingInfoRepository.save(parentingInfo);
         log.info("{ ParentingInfoService } : 육아정보 등록 성공");
         return savedParentingInfo.getParentingInfoId();
+    }
+
+    public ParentingInfoResponseDto parentingInfoDetail(Long parentingInfoId) {
+        log.info("{ ParentingInfoService } : 육아정보 상세조회 진입");
+        ParentingInfo parentingInfo = parentingInfoFindService.findParentingInfoByParentingInfoIdAndIsDeleted(parentingInfoId);
+
+        ParentingInfoResponseDto responseDto = ParentingInfoResponseDto.from(parentingInfo);
+        log.info("{ ParentingInfoService } : 육아정보 상세조회 성공");
+        return responseDto;
     }
 }
