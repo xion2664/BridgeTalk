@@ -22,16 +22,16 @@ public class ParentingInfoController {
     private final ParentingInfoListService parentingInfoListService;
 
     @GetMapping("/{parentingInfoId}")
-    public ResponseEntity<ParentingInfoResponseDto> parentingInfoDetail(@ExtractPayload String userId, @PathVariable Long parentingInfoId) {
+    public ResponseEntity<ParentingInfoResponseDto> getParentingInfoDetail(@ExtractPayload String userId, @PathVariable Long parentingInfoId) {
         log.info("{ ParentingInfoController } : 육아정보 상세조회 진입");
-        return ResponseEntity.ok(parentingInfoService.parentingInfoDetail(parentingInfoId));
+        return ResponseEntity.ok(parentingInfoService.getParentingInfoDetail(parentingInfoId));
     }
 
     @GetMapping
-    public ResponseEntity<CustomParentingInfoListResponseDto<ParentingInfoListDto>> customParentingInfoList(@ExtractPayload String userId,
+    public ResponseEntity<CustomParentingInfoListResponseDto<ParentingInfoListDto>> getCustomParentingInfoList(@ExtractPayload String userId,
                                                                                                       @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                                                                       @RequestParam(value = "searchCategory", required = false, defaultValue = "prospective") String searchCategory) {
         log.info("{ ParentingInfoController } : 육아정보 카테고리별 리스트조회 진입 - category :"+searchCategory);
-        return ResponseEntity.ok(parentingInfoListService.customParentingInfoList(page, searchCategory));
+        return ResponseEntity.ok(parentingInfoListService.getCustomParentingInfoList(page, searchCategory));
     }
 }

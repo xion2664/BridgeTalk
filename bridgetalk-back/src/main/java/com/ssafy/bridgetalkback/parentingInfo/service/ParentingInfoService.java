@@ -31,7 +31,7 @@ public class ParentingInfoService {
         return savedParentingInfo.getParentingInfoId();
     }
 
-    public ParentingInfoResponseDto parentingInfoDetail(Long parentingInfoId) {
+    public ParentingInfoResponseDto getParentingInfoDetail(Long parentingInfoId) {
         log.info("{ ParentingInfoService } : 육아정보 상세조회 진입");
         ParentingInfo parentingInfo = parentingInfoFindService.findParentingInfoByParentingInfoIdAndIsDeleted(parentingInfoId);
 

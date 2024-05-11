@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParentingInfoListService {
     private final ParentingInfoRepository parentingInfoRepository;
 
-    public CustomParentingInfoListResponseDto<ParentingInfoListDto> customParentingInfoList(int page, String searchCategory) {
+    public CustomParentingInfoListResponseDto<ParentingInfoListDto> getCustomParentingInfoList(int page, String searchCategory) {
         log.info("{ ParentingInfoListService } : 육아정보 카테고리별 리스트조회 진입");
 
         Category category = Category.from(searchCategory);
