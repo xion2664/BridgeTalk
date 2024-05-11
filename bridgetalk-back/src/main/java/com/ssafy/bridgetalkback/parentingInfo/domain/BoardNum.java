@@ -16,7 +16,7 @@ public class BoardNum {
     @Column(nullable = false, length = 10)
     private String num;
 
-    @Convert(converter = Category.AgeConverter.class)
+    @Convert(converter = Category.CategoryConverter.class)
     @Column(nullable = false, length = 20)
     private Category age;
 
