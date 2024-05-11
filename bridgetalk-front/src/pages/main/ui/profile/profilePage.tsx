@@ -58,7 +58,7 @@ export function ProfilePage() {
         className="logout"
         onClick={() => {
           if (confirm('로그아웃 하시겠습니까?')) {
-            sessionStorage.clear();
+            localStorage.clear();
             navigate('/start');
           }
         }}
