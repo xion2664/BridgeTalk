@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -65,6 +66,20 @@ public class TalkServiceTest extends ServiceTest {
     }
 
     @Test
+    @DisplayName("대화 시작 멘트 tts 변환 및 자막, 감정 생성")
+    void startCommentTtsMultipart() throws IOException {
+        // given
+        when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
+
+        // when
+//        Resource response = talkService.startTalk(kids.getUuid());
+        MultiValueMap<String, Object> response = talkService.startTalkByMultiPart(kids.getUuid());
+
+        // Then
+        assertThat(response).isInstanceOf(MultiValueMap.class);
+    }
+
+    @Test
     @DisplayName("chatgpt api 호출 시, 올바른 텍스트 입력 확인")
     void throwExceptionByEmptyFile() {
         // given
@@ -101,5 +116,19 @@ public class TalkServiceTest extends ServiceTest {
 
         // Then
         assertThat(response).isInstanceOf(FileSystemResource.class);
+    }
+
+    @Test
+    @DisplayName("답장 멘트 tts 변환 및 및 자막, 감정 생성")
+    void sendTalkMultipart() throws IOException {
+        // given
+        String answer = "정말 속상했겠다";
+        when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
+
+        // when
+        MultiValueMap<String, Object> response = talkService.sendTalkByMultiPart(kids.getUuid(), answer);
+
+        // Then
+        assertThat(response).isInstanceOf(MultiValueMap.class);
     }
 }

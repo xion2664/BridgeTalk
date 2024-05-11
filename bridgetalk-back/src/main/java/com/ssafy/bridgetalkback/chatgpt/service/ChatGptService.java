@@ -116,6 +116,9 @@ public class ChatGptService {
         } else if (gptRequestCode.equals(ChatGptRequestCode.ANSWER)) {
             text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 친구처럼 대답해줘";
             log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.EMOTION)){
+            text += "\n위 문장에서 긍정, 부정, 슬픔, 행복, 화남 중 키워드만 하나 선택해줘";
+            log.info(">> prompt : {}", text);
         }
         return text;
     }
