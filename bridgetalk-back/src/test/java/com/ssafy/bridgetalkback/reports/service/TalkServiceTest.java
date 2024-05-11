@@ -53,6 +53,19 @@ public class TalkServiceTest extends ServiceTest {
     }
 
     @Test
+    @DisplayName("대화 종료 멘트 tts 변환 및 자막, 감정 생성")
+    void stopTalkMultipart() throws IOException {
+        // given
+        when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
+
+        // when
+        MultiValueMap<String, Object> response = talkService.stopTalkMultipart(kids.getUuid());
+
+        // Then
+        assertThat(response).isInstanceOf(MultiValueMap.class);
+    }
+
+    @Test
     @DisplayName("대화 시작 멘트 tts 변환에 성공한다")
     void startCommentTts() throws IOException {
         // given

@@ -44,6 +44,15 @@ public class TalkController {
                 .body(talkService.stopTalk(UUID.fromString(userId)));
     }
 
+    @GetMapping("/talk-stop-multipart")
+    public ResponseEntity<MultiValueMap<String, Object>> stopTalkMultipart(@ExtractPayload String userId){
+        log.info("{ TalkController } : 대화 종료 진입 - Multipart 반환 버전");
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(talkService.stopTalkMultipart(UUID.fromString(userId)));
+    }
+
     @GetMapping("/talk-start")
     public ResponseEntity<Resource> startTalk(@ExtractPayload String userId) {
         log.info("{ TalkController } : 대화 시작 진입");
@@ -88,7 +97,7 @@ public class TalkController {
     @PatchMapping("/talk-send-multipart")
     public ResponseEntity<MultiValueMap<String, Object>> sendTalkMultipart(@ExtractPayload String userId,
                                              @RequestPart(value = "reportsFile") MultipartFile multipartFile) {
-        log.info("{ TalkController } : 대화 하기 진입");
+        log.info("{ TalkController } : 대화 하기 진입 - Multipart 반환 버전");
 
         // 아이 음성 파일 업로드 및 stt
         String fileUrl = reportsService.saveReportsFiles(multipartFile);

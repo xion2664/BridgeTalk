@@ -57,6 +57,18 @@ public class TalkService {
         log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
         return endGreeting;
     }
+    @Transactional
+    public MultiValueMap<String, Object> stopTalkMultipart(UUID userId) {
+        log.info("{ TalkService } : 대화 그만하기 진입 - multipart");
+
+        Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
+        String endGreetingText = kids.getKidsNickname() + ", " + stopComment[randomIdx()];
+        log.info("{ TalkService } : 대화 종료 text - " + endGreetingText);
+
+        Resource endGreeting = ttsService.textToSpeech(endGreetingText);
+        log.info("{ TalkService } : endGreeting - " + endGreeting.toString());
+        return createMultpartResponse(endGreetingText, endGreeting);
+    }
 
     @Transactional
     public Resource startTalk(UUID userId) {
@@ -73,7 +85,7 @@ public class TalkService {
 
     @Transactional
     public MultiValueMap<String, Object> startTalkByMultiPart(UUID userId) {
-        log.info("{ TalkService } : 대화 시작하기 진입");
+        log.info("{ TalkService } : 대화 시작하기 진입 - multipart");
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
         String startGreetingText = kids.getKidsNickname() + ", " + startComment[randomIdx()];
         log.info("{ TalkService } : 대화 시작 text - " + startGreetingText);
@@ -100,7 +112,7 @@ public class TalkService {
 
     @Transactional
     public MultiValueMap<String, Object> sendTalkByMultiPart(UUID userId, String talkText) {
-        log.info("{ TalkService } : 대화 하기 (답장) 진입");
+        log.info("{ TalkService } : 대화 하기 (답장) 진입 - multipart");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
 //        String userEmail = kids.getKidsEmail();
