@@ -7,6 +7,7 @@ public enum ChatGptRequestCode {
     KEYWORD("keyword"),
     ANSWER("answer"),
     SOLUTION("solution"),
+    EMOTION("emotion"),
     PARAGRAPH_TRANSLATE_ENG("paragraph_translate_eng"),
     PARAGRAPH_TRANSLATE_VIET("paragraph_translate_viet")
     ;
