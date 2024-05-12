@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.parentingInfo.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.CustomParentingInfoListResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.ParentingInfoResponseDto;
@@ -27,17 +28,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ParentingInfoControllerTest extends ControllerTest {
     @Nested
-    @DisplayName("육아 정보 상세조회 API [GET /api/parentingInfo/{parentingInfoId}]")
+    @DisplayName("육아 정보 상세조회 API [GET /api/parentingInfo/{parentingInfoId}/{language}]")
     class parentingInfoDetail {
-        private static final String BASE_URL = "/api/parentingInfo/{parentingInfoId}";
+        private static final String BASE_URL = "/api/parentingInfo/{parentingInfoId}/{language}";
         private static final Long PARENTINGINFO_ID = 1L;
+        private static final Language LANGUAGE_KOR = Language.kor;
 
         @Test
         @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
         void throwExceptionByInvalidPermission() throws Exception {
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, PARENTINGINFO_ID);
+                    .get(BASE_URL, PARENTINGINFO_ID, LANGUAGE_KOR);
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -60,11 +62,11 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doReturn(getParentingInfoResponseDto())
                     .when(parentingInfoService)
-                    .getParentingInfoDetail(PARENTINGINFO_ID);
+                    .getParentingInfoDetail(PARENTINGINFO_ID, LANGUAGE_KOR);
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, PARENTINGINFO_ID)
+                    .get(BASE_URL, PARENTINGINFO_ID, LANGUAGE_KOR)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
             // then
@@ -74,19 +76,20 @@ public class ParentingInfoControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("육아 정보 리스트조회 (카테고리별) API [GET /api/parentingInfo]")
+    @DisplayName("육아 정보 리스트조회 (카테고리별) API [GET /api/parentingInfo/{language}]")
     class parentingInfoList {
-        private static final String BASE_URL = "/api/parentingInfo";
+        private static final String BASE_URL = "/api/parentingInfo/{language}";
         private static final int PAGE = 0;
         private static final String SEARCH_CATEGORY = "prospective";
         private static final String INVALID_SEARCH_CATEGORY = "not_prospective";
+        private static final Language LANGUAGE_KOR = Language.kor;
 
         @Test
         @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
         void throwExceptionByInvalidPermission() throws Exception {
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL);
+                    .get(BASE_URL, LANGUAGE_KOR);
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -109,11 +112,11 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doThrow(BaseException.type(ParentingInfoErrorCode.CATEGORY_NOT_FOUND))
                     .when(parentingInfoListService)
-                    .getCustomParentingInfoList(PAGE, INVALID_SEARCH_CATEGORY);
+                    .getCustomParentingInfoList(PAGE, INVALID_SEARCH_CATEGORY, LANGUAGE_KOR);
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL)
+                    .get(BASE_URL, LANGUAGE_KOR)
                     .param("page", String.valueOf(PAGE))
                     .param("searchCategory", INVALID_SEARCH_CATEGORY)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
@@ -139,11 +142,11 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doReturn(getCustomParentingInfoListResponseDto())
                     .when(parentingInfoListService)
-                    .getCustomParentingInfoList(PAGE, INVALID_SEARCH_CATEGORY);
+                    .getCustomParentingInfoList(PAGE, SEARCH_CATEGORY, LANGUAGE_KOR);
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL)
+                    .get(BASE_URL, LANGUAGE_KOR)
                     .param("page", String.valueOf(PAGE))
                     .param("searchCategory", SEARCH_CATEGORY)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
@@ -155,18 +158,18 @@ public class ParentingInfoControllerTest extends ControllerTest {
     }
 
     private ParentingInfoResponseDto getParentingInfoResponseDto() {
-        return new ParentingInfoResponseDto(1L, PARENTINGINFO_01.getTitle_kor(), PARENTINGINFO_01.getTitle_viet(), PARENTINGINFO_01.getContent_kor(),
-                PARENTINGINFO_01.getContent_viet(), PARENTINGINFO_01.getLink(), PARENTINGINFO_01.getCategory().getValue());
+        return new ParentingInfoResponseDto(1L, PARENTINGINFO_01.getTitle_kor(), PARENTINGINFO_01.getContent_kor(),
+                PARENTINGINFO_01.getLink(), PARENTINGINFO_01.getCategory().getValue());
     }
 
     private List<ParentingInfoListDto> createParentingInfoList() {
         List<ParentingInfoListDto> parentingInfoLists = new ArrayList<>();
-        parentingInfoLists.add(new ParentingInfoListDto(1L, PARENTINGINFO_01.getTitle_kor(), PARENTINGINFO_01.getTitle_viet(), PARENTINGINFO_01.getContent_kor(),
-                PARENTINGINFO_01.getContent_viet(), PARENTINGINFO_01.getLink(), PARENTINGINFO_01.getCategory().getValue()));
-        parentingInfoLists.add(new ParentingInfoListDto(2L, PARENTINGINFO_02.getTitle_kor(), PARENTINGINFO_02.getTitle_viet(), PARENTINGINFO_02.getContent_kor(),
-                PARENTINGINFO_02.getContent_viet(), PARENTINGINFO_02.getLink(), PARENTINGINFO_02.getCategory().getValue()));
-        parentingInfoLists.add(new ParentingInfoListDto(3L, PARENTINGINFO_03.getTitle_kor(), PARENTINGINFO_03.getTitle_viet(), PARENTINGINFO_03.getContent_kor(),
-                PARENTINGINFO_03.getContent_viet(), PARENTINGINFO_03.getLink(), PARENTINGINFO_03.getCategory().getValue()));
+        parentingInfoLists.add(new ParentingInfoListDto(1L, PARENTINGINFO_01.getTitle_kor(), PARENTINGINFO_01.getContent_kor(),
+                PARENTINGINFO_01.getLink(), PARENTINGINFO_01.getCategory().getValue()));
+        parentingInfoLists.add(new ParentingInfoListDto(2L, PARENTINGINFO_02.getTitle_kor(), PARENTINGINFO_02.getContent_kor(),
+                PARENTINGINFO_02.getLink(), PARENTINGINFO_02.getCategory().getValue()));
+        parentingInfoLists.add(new ParentingInfoListDto(3L, PARENTINGINFO_03.getTitle_kor(), PARENTINGINFO_03.getContent_kor(),
+                PARENTINGINFO_03.getLink(), PARENTINGINFO_03.getCategory().getValue()));
         return parentingInfoLists;
     }
 
