@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.parentingInfo.service;
 
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfo;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.ParentingInfoResponseDto;
@@ -30,11 +31,11 @@ public class ParentingInfoService {
         return savedParentingInfo.getParentingInfoId();
     }
 
-    public ParentingInfoResponseDto getParentingInfoDetail(Long parentingInfoId) {
+    public ParentingInfoResponseDto getParentingInfoDetail(Long parentingInfoId, Language language) {
         log.info("{ ParentingInfoService } : 육아정보 상세조회 진입");
         ParentingInfo parentingInfo = parentingInfoFindService.findParentingInfoByParentingInfoIdAndIsDeleted(parentingInfoId);
 
-        ParentingInfoResponseDto responseDto = ParentingInfoResponseDto.from(parentingInfo);
+        ParentingInfoResponseDto responseDto = ParentingInfoResponseDto.from(parentingInfo, language);
         log.info("{ ParentingInfoService } : 육아정보 상세조회 성공");
         return responseDto;
     }
