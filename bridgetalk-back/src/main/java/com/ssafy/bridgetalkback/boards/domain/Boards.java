@@ -36,6 +36,9 @@ public class Boards extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String boardsContent;
 
+    @Column(nullable = false)
+    private int likes;
+
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
@@ -44,6 +47,7 @@ public class Boards extends BaseEntity {
         this.parents = parents;
         this.boardsTitle = boardsTitle;
         this.boardsContent = boardsContent;
+        this.likes= 0;
     }
 
     public static Boards createBoards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
