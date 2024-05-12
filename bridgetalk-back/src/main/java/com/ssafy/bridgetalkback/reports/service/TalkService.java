@@ -5,7 +5,6 @@ import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
-import com.ssafy.bridgetalkback.reports.dto.response.TalkResponseDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
