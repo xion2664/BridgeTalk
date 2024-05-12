@@ -8,6 +8,8 @@ import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.auth.service.TokenReissueService;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
+import com.ssafy.bridgetalkback.boards.controller.BoardsController;
+import com.ssafy.bridgetalkback.boards.service.BoardsService;
 import com.ssafy.bridgetalkback.global.config.SecurityConfig;
 import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
@@ -59,7 +61,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         ProfileController.class,
         ProfileController.class,
         ParentingInfoCrawlingController.class,
-        ParentingInfoController.class
+        ParentingInfoController.class,
+        BoardsController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -141,6 +144,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ParentingInfoListService parentingInfoListService;
+
+    @MockBean
+    protected BoardsService boardsService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
