@@ -24,6 +24,9 @@ export const Container = styled.div`
       padding: 0 3svh;
 
       &-end {
+        background-color: transparent;
+        border: none;
+
         img {
           height: 10svh;
 
@@ -31,6 +34,22 @@ export const Container = styled.div`
             cursor: pointer;
           }
         }
+      }
+
+      &-guide {
+        padding: 3svh;
+
+        text-align: center;
+        font-size: 3svh;
+        font-family: 'DNF';
+
+        border-radius: 1svw;
+        background-color: #00000090;
+        color: white;
+
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       &-message {
@@ -50,8 +69,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
-      &-guide {
-        width: 40svw;
+      /* &-guide {
         padding: 3svh;
 
         text-align: center;
@@ -61,7 +79,13 @@ export const Container = styled.div`
         border-radius: 1svw;
         background-color: #00000090;
         color: white;
-      }
+
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+      } */
 
       &-dino {
         * {
@@ -80,6 +104,9 @@ export const Container = styled.div`
         border-radius: 2svw;
         background-color: white;
         box-shadow: 0 1px 3px #00000050;
+
+        position: fixed;
+        bottom: 3svh;
       }
     }
   }

@@ -6,6 +6,7 @@ import com.ssafy.bridgetalkback.reports.domain.Language;
 import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
+import com.ssafy.bridgetalkback.reports.dto.response.VideoResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,8 @@ public class ReportsControllerTest extends ControllerTest {
         keywordsList1.add("놀이기구");
         keywordsList1.add("사탕");
         keywordsList1.add("엄마");
-        return new ReportsDetailResponseDto(1L, "요약 내용1", keywordsList1, "솔루션1", LocalDateTime.now());
+        List<VideoResponseDto> reportsVideoList = new ArrayList<>();
+        return new ReportsDetailResponseDto(1L, "요약 내용1", keywordsList1, "솔루션1", reportsVideoList, LocalDateTime.now());
     }
 
     private List<ReportsListResponseDto> createReportsListResponseDto() {
