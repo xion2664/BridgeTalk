@@ -2,8 +2,10 @@ package com.ssafy.bridgetalkback.boards.service;
 
 import com.ssafy.bridgetalkback.boards.domain.Boards;
 import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
+import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.global.Language;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
@@ -15,6 +17,7 @@ import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Boards [Service Layer] -> BoardsService 테스트")
 public class BoardsServiceTest extends ServiceTest {
@@ -38,22 +41,12 @@ public class BoardsServiceTest extends ServiceTest {
     @DisplayName("게시글 상세조회")
     class getBoardsDetail {
         @Test
-        @DisplayName("(한국어) 게시글 상세조회에 성공한다")
-        void throwExceptionByUSERIDNOTPARENTS() {
-            // when
-            BoardsResponseDto responseDto = boardsService.getBoardsDetail(parents.getUuid(), boards.getBoardsId(), Language.kor);
-
-            // then
-            Assertions.assertAll(
-                    () -> assertThat(responseDto.boardId()).isEqualTo(boards.getBoardsId()),
-                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitle_kor()),
-                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContent_kor()),
-                    () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
-                    () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
-                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
-                    () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsKor()),
-                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
-            );
+        @DisplayName("부모가 아닌 유저라면 게시글 상세조회에 실패한다")
+        void throwExceptionByUserIsNotParents() {
+            // when - then
+            assertThatThrownBy(() -> boardsService.getBoardsDetail(kids.getUuid(), boards.getBoardsId(), Language.kor))
+                    .isInstanceOf(BaseException.class)
+                    .hasMessage(BoardsErrorCode.USER_IS_NOT_PARENTS.getMessage());
         }
 
         @Test

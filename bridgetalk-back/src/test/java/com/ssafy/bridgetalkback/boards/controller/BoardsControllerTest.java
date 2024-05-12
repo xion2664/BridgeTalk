@@ -62,7 +62,7 @@ public class BoardsControllerTest extends ControllerTest {
 
         @Test
         @DisplayName("부모가 아닌 유저라면 게시글 조회에 실패한다")
-        void throwExceptionByUSERIDNOTPARENTS() throws Exception {
+        void throwExceptionByUserIsNotParents() throws Exception {
             // given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doThrow(BaseException.type(BoardsErrorCode.USER_IS_NOT_PARENTS))
