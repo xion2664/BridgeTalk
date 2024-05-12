@@ -3,7 +3,6 @@ package com.ssafy.bridgetalkback.comments.domain;
 import com.ssafy.bridgetalkback.boards.domain.Boards;
 import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.reports.domain.Reports;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,15 +27,25 @@ public class Comments extends BaseEntity {
     private Boards boards;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String commentsContent;
+    private String commentsContentKor;
 
-    private Comments(Parents parents, Boards boards, String commentsContent) {
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String commentsContentViet;
+
+    private Comments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet) {
         this.parents = parents;
         this.boards = boards;
-        this.commentsContent = commentsContent;
+        this.commentsContentKor = commentsContentKor;
+        this.commentsContentViet = commentsContentViet;
     }
 
-    public static Comments createComments(Parents parents, Boards boards, String commentsContent) {
-        return new Comments(parents, boards, commentsContent);
+    public static Comments createComments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet)  {
+        return new Comments(parents, boards, commentsContentKor, commentsContentViet);
+    }
+
+    public void updateComments(String commentsContentKor, String commentsContentViet) {
+        this.commentsContentKor = commentsContentKor;
+        this.commentsContentViet = commentsContentViet;
+
     }
 }

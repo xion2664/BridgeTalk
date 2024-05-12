@@ -31,22 +31,37 @@ public class Boards extends BaseEntity {
     private Parents parents;
 
     @Column(nullable = false, length = 100)
-    private String boardsTitle;
+    private String boardsTitleKor;
+
+    @Column(nullable = false, length = 100)
+    private String boardsTitleViet;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String boardsContent;
+    private String boardsContentKor;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String boardsContentViet;
 
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
-    private Boards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
+    public Boards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
         this.reports = reports;
         this.parents = parents;
-        this.boardsTitle = boardsTitle;
-        this.boardsContent = boardsContent;
+        this.boardsTitleKor = boardsTitleKor;
+        this.boardsTitleViet = boardsTitleViet;
+        this.boardsContentKor = boardsContentKor;
+        this.boardsContentViet = boardsContentViet;
     }
 
-    public static Boards createBoards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
-        return new Boards(reports, parents, boardsTitle, boardsContent);
+    public static Boards createBoards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
+        return new Boards(reports, parents, boardsTitleKor, boardsTitleViet, boardsContentKor, boardsContentViet);
+    }
+
+    public void updateBoards(String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
+        this.boardsTitleKor = boardsTitleKor;
+        this.boardsTitleViet = boardsTitleViet;
+        this.boardsContentKor = boardsContentKor;
+        this.boardsContentViet = boardsContentViet;
     }
 }
