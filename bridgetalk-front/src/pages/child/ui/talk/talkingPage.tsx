@@ -9,6 +9,7 @@ import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
 import { Dino } from '@/pages/child/ui/talk/components/dino';
 import * as S from '@/styles/child/talk/talk.style';
 import { Timer } from '@/shared';
+import { handleTalkEnd } from '../../model';
 
 extend({ OrbitControls });
 
@@ -41,24 +42,7 @@ export function TalkingPage() {
           <button
             className="talking__header-end"
             onClick={() => {
-              if (isRecording) {
-                getTalkStop(reportsId, setReply)
-                  .catch((err) => {
-                    alert(err);
-                    console.log(err);
-                  })
-                  .then(() => {
-                    setTimeout(() => {
-                      setIsTalking(false);
-                      setIsEnd(true);
-                    }, 500);
-                  });
-                setIsRecording(false);
-
-                if (devounceTimerRef.current !== null) {
-                  clearInterval(devounceTimerRef.current);
-                }
-              }
+              handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef);
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
@@ -69,6 +53,7 @@ export function TalkingPage() {
             reportsId={reportsId}
             setIsRecording={setIsRecording}
             setReply={setReply}
+            setIsTalking={setIsTalking}
           />
           {/* {!isTalking && !isEnd && (
             <div className="talking__header-guide">
