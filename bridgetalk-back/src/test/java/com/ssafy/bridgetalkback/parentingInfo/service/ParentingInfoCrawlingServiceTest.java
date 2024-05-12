@@ -1,7 +1,7 @@
 package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
-import com.ssafy.bridgetalkback.parentingInfo.domain.Age;
+import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.BoardNum;
 import com.ssafy.bridgetalkback.parentingInfo.dto.ParentingInfoCrawlingDto;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +24,7 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
 
     @BeforeEach
     void setup() {
-        boardNumRepository.save(BoardNum.createBoardNum("707973", Age.PROSPECTIVE));
+        boardNumRepository.save(BoardNum.createBoardNum("707973", Category.PROSPECTIVE));
         urlList = new ArrayList<>();
         urlList.add("https://www.mogef.go.kr/kps/olb/kps_olb_s001d.do?mid=mda753&div1=mda75301&cd=kps&bbtSn=707973");
     }
@@ -33,7 +33,7 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
     @DisplayName("urlList에 있는 페이지로부터 육아 정보를 크롤링한다")
     void parentingInfoCrawlingList() throws Exception {
         // when
-        ParentingInfoCrawlingDto parentingInfoCrawlingDto = parentingInfoCrawlingService.parentingInfoCrawling(urlList.get(0), Age.PROSPECTIVE);
+        ParentingInfoCrawlingDto parentingInfoCrawlingDto = parentingInfoCrawlingService.parentingInfoCrawling(urlList.get(0), Category.PROSPECTIVE);
 
         // then
         Assertions.assertAll(
@@ -41,8 +41,8 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
                 () -> assertThat(parentingInfoCrawlingDto.title_viet()).isNotNull(),
                 () -> assertThat(parentingInfoCrawlingDto.content_kor()).isNotNull(),
                 () -> assertThat(parentingInfoCrawlingDto.content_viet()).isNotNull(),
-                () -> assertThat(parentingInfoCrawlingDto.url()).isEqualTo(urlList.get(0)),
-                () -> assertThat(parentingInfoCrawlingDto.age()).isEqualTo(Age.PROSPECTIVE)
+                () -> assertThat(parentingInfoCrawlingDto.link()).isEqualTo(urlList.get(0)),
+                () -> assertThat(parentingInfoCrawlingDto.category()).isEqualTo(Category.PROSPECTIVE)
         );
     }
 
@@ -50,7 +50,7 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
     @DisplayName("글번호로부터 urlList를 생성한다")
     void createUrlList() {
         // when
-        List<String> urlList = parentingInfoCrawlingService.createUrlList("75301", Age.PROSPECTIVE);
+        List<String> urlList = parentingInfoCrawlingService.createUrlList("75301", Category.PROSPECTIVE);
 
         // then
         Assertions.assertAll(
