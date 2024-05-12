@@ -21,7 +21,7 @@ export function Timer({
   devounceTimerRef,
   setIsTalking,
 }: Props) {
-  const [time, setTime] = useState<number>(270);
+  const [time, setTime] = useState<number>(0);
 
   const isEnd = useTalkStore((state) => state.isEnd);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);

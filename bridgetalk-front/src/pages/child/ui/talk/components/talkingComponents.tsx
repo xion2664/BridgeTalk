@@ -1,4 +1,5 @@
 import { getAvgVolume } from '@/pages/child/model';
+import { handleTalkSend } from '@/pages/child/model/handleTalkSend/handleTalkSend';
 import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
@@ -141,9 +142,9 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
     if (audioBlob && isSend && isTalking) {
-      console.log('{한마디 전송 API 요청');
       setIsWaiting(true);
-      postSendTalk(reportsId, audioBlob, setReply).finally(() => {
+
+      handleTalkSend(audioBlob, setReply).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 
@@ -151,6 +152,15 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           setIsRecording(true);
         }, 1000);
       });
+
+      // postSendTalk(reportsId, audioBlob, setReply).finally(() => {
+      //   setIsSend(false);
+      //   setIsWaiting(false);
+
+      //   setTimeout(() => {
+      //     setIsRecording(true);
+      //   }, 1000);
+      // });
     }
   }, [audioBlob]);
 
