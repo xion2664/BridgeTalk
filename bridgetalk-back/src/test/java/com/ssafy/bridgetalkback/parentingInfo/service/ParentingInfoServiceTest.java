@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfo;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.ParentingInfoResponseDto;
 import org.junit.jupiter.api.*;
@@ -45,21 +46,39 @@ public class ParentingInfoServiceTest extends ServiceTest {
         );
     }
 
-    @Test
+    @Nested
     @DisplayName("육아정보 상세조회에 성공한다")
-    void parentingInfoDetail() {
-        // given
-        ParentingInfoResponseDto responseDto = parentingInfoService.getParentingInfoDetail(parentingInfo.getParentingInfoId());
+    class parentingInfoDetail {
+        @Test
+        @DisplayName("(한국어) 육아정보 상세조회에 성공한다")
+        void successKorean() {
+            // given
+            ParentingInfoResponseDto responseDto = parentingInfoService.getParentingInfoDetail(parentingInfo.getParentingInfoId(), Language.kor);
 
-        // when - then
-        Assertions.assertAll(
-                () -> assertThat(responseDto.parentingInfoId()).isEqualTo(parentingInfo.getParentingInfoId()),
-                () -> assertThat(responseDto.title_kor()).isEqualTo(parentingInfo.getTitle_kor()),
-                () -> assertThat(responseDto.title_viet()).isEqualTo(parentingInfo.getTitle_viet()),
-                () -> assertThat(responseDto.content_kor()).isEqualTo(parentingInfo.getContent_kor()),
-                () -> assertThat(responseDto.content_viet()).isEqualTo(parentingInfo.getContent_viet()),
-                () -> assertThat(responseDto.link()).isEqualTo(parentingInfo.getLink()),
-                () -> assertThat(responseDto.category()).isEqualTo(parentingInfo.getCategory().getValue())
-        );
+            // when - then
+            Assertions.assertAll(
+                    () -> assertThat(responseDto.parentingInfoId()).isEqualTo(parentingInfo.getParentingInfoId()),
+                    () -> assertThat(responseDto.title()).isEqualTo(parentingInfo.getTitle_kor()),
+                    () -> assertThat(responseDto.content()).isEqualTo(parentingInfo.getContent_kor()),
+                    () -> assertThat(responseDto.link()).isEqualTo(parentingInfo.getLink()),
+                    () -> assertThat(responseDto.category()).isEqualTo(parentingInfo.getCategory().getValue())
+            );
+        }
+
+        @Test
+        @DisplayName("(베트남어) 육아정보 상세조회에 성공한다")
+        void successVietnam() {
+            // given
+            ParentingInfoResponseDto responseDto = parentingInfoService.getParentingInfoDetail(parentingInfo.getParentingInfoId(), Language.viet);
+
+            // when - then
+            Assertions.assertAll(
+                    () -> assertThat(responseDto.parentingInfoId()).isEqualTo(parentingInfo.getParentingInfoId()),
+                    () -> assertThat(responseDto.title()).isEqualTo(parentingInfo.getTitle_viet()),
+                    () -> assertThat(responseDto.content()).isEqualTo(parentingInfo.getContent_viet()),
+                    () -> assertThat(responseDto.link()).isEqualTo(parentingInfo.getLink()),
+                    () -> assertThat(responseDto.category()).isEqualTo(parentingInfo.getCategory().getValue())
+            );
+        }
     }
 }

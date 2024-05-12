@@ -1,6 +1,6 @@
 package com.ssafy.bridgetalkback.reports.dto.response;
 
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import lombok.Builder;
 

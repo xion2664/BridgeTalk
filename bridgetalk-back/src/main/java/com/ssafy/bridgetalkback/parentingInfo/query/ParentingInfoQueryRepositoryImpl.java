@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.parentingInfo.query;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.dto.response.CustomParentingInfoListResponseDto;
 import com.ssafy.bridgetalkback.parentingInfo.query.dto.ParentingInfoListDto;
@@ -24,11 +25,10 @@ public class ParentingInfoQueryRepositoryImpl implements ParentingInfoQueryRepos
     private final JPAQueryFactory query;
 
     @Override
-    public CustomParentingInfoListResponseDto<ParentingInfoListDto> getParentingInfoListOrderById(int page, String category) {
+    public CustomParentingInfoListResponseDto<ParentingInfoListDto> getParentingInfoListOrderById(int page, String category, Language language) {
         Pageable pageable = PageRequest.of(page, 4);
         List<ParentingInfoListDto> boardLists = query
-                .selectDistinct(new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.title_kor, parentingInfo.title_viet,
-                        parentingInfo.content_kor, parentingInfo.content_viet, parentingInfo.link, parentingInfo.category.stringValue()))
+                .selectDistinct(createQParentingInfoListDto(language))
                 .from(parentingInfo)
                 .where(search(category))
                 .offset(pageable.getOffset())
@@ -50,5 +50,17 @@ public class ParentingInfoQueryRepositoryImpl implements ParentingInfoQueryRepos
         } else {
             return parentingInfo.category.eq(Category.valueOf(category));
         }
+    }
+
+    private QParentingInfoListDto createQParentingInfoListDto(Language language) {
+        QParentingInfoListDto parentingInfoListDto = null;
+
+        switch (language) {
+            case kor -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.title_kor,
+                    parentingInfo.content_kor, parentingInfo.link, parentingInfo.category.stringValue());
+            case viet -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.title_viet,
+                    parentingInfo.content_viet, parentingInfo.link, parentingInfo.category.stringValue());
+        }
+        return parentingInfoListDto;
     }
 }
