@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name="board_num")
-public class BoardNum {
+@Table(name="parenting_info_board_num")
+public class ParentingInfoBoardNum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNumId;
@@ -20,12 +20,12 @@ public class BoardNum {
     @Column(nullable = false, length = 20)
     private Category age;
 
-    private BoardNum(String num, Category age) {
+    private ParentingInfoBoardNum(String num, Category age) {
         this.num = num;
         this.age = age;
     }
 
-    public static BoardNum createBoardNum(String num, Category age) {
-        return new BoardNum(num, age);
+    public static ParentingInfoBoardNum createBoardNum(String num, Category age) {
+        return new ParentingInfoBoardNum(num, age);
     }
 }

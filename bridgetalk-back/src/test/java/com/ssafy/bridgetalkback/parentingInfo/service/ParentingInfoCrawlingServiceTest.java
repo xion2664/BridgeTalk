@@ -2,7 +2,7 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
-import com.ssafy.bridgetalkback.parentingInfo.domain.BoardNum;
+import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfoBoardNum;
 import com.ssafy.bridgetalkback.parentingInfo.dto.ParentingInfoCrawlingDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
 
     @BeforeEach
     void setup() {
-        boardNumRepository.save(BoardNum.createBoardNum("707973", Category.PROSPECTIVE));
+        boardNumRepository.save(ParentingInfoBoardNum.createBoardNum("707973", Category.PROSPECTIVE));
         urlList = new ArrayList<>();
         urlList.add("https://www.mogef.go.kr/kps/olb/kps_olb_s001d.do?mid=mda753&div1=mda75301&cd=kps&bbtSn=707973");
     }

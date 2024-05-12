@@ -1,9 +1,10 @@
 package com.ssafy.bridgetalkback.common;
 
 import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
+import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
-import com.ssafy.bridgetalkback.parentingInfo.repository.BoardNumRepository;
+import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoBoardNumRepository;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoRepository;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import com.ssafy.bridgetalkback.puzzle.repository.PuzzleRepository;
@@ -19,27 +20,36 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ServiceTest {
     @Autowired
     protected ParentsRepository parentsRepository;
+
     @Autowired
     protected KidsRepository kidsRepository;
+
     @Autowired
     protected ReportsRepository reportsRepository;
+
     @Autowired
     protected RefreshTokenRedisRepository refreshTokenRedisRepository;
+
     @Autowired
     protected LettersRepository lettersRepository;
+
     @Autowired
     protected PuzzleRepository puzzleRepository;
+
     @Autowired
     protected SlangRepository slangRepository;
+
     @Autowired
     private DatabaseCleaner databaseCleaner;
-
 
     @Autowired
     protected ParentingInfoRepository parentingInfoRepository;
 
     @Autowired
-    protected BoardNumRepository boardNumRepository;
+    protected ParentingInfoBoardNumRepository boardNumRepository;
+
+    @Autowired
+    protected BoardsRepository boardsRepository;
 
     @AfterEach
     void clearDatabase() {

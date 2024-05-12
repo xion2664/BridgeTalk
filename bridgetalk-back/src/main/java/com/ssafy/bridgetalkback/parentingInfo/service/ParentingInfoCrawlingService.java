@@ -3,9 +3,9 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
-import com.ssafy.bridgetalkback.parentingInfo.domain.BoardNum;
+import com.ssafy.bridgetalkback.parentingInfo.domain.ParentingInfoBoardNum;
 import com.ssafy.bridgetalkback.parentingInfo.dto.ParentingInfoCrawlingDto;
-import com.ssafy.bridgetalkback.parentingInfo.repository.BoardNumRepository;
+import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoBoardNumRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -22,7 +22,7 @@ public class
 ParentingInfoCrawlingService {
     private final ChatGptService chatGptService;
     private final ParentingInfoService parentingInfoService;
-    private final BoardNumRepository boardNumRepository;
+    private final ParentingInfoBoardNumRepository boardNumRepository;
 
     public void startParentingInfoCrawling() throws Exception {
         log.info("{ ParentingInfoCrawlingService } : startParentingInfoCrawling 진입");
@@ -90,9 +90,9 @@ ParentingInfoCrawlingService {
 
     public List<String> createUrlList(String code, Category age) {
         log.info("{ ParentingInfoCrawlingService } : urlList 생성");
-        List<BoardNum> boardNumList = boardNumRepository.findBoardNumByAge(age);
+        List<ParentingInfoBoardNum> boardNumList = boardNumRepository.findBoardNumByAge(age);
         List<String> urlList = new ArrayList<>();
-        for(BoardNum boardNum : boardNumList) {
+        for(ParentingInfoBoardNum boardNum : boardNumList) {
             String num = boardNum.getNum();
             urlList.add("https://www.mogef.go.kr/kps/olb/kps_olb_s001d.do?mid=mda753&div1=mda"+code+"&cd=kps&bbtSn="+num);
         }
