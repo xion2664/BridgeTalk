@@ -10,6 +10,7 @@ export async function handleTalkSend(
   setEmotion: any,
   setSubtitle: any,
   setErrorModalState: any,
+  setIsRecording: any,
 ) {
   console.log('{handleTalkSend: 한마디 전송 함수 호출');
 
@@ -22,10 +23,18 @@ export async function handleTalkSend(
   try {
     const response = await postSendTalk(formData);
     console.log(`{handleTalkSend: 한마디 전송 API 호출 완료 }`);
+    const data = await decodeFormData(response);
 
-    setReply(URL.createObjectURL(response!.data));
+    setSubtitle(data.subtitleValue);
+    setEmotion(data.emotionValue);
+    setReply(data.audioValue);
+
+    setTimeout(() => {
+      URL.revokeObjectURL(data.audioValue);
+    }, 20000);
   } catch (err) {
     if (err instanceof Error) {
+      setIsRecording(true);
       errorCatch(err, setErrorModalState);
     }
   }

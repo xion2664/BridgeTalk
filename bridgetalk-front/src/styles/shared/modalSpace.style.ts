@@ -187,6 +187,7 @@ export const ErrorModalContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+  font-size: 2svw;
   font-family: 'DNF';
   color: ${color(1).bright};
 

@@ -15,8 +15,11 @@ import {
 } from '@/shared';
 import { useErrorStore } from '@/shared/store';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
+  const navigate = useNavigate();
+
   // Global State
   const volume = useVoiceStore((state) => state.volume);
   const setVolume = useVoiceStore((state) => state.setVolume);
@@ -56,6 +59,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsEnd: state.setIsEnd,
   }));
   const errorStore = useErrorStore();
+  const talkStore = useTalkStore();
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -94,14 +98,13 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         .then((res) => {
           if (res instanceof MediaStream) {
             console.log('{ 마이크 연결 }');
-            handleTalkStart(setReply, errorStore.setErrorModalState);
+            handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState);
 
             setIsRecording(true);
           }
         })
         .catch((err) => {
           errorCatch(err, errorStore.setErrorModalState);
-          console.log('sdf');
           setIsRecording(false);
           setIsTalking(false);
           setIsEnd(true);
@@ -132,8 +135,10 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
     if (isRecording && !volumeCheckInterval) {
       // 음량 체크
-      const { analyser, bufferLength, dataArray }: any = generateAudioContext(streamRef)!;
-      volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
+      if (isTalking) {
+        const { analyser, bufferLength, dataArray }: any = generateAudioContext(streamRef)!;
+        volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
+      }
 
       // 녹음 시작
       console.log('{ 녹음 시작 }');
@@ -171,13 +176,21 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     if (audioBlob && isSend && isTalking) {
       setIsWaiting(true);
 
-      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).finally(() => {
+      handleTalkSend(
+        audioBlob,
+        setReply,
+        setEmotion,
+        setSubtitle,
+        errorStore.setErrorModalState,
+        setIsRecording,
+      ).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 
-        setTimeout(() => {
-          setIsRecording(true);
-        }, 5000);
+        // /** 한마디 전송 후 임의대로 5초간 녹음 멈추게 하기 위해 */
+        // setTimeout(() => {
+        //   setIsRecording(true);
+        // }, 5000);
       });
 
       // postSendTalk(reportsId, audioBlob, setReply).finally(() => {
@@ -211,7 +224,26 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         </button>
       </div>
 
-      <audio ref={audioRef} src={reply} hidden autoPlay />
+      <audio
+        ref={audioRef}
+        src={reply}
+        hidden
+        autoPlay
+        onPlay={() => {
+          setIsRecording(false);
+        }}
+        onEnded={() => {
+          if (talkStore.isEnd) {
+            navigate('/child');
+            return;
+          }
+
+          if (!talkStore.isEnd) {
+            setIsRecording(true);
+            return;
+          }
+        }}
+      />
     </>
   );
 }
