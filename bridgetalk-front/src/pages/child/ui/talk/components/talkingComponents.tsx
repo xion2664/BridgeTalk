@@ -94,7 +94,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         .then((res) => {
           if (res instanceof MediaStream) {
             console.log('{ 마이크 연결 }');
-            handleTalkStart(setReply, errorStore.setErrorModalState);
+            handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState);
 
             setIsRecording(true);
           }
