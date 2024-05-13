@@ -1,4 +1,4 @@
-import { useTalkStore } from '@/pages';
+import { handleTalkEnd, useTalkStore } from '@/pages';
 import { useEffect, useRef, useState } from 'react';
 import * as S from '@/styles/shared/timer.style';
 
@@ -9,9 +9,18 @@ interface Props {
   reportsId?: any;
   setReply?: any;
   devounceTimerRef?: any;
+  setIsTalking?: any;
 }
 
-export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, setReply, devounceTimerRef }: Props) {
+export function Timer({
+  isRecording,
+  setIsRecording,
+  getTalkStop,
+  reportsId,
+  setReply,
+  devounceTimerRef,
+  setIsTalking,
+}: Props) {
   const [time, setTime] = useState<number>(0);
 
   const isEnd = useTalkStore((state) => state.isEnd);
@@ -54,12 +63,7 @@ export function Timer({ isRecording, setIsRecording, getTalkStop, reportsId, set
 
   useEffect(() => {
     if (setIsRecording !== null && time >= 60 * 4 + 40 && !isEnd) {
-      getTalkStop(reportsId, setReply);
-      setIsRecording(false);
-      setIsEnd(true);
-      if (devounceTimerRef.current !== null) {
-        clearInterval(devounceTimerRef.current);
-      }
+      handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef);
     }
   }, [time]);
 
