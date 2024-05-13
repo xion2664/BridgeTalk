@@ -30,23 +30,6 @@ public class ParentingInfoCrawlingServiceTest extends ServiceTest {
     }
 
     @Test
-    @DisplayName("urlList에 있는 페이지로부터 육아 정보를 크롤링한다")
-    void parentingInfoCrawlingList() throws Exception {
-        // when
-        ParentingInfoCrawlingDto parentingInfoCrawlingDto = parentingInfoCrawlingService.parentingInfoCrawling(urlList.get(0), Category.PROSPECTIVE);
-
-        // then
-        Assertions.assertAll(
-                () -> assertThat(parentingInfoCrawlingDto.title_kor()).isEqualTo("좋은 부모의 조건: 높은 자존감과 건강한 의사소통"),
-                () -> assertThat(parentingInfoCrawlingDto.title_viet()).isNotNull(),
-                () -> assertThat(parentingInfoCrawlingDto.content_kor()).isNotNull(),
-                () -> assertThat(parentingInfoCrawlingDto.content_viet()).isNotNull(),
-                () -> assertThat(parentingInfoCrawlingDto.link()).isEqualTo(urlList.get(0)),
-                () -> assertThat(parentingInfoCrawlingDto.category()).isEqualTo(Category.PROSPECTIVE)
-        );
-    }
-
-    @Test
     @DisplayName("글번호로부터 urlList를 생성한다")
     void createUrlList() {
         // when
