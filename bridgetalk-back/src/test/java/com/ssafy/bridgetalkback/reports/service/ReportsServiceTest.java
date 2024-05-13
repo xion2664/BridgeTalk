@@ -7,7 +7,7 @@ import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.dto.response.ProfileListResponseDto;
 import com.ssafy.bridgetalkback.parents.dto.response.ProfileResponseDto;
 import com.ssafy.bridgetalkback.parents.service.ProfileListService;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;
@@ -86,17 +86,17 @@ public class ReportsServiceTest extends ServiceTest {
         List<ReportsListResponseDto> reportsListResponseDtoList = reportsService.reportsList(parents.getUuid(), kidsId, Language.kor);
 
         //then
-        assertAll(
+    assertAll(
                 () -> assertThat(reportsListResponseDtoList.get(0).reportsId()).isEqualTo(reports[0].getReportsId()),
-                () -> assertThat(reportsListResponseDtoList.get(0).reportsSummary()).isEqualTo(reports[0].getReportsSummaryKor()),
-                () -> assertThat(reportsListResponseDtoList.get(0).reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsKor().toString()),
-                () -> assertThat(reportsListResponseDtoList.get(1).reportsId()).isEqualTo(reports[1].getReportsId()),
-                () -> assertThat(reportsListResponseDtoList.get(1).reportsSummary()).isEqualTo(reports[1].getReportsSummaryKor()),
-                () -> assertThat(reportsListResponseDtoList.get(1).reportsKeywords().toString()).isEqualTo(reports[1].getReportsKeywordsKor().toString())
-        );
-    }
+            () -> assertThat(reportsListResponseDtoList.get(0).reportsSummary()).isEqualTo(reports[0].getReportsSummaryKor()),
+            () -> assertThat(reportsListResponseDtoList.get(0).reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsKor().toString()),
+            () -> assertThat(reportsListResponseDtoList.get(1).reportsId()).isEqualTo(reports[1].getReportsId()),
+            () -> assertThat(reportsListResponseDtoList.get(1).reportsSummary()).isEqualTo(reports[1].getReportsSummaryKor()),
+            () -> assertThat(reportsListResponseDtoList.get(1).reportsKeywords().toString()).isEqualTo(reports[1].getReportsKeywordsKor().toString())
+            );
+}
 
-    @Test
+@Test
     @DisplayName("(베트남어) 레포트 리스트를 조회한다")
     void findReportsListViet() {
         //when
@@ -128,7 +128,8 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsId()).isEqualTo(reports[0].getReportsId()),
                 () -> assertThat(reportsDetailResponseDto.reportsSummary()).isEqualTo(reports[0].getReportsSummaryKor()),
                 () -> assertThat(reportsDetailResponseDto.reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsKor().toString()),
-                () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionKor())
+                () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionKor()),
+                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(1,10)
         );
     }
 
@@ -147,7 +148,8 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsId()).isEqualTo(reports[0].getReportsId()),
                 () -> assertThat(reportsDetailResponseDto.reportsSummary()).isEqualTo(reports[0].getReportsSummaryViet()),
                 () -> assertThat(reportsDetailResponseDto.reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsViet().toString()),
-                () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionViet())
+                () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionViet()),
+                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(1,10)
         );
     }
 

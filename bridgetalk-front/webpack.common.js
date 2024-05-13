@@ -74,23 +74,29 @@ module.exports = {
     hints: false, // 번들링 최적화 문제로 발생하는 경고문구 무시
   },
   plugins: [
+    /** HtmlWebpackPlugin: 번들링 결과물 생성 */
     new HtmlWebpackPlugin({
-      // HtmlWebpackPlugin: 번들링 결과물 생성
       template: 'public/index.html',
     }),
+
     // new FaviconsWebpackPlugin({
     //   // manifest, logo 파일 번들링 결과물에 포함
     //   logo: path.resolve(__dirname, 'public/blender.png'),
     //   manifest: path.resolve(__dirname, 'public/manifest.json'),
     // }),
+
+    /** DefinePlugin: 환경 변수 env 파일 인식 */
     new webpack.DefinePlugin({
-      // DefinePlugin: 환경 변수 env 파일 인식
       'process.env': JSON.stringify(process.env),
-      // 'process.env.development': JSON.stringify(process.env.development),
     }),
+
+    /** CopyWebpackplugin: 정적 asset 파일 빌드시 복사 */
     new CopyWebpackPlugin({
-      // CopyWebpackplugin: 정적 asset 파일 빌드시 복사
-      patterns: [{ from: 'public/assets', to: 'assets/' }],
+      patterns: [
+        { from: 'public/assets', to: 'assets/' },
+        { from: 'public/@ffmpeg', to: '@ffmpeg/' },
+        { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
+      ],
     }),
     // new ImageMinimizerPlugin({
     //     // ImageMinimizerPlugin: 이미지 파일 용량 최적화 플러그인

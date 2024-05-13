@@ -10,7 +10,7 @@ import {
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // Global State
@@ -18,13 +18,28 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   const setVolume = useVoiceStore((state) => state.setVolume);
   const setAudioBlob = useVoiceStore((state) => state.setAudioBlob);
   const audioBlob = useVoiceStore((state) => state.audioBlob);
-  const { reportsId, setReportsId, isRecording, setIsRecording, isSend, setIsSend } = useTalkStore((state) => ({
+  const {
+    reportsId,
+    setReportsId,
+    isRecording,
+    setIsRecording,
+    isSend,
+    setIsSend,
+    isTalking,
+    setIsTalking,
+    isWaiting,
+    setIsWaiting,
+  } = useTalkStore((state) => ({
     reportsId: state.reportsId,
     setReportsId: state.setReportsId,
     isRecording: state.isRecording,
     setIsRecording: state.setIsRecording,
     isSend: state.isSend,
     setIsSend: state.setIsSend,
+    isTalking: state.isTalking,
+    setIsTalking: state.setIsTalking,
+    isWaiting: state.isWaiting,
+    setIsWaiting: state.setIsWaiting,
   }));
 
   // Ref
@@ -43,6 +58,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.8)) {
         console.log('{{볼륨이 평균 볼륨의 80% 이상이므로 2초 타이머 리셋}}');
 
+        // 기존 타이머 제거 후 새 타이머 생성
         if (devounceTimerRef.current) {
           clearTimeout(devounceTimerRef.current);
         }
@@ -57,23 +73,31 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   // 오디오 스트림 연결 및 해제
   useEffect(() => {
-    if (!streamRef.current) {
+    // 마이크 연결 및 녹음 시작
+    if (!streamRef.current && isTalking) {
       connectAudioStream(streamRef).then((res) => {
         if (res instanceof MediaStream) {
-          // 리포트 만들고 대화(녹음) 시작하기
+          console.log('{ 마이크 연결 }');
           getTalkStart(setReply);
-          postMakeReport(setReportsId);
           setIsRecording(true);
         }
       });
     }
 
+    // 마이크 연결 끊기 및 녹음 종료
+    if (streamRef.current && !isTalking) {
+      console.log('{ 마이크 연결 끊기 }');
+      streamRef.current = null;
+      setIsRecording(false);
+    }
+
     return () => {
       if (streamRef.current) {
         streamRef.current = null;
+        setIsRecording(false);
       }
     };
-  }, []);
+  }, [isTalking]);
 
   // 녹음
   useEffect(() => {
@@ -85,17 +109,19 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
 
       // 녹음 시작
+      console.log('{ 녹음 시작 }');
       startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
-    if (!isRecording) {
-      console.log('함수 재선언');
+    if (!isRecording && isTalking) {
+      console.log('{ 볼륨 측정 함수 재선언 }');
       getAvgVolumeData.current = getAvgVolume();
     }
 
     return () => {
       // 음량 체크 및 녹음 종료
       if (isRecording && volumeCheckInterval) {
+        console.log(' { 녹음 종료 }');
         clearInterval(volumeCheckInterval);
         stopRecordVoice(recorderRef);
         setVolume(0);
@@ -114,24 +140,29 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
-    if (audioBlob && isSend) {
+    if (audioBlob && isSend && isTalking) {
       console.log('{한마디 전송 API 요청');
+      setIsWaiting(true);
       postSendTalk(reportsId, audioBlob, setReply).finally(() => {
         setIsSend(false);
-        setIsRecording(true);
+        setIsWaiting(false);
+
+        setTimeout(() => {
+          setIsRecording(true);
+        }, 1000);
       });
     }
   }, [audioBlob]);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current!.play();
+    if (audioRef.current && isTalking) {
+      audioRef.current.play();
     }
   }, [reply]);
 
   return (
     <>
-      {/* <div className="record">
+      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0.1 }}>
         <button
           onClick={() => {
             setIsSend(true);
@@ -140,25 +171,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         >
           한 마디 전송하기
         </button>
-      </div> */}
-      {/* <button
-        onClick={() => {
-          getTalkStop(reportsId, setReply);
-          setIsRecording(false);
-          if (devounceTimerRef.current !== null) {
-            clearInterval(devounceTimerRef.current);
-          }
-        }}
-      >
-        대화 종료
-      </button> */}
-      <Timer
-        devounceTimerRef={devounceTimerRef}
-        getTalkStop={getTalkStop}
-        reportsId={reportsId}
-        setIsRecording={setIsRecording}
-        setReply={setReply}
-      />
+      </div>
 
       <audio ref={audioRef} src={reply} hidden autoPlay />
     </>

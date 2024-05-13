@@ -10,6 +10,35 @@ export const ContentContainer = styled.div`
   width: 80svw;
   height: 70svh;
 
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 2svw;
+    z-index: 1;
+
+    transform: translateY(-100%);
+
+    display: flex;
+    gap: 1svw;
+
+    button {
+      background-color: ${color(1).sub};
+      border: none;
+
+      border-top-left-radius: 1svw;
+      border-top-right-radius: 1svw;
+
+      color: ${color(1).bright};
+
+      font-size: 1.5svw;
+
+      width: 5svw;
+      height: 5svh;
+
+      cursor: pointer;
+    }
+  }
+
   .leftside {
     display: flex;
     flex-direction: column;
@@ -17,17 +46,18 @@ export const ContentContainer = styled.div`
     background-color: ${color(1).sub};
     box-shadow: 0 1svh 0.4svh ${color(0.5).dark};
     border-radius: 1svw;
-
-    height: 100%;
+    max-height: 70svh;
 
     position: relative;
 
     padding: 4svh 1svw 1svh 1svw;
 
+    height: 100%;
+
     .title {
       position: absolute;
       top: 0;
-      left: 2svw;
+      right: 2svw;
       transform: translateY(-50%);
 
       font-family: 'DNF';
@@ -65,6 +95,9 @@ export const ContentContainer = styled.div`
       border-radius: 1svw;
       padding: 2svh 1svw;
 
+      width: 100%;
+      height: 100%;
+
       gap: 2svh;
 
       .content,
@@ -79,6 +112,7 @@ export const ContentContainer = styled.div`
 
         box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
         position: relative;
+        overflow-y: auto;
 
         &::after {
           position: absolute;
@@ -94,11 +128,10 @@ export const ContentContainer = styled.div`
           box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
         }
 
-        &::before {
+        /* &::before {
           position: absolute;
           top: 0;
           left: 0;
-
           width: 100%;
           height: 100%;
 
@@ -106,7 +139,7 @@ export const ContentContainer = styled.div`
           border-radius: 1svw;
 
           box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
-        }
+        } */
       }
     }
 
@@ -127,5 +160,4 @@ export const Summary = styled.div`
 
 export const Solution = styled.div`
   width: 100%;
-  height: 100%;
 `;

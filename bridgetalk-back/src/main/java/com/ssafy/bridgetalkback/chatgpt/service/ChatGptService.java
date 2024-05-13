@@ -89,13 +89,17 @@ public class ChatGptService {
         List<Choice> choices = (List<Choice>) resultMap.get("choices");
         Map<String, Object> textMap = (Map<String, Object>) choices.get(0);
         String result = (String) textMap.get("text");
-        result = result.substring(2);
+        // 감정 추출은 trim() 만 실행
+        if (gptRequestCode.equals(ChatGptRequestCode.EMOTION)){
+            result = result.trim();
+        } else{
+            result = result.substring(2);
+        }
 
         log.info("{ ChatGptService } : {} 성공", gptRequestCode);
         log.info(">> result : {}", result);
         return result;
     }
-
 
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
@@ -115,6 +119,14 @@ public class ChatGptService {
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.ANSWER)) {
             text += "\n 위 문장들에 대해 공감하는 표현으로 두 문장으로 이어지게 친구처럼 대답해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.EMOTION)){
+            text += "\n위 문장에서 긍정, 부정, 슬픔, 행복, 화남 중 키워드만 하나 선택해줘";
+        } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_ENG)) {
+            text += "\n 위 문장들을 문단별로 영어로 번역해줘";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_VIET)) {
+            text += "\n 위 문장들을 문단별로 베트남어로 번역해줘";
             log.info(">> prompt : {}", text);
         }
         return text;

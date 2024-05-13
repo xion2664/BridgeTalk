@@ -5,8 +5,8 @@ import * as S from '@/styles/child/talk/messageList.style';
 
 interface Letter {
   lettersId: number;
-  lettersOriginalContent: string; // 필요한 경우 추가
-  lettersTranslationContent: string; // 필요한 경우 추가
+  lettersOriginalContent: string; 
+  lettersTranslationContent: string; 
   lettersRegDate: string;
 }
 
@@ -16,7 +16,7 @@ export function MessageList() {
   useEffect(() => {
     const fetchLetters = async () => {
       try {
-        const response = await customAxios.get('/api/letters');
+        const response = await customAxios.get('/letters');
         setLetters(response.data);
       } catch (error) {
         console.error('Failed to fetch letters:', error);

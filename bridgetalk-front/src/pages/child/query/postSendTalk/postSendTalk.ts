@@ -31,7 +31,7 @@ export async function postSendTalk(reportsId: number, audio: Blob, setReply: any
   formData.append('reportsFile', newBlob);
 
   return customAxios
-    .patch(`/reports/talk-send/${reportsId}`, formData, {
+    .patch(`/reports/talk-send`, formData, {
       responseType: 'blob',
     })
     .then((res) => {
