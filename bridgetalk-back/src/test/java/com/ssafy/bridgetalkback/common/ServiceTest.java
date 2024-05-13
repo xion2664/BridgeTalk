@@ -12,6 +12,7 @@ import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import com.ssafy.bridgetalkback.slang.repository.SlangRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

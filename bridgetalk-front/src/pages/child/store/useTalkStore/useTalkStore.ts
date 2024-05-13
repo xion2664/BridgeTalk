@@ -13,6 +13,10 @@ interface Store {
   setIsWaiting: (state: boolean) => void;
   isEnd: boolean;
   setIsEnd: (state: boolean) => void;
+  subtitle: string;
+  setSubtitle: (state: string) => void;
+  emotion: string;
+  setEmotion: (state: string) => void;
 }
 export const useTalkStore = create<Store>()((set) => ({
   reportsId: 0,
@@ -27,4 +31,8 @@ export const useTalkStore = create<Store>()((set) => ({
   setIsWaiting: (state) => set({ isWaiting: state }),
   isEnd: false,
   setIsEnd: (state) => set({ isEnd: state }),
+  subtitle: '',
+  setSubtitle: (state: string) => set({ subtitle: state }),
+  emotion: '',
+  setEmotion: (state: string) => set({ emotion: state }),
 }));

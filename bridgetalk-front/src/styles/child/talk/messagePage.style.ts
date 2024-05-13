@@ -29,8 +29,10 @@ export const Container = styled.div`
         justify-content: center;
         gap: 1svh;
 
-        width: 10svw;
+        width: 15.8svw;
         padding: 2svh;
+        font-size: 2svw;
+        cursor: pointer;
 
         background-color: white;
         border-radius: 5svw;

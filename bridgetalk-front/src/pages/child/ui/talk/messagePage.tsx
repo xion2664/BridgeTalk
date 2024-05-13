@@ -6,6 +6,7 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 
 export function MessagePage() {
   const navigate = useNavigate();
+
   useEffect(() => {
     navigate('list');
   }, []);
@@ -14,7 +15,12 @@ export function MessagePage() {
     <S.Container>
       <div className="messagePage">
         <div className="messagePage__header">
-          <div className="messagePage__header-toBack">
+          <div
+            className="messagePage__header-toBack"
+            onClick={() => {
+              navigate('/talk');
+            }}
+          >
             <FontAwesomeIcon icon={faCaretLeft} />
             <span>돌아가기</span>
           </div>

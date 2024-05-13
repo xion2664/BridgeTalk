@@ -41,111 +41,154 @@ const fadeOut = keyframes`
 `;
 
 export const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: ${fadeIn} 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${fadeIn} 0.5s ease-in-out;
 
-    background-color: ${color(0.7).dark};
+  background-color: ${color(0.7).dark};
 `;
 
 const shadow = css`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  pointer-events: none;
 `;
 
 export const AudioContainer = styled.div`
-    width: 60svw;
-    /* height: 30svh; */
-    background-color: ${color(1).sub};
+  width: 60svw;
+  /* height: 30svh; */
+  background-color: ${color(1).sub};
+  border-radius: 1svw;
+  gap: 2svh;
+  padding: 2svw 2svw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  animation: ${fadeInWithMove} 0.5s ease-in-out;
+
+  box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
+
+  position: relative;
+
+  &::after {
+    ${shadow}
     border-radius: 1svw;
-    gap: 2svh;
-    padding: 2svw 2svw;
+    box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+  }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &::before {
+    ${shadow}
+    border-radius: 1svw;
+    box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
+  }
 
-    animation: ${fadeInWithMove} 0.5s ease-in-out;
+  .title {
+    font-family: 'DNF';
+    color: ${color(1).bright};
+    font-size: 3svw;
+  }
 
-    box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
+  .audio {
+    width: 100%;
+    height: 10svh;
+  }
 
-    position: relative;
+  .buttons {
+    button {
+      font-family: 'CherryBomb';
+      padding: 2svh 2svw;
+      font-size: 5svh;
+      border-radius: 2svw;
+      cursor: pointer;
+      color: ${color(1).bright};
 
-    &::after {
+      box-shadow: 0 0.5svh 0.4svh ${color(1).dark};
+      position: relative;
+      border: none;
+
+      &::before {
         ${shadow}
-        border-radius: 1svw;
+        border-radius: 2svw;
         box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
-    }
+      }
 
-    &::before {
+      &::after {
         ${shadow}
-        border-radius: 1svw;
+        border-radius: 2svw;
         box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
+      }
     }
 
-    .title {
-        font-family: 'DNF';
-        color: ${color(1).bright};
-        font-size: 3svw;
+    .close {
+      background-color: ${color(1).red};
+
+      &::after {
+        ${shadow}
+        border-radius: 2svw;
+        /* box-shadow: ; */
+      }
     }
 
-    .audio {
-        width: 100%;
-        height: 10svh;
+    .send {
+      background-color: ${color(1).main};
     }
+  }
+`;
 
-    .buttons {
-        button {
-            font-family: 'CherryBomb';
-            padding: 2svh 2svw;
-            font-size: 5svh;
-            border-radius: 2svw;
-            cursor: pointer;
-            color: ${color(1).bright};
-
-            box-shadow: 0 0.5svh 0.4svh ${color(1).dark};
-            position: relative;
-            border: none;
-
-            &::before {
-                ${shadow}
-                border-radius: 2svw;
-                box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
-            }
-
-            &::after {
-                ${shadow}
-                border-radius: 2svw;
-                box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
-            }
-        }
-
-        .close {
-            background-color: ${color(1).red};
-
-            &::after {
-                ${shadow}
-                border-radius: 2svw;
-                /* box-shadow: ; */
-            }
-        }
-
-        .send {
-            background-color: ${color(1).main};
-        }
+const errorModalFadeInOut = keyframes`
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 10%);
     }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 10%);
+    }
+`;
+
+export const ErrorModalContainer = styled.div`
+  position: fixed;
+
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: ${color(0.5).black};
+  border-radius: 2svw;
+
+  width: 80svw;
+  height: 10svh;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'DNF';
+  color: ${color(1).bright};
+
+  animation: ${errorModalFadeInOut} 2s ease-in-out;
 `;

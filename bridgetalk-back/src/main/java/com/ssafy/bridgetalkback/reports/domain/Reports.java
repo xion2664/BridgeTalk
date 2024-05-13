@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.reports.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
+import com.ssafy.bridgetalkback.global.utils.StringListConverter;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,10 +33,10 @@ public class Reports extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String reportsSummaryViet;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @Convert(converter = StringListConverter.class)
     private List<String> reportsKeywordsKor;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @Convert(converter = StringListConverter.class)
     private List<String> reportsKeywordsViet;
 
     @Column(columnDefinition = "TEXT")
@@ -89,6 +90,4 @@ public class Reports extends BaseEntity {
     public void updateReportsOriginContent(String updateContent) {
         this.reportsOriginContent = updateContent;
     }
-
-
 }

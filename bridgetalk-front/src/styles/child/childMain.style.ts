@@ -16,6 +16,9 @@ export const Container = styled.div`
     justify-content: center;
 
     &__container {
+      position: fixed;
+      top: 25svh;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,8 +26,11 @@ export const Container = styled.div`
       gap: 5svh;
 
       &-title {
+        position: fixed;
+        top: 10.5svh;
+
         img {
-          width: 90svw;
+          width: 70.9svw;
         }
       }
 
@@ -51,12 +57,11 @@ export const Container = styled.div`
           img {
             height: 50svh;
           }
-
+          transition: all 0.5s;
           &:hover {
             cursor: pointer;
 
             height: 65svh;
-            transition: 0.5s;
           }
         }
 
@@ -75,12 +80,11 @@ export const Container = styled.div`
           img {
             height: 37svh;
           }
-
+          transition: all 0.5s;
           &:hover {
             cursor: pointer;
 
             height: 65svh;
-            transition: 0.5s;
           }
         }
 

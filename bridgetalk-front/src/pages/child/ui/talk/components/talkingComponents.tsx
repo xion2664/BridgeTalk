@@ -1,15 +1,19 @@
 import { getAvgVolume } from '@/pages/child/model';
-import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '@/pages/child/query';
+import { handleTalkSend } from '@/pages/child/model/handleTalkSend/handleTalkSend';
+import { handleTalkStart } from '@/pages/child/model/handleTalkStart/handleTalkStart';
+import { getTalkStart } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
 import {
   Timer,
   connectAudioStream,
+  errorCatch,
   generateAudioContext,
   generateVolumeCheckInterval,
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
+import { useErrorStore } from '@/shared/store';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
@@ -29,6 +33,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsTalking,
     isWaiting,
     setIsWaiting,
+    emotion,
+    setEmotion,
+    subtitle,
+    setSubtitle,
+    setIsEnd,
   } = useTalkStore((state) => ({
     reportsId: state.reportsId,
     setReportsId: state.setReportsId,
@@ -40,7 +49,13 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsTalking: state.setIsTalking,
     isWaiting: state.isWaiting,
     setIsWaiting: state.setIsWaiting,
+    emotion: state.emotion,
+    setEmotion: state.setEmotion,
+    subtitle: state.subtitle,
+    setSubtitle: state.setSubtitle,
+    setIsEnd: state.setIsEnd,
   }));
+  const errorStore = useErrorStore();
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -75,13 +90,25 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   useEffect(() => {
     // 마이크 연결 및 녹음 시작
     if (!streamRef.current && isTalking) {
-      connectAudioStream(streamRef).then((res) => {
-        if (res instanceof MediaStream) {
-          console.log('{ 마이크 연결 }');
-          getTalkStart(setReply);
-          setIsRecording(true);
-        }
-      });
+      connectAudioStream(streamRef)
+        .then((res) => {
+          if (res instanceof MediaStream) {
+            console.log('{ 마이크 연결 }');
+            handleTalkStart(setReply, errorStore.setErrorModalState);
+
+            setIsRecording(true);
+          }
+        })
+        .catch((err) => {
+          errorCatch(err, errorStore.setErrorModalState);
+          console.log('sdf');
+          setIsRecording(false);
+          setIsTalking(false);
+          setIsEnd(true);
+          setTimeout(() => {
+            setIsEnd(false);
+          }, 0);
+        });
     }
 
     // 마이크 연결 끊기 및 녹음 종료
@@ -113,7 +140,8 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
-    if (!isRecording && isTalking) {
+    // if (!isRecording && isTalking) {
+    if (!isRecording) {
       console.log('{ 볼륨 측정 함수 재선언 }');
       getAvgVolumeData.current = getAvgVolume();
     }
@@ -141,20 +169,30 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // audioBlob(내 녹음 내용) 저장 후 '한 마디 전송' API 요청
   useEffect(() => {
     if (audioBlob && isSend && isTalking) {
-      console.log('{한마디 전송 API 요청');
       setIsWaiting(true);
-      postSendTalk(reportsId, audioBlob, setReply).finally(() => {
+
+      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 
         setTimeout(() => {
           setIsRecording(true);
-        }, 1000);
+        }, 5000);
       });
+
+      // postSendTalk(reportsId, audioBlob, setReply).finally(() => {
+      //   setIsSend(false);
+      //   setIsWaiting(false);
+
+      //   setTimeout(() => {
+      //     setIsRecording(true);
+      //   }, 1000);
+      // });
     }
   }, [audioBlob]);
 
   useEffect(() => {
+    console.log('{reply 감지', reply);
     if (audioRef.current && isTalking) {
       audioRef.current.play();
     }
@@ -162,7 +200,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   return (
     <>
-      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0.1 }}>
+      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0 }}>
         <button
           onClick={() => {
             setIsSend(true);
