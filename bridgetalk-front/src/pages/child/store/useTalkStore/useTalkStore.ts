@@ -39,7 +39,7 @@ const initialState: Omit<
   isWaiting: false,
   isEnd: false,
   subtitle: '',
-  emotion: '',
+  emotion: 'idle',
 };
 
 export const useTalkStore = create<Store>()((set) => ({

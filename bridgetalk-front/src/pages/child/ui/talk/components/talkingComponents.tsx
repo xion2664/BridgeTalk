@@ -70,6 +70,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
 
+  // 화면 접속 시 초기화
+  useEffect(() => {
+    talkStore.resetStore();
+  }, []);
+
   // 볼륨 체크
   useEffect(() => {
     if (isRecording && getAvgVolumeData.current) {
@@ -235,13 +240,19 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         onEnded={() => {
           if (!talkStore.isTalking) {
             talkStore.setIsEnd(true);
-            navigate('/child');
+            setTimeout(() => {
+              navigate('/child');
+            }, 300);
+
             return;
           }
 
           if (talkStore.isEnd) {
+            console.log('오디오 및 대화 종료');
             talkStore.resetStore();
-            navigate('/child');
+            setTimeout(() => {
+              navigate('/child');
+            }, 300);
             return;
           }
 

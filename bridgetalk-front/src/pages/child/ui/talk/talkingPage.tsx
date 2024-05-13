@@ -53,6 +53,8 @@ export function TalkingPage() {
                 isEnd,
                 isTalking,
                 navigate,
+                talkStore.setEmotion,
+                talkStore.setSubtitle,
               );
             }}
           >
