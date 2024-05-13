@@ -3,7 +3,6 @@ package com.ssafy.bridgetalkback.parentingInfo.service;
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.parentingInfo.domain.Category;
 import com.ssafy.bridgetalkback.parentingInfo.domain.BoardNum;
-import com.ssafy.bridgetalkback.parentingInfo.dto.ParentingInfoCrawlingDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
