@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -9,7 +9,7 @@ import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
 import { Dino } from '@/pages/child/ui/talk/components/dino';
 import * as S from '@/styles/child/talk/talk.style';
 import { Timer } from '@/shared';
-import { decodeFormData, handleTalkEnd } from '../../model';
+import { handleTalkEnd } from '../../model';
 
 extend({ OrbitControls });
 
@@ -30,6 +30,7 @@ export function TalkingPage() {
   const isWaiting = useTalkStore((state) => state.isWaiting);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
+  const talkStore = useTalkStore();
 
   // Ref
   const devounceTimerRef = useRef<any>(null);
@@ -99,6 +100,11 @@ export function TalkingPage() {
           {isWaiting && (
             <div className="talking__container-talk">
               <p>음.. 너에게 어떤 말을 해주면 좋을까?</p>
+            </div>
+          )}
+          {!isWaiting && talkStore.subtitle && (
+            <div className="talking__container-talk">
+              <p>{talkStore.subtitle}</p>
             </div>
           )}
           {isEnd && (

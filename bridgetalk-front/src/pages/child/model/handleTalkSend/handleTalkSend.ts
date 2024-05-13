@@ -26,7 +26,11 @@ export async function handleTalkSend(
 
     setSubtitle(data.subtitleValue);
     setEmotion(data.emotionValue);
-    setReply(URL.createObjectURL(data.audioValue));
+    setReply(data.audioValue);
+
+    setTimeout(() => {
+      URL.revokeObjectURL(data.audioValue);
+    }, 20000);
   } catch (err) {
     if (err instanceof Error) {
       errorCatch(err, setErrorModalState);

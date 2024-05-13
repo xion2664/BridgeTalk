@@ -13,13 +13,17 @@ export async function decodeFormData(data: any) {
   const subtitleValue = subtitleArray[5].trim();
 
   const emotionArray = parsedArray_1[2].split('\r\n');
-  const emotionValue = emotionArray[5];
+  const splitedEmotionValue = emotionArray[5].split('"');
+  let emotionValue = '';
+
+  for (let word of splitedEmotionValue) {
+    emotionValue += word.trim();
+  }
 
   const audioArray = parsedArray_1[3];
   let [_, disposition, type, length, header, ...audioData] = audioArray.split('\r\n');
 
   // audioData = audioData.join('\r\n');
-
   // audioData = audioData.join('\r\n').trim();
   // console.log(audioData.substring(0, 4) == 'ID3\x03', audioData[1].substring(0, 4), `ID3\x03`);
 
@@ -50,7 +54,7 @@ export async function decodeFormData(data: any) {
   // const blobURL = URL.createObjectURL(audioValue);
   // console.log(blobURL);
 
-  const audioValue = data.data;
+  const audioValue = URL.createObjectURL(data.data);
 
   return {
     subtitleValue,
