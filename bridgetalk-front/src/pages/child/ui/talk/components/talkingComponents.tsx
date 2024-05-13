@@ -101,7 +101,6 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         })
         .catch((err) => {
           errorCatch(err, errorStore.setErrorModalState);
-          console.log('sdf');
           setIsRecording(false);
           setIsTalking(false);
           setIsEnd(true);
@@ -171,13 +170,21 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     if (audioBlob && isSend && isTalking) {
       setIsWaiting(true);
 
-      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).finally(() => {
+      handleTalkSend(
+        audioBlob,
+        setReply,
+        setEmotion,
+        setSubtitle,
+        errorStore.setErrorModalState,
+        setIsRecording,
+      ).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 
-        setTimeout(() => {
-          setIsRecording(true);
-        }, 5000);
+        // /** 한마디 전송 후 임의대로 5초간 녹음 멈추게 하기 위해 */
+        // setTimeout(() => {
+        //   setIsRecording(true);
+        // }, 5000);
       });
 
       // postSendTalk(reportsId, audioBlob, setReply).finally(() => {
@@ -211,7 +218,18 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         </button>
       </div>
 
-      <audio ref={audioRef} src={reply} hidden autoPlay />
+      <audio
+        ref={audioRef}
+        src={reply}
+        hidden
+        autoPlay
+        onPlay={() => {
+          setIsRecording(false);
+        }}
+        onEnded={() => {
+          setIsRecording(true);
+        }}
+      />
     </>
   );
 }

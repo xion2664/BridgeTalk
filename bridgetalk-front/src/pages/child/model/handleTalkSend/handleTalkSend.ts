@@ -10,6 +10,7 @@ export async function handleTalkSend(
   setEmotion: any,
   setSubtitle: any,
   setErrorModalState: any,
+  setIsRecording: any,
 ) {
   console.log('{handleTalkSend: 한마디 전송 함수 호출');
 
@@ -33,6 +34,7 @@ export async function handleTalkSend(
     }, 20000);
   } catch (err) {
     if (err instanceof Error) {
+      setIsRecording(true);
       errorCatch(err, setErrorModalState);
     }
   }
