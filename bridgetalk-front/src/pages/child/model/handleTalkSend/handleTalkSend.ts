@@ -22,8 +22,11 @@ export async function handleTalkSend(
   try {
     const response = await postSendTalk(formData);
     console.log(`{handleTalkSend: 한마디 전송 API 호출 완료 }`);
+    const data = await decodeFormData(response);
 
-    setReply(URL.createObjectURL(response!.data));
+    setSubtitle(data.subtitleValue);
+    setEmotion(data.emotionValue);
+    setReply(URL.createObjectURL(data.audioValue));
   } catch (err) {
     if (err instanceof Error) {
       errorCatch(err, setErrorModalState);

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import { useFrame, useLoader, extend } from '@react-three/fiber';
 import { AnimationMixer } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -13,6 +13,7 @@ export function Dino() {
 
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
   const isEnd = useTalkStore((state) => state.isEnd);
+  const [size, setSize] = useState<number>(1);
 
   useEffect(() => {
     if (gltf.animations.length > 0) {
@@ -27,6 +28,19 @@ export function Dino() {
     };
   }, [gltf.animations, gltf.scene]);
 
+  useEffect(() => {
+    function onWindowResize(width: number) {
+      setSize(1);
+      console.log(size);
+    }
+
+    window.addEventListener('resize', () => onWindowResize(window.innerWidth));
+
+    return () => {
+      window.removeEventListener('resize', () => onWindowResize(window.innerWidth));
+    };
+  }, []);
+
   useFrame((state, delta) => {
     mixer.current?.update(delta);
   });
@@ -40,7 +54,7 @@ export function Dino() {
         }
       }}
       object={gltf.scene}
-      scale={1}
+      scale={size}
       position={[0, -0.4, 0]}
     />
   );
