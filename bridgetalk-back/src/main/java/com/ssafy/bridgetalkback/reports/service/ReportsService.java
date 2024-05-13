@@ -12,7 +12,7 @@ import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.exception.KidsErrorCode;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;

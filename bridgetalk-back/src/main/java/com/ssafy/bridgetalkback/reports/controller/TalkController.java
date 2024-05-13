@@ -2,7 +2,6 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
-import com.ssafy.bridgetalkback.reports.dto.response.TalkResponseDto;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import com.ssafy.bridgetalkback.reports.service.TalkFastApiService;
@@ -14,7 +13,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

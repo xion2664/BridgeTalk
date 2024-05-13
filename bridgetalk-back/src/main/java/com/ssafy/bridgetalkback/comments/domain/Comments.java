@@ -3,7 +3,6 @@ package com.ssafy.bridgetalkback.comments.domain;
 import com.ssafy.bridgetalkback.boards.domain.Boards;
 import com.ssafy.bridgetalkback.global.BaseEntity;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.reports.domain.Reports;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

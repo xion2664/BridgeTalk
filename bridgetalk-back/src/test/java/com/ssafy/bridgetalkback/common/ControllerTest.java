@@ -16,7 +16,10 @@ import com.ssafy.bridgetalkback.letters.controller.LettersController;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
 import com.ssafy.bridgetalkback.parentingInfo.controller.ParentingInfoController;
+import com.ssafy.bridgetalkback.parentingInfo.controller.ParentingInfoCrawlingController;
 import com.ssafy.bridgetalkback.parentingInfo.service.ParentingInfoCrawlingService;
+import com.ssafy.bridgetalkback.parentingInfo.service.ParentingInfoListService;
+import com.ssafy.bridgetalkback.parentingInfo.service.ParentingInfoService;
 import com.ssafy.bridgetalkback.parents.controller.ProfileController;
 import com.ssafy.bridgetalkback.parents.controller.ProfileListController;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
@@ -55,6 +58,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         SlangController.class,
         ProfileController.class,
         ProfileController.class,
+        ParentingInfoCrawlingController.class,
         ParentingInfoController.class
 })
 public abstract class ControllerTest {
@@ -131,6 +135,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ParentingInfoCrawlingService parentingInfoCrawlingService;
+
+    @MockBean
+    protected ParentingInfoService parentingInfoService;
+
+    @MockBean
+    protected ParentingInfoListService parentingInfoListService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

@@ -16,16 +16,16 @@ public class BoardNum {
     @Column(nullable = false, length = 10)
     private String num;
 
-    @Convert(converter = Age.AgeConverter.class)
+    @Convert(converter = Category.CategoryConverter.class)
     @Column(nullable = false, length = 20)
-    private Age age;
+    private Category age;
 
-    private BoardNum(String num, Age age) {
+    private BoardNum(String num, Category age) {
         this.num = num;
         this.age = age;
     }
 
-    public static BoardNum createBoardNum(String num, Age age) {
+    public static BoardNum createBoardNum(String num, Category age) {
         return new BoardNum(num, age);
     }
 }

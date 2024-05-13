@@ -6,7 +6,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
-import com.ssafy.bridgetalkback.files.exception.S3FileErrorCode;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.reports.dto.response.VideoResponseDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
