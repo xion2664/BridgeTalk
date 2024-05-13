@@ -10,7 +10,7 @@ const gridLayout = css`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80svh;
+  height: 70svh;
   width: 50svw;
 
   gap: 2svh;
