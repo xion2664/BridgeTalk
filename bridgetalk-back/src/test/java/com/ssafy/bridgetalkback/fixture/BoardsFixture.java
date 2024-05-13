@@ -9,18 +9,18 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum BoardsFixture {
-    BOARDS_01("title_kor1", "title_viet1", "content_kor1", "content_viet1"),
-    BOARDS_02("title_kor2", "title_viet2", "content_kor2", "content_viet2"),
-    BOARDS_03("title_kor3", "title_viet3", "content_kor3", "content_viet3"),
-    BOARDS_04("title_kor4", "title_viet4", "content_kor4", "content_viet4"),
-    BOARDS_05("title_kor5", "title_viet5", "content_kor5", "content_viet5"),
-    BOARDS_06("title_kor6", "title_viet6", "content_kor6", "content_viet6"),
-    BOARDS_07("title_kor7", "title_viet7", "content_kor7", "content_viet7"),
-    BOARDS_08("title_kor8", "title_viet8", "content_kor8", "content_viet8"),
-    BOARDS_09("title_kor9", "title_viet9", "content_kor9", "content_viet9"),
-    BOARDS_10("title_kor10", "title_viet10", "content_kor10", "content_viet10"),
-    BOARDS_11("title_kor11", "title_viet11", "content_kor11", "content_viet11"),
-    BOARDS_12("title_kor12", "title_viet12", "content_kor12", "content_viet12")
+    BOARDS_01("제목이다1", "là tiêu đề.", "내용이다1", "là nội dung."),
+    BOARDS_02("제목이다2", "là tiêu đề..", "내용이다2", "là nội dung."),
+    BOARDS_03("제목이다3", "là tiêu đề.", "내용이다3", "là nội dung."),
+    BOARDS_04("제목이다4", "là tiêu đề.", "내용이다4", "là nội dung."),
+    BOARDS_05("제목이다5", "là tiêu đề.", "내용이다5", "là nội dung."),
+    BOARDS_06("제목이다6", "là tiêu đề.", "내용이다6", "là nội dung."),
+    BOARDS_07("제목이다7", "là tiêu đề.", "내용이다7", "là nội dung."),
+    BOARDS_08("제목이다8", "là tiêu đề.", "내용이다8", "là nội dung."),
+    BOARDS_09("제목이다9", "là tiêu đề.", "내용이다9", "là nội dung."),
+    BOARDS_10("제목이다10", "là tiêu đề.", "내용이다10", "là nội dung."),
+    BOARDS_11("제목이다11", "là tiêu đề.", "내용이다11", "là nội dung."),
+    BOARDS_12("제목이다12", "là tiêu đề.", "내용이다12", "là nội dung.")
     ;
 
     private final String boardsTitle_kor;

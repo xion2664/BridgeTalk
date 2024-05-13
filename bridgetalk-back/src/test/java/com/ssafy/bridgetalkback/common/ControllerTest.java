@@ -9,6 +9,7 @@ import com.ssafy.bridgetalkback.auth.service.TokenReissueService;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.boards.controller.BoardsController;
+import com.ssafy.bridgetalkback.boards.service.BoardsListService;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
 import com.ssafy.bridgetalkback.global.config.SecurityConfig;
 import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
@@ -147,6 +148,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected BoardsService boardsService;
+
+    @MockBean
+    protected BoardsListService boardsListService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
