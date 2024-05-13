@@ -1,6 +1,6 @@
 import { getAvgVolume } from '@/pages/child/model';
 import { handleTalkSend } from '@/pages/child/model/handleTalkSend/handleTalkSend';
-import { getTalkStart, getTalkStop, postMakeReport, postSendTalk } from '@/pages/child/query';
+import { getTalkStart } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
 import {
@@ -30,6 +30,10 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsTalking,
     isWaiting,
     setIsWaiting,
+    emotion,
+    setEmotion,
+    subtitle,
+    setSubtitle,
   } = useTalkStore((state) => ({
     reportsId: state.reportsId,
     setReportsId: state.setReportsId,
@@ -41,6 +45,10 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsTalking: state.setIsTalking,
     isWaiting: state.isWaiting,
     setIsWaiting: state.setIsWaiting,
+    emotion: state.emotion,
+    setEmotion: state.setEmotion,
+    subtitle: state.subtitle,
+    setSubtitle: state.setSubtitle,
   }));
 
   // Ref
@@ -144,7 +152,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     if (audioBlob && isSend && isTalking) {
       setIsWaiting(true);
 
-      handleTalkSend(audioBlob, setReply).finally(() => {
+      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 
@@ -165,6 +173,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   }, [audioBlob]);
 
   useEffect(() => {
+    console.log('{reply 감지', reply);
     if (audioRef.current && isTalking) {
       audioRef.current.play();
     }

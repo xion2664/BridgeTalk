@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -9,7 +9,7 @@ import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
 import { Dino } from '@/pages/child/ui/talk/components/dino';
 import * as S from '@/styles/child/talk/talk.style';
 import { Timer } from '@/shared';
-import { handleTalkEnd } from '../../model';
+import { decodeFormData, handleTalkEnd } from '../../model';
 
 extend({ OrbitControls });
 
