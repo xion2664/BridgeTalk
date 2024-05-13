@@ -233,6 +233,12 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           setIsRecording(false);
         }}
         onEnded={() => {
+          if (!talkStore.isTalking) {
+            talkStore.setIsEnd(true);
+            navigate('/child');
+            return;
+          }
+
           if (talkStore.isEnd) {
             talkStore.resetStore();
             navigate('/child');

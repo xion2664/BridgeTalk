@@ -8,32 +8,31 @@ export async function handleTalkEnd(
   setIsRecording: any,
   isRecording: any,
   devounceTimerRef: any,
+  isEnd?: any,
+  isTalking?: any,
   navigate?: any,
 ) {
-  if (isRecording === false) {
+  if (!isTalking && isEnd) {
     navigate('/child');
     return;
   }
+
+  // 대화 마치기 누르고 마무리 멘트 나오는 동안 다시 실행되는 것 방지
+  if (!isRecording && !isTalking) return;
 
   const proimises = [];
   proimises.push(getTalkStop(setReply));
   proimises.push(getTalkUpdate());
 
+  setIsTalking(false);
+  setIsRecording(false);
+
   try {
-    Promise.all(proimises).then((res) => {
-      console.log('모든 작업 완료');
-      setTimeout(() => {
-        setIsTalking(false);
-        setIsEnd(true);
-      }, 500);
-
-      console.log('대화 마치기');
-
-      setIsRecording(false);
-      if (devounceTimerRef.current !== null) {
-        clearInterval(devounceTimerRef.current);
-      }
-    });
+    const res = Promise.allSettled(proimises);
+    console.log(res);
+    if (devounceTimerRef.current !== null) {
+      clearInterval(devounceTimerRef.current);
+    }
   } catch (err) {
     // errorCatch(err, setErrorModal);
   }
