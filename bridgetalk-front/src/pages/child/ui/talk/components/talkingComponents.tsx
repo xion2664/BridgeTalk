@@ -185,7 +185,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
   return (
     <>
-      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0.1 }}>
+      <div className="record" style={{ position: 'fixed', top: 0, opacity: 0 }}>
         <button
           onClick={() => {
             setIsSend(true);
