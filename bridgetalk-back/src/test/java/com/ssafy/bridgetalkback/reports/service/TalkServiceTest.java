@@ -4,6 +4,7 @@ import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.MultiValueMap;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.*;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
+import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
@@ -28,15 +31,21 @@ public class TalkServiceTest extends ServiceTest {
     @Autowired
     private TalkService talkService;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     private Parents parents;
     private Kids kids;
     private HttpURLConnection mockConnection;
+    private Reports reports;
 
     @BeforeEach
     void setup() {
         parents = parentsRepository.save(SUNKYOUNG.toParents());
         kids = kidsRepository.save(JIYEONG.toKids(parents));
         mockConnection = mock(HttpURLConnection.class);
+        reports = reportsRepository.save(REPORTS_01.toReports(kids));
+        stringRedisTemplate.opsForValue().set(kids.getKidsEmail(), " ", 310);
     }
 
     @Test

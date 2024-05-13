@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ParentingInfoCrawlingControllerTest extends ControllerTest {
     @Nested
     @DisplayName("육아 정보 크롤링 API [GET /api/parentingInfo/crawling]")
-    class stopTalk {
+    class parentingInfoCrawling {
         private static final String BASE_URL = "/api/parentingInfo/crawling";
 
         @Test
