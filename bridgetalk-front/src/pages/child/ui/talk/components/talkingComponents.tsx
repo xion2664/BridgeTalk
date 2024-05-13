@@ -7,6 +7,7 @@ import { useVoiceStore } from '@/pages/parent';
 import {
   Timer,
   connectAudioStream,
+  errorCatch,
   generateAudioContext,
   generateVolumeCheckInterval,
   startRecordVoice,
@@ -36,6 +37,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setEmotion,
     subtitle,
     setSubtitle,
+    setIsEnd,
   } = useTalkStore((state) => ({
     reportsId: state.reportsId,
     setReportsId: state.setReportsId,
@@ -51,6 +53,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setEmotion: state.setEmotion,
     subtitle: state.subtitle,
     setSubtitle: state.setSubtitle,
+    setIsEnd: state.setIsEnd,
   }));
   const errorStore = useErrorStore();
 
@@ -87,14 +90,25 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   useEffect(() => {
     // 마이크 연결 및 녹음 시작
     if (!streamRef.current && isTalking) {
-      connectAudioStream(streamRef).then((res) => {
-        if (res instanceof MediaStream) {
-          console.log('{ 마이크 연결 }');
-          handleTalkStart(setReply, errorStore.setErrorModalState);
+      connectAudioStream(streamRef)
+        .then((res) => {
+          if (res instanceof MediaStream) {
+            console.log('{ 마이크 연결 }');
+            handleTalkStart(setReply, errorStore.setErrorModalState);
 
-          setIsRecording(true);
-        }
-      });
+            setIsRecording(true);
+          }
+        })
+        .catch((err) => {
+          errorCatch(err, errorStore.setErrorModalState);
+          console.log('sdf');
+          setIsRecording(false);
+          setIsTalking(false);
+          setIsEnd(true);
+          setTimeout(() => {
+            setIsEnd(false);
+          }, 0);
+        });
     }
 
     // 마이크 연결 끊기 및 녹음 종료

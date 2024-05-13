@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const PERMISSION_DENIED = 'Permission denied';
+
 export function errorCatch(err: Error, setErrorModalState: any) {
   if (axios.isAxiosError(err)) {
     if (err.response) {
@@ -33,6 +35,10 @@ export function errorCatch(err: Error, setErrorModalState: any) {
       };
 
       reader.readAsText(err.response.data);
+    }
+  } else {
+    if (PERMISSION_DENIED.match(err.message)) {
+      setErrorModalState('마이크 권한을 허용해주세요!');
     }
   }
 }
