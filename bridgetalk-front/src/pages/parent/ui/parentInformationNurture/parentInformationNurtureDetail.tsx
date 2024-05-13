@@ -12,7 +12,16 @@ export function ParentInformationNurtureDetail() {
 
   useEffect(() => {
     handleNurtureInfoDetail(Number(nurtureId), language, setInfoDetail);
-  }, []);
+  }, [language]);
 
-  return <S.Container></S.Container>;
+  return (
+    <S.Container>
+      {infoDetail && (
+        <div>
+          <div>{infoDetail.title}</div>
+          <div>{infoDetail.content}</div>
+        </div>
+      )}
+    </S.Container>
+  );
 }

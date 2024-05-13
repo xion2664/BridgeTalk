@@ -87,7 +87,6 @@ export function ParentInformationNurture() {
                     className="main__item"
                     key={it.parentingInfoId}
                     onClick={() => {
-                      console.log('navigate');
                       navigate(`${it.parentingInfoId!}`);
                     }}
                   >
