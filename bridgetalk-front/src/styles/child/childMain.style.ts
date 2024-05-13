@@ -16,6 +16,9 @@ export const Container = styled.div`
     justify-content: center;
 
     &__container {
+      position: fixed;
+      top: 25svh;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,6 +26,9 @@ export const Container = styled.div`
       gap: 5svh;
 
       &-title {
+        position: fixed;
+        top: 10.5svh;
+
         img {
           width: 70.9svw;
         }
