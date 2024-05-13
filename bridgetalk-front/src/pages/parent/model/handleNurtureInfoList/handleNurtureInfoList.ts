@@ -5,7 +5,7 @@ export async function handleNurtureInfoList(
   setInfoList: any,
   page: number,
   setLastPage: any,
-  searchCategory?: 'prospective' | 'infant_and_toddler' | 'school' | 'puberty',
+  searchCategory?: '' | 'prospective' | 'infant_and_toddler' | 'school' | 'puberty',
 ) {
   try {
     const fetchData = await getNurtureInfoList(language, page, searchCategory);
