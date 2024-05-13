@@ -126,7 +126,8 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
-    if (!isRecording && isTalking) {
+    // if (!isRecording && isTalking) {
+    if (!isRecording) {
       console.log('{ 볼륨 측정 함수 재선언 }');
       getAvgVolumeData.current = getAvgVolume();
     }
@@ -162,7 +163,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
         setTimeout(() => {
           setIsRecording(true);
-        }, 1000);
+        }, 5000);
       });
 
       // postSendTalk(reportsId, audioBlob, setReply).finally(() => {

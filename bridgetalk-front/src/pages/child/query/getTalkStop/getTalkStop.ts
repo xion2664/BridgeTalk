@@ -6,9 +6,6 @@ export async function getTalkStop(setReply: any) {
       responseType: 'blob',
     })
     .then((res) => {
-      console.log(res);
-      console.log(res.data);
-
       const arrayBuffer = res.data.arrayBuffer().then((res: any) => {
         console.log(res);
         const a = new Uint8Array(res);
@@ -19,7 +16,6 @@ export async function getTalkStop(setReply: any) {
         const dataArray = decoder.decode(a);
         console.log(decoder);
         console.log(dataArray);
-        
       });
 
       const blob = new Blob([res.data], { type: 'audio/mpeg' });
