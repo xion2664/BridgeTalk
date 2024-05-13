@@ -1,9 +1,11 @@
 package com.ssafy.bridgetalkback.notification.service;
 
 import com.ssafy.bridgetalkback.notification.domain.Notification;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
 import com.ssafy.bridgetalkback.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class NotificationService {
 
     private final SseService sseService;
     private final NotificationRepository notificationRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
 
     /**
@@ -62,10 +65,10 @@ public class NotificationService {
      * [DB 연동]단일 알림 전송
      */
     @Transactional
-    public void sendNotification(String receiverUuid) {
+    public void sendNotification(NotificationRequestDto notificationRequestDto) {
 //        Notification notificationResult = notificationRepository.save(notification); //DB 저장
 //        sseService.send(notificationResult);
-        sseService.send(receiverUuid);
+        sseService.send(notificationRequestDto);
     }
 
     /**

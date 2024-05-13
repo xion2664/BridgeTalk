@@ -23,11 +23,12 @@ public class SseController {
 
     /**
      * 로그인 시 SSE 구독(연결)
+     * Content-type : text/event-stream
      */
     @GetMapping(value = "/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> subscribe(@ExtractPayload String userId,
                                                 @RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {
-
+        log.info("{ SseController } - sse 연결 시작");
         return ResponseEntity.ok(sseService.subscribe(userId, lastEventId));
     }
 }

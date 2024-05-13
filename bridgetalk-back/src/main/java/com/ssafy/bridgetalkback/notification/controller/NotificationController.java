@@ -2,6 +2,8 @@ package com.ssafy.bridgetalkback.notification.controller;
 
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.notification.domain.Notification;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
 import com.ssafy.bridgetalkback.notification.service.NotificationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,34 +22,36 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-//    @Operation(summary = "알림전체조회")
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<Notification>> getAllNotificationByReceiverUuid(@ExtractPayload String userId) {
+        log.info("{ NotificationController }: 사용자 알림 조회");
         return ResponseEntity.ok().body(notificationService.getAllNotificationByReceiverUuid(userId));
     }
 
-//    @Operation(summary = "알림전체읽음")
     @PutMapping("/read")
     public ResponseEntity<List<Notification>> updateNotificationReadStatusByReceiverUuid(@ExtractPayload String userId) {
+        log.info("{ NotificationController }: 알림 읽기");
         notificationService.updateNotificationReadStatusByReceiverUuid(userId);
         return ResponseEntity.ok().body(notificationService.getAllNotificationByReceiverUuid(userId)); //수정 후 새롭게 전달
     }
 
-//    @Operation(summary = "알림삭제")
     @DeleteMapping("/{notificationId}/delete")
     public ResponseEntity<List<Notification>> updateNotificationDeleteStatusById(@ExtractPayload String userId, @PathVariable Long notificationId) {
+        log.info("{ NotificationController }: 알림 삭제");
         notificationService.deleteNotification(notificationId);
         return ResponseEntity.ok().body(notificationService.getAllNotificationByReceiverUuid(userId)); //수정 후 새롭게 전달
     }
 
-//    @Operation(summary = "라이브퀴즈알림발송")
-//    @GetMapping("/notification/livequiz")
-//    public ResponseEntity<MsgResponse> notificationLivequiz(@Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return ResponseEntity.ok().body(notificationService.sendNotifications(userDetails.getMember()));
-//    }
     @GetMapping("/send-test/{receiverUuid}")
     public ResponseEntity<?> sendTest(@ExtractPayload String userId, @PathVariable String receiverUuid){
-        notificationService.sendNotification(receiverUuid);
+        log.info("{ NotificationController }: 알림 전송 테스트");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(receiverUuid)
+                .url("url")
+                .content("send notification test")
+                .notificationType(NotificationType.KID_REPORTS_REGISTER)
+                .build();
+        notificationService.sendNotification(notificationRequestDto);
         return ResponseEntity.ok().body("success to send notification");
     }
 }

@@ -25,17 +25,26 @@ public class Notification extends BaseEntity {
     @Column
     private String content;
 
+    @Column
+    private String url;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private NotificationType notificationType;
+
     @Column(columnDefinition = "integer default 0")
     private int isChecked;
 
-    private Notification(String receiverUuid, String emitterId, String content) {
+    private Notification(String receiverUuid, String emitterId, String content, String url, NotificationType notificationType) {
         this.receiverUuid = receiverUuid;
         this.emitterId = emitterId;
         this.content = content;
+        this.url = url;
+        this.notificationType = notificationType;
     }
 
-    public static Notification createNotification(String receiverUuid, String emitterId, String content){
-        return new Notification(receiverUuid, emitterId, content);
+    public static Notification createNotification(String receiverUuid, String emitterId, String content, String url, NotificationType notificationType){
+        return new Notification(receiverUuid, emitterId, content, url, notificationType);
     }
 
     public void updateNotification(){
