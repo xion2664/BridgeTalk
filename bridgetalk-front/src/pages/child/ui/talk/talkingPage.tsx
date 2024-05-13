@@ -67,6 +67,9 @@ export function TalkingPage() {
             setIsRecording={setIsRecording}
             setReply={setReply}
             setIsTalking={setIsTalking}
+            navigate={navigate}
+            setEmotion={talkStore.setEmotion}
+            setSubtitle={talkStore.setSubtitle}
           />
           <div className="talking__header-message">
             <img

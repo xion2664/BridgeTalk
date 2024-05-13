@@ -5,7 +5,6 @@ import { getTalkStart } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
 import {
-  Timer,
   connectAudioStream,
   errorCatch,
   generateAudioContext,
