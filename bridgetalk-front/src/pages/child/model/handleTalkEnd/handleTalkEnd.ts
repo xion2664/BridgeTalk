@@ -7,14 +7,22 @@ export async function handleTalkEnd(
   setIsRecording: any,
   isRecording: any,
   devounceTimerRef: any,
+  navigate?: any,
 ) {
-  if (isRecording === false) return;
+  if (isRecording === false) {
+    navigate('/child');
+    return;
+  }
 
   getTalkStop(setReply).then(() => {
     setTimeout(() => {
       setIsTalking(false);
       setIsEnd(true);
     }, 500);
+
+    setTimeout(() => {
+      navigate('/child');
+    }, 10000);
   });
 
   console.log('대화 마치기');

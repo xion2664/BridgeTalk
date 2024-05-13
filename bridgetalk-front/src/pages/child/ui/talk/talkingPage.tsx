@@ -42,7 +42,7 @@ export function TalkingPage() {
           <button
             className="talking__header-end"
             onClick={() => {
-              handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef);
+              handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef, navigate);
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
