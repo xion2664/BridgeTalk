@@ -10,6 +10,7 @@ import jakarta.persistence.Converter;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Converter
@@ -32,7 +33,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
     @Override
     public List<String> convertToEntityAttribute(String dbData) {
         if (!StringUtils.hasText(dbData)) {
-            return null;
+            return Collections.emptyList();
         }
         TypeReference<List<String>> typeReference = new TypeReference<List<String>>() {};
         try {
