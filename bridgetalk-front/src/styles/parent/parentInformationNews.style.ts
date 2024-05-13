@@ -1,8 +1,33 @@
 import styled from 'styled-components';
-import { CommonContainer } from './common.style';
+import { CommonContainer, color } from './common.style';
 
 export const Container = styled.div`
-  ${CommonContainer}
+  display: flex;
+  flex-direction: column;
+  gap: 2svh;
+
+  .categories {
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 1svh;
+
+    &__item {
+      display: flex;
+      &-num {
+      }
+      &-category {
+      }
+
+      &-title {
+      }
+    }
+  }
+
+  .pagenation {
+  }
 `;
 
 export const NewsList = styled.div`

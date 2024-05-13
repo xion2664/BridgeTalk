@@ -9,9 +9,9 @@ export function ParentInformationMain() {
     <>
       <BackButton path="../main" navigate={navigate} />
       <S.Container>
-        <button onClick={() => navigate('news')}>
+        <button onClick={() => navigate('nurture')}>
           <img src="/assets/img/parent_bg.png" width={200} />
-          <div>News</div>
+          <div>Nurture</div>
         </button>
         <button onClick={() => navigate('word')}>
           <img src="/assets/img/parent_bg.png" width={200} />
