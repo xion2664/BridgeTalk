@@ -156,7 +156,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     if (audioBlob && isSend && isTalking) {
       setIsWaiting(true);
 
-      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle).finally(() => {
+      handleTalkSend(audioBlob, setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).finally(() => {
         setIsSend(false);
         setIsWaiting(false);
 

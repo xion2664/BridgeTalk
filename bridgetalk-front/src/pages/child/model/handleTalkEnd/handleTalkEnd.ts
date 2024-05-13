@@ -16,6 +16,7 @@ export async function handleTalkEnd(
       setIsEnd(true);
     }, 500);
   });
+
   console.log('대화 마치기');
   setIsRecording(false);
   getTalkUpdate();
