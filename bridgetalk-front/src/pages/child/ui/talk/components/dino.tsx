@@ -8,7 +8,7 @@ import { useTalkStore } from '@/pages/child/store';
 extend({ OrbitControls });
 
 export function Dino() {
-  const gltf = useLoader(GLTFLoader, '/assets/dino/pink/happy.glb');
+  const gltf = useLoader(GLTFLoader, '/assets/dino/pink/hello.glb');
   const mixer = useRef<AnimationMixer | null>(null);
 
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
