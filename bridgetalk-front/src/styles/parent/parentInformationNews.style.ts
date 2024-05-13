@@ -11,6 +11,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 80svh;
+  width: 50svw;
 
   gap: 2svh;
 
@@ -45,8 +46,8 @@ export const Container = styled.div`
     align-items: center;
     gap: 1svh;
 
-    width: 90svw;
     height: 73svh;
+    padding: 2svh 2svw;
 
     border-radius: 1.5svw;
     border: none;
@@ -73,12 +74,38 @@ export const Container = styled.div`
     }
     &__item {
       ${gridLayout}
+      background-color: ${color(1).light};
+      padding: 1svw;
+      border-radius: 1svw;
+
+      font-size: 1.3svw;
+      font-family: 'Pretendard';
+
+      cursor: pointer;
 
       &-title {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+    }
+
+    .thead {
+      font-size: 1.3svw;
+      font-family: 'Pretendard';
+
+      tr {
+        padding: 1svw;
+
+        td {
+          text-align: center;
+        }
+      }
+    }
+    .tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 2svw;
     }
   }
 

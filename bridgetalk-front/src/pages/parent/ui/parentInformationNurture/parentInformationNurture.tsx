@@ -47,7 +47,7 @@ export function ParentInformationNurture() {
 
   useEffect(() => {
     handleNurtureInfoList(language, setInfoList, page, setLastPage, searchCategory);
-  }, [page]);
+  }, [page, language]);
 
   useEffect(() => {
     setPage(0);
@@ -73,14 +73,14 @@ export function ParentInformationNurture() {
         </div>
         <div className="main">
           <table>
-            <thead>
+            <thead className="thead">
               <tr className="main__header">
                 <td>번호</td>
                 <td>카테고리</td>
                 <td>제목</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
               {infoList.length > 0 &&
                 infoList.map((it) => (
                   <tr
