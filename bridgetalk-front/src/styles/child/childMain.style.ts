@@ -24,7 +24,7 @@ export const Container = styled.div`
 
       &-title {
         img {
-          width: 90svw;
+          width: 70.9svw;
         }
       }
 
@@ -51,12 +51,11 @@ export const Container = styled.div`
           img {
             height: 50svh;
           }
-
+          transition: all 0.5s;
           &:hover {
             cursor: pointer;
 
             height: 65svh;
-            transition: 0.5s;
           }
         }
 
@@ -75,12 +74,11 @@ export const Container = styled.div`
           img {
             height: 37svh;
           }
-
+          transition: all 0.5s;
           &:hover {
             cursor: pointer;
 
             height: 65svh;
-            transition: 0.5s;
           }
         }
 
