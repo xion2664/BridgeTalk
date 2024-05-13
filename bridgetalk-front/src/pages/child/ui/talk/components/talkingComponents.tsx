@@ -1,5 +1,6 @@
 import { getAvgVolume } from '@/pages/child/model';
 import { handleTalkSend } from '@/pages/child/model/handleTalkSend/handleTalkSend';
+import { handleTalkStart } from '@/pages/child/model/handleTalkStart/handleTalkStart';
 import { getTalkStart } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
@@ -11,6 +12,7 @@ import {
   startRecordVoice,
   stopRecordVoice,
 } from '@/shared';
+import { useErrorStore } from '@/shared/store';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
@@ -50,6 +52,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     subtitle: state.subtitle,
     setSubtitle: state.setSubtitle,
   }));
+  const errorStore = useErrorStore();
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -87,7 +90,8 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       connectAudioStream(streamRef).then((res) => {
         if (res instanceof MediaStream) {
           console.log('{ 마이크 연결 }');
-          getTalkStart(setReply);
+          handleTalkStart(setReply, errorStore.setErrorModalState);
+
           setIsRecording(true);
         }
       });

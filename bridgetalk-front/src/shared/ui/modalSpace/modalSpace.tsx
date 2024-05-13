@@ -1,13 +1,20 @@
 import { postVoiceBlob, useReportStore, useVoiceStore } from '@/pages';
+import { useErrorStore } from '@/shared/store';
 import { customAxios } from '@/shared/util';
 import * as S from '@/styles/shared/modalSpace.style';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 export function ModalSpace() {
   const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
+  const errorModalState = useErrorStore((state) => state.errorModalState);
 
-  return <>{isRecordFinished && <ParentVoiceRecordModalArea />}</>;
+  return (
+    <>
+      {isRecordFinished && <ParentVoiceRecordModalArea />}
+      {errorModalState && <ErrorModal />}
+    </>
+  );
 }
 
 function ParentVoiceRecordModalArea() {
@@ -77,4 +84,17 @@ function ParentVoiceRecordModalArea() {
       </S.AudioContainer>
     </S.Container>
   );
+}
+
+function ErrorModal() {
+  const errorStore = useErrorStore();
+
+  useEffect(() => {
+    setTimeout(() => {
+      errorStore.setErrorModalState('');
+    }, 2000);
+    console.log(errorStore.errorModalState);
+  }, []);
+
+  return <S.ErrorModalContainer>{errorStore.errorModalState}</S.ErrorModalContainer>;
 }
