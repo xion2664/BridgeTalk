@@ -14,6 +14,9 @@ export function errorCatch(err: Error, setErrorModalState: any) {
 
           console.log(errorData);
           switch (errorData.errorCode) {
+            case 'GPT_004':
+              setErrorModalState('더 많은 이야기를 해주세요!');
+              break;
             case 'REPORTS_004':
               setErrorModalState('조금 더 길게 이야기해 보아요!');
               break;
