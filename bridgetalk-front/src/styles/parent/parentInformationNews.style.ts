@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { CommonContainer, color } from './common.style';
+import { insetShadow } from '../main/common.style';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 80svh;
+
   gap: 2svh;
 
   .categories {
@@ -19,7 +22,7 @@ export const Container = styled.div`
       border-radius: 2svw;
       font-size: 2svw;
 
-      background-color: ${color(1).sub};
+      background-color: ${color(1).bright};
 
       cursor: pointer;
 
@@ -27,23 +30,36 @@ export const Container = styled.div`
     }
 
     .active {
+      background-color: ${color(1).sub};
     }
   }
 
   .main {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1svh;
 
-    &__item {
-      display: flex;
-      &-num {
-      }
-      &-category {
-      }
+    width: 90svw;
+    height: 73svh;
 
-      &-title {
-      }
+    border-radius: 1.5svw;
+    border: none;
+
+    box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+
+    background-color: ${color(1).sub};
+
+    &::after {
+      ${insetShadow}
+    }
+
+    &::before {
+      ${insetShadow}
+    }
+
+    table {
+      text-align: center;
     }
   }
 

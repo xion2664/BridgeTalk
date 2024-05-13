@@ -14,16 +14,20 @@ interface Info {
   category?: string;
 }
 
+interface Category {
+  [key: string]: number;
+}
+
 export function ParentInformationNurture() {
   const navigate = useNavigate();
   const [infoList, setInfoList] = useState<Info[]>([]);
   const [page, setPage] = useState<number>(0);
   const [lastPage, setLastPage] = useState<number>(0);
-  const [searchCategory, setSearchCategory] = useState<any>('');
+  const [searchCategory, setSearchCategory] = useState<any>('prospective');
 
   const language = useReportStore((state) => state.language);
 
-  const category = useMemo(
+  const category: Category = useMemo(
     () => ({
       prospective: 0,
       infant_and_toddler: 1,
@@ -57,7 +61,7 @@ export function ParentInformationNurture() {
         <div className="categories">
           {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
             <button
-              className={`${page === idx ? 'active' : ''}`}
+              className={`${searchCategory === it ? 'active' : ''}`}
               style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}
               onClick={() => {
                 setSearchCategory(it);
@@ -68,14 +72,32 @@ export function ParentInformationNurture() {
           ))}
         </div>
         <div className="main">
-          {infoList.length > 0 &&
-            infoList.map((it) => (
-              <div className="main__item" key={it.parentingInfoId}>
-                <div className="main__item-num">{it.parentingInfoId}</div>
-                <div className="main__item-category">{it.category}</div>
-                <div className="main__item-title">{it.title}</div>
-              </div>
-            ))}
+          <table>
+            <thead>
+              <tr>
+                <td>번호</td>
+                <td>카테고리</td>
+                <td>제목</td>
+              </tr>
+            </thead>
+            <tbody>
+              {infoList.length > 0 &&
+                infoList.map((it) => (
+                  <tr
+                    className="main__item"
+                    key={it.parentingInfoId}
+                    onClick={() => {
+                      console.log('navigate');
+                      navigate(`${it.parentingInfoId!}`);
+                    }}
+                  >
+                    <td className="main__item-num">{it.parentingInfoId}</td>
+                    <td className="main__item-category">{categories[language][category[it.category!]]}</td>
+                    <td className="main__item-title">{it.title}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
         <div className="pagenation">
           {infoList.length > 0 &&
