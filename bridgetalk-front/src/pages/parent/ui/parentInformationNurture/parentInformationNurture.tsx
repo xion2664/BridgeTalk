@@ -43,7 +43,12 @@ export function ParentInformationNurture() {
 
   useEffect(() => {
     handleNurtureInfoList(language, setInfoList, page, setLastPage, searchCategory);
-  }, [page, searchCategory]);
+  }, [page]);
+
+  useEffect(() => {
+    setPage(0);
+    handleNurtureInfoList(language, setInfoList, 0, setLastPage, searchCategory);
+  }, [searchCategory]);
 
   return (
     <>
