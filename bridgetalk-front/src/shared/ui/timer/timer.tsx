@@ -10,6 +10,9 @@ interface Props {
   setReply?: any;
   devounceTimerRef?: any;
   setIsTalking?: any;
+  navigate?: any;
+  setEmotion?: any;
+  setSubtitle?: any;
 }
 
 export function Timer({
@@ -20,8 +23,11 @@ export function Timer({
   setReply,
   devounceTimerRef,
   setIsTalking,
+  navigate,
+  setEmotion,
+  setSubtitle,
 }: Props) {
-  const [time, setTime] = useState<number>(0);
+  const [time, setTime] = useState<number>(270);
 
   const isEnd = useTalkStore((state) => state.isEnd);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);
@@ -63,7 +69,19 @@ export function Timer({
 
   useEffect(() => {
     if (setIsRecording !== null && time >= 60 * 4 + 40 && !isEnd) {
-      handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef);
+      handleTalkEnd(
+        setReply,
+        setIsTalking,
+        setIsEnd,
+        setIsRecording,
+        isRecording,
+        devounceTimerRef,
+        isEnd,
+        isTalking,
+        navigate,
+        setEmotion,
+        setSubtitle,
+      );
     }
   }, [time]);
 

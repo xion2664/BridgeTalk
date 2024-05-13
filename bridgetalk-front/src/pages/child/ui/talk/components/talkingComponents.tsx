@@ -5,7 +5,6 @@ import { getTalkStart } from '@/pages/child/query';
 import { useTalkStore } from '@/pages/child/store';
 import { useVoiceStore } from '@/pages/parent';
 import {
-  Timer,
   connectAudioStream,
   errorCatch,
   generateAudioContext,
@@ -69,6 +68,11 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // 녹음 관련
   const streamRef: MutableRefObject<MediaStream | null> = useRef(null);
   const recorderRef: MutableRefObject<MediaRecorder | null> = useRef(null);
+
+  // 화면 접속 시 초기화
+  useEffect(() => {
+    talkStore.resetStore();
+  }, []);
 
   // 볼륨 체크
   useEffect(() => {
@@ -233,8 +237,21 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           setIsRecording(false);
         }}
         onEnded={() => {
+          if (!talkStore.isTalking) {
+            talkStore.setIsEnd(true);
+            setTimeout(() => {
+              navigate('/child');
+            }, 300);
+
+            return;
+          }
+
           if (talkStore.isEnd) {
-            navigate('/child');
+            console.log('오디오 및 대화 종료');
+            talkStore.resetStore();
+            setTimeout(() => {
+              navigate('/child');
+            }, 300);
             return;
           }
 

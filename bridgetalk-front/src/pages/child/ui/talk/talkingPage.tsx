@@ -43,7 +43,19 @@ export function TalkingPage() {
           <button
             className="talking__header-end"
             onClick={() => {
-              handleTalkEnd(setReply, setIsTalking, setIsEnd, setIsRecording, isRecording, devounceTimerRef, navigate);
+              handleTalkEnd(
+                setReply,
+                setIsTalking,
+                setIsEnd,
+                setIsRecording,
+                isRecording,
+                devounceTimerRef,
+                isEnd,
+                isTalking,
+                navigate,
+                talkStore.setEmotion,
+                talkStore.setSubtitle,
+              );
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
@@ -55,22 +67,10 @@ export function TalkingPage() {
             setIsRecording={setIsRecording}
             setReply={setReply}
             setIsTalking={setIsTalking}
+            navigate={navigate}
+            setEmotion={talkStore.setEmotion}
+            setSubtitle={talkStore.setSubtitle}
           />
-          {/* {!isTalking && !isEnd && (
-            <div className="talking__header-guide">
-              <p>다이노를 눌러 대화를 시작해보아요!</p>
-            </div>
-          )}
-          {isEnd && (
-            <div className="talking__header-guide">
-              <p>대화가 종료됐어요!</p>
-            </div>
-          )}
-          {isWaiting && (
-            <div className="talking__header-guide">
-              <p>다이노가 어떤 이야기를 해줄지 생각중이에요!</p>
-            </div>
-          )} */}
           <div className="talking__header-message">
             <img
               src={'assets/img/pic/message.svg'}
@@ -105,11 +105,6 @@ export function TalkingPage() {
           {!isWaiting && talkStore.subtitle && (
             <div className="talking__container-talk">
               <p>{talkStore.subtitle}</p>
-            </div>
-          )}
-          {isEnd && (
-            <div className="talking__container-talk">
-              <p>다음에 또 보자!</p>
             </div>
           )}
         </div>
