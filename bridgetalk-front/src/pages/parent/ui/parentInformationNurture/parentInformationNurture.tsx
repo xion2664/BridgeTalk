@@ -74,7 +74,7 @@ export function ParentInformationNurture() {
         <div className="main">
           <table>
             <thead>
-              <tr>
+              <tr className="main__header">
                 <td>번호</td>
                 <td>카테고리</td>
                 <td>제목</td>

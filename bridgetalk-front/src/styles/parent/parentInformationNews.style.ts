@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { CommonContainer, color } from './common.style';
 import { insetShadow } from '../main/common.style';
+
+const gridLayout = css`
+  display: grid;
+  grid-template-columns: 1fr 3fr 5fr;
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -60,6 +65,20 @@ export const Container = styled.div`
 
     table {
       text-align: center;
+      width: 100%;
+    }
+
+    &__header {
+      ${gridLayout}
+    }
+    &__item {
+      ${gridLayout}
+
+      &-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
   }
 
