@@ -12,6 +12,7 @@ import {
   GamingPage,
   StagePage,
   PuzzlePage,
+  FinishPage,
   ColoringPage,
   DressingPage,
 } from '@/pages';
@@ -148,6 +149,7 @@ export function AppRoutes() {
         <Route path="/game" element={<GamingPage />} />
         <Route path="/stage" element={<StagePage />} />
         <Route path="/puzzle/:id" element={<PuzzlePage />} />
+        <Route path="/finish/:id" element={<FinishPage />} />
         <Route path="/color" element={<ColoringPage />} />
         <Route path="/dress" element={<DressingPage />} />
 
