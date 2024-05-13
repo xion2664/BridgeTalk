@@ -234,6 +234,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         }}
         onEnded={() => {
           if (talkStore.isEnd) {
+            talkStore.resetStore();
             navigate('/child');
             return;
           }

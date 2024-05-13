@@ -17,6 +17,7 @@ interface Store {
   setSubtitle: (state: string) => void;
   emotion: string;
   setEmotion: (state: string) => void;
+  resetStore: () => void;
 }
 
 const initialState: Omit<

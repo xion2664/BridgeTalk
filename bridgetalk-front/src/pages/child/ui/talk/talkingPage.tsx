@@ -107,11 +107,6 @@ export function TalkingPage() {
               <p>{talkStore.subtitle}</p>
             </div>
           )}
-          {isEnd && (
-            <div className="talking__container-talk">
-              <p>다음에 또 보자!</p>
-            </div>
-          )}
         </div>
       </div>
     </S.Container>
