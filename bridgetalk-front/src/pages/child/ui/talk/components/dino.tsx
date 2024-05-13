@@ -4,16 +4,34 @@ import { AnimationMixer } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useTalkStore } from '@/pages/child/store';
+import { postProfileLogin, useUserStore } from '@/pages/main';
+import { getUUIDbyToken } from '@/shared';
 
 extend({ OrbitControls });
 
 export function Dino() {
-  const gltf = useLoader(GLTFLoader, '/assets/dino/pink/happy.glb');
-  const mixer = useRef<AnimationMixer | null>(null);
-
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
   const isEnd = useTalkStore((state) => state.isEnd);
   const [size, setSize] = useState<number>(1);
+  const [dino, setDino] = useState<string>('D1');
+
+  const gltf = useLoader(GLTFLoader, `/assets/dino/${dino}/happy.glb`);
+  const mixer = useRef<AnimationMixer | null>(null);
+
+  useEffect(() => {
+    const sessionDino = sessionStorage.getItem('dino');
+
+    if (sessionDino) {
+      setDino(sessionDino);
+    }
+
+    if (!sessionDino) {
+      postProfileLogin(getUUIDbyToken()).then((res) => {
+        setDino(res.data.userDino);
+        sessionStorage.setItem('dino', res.data.userDino);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (gltf.animations.length > 0) {
