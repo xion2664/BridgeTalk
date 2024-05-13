@@ -15,8 +15,11 @@ import {
 } from '@/shared';
 import { useErrorStore } from '@/shared/store';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
+  const navigate = useNavigate();
+
   // Global State
   const volume = useVoiceStore((state) => state.volume);
   const setVolume = useVoiceStore((state) => state.setVolume);
@@ -56,6 +59,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     setIsEnd: state.setIsEnd,
   }));
   const errorStore = useErrorStore();
+  const talkStore = useTalkStore();
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -131,8 +135,10 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
     if (isRecording && !volumeCheckInterval) {
       // 음량 체크
-      const { analyser, bufferLength, dataArray }: any = generateAudioContext(streamRef)!;
-      volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
+      if (isTalking) {
+        const { analyser, bufferLength, dataArray }: any = generateAudioContext(streamRef)!;
+        volumeCheckInterval = generateVolumeCheckInterval(analyser, dataArray, bufferLength, setVolume);
+      }
 
       // 녹음 시작
       console.log('{ 녹음 시작 }');
@@ -227,7 +233,15 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           setIsRecording(false);
         }}
         onEnded={() => {
-          setIsRecording(true);
+          if (talkStore.isEnd) {
+            navigate('/child');
+            return;
+          }
+
+          if (!talkStore.isEnd) {
+            setIsRecording(true);
+            return;
+          }
         }}
       />
     </>

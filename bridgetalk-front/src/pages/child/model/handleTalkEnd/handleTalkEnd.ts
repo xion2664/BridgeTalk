@@ -15,17 +15,6 @@ export async function handleTalkEnd(
     return;
   }
 
-  // getTalkStop(setReply).then(() => {
-  //   setTimeout(() => {
-  //     setIsTalking(false);
-  //     setIsEnd(true);
-  //   }, 500);
-
-  //   setTimeout(() => {
-  //     navigate('/child');
-  //   }, 10000);
-  // });
-
   const proimises = [];
   proimises.push(getTalkStop(setReply));
   proimises.push(getTalkUpdate());
@@ -37,10 +26,6 @@ export async function handleTalkEnd(
         setIsTalking(false);
         setIsEnd(true);
       }, 500);
-
-      setTimeout(() => {
-        navigate('/child');
-      }, 10000);
 
       console.log('대화 마치기');
 
