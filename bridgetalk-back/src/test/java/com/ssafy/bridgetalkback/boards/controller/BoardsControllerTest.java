@@ -21,10 +21,7 @@ import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.*;
-import static com.ssafy.bridgetalkback.fixture.ParentingInfoFixture.*;
-import static com.ssafy.bridgetalkback.fixture.ParentingInfoFixture.PARENTINGINFO_03;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
-import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
 import static org.mockito.ArgumentMatchers.*;
