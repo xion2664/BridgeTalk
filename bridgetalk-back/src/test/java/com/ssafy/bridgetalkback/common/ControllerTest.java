@@ -8,8 +8,10 @@ import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.auth.service.TokenReissueService;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
-import com.ssafy.bridgetalkback.boards.controller.BoardsControllerTest;
+import com.ssafy.bridgetalkback.boards.controller.BoardsController;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
+import com.ssafy.bridgetalkback.comments.controller.CommentsController;
+import com.ssafy.bridgetalkback.comments.service.CommentsService;
 import com.ssafy.bridgetalkback.global.config.SecurityConfig;
 import com.ssafy.bridgetalkback.global.security.JwtAccessDeniedHandler;
 import com.ssafy.bridgetalkback.global.security.JwtAuthenticationEntryPoint;
@@ -36,7 +38,6 @@ import com.ssafy.bridgetalkback.slang.controller.SlangController;
 import com.ssafy.bridgetalkback.slang.service.SlangService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -57,9 +58,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         PuzzleController.class,
         SlangController.class,
         ProfileController.class,
-        ProfileController.class,
         ParentingInfoController.class,
-        BoardsControllerTest.class
+        BoardsController.class,
+        CommentsController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -138,6 +139,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected BoardsService boardsService;
+
+    @MockBean
+    protected CommentsService commentsService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum BoardsFixture {
-    BOARDS_01("게시글 제목 1", "Tựa đề bài viết 1", "게시글 내용 1", "Nội dung bài viết 1"),
-    BOARDS_02("게시글 제목 2", "Tựa đề bài viết 2", "게시글 내용 2", "Nội dung bài viết 2");
+    BOARDS_01("첫번째 게시글 제목", "Tiêu đề bài viết đầu tiên", "첫번째 게시글 내용", "Nội dung bài viết đầu tiên"),
+    BOARDS_02("두번째 게시글 제목", "Tiêu đề bài viết thứ hai", "두번째 게시글 내용", "Nội dung bài viết thứ hai");
 
     private final String boardsTitleKor;
     private final String boardsTitleViet;

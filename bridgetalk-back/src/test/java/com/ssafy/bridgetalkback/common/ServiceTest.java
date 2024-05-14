@@ -1,6 +1,8 @@
 package com.ssafy.bridgetalkback.common;
 
 import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
+import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
+import com.ssafy.bridgetalkback.comments.repository.CommentsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
 import com.ssafy.bridgetalkback.parentingInfo.repository.BoardNumRepository;
@@ -34,12 +36,17 @@ public class ServiceTest {
     @Autowired
     private DatabaseCleaner databaseCleaner;
 
-
     @Autowired
     protected ParentingInfoRepository parentingInfoRepository;
 
     @Autowired
     protected BoardNumRepository boardNumRepository;
+
+    @Autowired
+    protected BoardsRepository boardsRepository;
+
+    @Autowired
+    protected CommentsRepository commentsRepository;
 
     @AfterEach
     void clearDatabase() {
