@@ -25,12 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Boards [Service Layer] -> BoardsFindServiceTest 테스트")
 public class BoardsFindServiceTest extends ServiceTest {
 
-    private Parents parents;
-
-    private Kids kids;
-
-    private Reports reports;
-
     private Boards boards;
 
     @Autowired
@@ -42,9 +36,9 @@ public class BoardsFindServiceTest extends ServiceTest {
 
     @BeforeEach
     void setup() throws ExecutionException, InterruptedException {
-        parents = parentsRepository.save(SUNKYOUNG.toParents());
-        kids = kidsRepository.save(JIYEONG.toKids(parents));
-        reports = reportsRepository.save(REPORTS_01.toReports(kids));
+        Parents parents = parentsRepository.save(SUNKYOUNG.toParents());
+        Kids kids = kidsRepository.save(JIYEONG.toKids(parents));
+        Reports reports = reportsRepository.save(REPORTS_01.toReports(kids));
         reportsUpdateService.createReportAsync(reports.getReportsId());
         boards = boardsRepository.save(BOARDS_01.toBoards(reports, parents));
     }

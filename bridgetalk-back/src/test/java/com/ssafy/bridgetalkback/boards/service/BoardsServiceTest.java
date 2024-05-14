@@ -37,7 +37,7 @@ public class BoardsServiceTest extends ServiceTest {
 
     private Kids kids;
 
-    private Reports[] reports = new Reports[2];
+    private final Reports[] reports = new Reports[2];
 
     private Boards boards;
 
