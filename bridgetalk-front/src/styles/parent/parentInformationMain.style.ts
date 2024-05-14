@@ -22,5 +22,9 @@ export const Container = styled.div`
     color: ${color(1).bright};
 
     cursor: pointer;
+
+    img {
+      width: 2svw;
+    }
   }
 `;

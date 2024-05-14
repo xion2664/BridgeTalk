@@ -22,9 +22,11 @@ export function ParentInformationMain() {
       <BackButton path="../main" navigate={navigate} />
       <S.Container>
         <button onClick={() => navigate('nurture')}>
+          <img src={'/assets/img/parent/nurture.svg'} />
           <div>{title[language][0]}</div>
         </button>
         <button onClick={() => navigate('word')}>
+          <img src={'/assets/img/parent/edu.svg'} />
           <div>{title[language][1]}</div>
         </button>
       </S.Container>
