@@ -16,6 +16,7 @@ public record CommentsResponseDto(
 ) {
     public static CommentsResponseDto fromComments(Comments comments, Language language) {
         return CommentsResponseDto.builder()
+                .commentsId(comments.getCommentsId())
                 .parentsUuid(String.valueOf(comments.getParents().getUuid()))
                 .parentsNickname(comments.getParents().getParentsNickname())
                 .commentsContent(language.equals(Language.kor) ? comments.getCommentsContentKor() : comments.getCommentsContentViet())

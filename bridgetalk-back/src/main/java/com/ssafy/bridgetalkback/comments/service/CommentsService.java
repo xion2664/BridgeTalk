@@ -69,11 +69,13 @@ public class CommentsService {
         String[] translate = new String[2];
         if (language.equals(Language.kor)) {
             translate[0] = commentsContent;
-            translate[1] = translationService.translation(commentsContent, "ko", "vi");
+            translate[1] = translationService.translation(commentsContent, "ko", "en");
+            translate[1] = translationService.translation(translate[1], "en", "vi");
             log.info(">> 답변 번역 성공 ko->vi : {}", translate[1]);
         } else if (language.equals(Language.viet)) {
-            translate[0] = commentsContent;
-            translate[1] = translationService.translation(commentsContent, "vi", "ko");
+            translate[0] = translationService.translation(commentsContent, "vi", "en");
+            translate[0] = translationService.translation(translate[0], "en", "ko");
+            translate[1] = commentsContent;
             log.info(">> 답변 번역 성공 vi->ko : {}", translate[1]);
         }
         return translate;
