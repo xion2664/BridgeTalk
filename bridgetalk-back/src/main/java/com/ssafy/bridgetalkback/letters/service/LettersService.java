@@ -235,8 +235,13 @@ public class LettersService {
 
     public LettersImg findLettersImgByKeyword(String keyword) {
         log.info("{LettersService} : keyword에 해당하는 삭제되지 않은 이미지 url 반환 서비스 진입");
+
         return lettersImgRepository.findLettersImgByKeywordAndIsDeleted(keyword, 0)
-                .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_IMG_NOT_FOUND));
+                .orElseGet(() -> {
+                    return lettersImgRepository.findLettersImgByKeywordAndIsDeleted("사랑", 0)
+                            .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_IMG_NOT_FOUND));
+                });
+
     }
 
     public List<LettersResponseDto> findAllKidsLetters(UUID kidsUuid) {
