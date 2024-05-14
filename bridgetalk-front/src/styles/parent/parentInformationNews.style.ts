@@ -105,7 +105,7 @@ export const Container = styled.div`
     .tbody {
       display: flex;
       flex-direction: column;
-      gap: 2svw;
+      gap: 1svw;
     }
   }
 

@@ -62,7 +62,10 @@ export function ParentInformationNurture() {
           {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
             <button
               className={`${searchCategory === it ? 'active' : ''}`}
-              style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}
+              style={{
+                fontFamily: language === 'kor' ? 'DNF' : 'Pretendard',
+                fontSize: language === 'kor' ? `1.3svw` : `1.3svw`,
+              }}
               onClick={() => {
                 setSearchCategory(it);
               }}

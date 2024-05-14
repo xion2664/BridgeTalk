@@ -15,6 +15,8 @@ export function ParentInformationNurtureDetail() {
 
   useEffect(() => {
     handleNurtureInfoDetail(Number(nurtureId), language, setInfoDetail);
+
+    console.log(infoDetail && infoDetail.content.split('■').join('\n'));
   }, [language]);
 
   return (
@@ -22,9 +24,18 @@ export function ParentInformationNurtureDetail() {
       <BackButton path="../information/nurture" navigate={navigate} />
       <S.Container>
         {infoDetail && (
-          <div>
-            <div>{infoDetail.title}</div>
-            <div>{infoDetail.content}</div>
+          <div className="main">
+            <div className="main__title">{infoDetail.title}</div>
+            <div className="main__content">
+              {infoDetail.content.split('■').map((it: any) =>
+                it.trim() ? (
+                  <div>
+                    {`${it.trim()}`}
+                    <br />
+                  </div>
+                ) : null,
+              )}
+            </div>
           </div>
         )}
       </S.Container>
