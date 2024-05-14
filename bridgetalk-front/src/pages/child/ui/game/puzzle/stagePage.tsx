@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { customAxios } from '@/shared';
 import { StageItem } from './item/stageItem';
+import * as S from '@/styles/child/game/stage.style';
 
 interface Puzzle {
   puzzleId: number;
@@ -27,20 +28,24 @@ export function StagePage() {
   }, []);
 
   return (
-    <div className="stagePage">
-      <div className="stagePage__header">
-        <img src="#" alt="뒤로 가기" />
+    <S.Container>
+      <div className="stagePage">
+        <div className="stagePage__header">
+          <img src="#" alt="뒤로 가기" />
+        </div>
+        <div className="stagePage__container">
+          {puzzles.map((puzzle) => (
+            <div className="stagePage__container-stage">
+              <StageItem
+                key={puzzle.puzzleId}
+                id={puzzle.puzzleId.toString()}
+                img={puzzle.puzzleImageUrl}
+                name={puzzle.puzzleLandmarkName}
+              />{' '}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="stagePage__container">
-        {puzzles.map((puzzle) => (
-          <StageItem
-            key={puzzle.puzzleId}
-            id={puzzle.puzzleId.toString()}
-            img={puzzle.puzzleImageUrl}
-            name={puzzle.puzzleLandmarkName}
-          />
-        ))}
-      </div>
-    </div>
+    </S.Container>
   );
 }

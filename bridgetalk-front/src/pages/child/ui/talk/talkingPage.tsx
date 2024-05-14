@@ -1,7 +1,7 @@
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
-import { useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';

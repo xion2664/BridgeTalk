@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 100svh;
 
   background-image: url('/assets/img/pic/talkBackground.png');
+  background-size: cover;
 
   .talking {
     display: flex;

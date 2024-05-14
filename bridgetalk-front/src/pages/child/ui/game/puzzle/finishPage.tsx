@@ -34,11 +34,11 @@ export function FinishPage() {
   return (
     <S.Container>
       <div className="finishPage">
-        {/* <div className="finishPage__header">
-          <div className="finishPage__header-toMain">
-            <img src="#" alt="메인으로 돌아가기" />
+        <div className="finishPage__header">
+          <div className="finishPage__header-title">
+            <img src="/assets/child/game/finishTitle.svg" alt="" />
           </div>
-        </div> */}
+        </div>
         <div className="finishPage__container">
           <div className="finishPage__container-img">
             <img src={landmark?.puzzleImageUrl} alt="" />
@@ -46,7 +46,14 @@ export function FinishPage() {
           <div className="finishPage__container-side">
             <div className="finishPage__container-side-title">{landmark?.puzzleLandmarkName}</div>
             <div className="finishPage__container-side-description">{landmark?.puzzleLandmarkContent}</div>
-            <div className="finishPage__container-side-ok">완료</div>
+            <div className="finishPage__container-side-savePic">
+              <img src="/assets/child/save.svg" alt="" />
+              <span>저장하기</span>
+            </div>
+            <div className="finishPage__container-side-toBack">
+              <img src="/assets/child/back.svg" alt="" />
+              <span>목록으로</span>
+            </div>
           </div>
         </div>
       </div>

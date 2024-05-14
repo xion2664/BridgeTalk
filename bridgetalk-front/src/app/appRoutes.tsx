@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { LoadingScreen } from '@/shared/ui/loading/loadingScreen';
 
@@ -54,6 +54,7 @@ export function AppRoutes() {
       '/color',
       '/dress',
     ];
+
     if (targetPaths.includes(location.pathname)) {
       setLoading(true);
       setTimeout(() => setLoading(false), 2000);
@@ -62,7 +63,11 @@ export function AppRoutes() {
 
   return (
     <>
-      {loading && <LoadingScreen />}
+      {loading && (
+        <LoginGuard>
+          <LoadingScreen />
+        </LoginGuard>
+      )}
       <Routes>
         {/* <Route path="/" element={<WelcomePage />} /> */}
 
