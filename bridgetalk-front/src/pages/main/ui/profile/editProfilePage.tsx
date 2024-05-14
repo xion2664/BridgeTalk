@@ -192,7 +192,7 @@ function DinoBox() {
           <Canvas>
             <ambientLight intensity={1} />
             <PerspectiveCamera position={[-0.01, 0, 0.1]} fov={55} zoom={1} />
-            <DinoSelect idx={idx + 1} />
+            <DinoSelect idx={idx + 1} dinoNum={dinoNum} setDinoNum={setDinoNum} />
           </Canvas>
         ))}
     </>
