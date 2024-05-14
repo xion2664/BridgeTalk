@@ -26,6 +26,11 @@ export function ParentInformationNurtureDetail() {
         {infoDetail && (
           <div className="main">
             <div className="main__title">{infoDetail.title}</div>
+            <div className="main__link">
+              <a href={`${infoDetail.link}`} target="_blank">
+                {infoDetail.link}
+              </a>
+            </div>
             <div className="main__content">
               {infoDetail.content.split('■').map((it: any) =>
                 it.trim() ? (

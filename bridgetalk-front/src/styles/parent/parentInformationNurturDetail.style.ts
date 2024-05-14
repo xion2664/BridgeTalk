@@ -22,6 +22,7 @@ export const Container = styled.div`
     font-family: 'Pretendard';
 
     &__title,
+    &__link,
     &__content {
       background-color: ${color(1).bright};
       border-radius: 1svw;
