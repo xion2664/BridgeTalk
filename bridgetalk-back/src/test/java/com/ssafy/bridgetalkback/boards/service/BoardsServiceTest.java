@@ -26,6 +26,7 @@ import org.junit.jupiter.api.*;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
+import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_02;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -36,7 +37,7 @@ public class BoardsServiceTest extends ServiceTest {
 
     private Kids kids;
 
-    private Reports reports;
+    private Reports[] reports = new Reports[2];
 
     private Boards boards;
 
@@ -53,9 +54,11 @@ public class BoardsServiceTest extends ServiceTest {
     void setup() throws ExecutionException, InterruptedException {
         parents = parentsRepository.save(SUNKYOUNG.toParents());
         kids = kidsRepository.save(JIYEONG.toKids(parents));
-        reports = reportsRepository.save(REPORTS_01.toReports(kids));
-        reportsUpdateService.createReportAsync(reports.getReportsId());
-        boards = boardsRepository.save(BOARDS_01.toBoards(reports, parents));
+        reports[0] = reportsRepository.save(REPORTS_01.toReports(kids));
+        reports[1] = reportsRepository.save(REPORTS_02.toReports(kids));
+        reportsUpdateService.createReportAsync(reports[0].getReportsId());
+        reportsUpdateService.createReportAsync(reports[1].getReportsId());
+        boards = boardsRepository.save(BOARDS_01.toBoards(reports[0], parents));
     }
 
     @Test
@@ -70,10 +73,8 @@ public class BoardsServiceTest extends ServiceTest {
 
         assertAll(
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
-                () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_01.getBoardsTitleKor()),
-//                () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_01.getBoardsTitleViet()),
-                () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_01.getBoardsContentKor()),
-//                () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_01.getBoardsContentViet()),
+                () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_02.getBoardsTitleKor()),
+                () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -89,10 +90,8 @@ public class BoardsServiceTest extends ServiceTest {
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
         assertAll(
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
-//                () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_01.getBoardsTitleKor()),
-                () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_01.getBoardsTitleViet()),
-//                () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_01.getBoardsContentKor()),
-                () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_01.getBoardsContentViet()),
+                () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
+                () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -100,22 +99,16 @@ public class BoardsServiceTest extends ServiceTest {
     @Test
     @DisplayName("(한국어) 게시글 수정에 성공한다.")
     void updateBoardsKor() {
-        // given
-        BoardsResponseDto boardsResponseDto = boardsService.createBoards(parents.getUuid(), createBoardsRequestDto(Language.kor));
-        Long boardsId = boardsResponseDto.boardsId();
-
         // when
-        BoardsResponseDto updateBoardsResponseDto = boardsService.updateBoards(parents.getUuid(), boardsId, updateBoardsRequestDto(Language.kor));
+        BoardsResponseDto updateBoardsResponseDto = boardsService.updateBoards(parents.getUuid(), boards.getBoardsId(), updateBoardsRequestDto(Language.kor));
         Long updateBoardsId = updateBoardsResponseDto.boardsId();
 
         // then
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(updateBoardsId);
         assertAll(
-                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
+                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boards.getBoardsId()),
                 () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_02.getBoardsTitleKor()),
-//                () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
                 () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
-//                () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -123,21 +116,15 @@ public class BoardsServiceTest extends ServiceTest {
     @Test
     @DisplayName("(베트남어) 게시글 수정에 성공한다.")
     void updateBoardsViet() {
-        // given
-        BoardsResponseDto boardsResponseDto = boardsService.createBoards(parents.getUuid(), createBoardsRequestDto(Language.viet));
-        Long boardsId = boardsResponseDto.boardsId();
-
         // when
-        BoardsResponseDto updateBoardsResponseDto = boardsService.updateBoards(parents.getUuid(), boardsId, updateBoardsRequestDto(Language.viet));
+        BoardsResponseDto updateBoardsResponseDto = boardsService.updateBoards(parents.getUuid(), boards.getBoardsId(), updateBoardsRequestDto(Language.viet));
         Long updateBoardsId = updateBoardsResponseDto.boardsId();
 
         // then
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(updateBoardsId);
         assertAll(
-                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
-//                () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_02.getBoardsTitleKor()),
+                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boards.getBoardsId()),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
-//                () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
                 () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
@@ -146,19 +133,15 @@ public class BoardsServiceTest extends ServiceTest {
     @Test
     @DisplayName("게시글 삭제에 성공한다.")
     void deleteBoards(){
-        // given
-        BoardsResponseDto boardsResponseDto = boardsService.createBoards(parents.getUuid(), createBoardsRequestDto(Language.viet));
-        Long boardsId = boardsResponseDto.boardsId();
-
         // when
-        boardsService.deleteBoards(parents.getUuid(), boardsId);
+        boardsService.deleteBoards(parents.getUuid(), boards.getBoardsId());
 
         //then
-        assertThatThrownBy(()-> boardsFindService.findByBoardsIdAndIsDeleted(boardsId))
+        assertThatThrownBy(()-> boardsFindService.findByBoardsIdAndIsDeleted(boards.getBoardsId()))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(BoardsErrorCode.BOARDS_NOT_FOUND.getMessage());
 
-        Optional<Boards> findBoards = boardsRepository.findById(boardsId);
+        Optional<Boards> findBoards = boardsRepository.findById(boards.getBoardsId());
         assertAll(
                 ()->assertThat(findBoards.orElseThrow().getIsDeleted()).isEqualTo(1)
         );
@@ -172,8 +155,8 @@ public class BoardsServiceTest extends ServiceTest {
 
     private BoardsRequestDto createBoardsRequestDto(Language language) {
         return language.equals(Language.kor)
-                ? new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), Language.kor)
-                : new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleViet(), BOARDS_01.getBoardsContentViet(), Language.viet);
+                ? new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor)
+                : new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
     }
 
 
@@ -221,7 +204,7 @@ public class BoardsServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContentViet()),
                     () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
-                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
+                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryViet()),
                     () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsViet()),
                     () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
             );

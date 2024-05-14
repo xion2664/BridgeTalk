@@ -55,10 +55,10 @@ public class BoardsFindServiceTest extends ServiceTest {
     void findByBoardsIdAndIsDeletedIsFalse() {
         // when
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boards.getBoardsId());
-        Long inVaildBoardsId = -1L;
+        Long inValidBoardsId = -1L;
 
         // then
-        assertThatThrownBy(() -> boardsFindService.findByBoardsIdAndIsDeleted(inVaildBoardsId))
+        assertThatThrownBy(() -> boardsFindService.findByBoardsIdAndIsDeleted(inValidBoardsId))
                 .isInstanceOf(BaseException.class)
                 .hasMessage(BoardsErrorCode.BOARDS_NOT_FOUND.getMessage());
 
