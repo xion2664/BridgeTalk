@@ -45,6 +45,13 @@ export function ParentInformationNurture() {
     [],
   );
 
+  const header = useMemo(
+    () => ({
+      kor: ['번호', '카테고리', '제목'],
+      viet: ['Số', 'Phân loại', 'Tiêu đề'],
+    }),
+    [],
+  );
   useEffect(() => {
     handleNurtureInfoList(language, setInfoList, page, setLastPage, searchCategory);
   }, [page, language]);
@@ -78,9 +85,9 @@ export function ParentInformationNurture() {
           <table>
             <thead className="thead">
               <tr className="main__header">
-                <td>번호</td>
-                <td>카테고리</td>
-                <td>제목</td>
+                {header[language].map((it) => (
+                  <td>{it}</td>
+                ))}
               </tr>
             </thead>
             <tbody className="tbody">

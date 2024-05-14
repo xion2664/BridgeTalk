@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getTalkStart } from '../../query';
 import { errorCatch } from '@/shared';
 import { decodeFormData } from '../decodeFormData/decodeFormData';
