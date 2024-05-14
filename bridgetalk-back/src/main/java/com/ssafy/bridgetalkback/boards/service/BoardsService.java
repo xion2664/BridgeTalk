@@ -49,7 +49,7 @@ public class BoardsService {
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(uuid);
         Boards boards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
         if (!parents.getUuid().equals(boards.getParents().getUuid()))
-            throw BaseException.type(BoardsErrorCode.INVALID_USER);
+            throw BaseException.type(BoardsErrorCode.USER_IS_NOT_BOARD_WRITER);
         String[] translate = translateBoards(boardsUpdateRequestDto.boardsTitle(), boardsUpdateRequestDto.boardsContent(), boardsUpdateRequestDto.language());
         boards.updateBoards(translate[0], translate[1], translate[2], translate[3]);
         log.info("{ BoardsService } : boards 수정 성공");
@@ -61,7 +61,7 @@ public class BoardsService {
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(uuid);
         Boards boards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
         if (!parents.getUuid().equals(boards.getParents().getUuid()))
-            throw BaseException.type(BoardsErrorCode.INVALID_USER);
+            throw BaseException.type(BoardsErrorCode.USER_IS_NOT_BOARD_WRITER);
         boards.updateIsDeleted();
         log.info("{ BoardsService } : boards 삭제 성공");
     }

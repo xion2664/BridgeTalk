@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum BoardsErrorCode implements ErrorCode {
     BOARDS_NOT_FOUND(HttpStatus.NOT_FOUND, "BOARDS_001", "게시글 정보를 찾을 수 없습니다."),
-    INVALID_USER(HttpStatus.BAD_REQUEST, "BOARDS_002", "게시글 작성자가 아닙니다.");
+    USER_IS_NOT_BOARD_WRITER(HttpStatus.BAD_REQUEST, "BOARDS_002", "게시글 작성자가 아닙니다.");
 
     private final HttpStatus status;
     private final String errorCode;
