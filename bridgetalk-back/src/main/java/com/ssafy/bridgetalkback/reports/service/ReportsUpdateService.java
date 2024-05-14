@@ -99,12 +99,15 @@ public class ReportsUpdateService {
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
         String[] keyword_kor_arr = keywordsText[0].split(", ");
-        if (keyword_kor_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        if (keyword_kor_arr.length != 3) {
+            keyword_kor_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         String[] keyword_viet_arr = keywordsText[1].split(", ");
-        if (keyword_viet_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
-
+        if (keyword_viet_arr.length != 3) {
+            keyword_kor_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         reports.updateReports(summaryText[0], summaryText[1], keyword_kor_arr, keyword_viet_arr, solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
