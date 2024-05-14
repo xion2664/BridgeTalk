@@ -19,7 +19,7 @@ public record BoardsResponseDto(
     public static BoardsResponseDto fromBoards(Boards boards, Language language) {
         return BoardsResponseDto.builder()
                 .boardsId(boards.getBoardsId())
-                .reportsSummary(boards.getReports().getReportsSummaryKor())
+                .reportsSummary(language.equals(Language.kor) ? boards.getReports().getReportsSummaryKor() : boards.getReports().getReportsSummaryViet())
                 .parentsUuid(String.valueOf(boards.getParents().getUuid()))
                 .parentsNickname(boards.getParents().getParentsNickname())
                 .boardsTitle(language.equals(Language.kor) ? boards.getBoardsTitleKor() : boards.getBoardsTitleViet())

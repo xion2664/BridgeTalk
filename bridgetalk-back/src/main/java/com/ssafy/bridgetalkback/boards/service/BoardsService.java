@@ -70,17 +70,21 @@ public class BoardsService {
         String[] translate = new String[4];
         if (language.equals(Language.kor)) {
             translate[0] = boardsTitle;
-            translate[2] = boardsContent;
-            translate[1] = translationService.translation(boardsTitle, "ko", "vi");
+            translate[1] = translationService.translation(boardsTitle, "ko", "en");
+            translate[1] = translationService.translation(translate[1], "en", "vi");
             log.info(">> 게시글 제목 번역 성공 ko->vi : {}", translate[1]);
-            translate[3] = translationService.translation(boardsContent, "ko", "vi");
+            translate[2] = boardsContent;
+            translate[3] = translationService.translation(boardsContent, "ko", "en");
+            translate[3] = translationService.translation(translate[3], "en", "vi");
             log.info(">> 게시글 내용 번역 성공 ko->vi : {}", translate[3]);
         } else if (language.equals(Language.viet)) {
-            translate[0] = boardsTitle;
-            translate[2] = boardsContent;
-            translate[1] = translationService.translation(boardsTitle, "vi", "ko");
+            translate[0] = translationService.translation(boardsTitle, "vi", "en");
+            translate[0] = translationService.translation(translate[0], "en", "ko");
+            translate[1] = boardsTitle;
             log.info(">> 게시글 제목 번역 성공 vi->ko : {}", translate[1]);
-            translate[3] = translationService.translation(boardsContent, "vi", "ko");
+            translate[2] = translationService.translation(boardsContent, "vi", "en");
+            translate[2] = translationService.translation(translate[2], "en", "ko");
+            translate[3] = boardsContent;
             log.info(">> 게시글 내용 번역 성공 vi->ko : {}", translate[3]);
         }
         return translate;

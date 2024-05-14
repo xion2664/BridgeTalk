@@ -45,7 +45,7 @@ public class Boards extends BaseEntity {
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
-    public Boards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
+    private Boards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
         this.reports = reports;
         this.parents = parents;
         this.boardsTitleKor = boardsTitleKor;
