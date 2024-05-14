@@ -114,8 +114,8 @@ public class TalkService {
         log.info("{ TalkService } : 대화 하기 (답장) 진입 - multipart");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-//        String userEmail = kids.getKidsEmail();
-//        updateTalkText(userEmail, talkText);
+        String userEmail = kids.getKidsEmail();
+        updateTalkText(userEmail, talkText);
         String answer = createAnswer(talkText);
         log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
 
