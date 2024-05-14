@@ -1,21 +1,20 @@
 import { decodeToken } from '@/shared';
 import { getProfileList } from '../../query';
 
-export function handleFetchProfileList(accessToken: string, setProfileList: any) {
-  let profileList: any[] = [];
-  if (accessToken) {
-    getProfileList(accessToken).then((res: any) => {
-      if (res && res.data) {
-        profileList = res.data.profileList.splice(1);
-      }
-    });
-  } else if (decodeToken('access') !== null) {
-    getProfileList(decodeToken('access')!).then((res: any) => {
-      if (res && res.data) {
-        profileList = res.data.profileList.splice(1);
-      }
-    });
-  }
+export async function handleFetchProfileList(accessToken: string, setProfileList: any) {
+  let response;
 
-  setProfileList(profileList);
+  try {
+    if (accessToken) {
+      response = await getProfileList(accessToken);
+    } else if (decodeToken('access') !== null) {
+      response = await getProfileList(decodeToken('access')!);
+    }
+
+    if (response && response.data) {
+      setProfileList(response.data.profileList);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }

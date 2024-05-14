@@ -37,6 +37,7 @@ export function ProfilePage() {
   }, []);
 
   useEffect(() => {
+    console.log(profileList);
     if (profileList.length > 0) {
       setIsLoading(false);
     }
@@ -65,7 +66,7 @@ export function ProfilePage() {
           </div>
           <div className="main__profilelist">
             {profileList.length > 0 &&
-              profileList.map((it, idx) => (
+              profileList.splice(1).map((it, idx) => (
                 <div
                   className="main__profilelist-item"
                   key={it.userId}
