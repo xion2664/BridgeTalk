@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.reports.domain;
 
 import com.ssafy.bridgetalkback.global.BaseEntity;
+import com.ssafy.bridgetalkback.global.utils.StringListConverter;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,10 +33,10 @@ public class Reports extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String reportsSummaryViet;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @Convert(converter = StringListConverter.class)
     private List<String> reportsKeywordsKor;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @Convert(converter = StringListConverter.class)
     private List<String> reportsKeywordsViet;
 
     @Column(columnDefinition = "TEXT")
@@ -61,12 +62,12 @@ public class Reports extends BaseEntity {
         this.reportsSummaryViet = summaryTextViet;
     }
 
-    public void updateKeywordsKor(String[] keywordKorArr) {
-        this.reportsKeywordsKor = List.of(keywordKorArr);
+    public void updateKeywordsKor(List<String> keywordKorList) {
+        this.reportsKeywordsKor = keywordKorList;
     }
 
-    public void updateKeywordsViet(String[] keywordVietArr) {
-        this.reportsKeywordsViet = List.of(keywordVietArr);
+    public void updateKeywordsViet(List<String> keywordVietList) {
+        this.reportsKeywordsViet = keywordVietList;
     }
 
     public void updateSolutionKor(String solutionTextKor) {
@@ -77,11 +78,11 @@ public class Reports extends BaseEntity {
         this.reportsSolutionViet = solutionTextViet;
     }
 
-    public void updateReports(String summaryTextKor, String summaryTextViet, String[] keywordKorArr, String[] keywordVietArr, String solutionTextKor, String solutionTextViet) {
+    public void updateReports(String summaryTextKor, String summaryTextViet, List<String> keywordKorList, List<String> keywordVietList, String solutionTextKor, String solutionTextViet) {
         this.reportsSummaryKor = summaryTextKor;
         this.reportsSummaryViet = summaryTextViet;
-        this.reportsKeywordsKor = List.of(keywordKorArr);
-        this.reportsKeywordsViet = List.of(keywordVietArr);
+        this.reportsKeywordsKor = keywordKorList;
+        this.reportsKeywordsViet = keywordVietList;
         this.reportsSolutionKor = solutionTextKor;
         this.reportsSolutionViet = solutionTextViet;
     }
@@ -89,6 +90,4 @@ public class Reports extends BaseEntity {
     public void updateReportsOriginContent(String updateContent) {
         this.reportsOriginContent = updateContent;
     }
-
-
 }

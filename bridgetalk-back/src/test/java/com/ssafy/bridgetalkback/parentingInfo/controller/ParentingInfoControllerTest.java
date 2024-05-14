@@ -21,6 +21,7 @@ import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.ParentingInfoFixture.*;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -62,7 +63,7 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doReturn(getParentingInfoResponseDto())
                     .when(parentingInfoService)
-                    .getParentingInfoDetail(PARENTINGINFO_ID, LANGUAGE_KOR);
+                    .getParentingInfoDetail(anyLong(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -112,7 +113,7 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doThrow(BaseException.type(ParentingInfoErrorCode.CATEGORY_NOT_FOUND))
                     .when(parentingInfoListService)
-                    .getCustomParentingInfoList(PAGE, INVALID_SEARCH_CATEGORY, LANGUAGE_KOR);
+                    .getCustomParentingInfoList(anyInt(), any(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -142,7 +143,7 @@ public class ParentingInfoControllerTest extends ControllerTest {
             // given
             doReturn(getCustomParentingInfoListResponseDto())
                     .when(parentingInfoListService)
-                    .getCustomParentingInfoList(PAGE, SEARCH_CATEGORY, LANGUAGE_KOR);
+                    .getCustomParentingInfoList(anyInt(), any(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders

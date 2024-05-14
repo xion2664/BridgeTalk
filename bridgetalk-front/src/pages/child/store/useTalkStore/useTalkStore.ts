@@ -13,18 +13,44 @@ interface Store {
   setIsWaiting: (state: boolean) => void;
   isEnd: boolean;
   setIsEnd: (state: boolean) => void;
+  subtitle: string;
+  setSubtitle: (state: string) => void;
+  emotion: string;
+  setEmotion: (state: string) => void;
+  resetStore: () => void;
 }
-export const useTalkStore = create<Store>()((set) => ({
+
+const initialState: Omit<
+  Store,
+  | 'setReportsId'
+  | 'setIsRecording'
+  | 'setIsSend'
+  | 'setIsTalking'
+  | 'setIsWaiting'
+  | 'setIsEnd'
+  | 'setSubtitle'
+  | 'setEmotion'
+  | 'resetStore'
+> = {
   reportsId: 0,
-  setReportsId: (reportsId) => set({ reportsId }),
   isRecording: false,
-  setIsRecording: (state) => set({ isRecording: state }),
   isSend: false,
-  setIsSend: (state) => set({ isSend: state }),
   isTalking: false,
-  setIsTalking: (state) => set({ isTalking: state }),
   isWaiting: false,
-  setIsWaiting: (state) => set({ isWaiting: state }),
   isEnd: false,
+  subtitle: '',
+  emotion: 'idle',
+};
+
+export const useTalkStore = create<Store>()((set) => ({
+  ...initialState,
+  setReportsId: (reportsId) => set({ reportsId }),
+  setIsRecording: (state) => set({ isRecording: state }),
+  setIsSend: (state) => set({ isSend: state }),
+  setIsTalking: (state) => set({ isTalking: state }),
+  setIsWaiting: (state) => set({ isWaiting: state }),
   setIsEnd: (state) => set({ isEnd: state }),
+  setSubtitle: (state: string) => set({ subtitle: state }),
+  setEmotion: (state: string) => set({ emotion: state }),
+  resetStore: () => set({ ...initialState }),
 }));

@@ -14,17 +14,28 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
 
     &__container {
+      position: fixed;
+      top: 25svh;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 5svh;
 
+      width: 100%;
+      height: 100%;
+
       &-title {
+        position: fixed;
+        top: 10.5svh;
+
         img {
-          width: 90svw;
+          width: 70svw;
         }
       }
 
@@ -32,31 +43,43 @@ export const Container = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
-        gap: 5svw;
-        width: 90svw;
+        justify-content: space-between;
+        gap: 2svw;
+
+        width: 100%;
+        height: 100%;
+
+        &-toMessage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 30%;
+
+          img {
+            width: 80%;
+            transition: all 0.5s;
+            &:hover {
+              cursor: pointer;
+              width: ;
+            }
+          }
+        }
 
         &-toTalk {
           display: flex;
           align-items: center;
           justify-content: center;
 
-          height: 60svh;
-
-          background-image: url('/assets/img/pic/menu1.png');
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
+          width: 30%;
 
           img {
-            height: 50svh;
-          }
-
-          &:hover {
-            cursor: pointer;
-
-            height: 65svh;
-            transition: 0.5s;
+            width: 80%;
+            transition: all 0.5s;
+            &:hover {
+              cursor: pointer;
+              width: ;
+            }
           }
         }
 
@@ -65,22 +88,15 @@ export const Container = styled.div`
           align-items: center;
           justify-content: center;
 
-          height: 60svh;
-
-          background-image: url('/assets/img/pic/menu2.png');
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
+          width: 30%;
 
           img {
-            height: 37svh;
-          }
-
-          &:hover {
-            cursor: pointer;
-
-            height: 65svh;
-            transition: 0.5s;
+            width: 65%;
+            transition: all 0.5s;
+            &:hover {
+              cursor: pointer;
+              width: ;
+            }
           }
         }
 

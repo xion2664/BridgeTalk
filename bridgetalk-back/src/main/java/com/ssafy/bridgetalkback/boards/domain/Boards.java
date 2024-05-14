@@ -31,22 +31,36 @@ public class Boards extends BaseEntity {
     private Parents parents;
 
     @Column(nullable = false, length = 100)
-    private String boardsTitle;
+    private String boardsTitle_kor;
+
+    @Column(nullable = false, length = 100)
+    private String boardsTitle_viet;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String boardsContent;
+    private String boardsContent_kor;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String boardsContent_viet;
+
+    @Column(nullable = false)
+    private int likes;
 
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
-    private Boards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
+    private Boards(Reports reports, Parents parents, String boardsTitle_kor, String boardsTitle_viet,
+                   String boardsContent_kor, String boardsContent_viet) {
         this.reports = reports;
         this.parents = parents;
-        this.boardsTitle = boardsTitle;
-        this.boardsContent = boardsContent;
+        this.boardsTitle_kor = boardsTitle_kor;
+        this.boardsTitle_viet = boardsTitle_viet;
+        this.boardsContent_kor = boardsContent_kor;
+        this.boardsContent_viet = boardsContent_viet;
+        this.likes = 0;
     }
 
-    public static Boards createBoards(Reports reports, Parents parents, String boardsTitle, String boardsContent) {
-        return new Boards(reports, parents, boardsTitle, boardsContent);
+    public static Boards createBoards(Reports reports, Parents parents, String boardsTitle_kor, String boardsTitle_viet,
+                                      String boardsContent_kor, String boardsContent_viet) {
+        return new Boards(reports, parents, boardsTitle_kor, boardsTitle_viet, boardsContent_kor, boardsContent_viet);
     }
 }
