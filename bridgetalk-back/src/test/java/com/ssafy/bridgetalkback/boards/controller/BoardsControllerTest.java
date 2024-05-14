@@ -222,7 +222,7 @@ public class BoardsControllerTest extends ControllerTest {
             // when
             final BoardsUpdateRequestDto boardsUpdateRequestDto = createBoardsUpdateRequestDto(Language.kor);
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .patch(BASE_URL, BOARDS_ID)
+                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR)
                     .contentType(APPLICATION_JSON)
                     .content(convertObjectToJson(boardsUpdateRequestDto));
 

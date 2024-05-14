@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -111,7 +112,7 @@ public class ReportsUpdateService {
             keyword_viet_arr = null;
 //            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
         }
-        reports.updateReports(summaryText[0], summaryText[1], List.of(keyword_kor_arr), List.of(keyword_viet_arr), solutionText[0], solutionText[1]);
+        reports.updateReports(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_viet_arr), solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
         log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());
@@ -123,6 +124,6 @@ public class ReportsUpdateService {
     }
 
     private List<String> arraytoList(String[] strings) {
-        return new ArrayList<>(Arrays.asList(strings));
+        return strings==null ? Collections.emptyList() : new ArrayList<>(Arrays.asList(strings));
     }
 }
