@@ -18,7 +18,7 @@ export function MessagePage() {
           <div
             className="messagePage__header-toBack"
             onClick={() => {
-              navigate('/talk');
+              navigate('/child');
             }}
           >
             <FontAwesomeIcon icon={faCaretLeft} />

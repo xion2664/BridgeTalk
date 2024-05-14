@@ -23,7 +23,7 @@ export function ChildPage() {
                 <img
                   src={'assets/img/child/toMessage.svg'}
                   onClick={() => {
-                    navigate('/message');
+                    navigate('/message/list');
                   }}
                 />
               </div>

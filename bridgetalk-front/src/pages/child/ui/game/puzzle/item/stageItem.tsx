@@ -14,10 +14,8 @@ export function StageItem({ id, img, name }: StageItemProps) {
 
   return (
     <div className="stageItem" onClick={handleClick}>
-      <div className="stageItem__title">{name}</div>
-      <div className="stageItem__img">
-        <img src={img} alt={name} />
-      </div>
+      <span>{name}</span>
+      <img src={img} alt={name} />
     </div>
   );
 }
