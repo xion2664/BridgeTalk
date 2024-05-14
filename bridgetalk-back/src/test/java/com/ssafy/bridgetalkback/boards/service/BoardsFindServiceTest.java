@@ -39,6 +39,7 @@ public class BoardsFindServiceTest extends ServiceTest {
     @Autowired
     private BoardsFindService boardsFindService;
 
+
     @BeforeEach
     void setup() throws ExecutionException, InterruptedException {
         parents = parentsRepository.save(SUNKYOUNG.toParents());
@@ -47,6 +48,7 @@ public class BoardsFindServiceTest extends ServiceTest {
         reportsUpdateService.createReportAsync(reports.getReportsId());
         boards = boardsRepository.save(BOARDS_01.toBoards(reports, parents));
     }
+
 
     @Test
     @DisplayName("ID(PK)로 게시글을 조회한다.")
@@ -62,5 +64,4 @@ public class BoardsFindServiceTest extends ServiceTest {
 
         assertThat(findBoards).isEqualTo(boards);
     }
-
 }

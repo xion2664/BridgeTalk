@@ -2,7 +2,7 @@ package com.ssafy.bridgetalkback.reports.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;

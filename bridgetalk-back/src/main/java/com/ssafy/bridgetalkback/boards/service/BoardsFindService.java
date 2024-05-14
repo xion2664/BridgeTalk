@@ -22,5 +22,4 @@ public class BoardsFindService {
         return boardsRepository.findByBoardsIdAndIsDeleted(boardsId, 0)
                 .orElseThrow(()-> BaseException.type(BoardsErrorCode.BOARDS_NOT_FOUND));
     }
-
 }

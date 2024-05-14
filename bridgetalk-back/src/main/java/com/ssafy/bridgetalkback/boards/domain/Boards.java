@@ -42,19 +42,26 @@ public class Boards extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String boardsContentViet;
 
+    @Column(nullable = false)
+    private int likes;
+
     @OneToMany(mappedBy = "boards", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> commentsList = new ArrayList<>();
 
-    private Boards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
+
+    private Boards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet,
+                   String boardsContentKor, String boardsContentViet) {
         this.reports = reports;
         this.parents = parents;
         this.boardsTitleKor = boardsTitleKor;
         this.boardsTitleViet = boardsTitleViet;
         this.boardsContentKor = boardsContentKor;
         this.boardsContentViet = boardsContentViet;
+        this.likes = 0;
     }
 
-    public static Boards createBoards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet, String boardsContentKor, String boardsContentViet) {
+    public static Boards createBoards(Reports reports, Parents parents, String boardsTitleKor, String boardsTitleViet,
+                                      String boardsContentKor, String boardsContentViet) {
         return new Boards(reports, parents, boardsTitleKor, boardsTitleViet, boardsContentKor, boardsContentViet);
     }
 

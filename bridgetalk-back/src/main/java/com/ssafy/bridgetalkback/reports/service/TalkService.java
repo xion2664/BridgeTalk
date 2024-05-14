@@ -5,7 +5,6 @@ import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
-import com.ssafy.bridgetalkback.reports.dto.response.TalkResponseDto;
 import com.ssafy.bridgetalkback.reports.exception.ReportsErrorCode;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
@@ -115,8 +114,8 @@ public class TalkService {
         log.info("{ TalkService } : 대화 하기 (답장) 진입 - multipart");
 
         Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(userId);
-//        String userEmail = kids.getKidsEmail();
-//        updateTalkText(userEmail, talkText);
+        String userEmail = kids.getKidsEmail();
+        updateTalkText(userEmail, talkText);
         String answer = createAnswer(talkText);
         log.info("{ TalkService } : 아이 음성 텍스트에 대한 답변 - " + answer);
 

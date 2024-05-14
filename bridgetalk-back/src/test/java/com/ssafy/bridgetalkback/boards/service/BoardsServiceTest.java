@@ -22,6 +22,18 @@ import java.util.concurrent.ExecutionException;
 
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_02;
+import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
+import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
+import com.ssafy.bridgetalkback.common.ServiceTest;
+import com.ssafy.bridgetalkback.global.Language;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
+import com.ssafy.bridgetalkback.kids.domain.Kids;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.reports.domain.Reports;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
@@ -37,6 +49,8 @@ public class BoardsServiceTest extends ServiceTest {
 
     private Reports reports;
 
+    private Boards boards;
+
     @Autowired
     private ReportsUpdateService reportsUpdateService;
 
@@ -45,6 +59,9 @@ public class BoardsServiceTest extends ServiceTest {
 
     @Autowired
     private BoardsService boardsService;
+    @Autowired
+    private BoardsService boardsService;
+
 
     @BeforeEach
     void setup() throws ExecutionException, InterruptedException {
@@ -52,6 +69,7 @@ public class BoardsServiceTest extends ServiceTest {
         kids = kidsRepository.save(JIYEONG.toKids(parents));
         reports = reportsRepository.save(REPORTS_01.toReports(kids));
         reportsUpdateService.createReportAsync(reports.getReportsId());
+        boards = boardsRepository.save(BOARDS_01.toBoards(reports, parents));
     }
 
     @Test
@@ -170,5 +188,57 @@ public class BoardsServiceTest extends ServiceTest {
         return language.equals(Language.kor)
                 ? new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), Language.kor)
                 : new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleViet(), BOARDS_01.getBoardsContentViet(), Language.viet);
+    }
+
+
+    @Nested
+    @DisplayName("게시글 상세조회")
+    class getBoardsDetail {
+        @Test
+        @DisplayName("부모가 아닌 유저라면 게시글 상세조회에 실패한다")
+        void throwExceptionByUserIsNotParents() {
+            // when - then
+            assertThatThrownBy(() -> boardsService.getBoardsDetail(kids.getUuid(), boards.getBoardsId(), Language.kor))
+                    .isInstanceOf(BaseException.class)
+                    .hasMessage(BoardsErrorCode.USER_IS_NOT_PARENTS.getMessage());
+        }
+
+        @Test
+        @DisplayName("(한국어) 게시글 상세조회에 성공한다")
+        void successKorea() {
+            // when
+            BoardsResponseDto responseDto = boardsService.getBoardsDetail(parents.getUuid(), boards.getBoardsId(), Language.kor);
+
+            // then
+            Assertions.assertAll(
+                    () -> assertThat(responseDto.boardId()).isEqualTo(boards.getBoardsId()),
+                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitle_kor()),
+                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContent_kor()),
+                    () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
+                    () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
+                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
+                    () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsKor()),
+                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+            );
+        }
+
+        @Test
+        @DisplayName("(베트남어) 게시글 상세조회에 조회한다")
+        void successVietnam() {
+            // when
+            BoardsResponseDto responseDto = boardsService.getBoardsDetail(parents.getUuid(), boards.getBoardsId(), Language.viet);
+
+            // then
+            Assertions.assertAll(
+                    () -> assertThat(responseDto.boardId()).isEqualTo(boards.getBoardsId()),
+                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitle_viet()),
+                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContent_viet()),
+                    () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
+                    () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
+                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
+                    () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsViet()),
+                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+            );
+        }
     }
 }
