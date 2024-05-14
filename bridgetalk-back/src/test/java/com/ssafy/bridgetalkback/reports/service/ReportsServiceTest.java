@@ -7,7 +7,7 @@ import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.dto.response.ProfileListResponseDto;
 import com.ssafy.bridgetalkback.parents.dto.response.ProfileResponseDto;
 import com.ssafy.bridgetalkback.parents.service.ProfileListService;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsListResponseDto;

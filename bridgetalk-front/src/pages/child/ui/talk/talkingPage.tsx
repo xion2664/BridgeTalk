@@ -1,7 +1,7 @@
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TalkingComponents } from './components/talkingComponents';
 import { getTalkStop } from '../../query';
-import { useRef, useState } from 'react';
 import { useTalkStore } from '../../store';
 import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -9,6 +9,7 @@ import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
 import { Dino } from '@/pages/child/ui/talk/components/dino';
 import * as S from '@/styles/child/talk/talk.style';
 import { Timer } from '@/shared';
+import { handleTalkEnd } from '../../model';
 
 extend({ OrbitControls });
 
@@ -29,6 +30,7 @@ export function TalkingPage() {
   const isWaiting = useTalkStore((state) => state.isWaiting);
   const setIsEnd = useTalkStore((state) => state.setIsEnd);
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
+  const talkStore = useTalkStore();
 
   // Ref
   const devounceTimerRef = useRef<any>(null);
@@ -41,24 +43,19 @@ export function TalkingPage() {
           <button
             className="talking__header-end"
             onClick={() => {
-              if (isRecording) {
-                getTalkStop(reportsId, setReply)
-                  .catch((err) => {
-                    alert(err);
-                    console.log(err);
-                  })
-                  .then(() => {
-                    setTimeout(() => {
-                      setIsTalking(false);
-                      setIsEnd(true);
-                    }, 500);
-                  });
-                setIsRecording(false);
-
-                if (devounceTimerRef.current !== null) {
-                  clearInterval(devounceTimerRef.current);
-                }
-              }
+              handleTalkEnd(
+                setReply,
+                setIsTalking,
+                setIsEnd,
+                setIsRecording,
+                isRecording,
+                devounceTimerRef,
+                isEnd,
+                isTalking,
+                navigate,
+                talkStore.setEmotion,
+                talkStore.setSubtitle,
+              );
             }}
           >
             <img src={'assets/img/pic/end.svg'} />
@@ -69,30 +66,12 @@ export function TalkingPage() {
             reportsId={reportsId}
             setIsRecording={setIsRecording}
             setReply={setReply}
+            setIsTalking={setIsTalking}
+            navigate={navigate}
+            setEmotion={talkStore.setEmotion}
+            setSubtitle={talkStore.setSubtitle}
           />
-          {/* {!isTalking && !isEnd && (
-            <div className="talking__header-guide">
-              <p>다이노를 눌러 대화를 시작해보아요!</p>
-            </div>
-          )}
-          {isEnd && (
-            <div className="talking__header-guide">
-              <p>대화가 종료됐어요!</p>
-            </div>
-          )}
-          {isWaiting && (
-            <div className="talking__header-guide">
-              <p>다이노가 어떤 이야기를 해줄지 생각중이에요!</p>
-            </div>
-          )} */}
-          <div className="talking__header-message">
-            <img
-              src={'assets/img/pic/message.svg'}
-              onClick={() => {
-                navigate('/message/list');
-              }}
-            />
-          </div>
+          <div className="talking__header-message"></div>
         </div>
         <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
@@ -116,9 +95,9 @@ export function TalkingPage() {
               <p>음.. 너에게 어떤 말을 해주면 좋을까?</p>
             </div>
           )}
-          {isEnd && (
+          {!isWaiting && talkStore.subtitle && (
             <div className="talking__container-talk">
-              <p>다음에 또 보자!</p>
+              <p>{talkStore.subtitle}</p>
             </div>
           )}
         </div>

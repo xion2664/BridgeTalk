@@ -12,7 +12,7 @@ import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.exception.KidsErrorCode;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.dto.ReportsCreateResponseDto;
 import com.ssafy.bridgetalkback.reports.dto.response.ReportsDetailResponseDto;
@@ -61,6 +61,7 @@ public class ReportsService {
         String reportsOriginContent = stringRedisTemplate.opsForValue().get(userEmail);
         Reports reports = Reports.createReports(kids, reportsOriginContent);
         reportsRepository.save(reports);
+        log.info(">> 새로 생성된 reports origin content: {}", reports.getReportsOriginContent());
         // Redis에서 삭제
         stringRedisTemplate.delete(userEmail);
         return ReportsCreateResponseDto.fromReportsId(reports);

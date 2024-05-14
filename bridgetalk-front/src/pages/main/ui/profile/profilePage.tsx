@@ -29,6 +29,7 @@ export function ProfilePage() {
   }));
 
   const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
+  const userStore = useUserStore();
 
   useEffect(() => {
     if (accessToken) {
@@ -83,6 +84,8 @@ export function ProfilePage() {
                     e.stopPropagation();
                     postProfileLogin(it.userId).then((res) => {
                       if (res && res.data) {
+                        userStore.setUserDino(res.data.userDino);
+                        sessionStorage.setItem('dino', res.data.userDino);
                         setToken(res.data.accessToken, res.data.refreshToken);
                         navigate(idx > 0 ? '/child' : '/parent');
                       }
