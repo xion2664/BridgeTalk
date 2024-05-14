@@ -104,7 +104,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
             console.log('{ 마이크 연결 }');
             handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState);
 
-            setIsRecording(true);
+            // setIsRecording(true); 스타트 할 때 자동으로 녹음되는 것 방지
           }
         })
         .catch((err) => {
