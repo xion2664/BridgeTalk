@@ -2,7 +2,18 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { LoadingScreen } from '@/shared/ui/loading/loadingScreen';
 
-import { Main, StartPage, ProfilePage, EditProfilePage, SignInPage, SignUpPage, LoginGuard, ErrorPage } from '@/pages';
+import {
+  Main,
+  StartPage,
+  ProfilePage,
+  EditProfilePage,
+  SignInPage,
+  SignUpPage,
+  LoginGuard,
+  ErrorPage,
+  ParentInformationNurture,
+  ParentInformationNurtureDetail,
+} from '@/pages';
 import {
   ChildPage,
   TalkingPage,
@@ -19,12 +30,10 @@ import {
 import {
   Parent,
   ParentInformationMain,
-  ParentInformationNews,
   ParentInformationWord,
   ParentMain,
   ParentReportDetail,
   ParentReportList,
-  ParentInformationNewsDetail,
 } from '@/pages';
 import {
   TeestZustand,
@@ -164,8 +173,8 @@ export function AppRoutes() {
           <Route path="report" element={<ParentReportList />} />
           <Route path="report/:reportsId" element={<ParentReportDetail />} />
           <Route path="information" element={<ParentInformationMain />} />
-          <Route path="information/news" element={<ParentInformationNews />} />
-          <Route path="information/news/:newsId" element={<ParentInformationNewsDetail />} />
+          <Route path="information/nurture" element={<ParentInformationNurture />} />
+          <Route path="information/nurture/:nurtureId" element={<ParentInformationNurtureDetail />} />
           <Route path="information/word" element={<ParentInformationWord />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
