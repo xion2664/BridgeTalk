@@ -4,6 +4,9 @@ import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
 import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
+import com.ssafy.bridgetalkback.notification.domain.Notification;
+import com.ssafy.bridgetalkback.notification.repository.NotificationRepository;
+import com.ssafy.bridgetalkback.notification.repository.SseRepositoryImpl;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoBoardNumRepository;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoRepository;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
@@ -51,6 +54,12 @@ public class ServiceTest {
 
     @Autowired
     protected BoardsRepository boardsRepository;
+
+    @Autowired
+    protected NotificationRepository notificationRepository;
+
+    @Autowired
+    protected SseRepositoryImpl sseRepository;
 
     @AfterEach
     void clearDatabase() {
