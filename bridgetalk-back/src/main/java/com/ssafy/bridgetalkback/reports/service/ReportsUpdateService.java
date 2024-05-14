@@ -16,6 +16,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static com.google.common.net.HttpHeaders.AUTHORIZATION;
+import static com.ssafy.bridgetalkback.fixture.BoardsFixture.*;
+import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
+import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
+import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 @Service
@@ -101,13 +116,16 @@ public class ReportsUpdateService {
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
         String[] keyword_kor_arr = keywordsText[0].split(", ");
-        if (keyword_kor_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        if (keyword_kor_arr.length != 3) {
+            keyword_kor_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         String[] keyword_viet_arr = keywordsText[1].split(", ");
-        if (keyword_viet_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
-
-        reports.updateReports(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_viet_arr), solutionText[0], solutionText[1]);
+        if (keyword_viet_arr.length != 3) {
+            keyword_viet_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
+        reports.updateReports(summaryText[0], summaryText[1], keyword_kor_arr, keyword_viet_arr, solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
         log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());

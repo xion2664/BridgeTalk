@@ -28,6 +28,7 @@ public record BoardsResponseDto(
                 .reportsSummary(language.equals(Language.kor) ? boards.getReports().getReportsSummaryKor() : boards.getReports().getReportsSummaryViet())
                 .reportsKeywords(language.equals(Language.kor) ? boards.getReports().getReportsKeywordsKor() : boards.getReports().getReportsKeywordsViet())
                 .writer(boards.getParents().getParentsNickname())
+>>>>>>> bridgetalk-back/src/main/java/com/ssafy/bridgetalkback/boards/dto/response/BoardsResponseDto.java
                 .build();
     }
 }

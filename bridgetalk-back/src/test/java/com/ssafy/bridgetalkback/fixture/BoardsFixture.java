@@ -23,12 +23,13 @@ public enum BoardsFixture {
     BOARDS_12("제목이다12", "là tiêu đề.", "내용이다12", "là nội dung.")
     ;
 
-    private final String boardsTitle_kor;
-    private final String boardsTitle_viet;
-    private final String boardsContent_kor;
-    private final String boardsContent_viet;
+    private final String boardsTitleKor;
+    private final String boardsTitleViet;
+    private final String boardsContentKor;
+    private final String boardsContentViet;
 
     public Boards toBoards(Reports reports, Parents parents) {
-        return Boards.createBoards(reports, parents, boardsTitle_kor, boardsTitle_viet, boardsContent_kor, boardsContent_viet);
+        return Boards.createBoards(reports, parents, boardsTitleKor, boardsTitleViet, boardsContentKor, boardsContentViet);
     }
+
 }
