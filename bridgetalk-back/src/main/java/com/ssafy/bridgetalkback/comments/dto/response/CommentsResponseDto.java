@@ -1,7 +1,7 @@
 package com.ssafy.bridgetalkback.comments.dto.response;
 
 import com.ssafy.bridgetalkback.comments.domain.Comments;
-import com.ssafy.bridgetalkback.reports.domain.Language;
+import com.ssafy.bridgetalkback.global.Language;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

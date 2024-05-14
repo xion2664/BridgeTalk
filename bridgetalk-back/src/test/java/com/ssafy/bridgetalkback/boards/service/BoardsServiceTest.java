@@ -9,7 +9,6 @@ import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.reports.domain.Language;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.service.ReportsUpdateService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,18 +21,8 @@ import java.util.concurrent.ExecutionException;
 
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_02;
-import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
-import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.global.Language;
-import com.ssafy.bridgetalkback.global.exception.BaseException;
-import com.ssafy.bridgetalkback.kids.domain.Kids;
-import com.ssafy.bridgetalkback.parents.domain.Parents;
-import com.ssafy.bridgetalkback.reports.domain.Reports;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
@@ -59,9 +48,6 @@ public class BoardsServiceTest extends ServiceTest {
 
     @Autowired
     private BoardsService boardsService;
-    @Autowired
-    private BoardsService boardsService;
-
 
     @BeforeEach
     void setup() throws ExecutionException, InterruptedException {
@@ -211,9 +197,9 @@ public class BoardsServiceTest extends ServiceTest {
 
             // then
             Assertions.assertAll(
-                    () -> assertThat(responseDto.boardId()).isEqualTo(boards.getBoardsId()),
-                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitle_kor()),
-                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContent_kor()),
+                    () -> assertThat(responseDto.boardsId()).isEqualTo(boards.getBoardsId()),
+                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitleKor()),
+                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContentKor()),
                     () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
@@ -230,9 +216,9 @@ public class BoardsServiceTest extends ServiceTest {
 
             // then
             Assertions.assertAll(
-                    () -> assertThat(responseDto.boardId()).isEqualTo(boards.getBoardsId()),
-                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitle_viet()),
-                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContent_viet()),
+                    () -> assertThat(responseDto.boardsId()).isEqualTo(boards.getBoardsId()),
+                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitleViet()),
+                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContentViet()),
                     () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),

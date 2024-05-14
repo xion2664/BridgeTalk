@@ -1,15 +1,13 @@
 package com.ssafy.bridgetalkback.boards.controller;
 
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsUpdateRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
-import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
 import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
 import com.ssafy.bridgetalkback.boards.service.BoardsListService;
-import com.ssafy.bridgetalkback.boards.service.BoardsService;
-import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -54,11 +52,12 @@ public class BoardsController {
     }
 
     @DeleteMapping("/{boardsId}")
-    public ResponseEntity<?> deleteBoards(@ExtractPayload String userId, @PathVariable Long boardsId){
+    public ResponseEntity<?> deleteBoards(@ExtractPayload String userId, @PathVariable Long boardsId) {
         log.info("{ BoardsController } : Boards 삭제 진입");
         boardsService.deleteBoards(UUID.fromString(userId), boardsId);
         log.info("{ BoardsController } : Boards 삭제 성공");
         return ResponseEntity.ok().build();
+    }
 
 
     @GetMapping("/{boardId}/{language}")

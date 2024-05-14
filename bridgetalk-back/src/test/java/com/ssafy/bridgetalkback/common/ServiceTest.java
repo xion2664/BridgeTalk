@@ -54,9 +54,6 @@ public class ServiceTest {
     protected BoardsRepository boardsRepository;
 
     @Autowired
-    protected BoardsRepository boardsRepository;
-
-    @Autowired
     protected CommentsRepository commentsRepository;
 
     @AfterEach

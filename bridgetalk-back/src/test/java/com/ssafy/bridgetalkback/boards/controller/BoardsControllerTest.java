@@ -5,37 +5,30 @@ import com.ssafy.bridgetalkback.boards.dto.request.BoardsRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsUpdateRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
 import com.ssafy.bridgetalkback.common.ControllerTest;
-import com.ssafy.bridgetalkback.reports.domain.Language;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
-import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
-import com.ssafy.bridgetalkback.common.ControllerTest;
 import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
-import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
-import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_02;
+import static com.ssafy.bridgetalkback.fixture.BoardsFixture.*;
+import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -77,7 +70,7 @@ public class BoardsControllerTest extends ControllerTest {
         void successKor() throws Exception {
             //given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doReturn(createBoardsResponseDto())
+            doReturn(getBoardsResponseDto())
                     .when(boardsService)
                     .createBoards(any(), any());
 
@@ -99,7 +92,7 @@ public class BoardsControllerTest extends ControllerTest {
         void successViet() throws Exception {
             //given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doReturn(createBoardsResponseDto())
+            doReturn(getBoardsResponseDto())
                     .when(boardsService)
                     .createBoards(any(), any());
 
@@ -128,7 +121,7 @@ public class BoardsControllerTest extends ControllerTest {
         void successKor() throws Exception {
             //given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doReturn(createBoardsResponseDto())
+            doReturn(getBoardsResponseDto())
                     .when(boardsService)
                     .updateBoards(any(), any(), any());
 
@@ -150,7 +143,7 @@ public class BoardsControllerTest extends ControllerTest {
         void successViet() throws Exception {
             //given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doReturn(createBoardsResponseDto())
+            doReturn(getBoardsResponseDto())
                     .when(boardsService)
                     .updateBoards(any(), any(), any());
 
@@ -213,7 +206,7 @@ public class BoardsControllerTest extends ControllerTest {
             mockMvc.perform(requestBuilder)
                     .andExpect(status().isOk());
         }
-        
+    }
 
 
     @Nested
@@ -232,10 +225,6 @@ public class BoardsControllerTest extends ControllerTest {
                     .patch(BASE_URL, BOARDS_ID)
                     .contentType(APPLICATION_JSON)
                     .content(convertObjectToJson(boardsUpdateRequestDto));
-
-            //then
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR);
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -301,21 +290,7 @@ public class BoardsControllerTest extends ControllerTest {
         }
     }
 
-    private BoardsUpdateRequestDto createBoardsUpdateRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), language)
-                : new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), language);
-    }
 
-    private BoardsRequestDto createBoardsRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), language)
-                : new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleViet(), BOARDS_01.getBoardsContentViet(), language);
-    }
-
-    private BoardsResponseDto createBoardsResponseDto() {
-        return new BoardsResponseDto(1L, "레포트 요약내용", String.valueOf(UUID.randomUUID()), "닉네임", BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), LocalDateTime.now());
-    }
     @Nested
     @DisplayName("게시글 리스트조회 API [GET /api/boards/{language}]")
     class getCustomBoardsList {
@@ -477,10 +452,24 @@ public class BoardsControllerTest extends ControllerTest {
         }
     }
 
+    private BoardsUpdateRequestDto createBoardsUpdateRequestDto(Language language) {
+        return language.equals(Language.kor)
+                ? new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), language)
+                : new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), language);
+    }
+
+    private BoardsRequestDto createBoardsRequestDto(Language language) {
+        return language.equals(Language.kor)
+                ? new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), language)
+                : new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleViet(), BOARDS_01.getBoardsContentViet(), language);
+    }
+
+
+
     private BoardsResponseDto getBoardsResponseDto() {
         List<String> keywordList = new ArrayList<>();
         keywordList.add("레포트 키워드1");
-        return new BoardsResponseDto(1L, BOARDS_01.getBoardsTitle_kor(), BOARDS_01.getBoardsTitle_viet(),
+        return new BoardsResponseDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(),
                 0, LocalDateTime.now(), "레포트요약본", keywordList, SUNKYOUNG.getParentsNickname());
     }
 
@@ -489,11 +478,11 @@ public class BoardsControllerTest extends ControllerTest {
 
         List<String> keywordList = new ArrayList<>();
         keywordList.add("레포트 키워드1");
-        BoardsLists.add(new BoardsListDto(1L, BOARDS_01.getBoardsTitle_kor(), BOARDS_01.getBoardsContent_kor(),
+        BoardsLists.add(new BoardsListDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(),
                 0, LocalDateTime.now().plusHours(1), "레포트요약본", keywordList, SUNKYOUNG.getParentsNickname()));
-        BoardsLists.add(new BoardsListDto(2L, BOARDS_02.getBoardsTitle_kor(), BOARDS_02.getBoardsContent_kor(),
+        BoardsLists.add(new BoardsListDto(2L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(),
                 0, LocalDateTime.now().plusHours(2), "레포트요약본", keywordList, SUNKYOUNG.getParentsNickname()));
-        BoardsLists.add(new BoardsListDto(3L, BOARDS_03.getBoardsTitle_kor(), BOARDS_03.getBoardsContent_kor(),
+        BoardsLists.add(new BoardsListDto(3L, BOARDS_03.getBoardsTitleKor(), BOARDS_03.getBoardsContentKor(),
                 0, LocalDateTime.now().plusHours(3), "레포트요약본", keywordList, SUNKYOUNG.getParentsNickname()));
         return BoardsLists;
     }
@@ -506,3 +495,4 @@ public class BoardsControllerTest extends ControllerTest {
         return new CustomBoardsListResponseDto<>(createCustomPageable(), createBoardsListDto());
     }
 }
+

@@ -19,7 +19,7 @@ public class BoardsFindService {
 
     public Boards findByBoardsIdAndIsDeleted(Long boardsId) {
         log.info("{ BoardsFindService } : Id(Pk)로 게시글 정보 조회 - " + boardsId);
-        return boardsRepository.findByBoardsIdAndIsDeleted(boardsId, 0)
+        return boardsRepository.findBoardsByBoardsIdAndIsDeleted(boardsId, 0)
                 .orElseThrow(()-> BaseException.type(BoardsErrorCode.BOARDS_NOT_FOUND));
     }
 }

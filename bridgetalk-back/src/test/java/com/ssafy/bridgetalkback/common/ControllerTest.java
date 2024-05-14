@@ -65,11 +65,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         ProfileController.class,
         ParentingInfoController.class,
         BoardsController.class,
-        CommentsController.class
-        ProfileController.class,
+        CommentsController.class,
         ParentingInfoCrawlingController.class,
-        ParentingInfoController.class,
-        BoardsController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -157,9 +154,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ParentingInfoListService parentingInfoListService;
-
-    @MockBean
-    protected BoardsService boardsService;
 
     @MockBean
     protected BoardsListService boardsListService;
