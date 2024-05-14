@@ -56,7 +56,7 @@ export function ProfilePage() {
       >
         <img src={'assets/img/main/logout.svg'} />
       </button>
-      <button className="setting">
+      <button className="setting" onClick={() => navigate('/parent')}>
         <img src={'assets/img/main/setting.svg'} />
       </button>
       {!isLoading && (
@@ -132,14 +132,7 @@ export function ProfilePage() {
             </div>
           </div>
           <div className="main__button">
-            <button
-              className="main__button-start"
-              onClick={() => {
-                navigate('/parent'); // 스타트 버튼 눌렀을 때 임시로 부모 페이지로 링크
-              }}
-            >
-              START!
-            </button>
+            <button className="main__button-start">START!</button>
           </div>
         </div>
       )}
