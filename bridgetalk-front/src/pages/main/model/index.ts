@@ -5,3 +5,4 @@ export * from '@/pages/main/model/validateEmail/validateEmail';
 export * from '@/pages/main/model/validateNickname/validateNickname';
 export * from '@/pages/main/model/validateName/validateName';
 export * from '@/pages/main/model/handleSignup/handleSignup';
+export * from '@/pages/main/model/handleFetchProfileList/handleFetchProfileList';

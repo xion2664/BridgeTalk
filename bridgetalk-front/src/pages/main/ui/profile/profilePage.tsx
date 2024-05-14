@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getProfileList, deleteDeleteProfile, postProfileLogin } from '../../query';
 import { decodeToken, setToken } from '@/shared';
 import { useProfileStore, useUserStore } from '../../store';
+import { handleFetchProfileList } from '../../model';
 
 interface Profile {
   userId: string;
@@ -32,19 +33,7 @@ export function ProfilePage() {
   const userStore = useUserStore();
 
   useEffect(() => {
-    if (accessToken) {
-      getProfileList(accessToken).then((res: any) => {
-        if (res && res.data) {
-          setProfileList([...res.data.profileList]);
-        }
-      });
-    } else if (decodeToken('access') !== null) {
-      getProfileList(decodeToken('access')!).then((res: any) => {
-        if (res && res.data) {
-          setProfileList([...res.data.profileList]);
-        }
-      });
-    }
+    handleFetchProfileList(accessToken, setProfileList);
   }, []);
 
   useEffect(() => {
