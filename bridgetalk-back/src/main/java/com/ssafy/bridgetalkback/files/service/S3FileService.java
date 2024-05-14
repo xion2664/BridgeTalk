@@ -21,6 +21,7 @@ public class S3FileService {
     private static final String LETTERS = "letters";
     private static final String REPORTS = "reports";
     private static final String PUZZLE = "game-puzzle";
+    private static final String ICONS = "icons";
     private final AmazonS3 amazonS3;
 
     @Value("${S3_BUCKET_NAME}")
@@ -28,9 +29,10 @@ public class S3FileService {
 
     /**
      * uploadVoiceFiles() : 음성 파일 S3 업로드 함수
+     *
      * @param file : 입력 파일
      * @return String : 업로드 된 S3 주소
-     * */
+     */
     public String uploadLettersFiles(MultipartFile file) {
         log.info("{ S3FileService } : S3 파일 업로드 서비스");
         log.info(">> 파일 존재 여부 확인");
@@ -42,9 +44,10 @@ public class S3FileService {
 
     /**
      * uploadReportsFiles() : 음성 파일 S3 업로드 함수
+     *
      * @param file : 입력 파일
      * @return String : 업로드 된 S3 주소
-     * */
+     */
     public String uploadReportsFiles(MultipartFile file) {
         log.info("{ S3FileService } : S3 파일 업로드 서비스");
         log.info(">> 파일 존재 여부 확인");
@@ -56,9 +59,10 @@ public class S3FileService {
 
     /**
      * uploadPuzzleFiles() : 이미지 파일 S3 업로드 함수
+     *
      * @param file : 입력 파일
      * @return String : 업로드 된 S3 주소
-     * */
+     */
     public String uploadPuzzleFiles(MultipartFile file) {
         log.info("{ S3FileService } : S3 파일 업로드 서비스");
         log.info(">> 파일 존재 여부 확인");
@@ -70,9 +74,10 @@ public class S3FileService {
 
     /**
      * deleteFiles() : S3 파일 삭제
+     *
      * @param uploadFileUrl : S3 파일 경로
      * @return : None
-     * */
+     */
     public void deleteFiles(String uploadFileUrl) {
         log.info("{ S3FileService } : S3 파일 삭제 서비스");
         if (uploadFileUrl == null || uploadFileUrl.isEmpty()) {
@@ -84,20 +89,23 @@ public class S3FileService {
 
     /**
      * validateAudioContentType() : 입력 음성 파일 content type 검사
+     *
      * @param file : 입력 파일
      * @return : None
-     * */
+     */
     private void validateAudioContentType(MultipartFile file) {
         String contentType = file.getContentType();
         if (!((contentType.equals("audio/mpeg")) || (contentType.equals("audio/mp4")) || (contentType.equals("audio/mp3")))) {
             throw BaseException.type(S3FileErrorCode.NOT_AN_AUDIO);
         }
     }
+
     /**
      * validateImageContentType() : 입력 이미지 파일 content type 검사
+     *
      * @param file : 입력 파일
      * @return : None
-     * */
+     */
     private void validateImageContentType(MultipartFile file) {
         String contentType = file.getContentType();
         if (!(contentType.equals("image/jpeg") || contentType.equals("image/png") ||
@@ -109,9 +117,10 @@ public class S3FileService {
 
     /**
      * validateFileExixts() : 입력 파일 존재 여부 검사
+     *
      * @param file : 입력 파일
      * @return : None
-     * */
+     */
     private void validateFileExists(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw BaseException.type(S3FileErrorCode.EMPTY_FILE);
@@ -120,10 +129,11 @@ public class S3FileService {
 
     /**
      * uploadFile() : 파일 S3 업로드 실행
-     * @param dir : 파일 카테고리
+     *
+     * @param dir  : 파일 카테고리
      * @param file : 입력 파일
      * @return String : 업로드 S3 url 주소
-     * */
+     */
     private String uploadFile(String dir, MultipartFile file) {
         log.info(">> uploadFile() : S3 파일 업로드 실행 메서드");
         String fileKey = createFilePath(dir, file.getOriginalFilename());
@@ -148,10 +158,11 @@ public class S3FileService {
 
     /**
      * createFilePath() : 파일의 새로운 path 생성
-     * @param dir : 파일 카테고리
+     *
+     * @param dir              : 파일 카테고리
      * @param originalFileName : 원본 파일 이름
      * @return String : 새로운 파일 이름(주소)
-     * */
+     */
     private String createFilePath(String dir, String originalFileName) {
         String uuidName = UUID.randomUUID() + "_" + originalFileName;
 
@@ -159,15 +170,17 @@ public class S3FileService {
             case LETTERS -> String.format("letters/%s", uuidName);
             case REPORTS -> String.format("reports/%s", uuidName);
             case PUZZLE -> String.format("game-puzzle/%s", uuidName);
+            case ICONS -> String.format("icon/%s", uuidName);
             default -> throw BaseException.type(S3FileErrorCode.INVALID_DIR);
         };
     }
 
     /**
      * deleteFile() : S3 파일 삭제 실행
+     *
      * @param uploadFileUrl : S3 파일 주소
      * @return : None
-     * */
+     */
     private void deleteFile(String uploadFileUrl) {
         log.info(">> deleteFile() : S3 파일 업로드 삭제 메서드");
         String fileKey = uploadFileUrl.substring(52);
