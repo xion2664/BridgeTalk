@@ -31,17 +31,17 @@ export function StagePage() {
     <S.Container>
       <div className="stagePage">
         <div className="stagePage__header">
-          <img src="#" alt="뒤로 가기" />
+          <img src="/assets/img/icon/toBack.svg" alt="뒤로 가기" />
         </div>
         <div className="stagePage__container">
           {puzzles.map((puzzle) => (
-            <div className="stagePage__container-stage">
+            <div className="stageItem">
               <StageItem
                 key={puzzle.puzzleId}
                 id={puzzle.puzzleId.toString()}
                 img={puzzle.puzzleImageUrl}
                 name={puzzle.puzzleLandmarkName}
-              />{' '}
+              />
             </div>
           ))}
         </div>

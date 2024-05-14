@@ -71,14 +71,7 @@ export function TalkingPage() {
             setEmotion={talkStore.setEmotion}
             setSubtitle={talkStore.setSubtitle}
           />
-          <div className="talking__header-message">
-            <img
-              src={'assets/img/pic/message.svg'}
-              onClick={() => {
-                navigate('/message/list');
-              }}
-            />
-          </div>
+          <div className="talking__header-message"></div>
         </div>
         <TalkingComponents reply={reply} setReply={setReply} devounceTimerRef={devounceTimerRef} />
         <div className="talking__container">
