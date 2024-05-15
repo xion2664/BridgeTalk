@@ -59,7 +59,6 @@ export function ParentReportList() {
 
   return (
     <>
-      <BackButton path="../main" navigate={navigate} />
       <S.Container>
         <S.ContentContainer>
           <ParentReportListRight />

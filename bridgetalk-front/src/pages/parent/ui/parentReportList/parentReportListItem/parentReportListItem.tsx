@@ -24,7 +24,7 @@ export function ParentReportListItem({
 }: Props) {
   const navigate = useNavigate();
   const [date, setDate] = useState<string[]>([]);
-  const langauge = useReportStore((state) => state.language);
+  const language = useReportStore((state) => state.language);
 
   const dateWord = useMemo(
     () => ({
@@ -43,24 +43,34 @@ export function ParentReportListItem({
       <S.Content>
         <div className="left"></div>
         <div className="right">
-          <div className="right__date">
+          <div className="right__date" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}>
             {date &&
-              `${date[0]}${dateWord[langauge][0]} ${date[1]}${dateWord[langauge][1]} ${date[2]}${dateWord[langauge][2]}`}
+              `${date[0]}${dateWord[language][0]} ${date[1]}${dateWord[language][1]} ${date[2]}${dateWord[language][2]}`}
           </div>
           <div className="right__content">
             <div className="right__content-tags">
               {reportsKeywords.slice(0, 3).map((keyword, idx) => (
-                <div className="right__date-content-tags-tag" key={idx}>
+                <div
+                  className="right__date-content-tags-tag"
+                  key={idx}
+                  style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}
+                >
                   # {keyword.trim()}
                 </div>
               ))}
             </div>
-            <div className="right__content-title">{reportsSummary}</div>
-            <button className="right__content-button" onClick={() => navigate(`${reportsId}`)}>
-              VIEW
-            </button>
+            <div
+              className="right__content-title"
+              style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}
+            >
+              {' '}
+              {reportsSummary}
+            </div>
           </div>
         </div>
+        <button className="view" onClick={() => navigate(`${reportsId}`)}>
+          VIEW
+        </button>
       </S.Content>
     </S.Container>
   );

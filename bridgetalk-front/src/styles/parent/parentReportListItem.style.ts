@@ -3,9 +3,10 @@ import { color } from '@/styles/parent/common.style';
 
 export const Container = styled.div`
   display: flex;
-  background-color: ${color(1).light};
+
+  background-color: ${color(1).sub};
   padding: 2svh 1svw;
-  border-radius: 1svw;
+  border-radius: 2svw;
 
   box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
 
@@ -15,6 +16,7 @@ export const Container = styled.div`
   * {
     font-family: 'Pretendard';
     font-size: 1.5svw;
+    color: ${color(1).bright};
   }
 
   &::after {
@@ -24,8 +26,8 @@ export const Container = styled.div`
     content: '';
     width: 100%;
     height: 100%;
-    border-radius: 1svw;
-    box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+    border-radius: 2svw;
+    box-shadow: inset 0 0.5svh 1.5svh ${color(0.5).bright};
     z-index: 0;
     pointer-events: none;
   }
@@ -37,28 +39,19 @@ export const Container = styled.div`
     content: '';
     width: 100%;
     height: 100%;
-    border-radius: 1svw;
-    box-shadow: inset 0 -0.5svh 0.4svh ${color(0.5).dark};
+    border-radius: 2svw;
+    box-shadow: inset 0 -0.5svh 1.5svh ${color(0.5).dark};
     z-index: 0;
     pointer-events: none;
   }
 
   transition: all 0.1s;
-
-  &:hover {
-    transform: translateY(0.25svh);
-    box-shadow: 0 0.25svh 0.4svh ${color(0.5).black};
-  }
-
-  &:active {
-    transform: translateY(0.5svh);
-    box-shadow: 0 0svh 0.4svh ${color(0.5).black};
-  }
 `;
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 5fr 1fr;
+  align-items: center;
   gap: 1svw;
   width: 100%;
 
@@ -71,7 +64,7 @@ export const Content = styled.div`
   .right {
     &__content {
       display: grid;
-      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-columns: 1fr 3fr;
       gap: 2svw;
 
       align-items: center;
@@ -81,13 +74,29 @@ export const Content = styled.div`
       &-title {
         text-align: center;
       }
+    }
+  }
 
-      &-button {
-        background-color: ${color(1).black};
-        border-radius: 2svw;
+  .view {
+    background-color: ${color(1).black};
+    border-radius: 1svw;
+    height: 4.8svh;
+    width: 7svw;
 
-        color: ${color(1).bright};
-      }
+    color: ${color(1).bright};
+    box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+
+    cursor: pointer;
+    font-family: 'Pretendard';
+
+    &:hover {
+      transform: translateY(0.25svh);
+      box-shadow: 0 0.25svh 0.4svh ${color(0.5).black};
+    }
+
+    &:active {
+      transform: translateY(0.5svh);
+      box-shadow: 0 0svh 0.4svh ${color(0.5).black};
     }
   }
 `;
