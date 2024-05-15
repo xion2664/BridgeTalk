@@ -1,7 +1,7 @@
 import * as S from '@/styles/parent/parent.style';
 
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useReportStore } from '../../store';
 import { getSlang } from '../../query';
 
@@ -21,6 +21,17 @@ export function Parent() {
   );
 }
 function Navbar({ navigate }: any) {
+  const location = useLocation();
+  const path = new Set(location.pathname.split('/').slice(1));
+
+  function pathCheck(_path: string) {
+    if (path.has(_path)) {
+      return 'on';
+    }
+    return 'off';
+  }
+
+  useEffect(() => {}, [location]);
   return (
     <S.Navbar>
       <button
@@ -28,31 +39,31 @@ function Navbar({ navigate }: any) {
           navigate('main');
         }}
       >
-        <img src={`/assets/img/parent/navbar/home_off.svg`} />
+        <img src={`/assets/img/parent/navbar/home_${pathCheck('main')}.svg`} />
       </button>
       <button
         onClick={() => {
           navigate('report');
         }}
       >
-        <img src={`/assets/img/parent/navbar/message_off.svg`} />
+        <img src={`/assets/img/parent/navbar/message_${pathCheck('report')}.svg`} />
       </button>
       <button
         onClick={() => {
           navigate('information/nurture');
         }}
       >
-        <img src={`/assets/img/parent/navbar/nurture_off.svg`} />
+        <img src={`/assets/img/parent/navbar/nurture_${pathCheck('nurture')}.svg`} />
       </button>
       <button
         onClick={() => {
           navigate('information/word');
         }}
       >
-        <img src={`/assets/img/parent/navbar/info_off.svg`} />
+        <img src={`/assets/img/parent/navbar/info_${pathCheck('word')}.svg`} />
       </button>
       <button>
-        <img src={`/assets/img/parent/navbar/community_off.svg`} />
+        <img src={`/assets/img/parent/navbar/community_${pathCheck('community')}.svg`} />
       </button>
     </S.Navbar>
   );

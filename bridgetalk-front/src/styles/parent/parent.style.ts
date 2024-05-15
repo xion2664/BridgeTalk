@@ -33,11 +33,11 @@ export const Background = styled.div`
 export const Navbar = styled.div`
   height: 100svh;
   width: 10svw;
-  border: 1px solid black;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 2svh;
 
   button {
     background-color: transparent;
@@ -51,6 +51,7 @@ export const Navbar = styled.div`
 
       transition: all 0.2s;
 
+      width: 5svw;
       &:hover {
         transform: scale(1.1);
       }
