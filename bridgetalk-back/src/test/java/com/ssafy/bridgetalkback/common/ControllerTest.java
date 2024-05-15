@@ -9,6 +9,9 @@ import com.ssafy.bridgetalkback.auth.service.TokenReissueService;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
 import com.ssafy.bridgetalkback.boards.controller.BoardsController;
+import com.ssafy.bridgetalkback.boards.service.BoardsService;
+import com.ssafy.bridgetalkback.comments.controller.CommentsController;
+import com.ssafy.bridgetalkback.comments.service.CommentsService;
 import com.ssafy.bridgetalkback.boards.service.BoardsListService;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
 import com.ssafy.bridgetalkback.global.config.SecurityConfig;
@@ -65,12 +68,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         PuzzleController.class,
         SlangController.class,
         ProfileController.class,
-        ProfileController.class,
-        ParentingInfoCrawlingController.class,
         ParentingInfoController.class,
         BoardsController.class,
         NotificationController.class,
         SseController.class,
+        CommentsController.class,
+        ParentingInfoCrawlingController.class,
 })
 public abstract class ControllerTest {
     @Autowired
@@ -148,13 +151,16 @@ public abstract class ControllerTest {
     protected ParentingInfoCrawlingService parentingInfoCrawlingService;
 
     @MockBean
+    protected BoardsService boardsService;
+
+    @MockBean
+    protected CommentsService commentsService;
+
+    @MockBean
     protected ParentingInfoService parentingInfoService;
 
     @MockBean
     protected ParentingInfoListService parentingInfoListService;
-
-    @MockBean
-    protected BoardsService boardsService;
 
     @MockBean
     protected BoardsListService boardsListService;

@@ -1,7 +1,9 @@
-package com.ssafy.bridgetalkback.boards.service;
+package com.ssafy.bridgetalkback.comment.service;
 
 import com.ssafy.bridgetalkback.boards.domain.Boards;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
+import com.ssafy.bridgetalkback.comments.domain.Comments;
+import com.ssafy.bridgetalkback.comments.exception.CommentsErrorCode;
+import com.ssafy.bridgetalkback.comments.service.CommentsFindService;
 import com.ssafy.bridgetalkback.common.ServiceTest;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
@@ -16,46 +18,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.concurrent.ExecutionException;
 
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
+import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_01;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
 import static com.ssafy.bridgetalkback.fixture.ReportsFixture.REPORTS_01;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("Boards [Service Layer] -> BoardsFindServiceTest 테스트")
-public class BoardsFindServiceTest extends ServiceTest {
+@DisplayName("Comments [Service Layer] -> CommentsFindServiceTest 테스트")
+public class CommentsFindServiceTest extends ServiceTest {
+
+    private Parents parents;
+
+    private Kids kids;
+
+    private Reports reports;
 
     private Boards boards;
+
+    private Comments comments;
 
     @Autowired
     private ReportsUpdateService reportsUpdateService;
 
     @Autowired
-    private BoardsFindService boardsFindService;
-
+    private CommentsFindService commentsFindService;
 
     @BeforeEach
     void setup() throws ExecutionException, InterruptedException {
-        Parents parents = parentsRepository.save(SUNKYOUNG.toParents());
-        Kids kids = kidsRepository.save(JIYEONG.toKids(parents));
-        Reports reports = reportsRepository.save(REPORTS_01.toReports(kids));
+        parents = parentsRepository.save(SUNKYOUNG.toParents());
+        kids = kidsRepository.save(JIYEONG.toKids(parents));
+        reports = reportsRepository.save(REPORTS_01.toReports(kids));
         reportsUpdateService.createReportAsync(reports.getReportsId());
         boards = boardsRepository.save(BOARDS_01.toBoards(reports, parents));
+        comments = commentsRepository.save(COMMENTS_01.toComments(parents, boards));
     }
-
 
     @Test
-    @DisplayName("ID(PK)로 게시글을 조회한다.")
-    void findByBoardsIdAndIsDeletedIsFalse() {
+    @DisplayName("ID(PK)로 답변을 조회한다.")
+    void findByCommentsIdAndIsDeletedIsFalse() {
         // when
-        Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boards.getBoardsId());
-        Long inValidBoardsId = -1L;
+        Comments findComments = commentsFindService.findByCommentsIdAndIsDeleted(comments.getCommentsId());
+        Long inVaildCommentsId = -1L;
 
         // then
-        assertThatThrownBy(() -> boardsFindService.findByBoardsIdAndIsDeleted(inValidBoardsId))
+        assertThatThrownBy(() -> commentsFindService.findByCommentsIdAndIsDeleted(inVaildCommentsId))
                 .isInstanceOf(BaseException.class)
-                .hasMessage(BoardsErrorCode.BOARDS_NOT_FOUND.getMessage());
+                .hasMessage(CommentsErrorCode.COMMENTS_NOT_FOUND.getMessage());
 
-        assertThat(findBoards).isEqualTo(boards);
+        assertThat(findComments).isEqualTo(comments);
     }
+
 }

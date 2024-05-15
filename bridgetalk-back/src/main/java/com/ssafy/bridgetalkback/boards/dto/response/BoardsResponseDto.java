@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 public record BoardsResponseDto(
-        Long boardId,
+        Long boardsId,
         String boardsTitle,
         String boardsContent,
         int likes,
@@ -18,11 +18,11 @@ public record BoardsResponseDto(
         List<String> reportsKeywords,
         String writer
 ) {
-    public static BoardsResponseDto from(Boards boards, Language language) {
+    public static BoardsResponseDto fromBoards(Boards boards, Language language) {
         return BoardsResponseDto.builder()
-                .boardId(boards.getBoardsId())
-                .boardsTitle(language.equals(Language.kor) ? boards.getBoardsTitle_kor() : boards.getBoardsTitle_viet())
-                .boardsContent(language.equals(Language.kor) ? boards.getBoardsContent_kor() : boards.getBoardsContent_viet())
+                .boardsId(boards.getBoardsId())
+                .boardsTitle(language.equals(Language.kor) ? boards.getBoardsTitleKor() : boards.getBoardsTitleViet())
+                .boardsContent(language.equals(Language.kor) ? boards.getBoardsContentKor() : boards.getBoardsContentViet())
                 .likes(boards.getLikes())
                 .createdAt(boards.getCreatedAt())
                 .reportsSummary(language.equals(Language.kor) ? boards.getReports().getReportsSummaryKor() : boards.getReports().getReportsSummaryViet())

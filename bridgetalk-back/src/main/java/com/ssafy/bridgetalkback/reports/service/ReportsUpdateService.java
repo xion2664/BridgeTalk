@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
 
 @Slf4j
 @Service
@@ -101,12 +103,15 @@ public class ReportsUpdateService {
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
         String[] keyword_kor_arr = keywordsText[0].split(", ");
-        if (keyword_kor_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        if (keyword_kor_arr.length != 3) {
+            keyword_kor_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         String[] keyword_viet_arr = keywordsText[1].split(", ");
-        if (keyword_viet_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
-
+        if (keyword_viet_arr.length != 3) {
+            keyword_viet_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         reports.updateReports(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_viet_arr), solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
@@ -119,6 +124,6 @@ public class ReportsUpdateService {
     }
 
     private List<String> arraytoList(String[] strings) {
-        return new ArrayList<>(Arrays.asList(strings));
+        return strings==null ? Collections.emptyList() : new ArrayList<>(Arrays.asList(strings));
     }
 }

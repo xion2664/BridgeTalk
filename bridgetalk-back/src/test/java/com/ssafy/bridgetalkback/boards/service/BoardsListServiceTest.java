@@ -13,6 +13,8 @@ import com.ssafy.bridgetalkback.reports.domain.Reports;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
+
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.*;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
@@ -117,12 +119,12 @@ public class BoardsListServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.pageInfo().numberOfElements()).isEqualTo(PAGE_SIZE),
                     () -> assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(PAGE_SIZE),
                     () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
-                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitle_kor()),
-                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContent_kor()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitleKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentKor()),
                     () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
                     () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
                     () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryKor()),
-                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsKor()==null ? Collections.emptyList() : reports[11].getReportsKeywordsKor()),
                     () -> assertThat(responseDto.boardsList().get(0).writer()).isEqualTo(parents.getParentsNickname())
             );
         }
@@ -144,12 +146,12 @@ public class BoardsListServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.pageInfo().numberOfElements()).isEqualTo(PAGE_SIZE),
                     () -> assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(PAGE_SIZE),
                     () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
-                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitle_viet()),
-                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContent_viet()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitleViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentViet()),
                     () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
                     () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
                     () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryViet()),
-                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsViet()==null ? Collections.emptyList() : reports[11].getReportsKeywordsViet()),
                     () -> assertThat(responseDto.boardsList().get(0).writer()).isEqualTo(parents.getParentsNickname())
             );
         }
