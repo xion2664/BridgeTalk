@@ -3,19 +3,28 @@ import * as S from '@/styles/parent/parent.style';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useReportStore } from '../../store';
-import { getSlang } from '../../query';
+import { getProfile, getSlang } from '../../query';
 
 export function Parent() {
   const navigate = useNavigate();
 
+  const { setChildrenList, language } = useReportStore((state) => ({
+    setChildrenList: state.setChildrenList,
+    language: state.language,
+  }));
+
   useEffect(() => {
-    navigate('main');
+    getProfile(setChildrenList);
+
+    navigate('report');
   }, []);
 
   return (
     <S.Background>
       <Navbar navigate={navigate} />
-      <Outlet />
+      <div className="outline">
+        <Outlet />
+      </div>
       <LangIcon />
     </S.Background>
   );
@@ -36,7 +45,7 @@ function Navbar({ navigate }: any) {
     <S.Navbar>
       <button
         onClick={() => {
-          navigate('main');
+          navigate('/profile');
         }}
       >
         <img src={`/assets/img/parent/navbar/home_${pathCheck('main')}.svg`} />

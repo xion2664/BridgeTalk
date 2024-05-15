@@ -14,6 +14,18 @@ export const Background = styled.div`
 
   overflow: hidden;
 
+  .outline {
+    width: 100%;
+    height: 100%;
+
+    background-color: ${color(1).bright};
+
+    border-top-left-radius: 3svw;
+    border-bottom-left-radius: 3svw;
+
+    box-shadow: -0.5svw 0 0.8svw ${color(0.25).black};
+  }
+
   .lang {
     position: fixed;
     top: 3svh;
@@ -32,7 +44,7 @@ export const Background = styled.div`
 
 export const Navbar = styled.div`
   height: 100svh;
-  width: 10svw;
+  width: 13svw;
 
   display: flex;
   flex-direction: column;
