@@ -2,13 +2,14 @@ import * as S from '@/styles/parent/parentReportListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 import { FaSearch, FaCalendarAlt } from 'react-icons/fa';
 import { useReportStore } from '@/pages/parent/store';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function ParentReportListRight() {
-  const { reportList, setReportList, language } = useReportStore((state) => ({
+  const { reportList, setReportList, language, childrenList } = useReportStore((state) => ({
     reportList: state.reportList,
     setReportList: state.setReportList,
     language: state.language,
+    childrenList: state.childrenList,
   }));
 
   const title = useMemo(
@@ -19,11 +20,16 @@ export function ParentReportListRight() {
     [],
   );
 
+  const [selected, setSelected] = useState(reportList);
+
+  useEffect(() => {
+    setSelected(reportList);
+  }, [reportList]);
+
   return (
     <S.Container>
       <div className="title">
-        <img src={`/assets/img/letter.svg`} />
-        <div style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>{title[language]}</div>
+        <div>{title[language]}</div>
       </div>
       {/* <div className="filter">
         <div className="calendar">
@@ -37,10 +43,25 @@ export function ParentReportListRight() {
           <FaSearch />
         </button>
       </div> */}
+      <div className="children">
+        {childrenList.map((child: any) => {
+          return (
+            <button
+              className="children__child"
+              onClick={() => {
+                const tmp = reportList.filter((report: any) => report.UUID === child.userId);
+                setSelected(tmp);
+              }}
+            >
+              {child.userName}
+            </button>
+          );
+        })}
+      </div>
       <div className="content">
         <div className="list">
-          {reportList.length > 0 ? (
-            reportList.map((report: any) => {
+          {selected.length > 0 ? (
+            selected.map((report: any) => {
               if (!report.value) return;
 
               let reportData = report.value.data;

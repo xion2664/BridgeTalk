@@ -3,9 +3,8 @@ import { color } from '@/styles/parent/common.style';
 
 export const Container = styled.div`
   display: flex;
-  background-color: ${color(1).sub};
+  background-color: ${color(1).light};
   padding: 2svh 1svw;
-  color: ${color(1).bright};
   border-radius: 1svw;
 
   box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
@@ -13,8 +12,8 @@ export const Container = styled.div`
   position: relative;
   cursor: pointer;
 
-  div {
-    font-family: 'DNF';
+  * {
+    font-family: 'Pretendard';
     font-size: 1.5svw;
   }
 
@@ -58,28 +57,37 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1svh;
-`;
-
-export const ContentHeader = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   gap: 1svw;
+  width: 100%;
 
-  .tags {
-    display: flex;
-    gap: 1svw;
+  .left {
+    width: 100%;
+    height: 100%;
+    background-color: ${color(1).black};
+  }
 
-    .tag {
-      background-color: ${color(1).main};
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-      padding: 0.5svh 0.5svw;
-      border-radius: 1svw;
-      font-size: 1svw;
+  .right {
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+      gap: 2svw;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      &-title {
+        text-align: center;
+      }
+
+      &-button {
+        background-color: ${color(1).black};
+        border-radius: 2svw;
+
+        color: ${color(1).bright};
+      }
     }
   }
 `;
-
-export const ContentBody = styled.div``;

@@ -63,7 +63,7 @@ export function ParentReportList() {
       <S.Container>
         <S.ContentContainer>
           <ParentReportListRight />
-          {/* <ParentReportListLeft /> */}
+          <ParentReportListLeft />
         </S.ContentContainer>
       </S.Container>
     </>
