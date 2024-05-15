@@ -55,7 +55,7 @@ export function ParentInformationNurture() {
 
   const title = useMemo(
     () => ({
-      kor: '양육 정보',
+      kor: '육아 정보',
       viet: 'thông tin nuôi dạy con cái',
     }),
     [],

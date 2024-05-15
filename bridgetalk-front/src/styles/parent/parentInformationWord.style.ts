@@ -14,6 +14,9 @@ const insetShadow = css`
 export const Container = styled.div`
   align-items: center;
 
+  * {
+    font-family: 'Pretendard';
+  }
   .main {
     display: grid;
     width: 75svw;
@@ -32,7 +35,7 @@ export const Container = styled.div`
 
       gap: 1svh;
 
-      border: 1px solid ${color(1).black};
+      box-shadow: 0 0 1svh ${color(0.5).black};
       border-radius: 1svw;
       padding: 1vw;
 
@@ -51,6 +54,7 @@ export const Container = styled.div`
       &-top {
         &-title {
           font-size: 1.5svw;
+          font-weight: bold;
         }
         width: 100%;
 

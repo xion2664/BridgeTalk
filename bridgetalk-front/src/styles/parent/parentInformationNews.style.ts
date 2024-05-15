@@ -42,6 +42,21 @@ export const Container = styled.div`
 
       box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
       padding: 0.5svh 0.5svw;
+
+      position: relative;
+      transition: all 0.2s;
+
+      &::after {
+        ${insetShadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
+      }
+
+      &::before {
+        ${insetShadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
+      }
     }
 
     .active {
@@ -55,22 +70,28 @@ export const Container = styled.div`
     align-items: center;
     gap: 1svh;
 
-    /* height: 73svh; */
     padding: 2svh 2svw;
 
     border-radius: 1.5svw;
     border: none;
 
+    height: 50svh;
+
     box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
 
     background-color: ${color(1).sub};
+    position: relative;
 
     &::after {
       ${insetShadow}
+      border-radius: 1svw;
+      box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
     }
 
     &::before {
       ${insetShadow}
+      border-radius: 1svw;
+      box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
     }
 
     table {
@@ -108,6 +129,11 @@ export const Container = styled.div`
         display: flex;
 
         color: ${color(0.5).black};
+      }
+
+      transition: all 0.1s;
+      &:hover {
+        transform: scale(1.01);
       }
     }
 
