@@ -15,7 +15,7 @@ export const Background = styled.div`
   overflow: hidden;
 
   .outline {
-    width: 100%;
+    width: 87svw;
     height: 100%;
 
     background-color: ${color(1).bright};
