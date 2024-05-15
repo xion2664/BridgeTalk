@@ -52,6 +52,15 @@ export function ParentInformationNurture() {
     }),
     [],
   );
+
+  const title = useMemo(
+    () => ({
+      kor: '양육 정보',
+      viet: 'thông tin nuôi dạy con cái',
+    }),
+    [],
+  );
+
   useEffect(() => {
     handleNurtureInfoList(language, setInfoList, page, setLastPage, searchCategory);
   }, [page, language]);
@@ -66,13 +75,20 @@ export function ParentInformationNurture() {
 
   return (
     <S.Container>
+      <div
+        className="title"
+        style={{
+          fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black',
+        }}
+      >
+        {title[language]}
+      </div>
       <div className="categories">
         {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
           <button
             className={`${searchCategory === it ? 'active' : ''}`}
             style={{
-              fontFamily: language === 'kor' ? 'DNF' : 'Pretendard',
-              fontSize: language === 'kor' ? `1.3svw` : `1.3svw`,
+              fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black',
             }}
             onClick={() => {
               setSearchCategory(it);

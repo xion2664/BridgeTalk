@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { CommonContainer, color } from './common.style';
+import { CommonContainer, color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
 const gridLayout = css`
@@ -10,10 +10,18 @@ const gridLayout = css`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70svh;
+  height: 90svh;
   width: 50svw;
 
   gap: 2svh;
+
+  .title {
+    text-align: center;
+    font-size: 3.5svw;
+    color: ${color(1).bright};
+    ${textShadowBlue}
+    height: 15svh;
+  }
 
   .categories {
     display: flex;
@@ -46,7 +54,7 @@ export const Container = styled.div`
     align-items: center;
     gap: 1svh;
 
-    height: 73svh;
+    /* height: 73svh; */
     padding: 2svh 2svw;
 
     border-radius: 1.5svw;
