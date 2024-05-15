@@ -4,6 +4,7 @@ import com.ssafy.bridgetalkback.auth.domain.RefreshToken;
 import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ProfileLoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
@@ -149,7 +150,7 @@ public class AuthServiceTest extends ServiceTest {
         @DisplayName("아이 회원가입에 성공한다")
         void success() {
             // when
-            UUID kidsId = authService.kidsSignup(createKidsSingupRequestDto());
+            UUID kidsId = authService.kidsSignup(createKidsSignupRequestDto());
 
             // when - then
             Kids newKids = kidsFindService.findKidsByUuidAndIsDeleted(kidsId);
@@ -168,13 +169,22 @@ public class AuthServiceTest extends ServiceTest {
 
     @Nested
     @DisplayName("프로필 선택 (로그인)")
-    class profileLogin {
+    class ProfileLogin {
+        @Test
+        @DisplayName("비밀번호가 일치하지 않으면 프로필 선택 (로그인)에 실패한다")
+        void throwExceptionByWrongPassword() {
+            // when - then
+            assertThatThrownBy(() -> authService.profileLogin(createWrongProfileLoginRequestDto()))
+                    .isInstanceOf(BaseException.class)
+                    .hasMessage(AuthErrorCode.WRONG_PASSWORD.getMessage());
+        }
+
         @Test
         @DisplayName("프로필 선택 (로그인)에 성공한다")
         void success() {
             // when
-            LoginResponseDto parentsLoginResponseDto = authService.profileLogin(parents.getUuid());
-            LoginResponseDto kidsLoginResponseDto = authService.profileLogin(kids.getUuid());
+            LoginResponseDto parentsLoginResponseDto = authService.profileLogin(createParentsProfileLoginRequestDto());
+            LoginResponseDto kidsLoginResponseDto = authService.profileLogin(createKidsProfileLoginRequestDto());
 
             // when - then
             Assertions.assertAll(
@@ -217,7 +227,19 @@ public class AuthServiceTest extends ServiceTest {
         return new LoginRequestDto(SOYOUNG.getParentsEmail(), "wrong"+SOYOUNG.getParentsPassword());
     }
 
-    private KidsSignupRequestDto createKidsSingupRequestDto() {
+    private KidsSignupRequestDto createKidsSignupRequestDto() {
         return new KidsSignupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+    }
+
+    private ProfileLoginRequestDto createKidsProfileLoginRequestDto() {
+        return new ProfileLoginRequestDto(String.valueOf(kids.getUuid()), "임시비밀번호(추후구현예정)");
+    }
+
+    private ProfileLoginRequestDto createParentsProfileLoginRequestDto() {
+        return new ProfileLoginRequestDto(String.valueOf(parents.getUuid()), SOYOUNG.getParentsPassword());
+    }
+
+    private ProfileLoginRequestDto createWrongProfileLoginRequestDto() {
+        return new ProfileLoginRequestDto(String.valueOf(parents.getUuid()), "wrong"+SOYOUNG.getParentsPassword());
     }
 }

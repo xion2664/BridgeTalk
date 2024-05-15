@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.auth.controller;
 
 import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ProfileLoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
@@ -222,17 +223,19 @@ public class AuthControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("프로필 선택 (로그인) API 테스트 [GET /api/auth/profileLogin/{profileId}]")
+    @DisplayName("프로필 선택 (로그인) API 테스트 [GET /api/auth/profileLogin]")
     class profileLogin {
-        private static final String BASE_URL = "/api/auth/profileLogin/{profileId}";
-        private static final String PROFILE_ID = "7cfadd66-e491-4cb2-9d8f-6aa2e285dc46";
+        private static final String BASE_URL = "/api/auth/profileLogin";
 
         @Test
         @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
         void throwExceptionByInvalidPermission() throws Exception {
             // when
+            final ProfileLoginRequestDto request = createProfileLoginRequestDto();
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .post(BASE_URL, PROFILE_ID);
+                    .post(BASE_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(request));
 
             // then
             final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
@@ -254,13 +257,16 @@ public class AuthControllerTest extends ControllerTest {
         void success() throws Exception {
             // given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            final ProfileLoginRequestDto request = createProfileLoginRequestDto();
             doReturn(loginResponseDto())
                     .when(authService)
-                    .profileLogin(UUID.randomUUID());
+                    .profileLogin(request);
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .post(BASE_URL, PROFILE_ID)
+                    .post(BASE_URL)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(request))
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
             // then
@@ -287,5 +293,9 @@ public class AuthControllerTest extends ControllerTest {
 
     private KidsSignupRequestDto createKidsSingupRequestDto() {
         return new KidsSignupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+    }
+
+    private ProfileLoginRequestDto createProfileLoginRequestDto() {
+        return new ProfileLoginRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", SUNKYOUNG.getParentsPassword());
     }
 }
