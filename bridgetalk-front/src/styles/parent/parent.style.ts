@@ -19,6 +19,7 @@ export const Background = styled.div`
     height: 100%;
 
     background-color: rgb(240, 240, 240);
+    border-left: 0.5svw solid ${color(1).bright};
 
     border-top-left-radius: 3svw;
     border-bottom-left-radius: 3svw;
