@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   .categories {
     display: flex;
-    justify-content: end;
+    justify-content: start;
     gap: 1svw;
 
     button {
@@ -115,7 +115,7 @@ export const Container = styled.div`
     justify-content: center;
 
     .active {
-      background-color: ${color(1).main};
+      background-color: ${color(1).sub};
     }
 
     button {
@@ -123,14 +123,20 @@ export const Container = styled.div`
       height: 3svw;
 
       border: none;
-      border-radius: 50%;
+      border-radius: 1svw;
 
-      font-family: 'DNF';
-      font-size: 2svw;
+      font-family: 'Pretendard';
+      font-size: 1.5svw;
 
       cursor: pointer;
 
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+      box-shadow: 0 0 1svh ${color(1).black};
+
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: ${color(1).sub};
+      }
     }
   }
 `;

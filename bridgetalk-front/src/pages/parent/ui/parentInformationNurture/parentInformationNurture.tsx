@@ -61,69 +61,100 @@ export function ParentInformationNurture() {
     handleNurtureInfoList(language, setInfoList, 0, setLastPage, searchCategory);
   }, [searchCategory]);
 
+  const startIndex = Math.floor(page / 5) * 5;
+  const endIndex = Math.min(startIndex + 5, lastPage);
+
   return (
-    <>
-      <BackButton path="../information" navigate={navigate} />
-      <S.Container>
-        <div className="categories">
-          {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
-            <button
-              className={`${searchCategory === it ? 'active' : ''}`}
-              style={{
-                fontFamily: language === 'kor' ? 'DNF' : 'Pretendard',
-                fontSize: language === 'kor' ? `1.3svw` : `1.3svw`,
-              }}
-              onClick={() => {
-                setSearchCategory(it);
-              }}
-            >
-              {categories[language][idx]}
-            </button>
-          ))}
-        </div>
-        <div className="main">
-          <table>
-            <thead className="thead">
-              <tr className="main__header">
-                {header[language].map((it) => (
-                  <td>{it}</td>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="tbody">
-              {infoList.length > 0 &&
-                infoList.map((it) => (
-                  <tr
-                    className="main__item"
-                    key={it.parentingInfoId}
-                    onClick={() => {
-                      navigate(`${it.parentingInfoId!}`);
-                    }}
-                  >
-                    <td className="main__item-num">{it.parentingInfoId}</td>
-                    <td className="main__item-category">{categories[language][category[it.category!]]}</td>
-                    <td className="main__item-title">{it.title}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="pagenation">
-          {infoList.length > 0 &&
-            Array(lastPage)
-              .fill(0)
-              .map((it, idx) => (
-                <button
-                  className={`${page === idx ? 'active' : ''}`}
+    <S.Container>
+      <div className="categories">
+        {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
+          <button
+            className={`${searchCategory === it ? 'active' : ''}`}
+            style={{
+              fontFamily: language === 'kor' ? 'DNF' : 'Pretendard',
+              fontSize: language === 'kor' ? `1.3svw` : `1.3svw`,
+            }}
+            onClick={() => {
+              setSearchCategory(it);
+            }}
+          >
+            {categories[language][idx]}
+          </button>
+        ))}
+      </div>
+      <div className="main">
+        <table>
+          <thead className="thead">
+            <tr className="main__header">
+              {header[language].map((it) => (
+                <td>{it}</td>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="tbody">
+            {infoList.length > 0 &&
+              infoList.map((it) => (
+                <tr
+                  className="main__item"
+                  key={it.parentingInfoId}
                   onClick={() => {
-                    setPage(idx);
+                    navigate(`${it.parentingInfoId!}`);
                   }}
                 >
-                  {idx + 1}
-                </button>
+                  <td className="main__item-num">{it.parentingInfoId}</td>
+                  <td className="main__item-category">{categories[language][category[it.category!]]}</td>
+                  <td className="main__item-title">{it.title}</td>
+                </tr>
               ))}
-        </div>
-      </S.Container>
-    </>
+          </tbody>
+        </table>
+      </div>
+      <div className="pagenation">
+        <button
+          onClick={() => {
+            setPage(0);
+          }}
+        >{`<<`}</button>
+        <button
+          onClick={() => {
+            setPage((page) => {
+              if (page > 0) {
+                return page - 1;
+              }
+              return page;
+            });
+          }}
+        >{`<`}</button>
+        {infoList.length > 0 &&
+          Array(lastPage)
+            .fill(0)
+            .slice(startIndex, endIndex)
+            .map((_, idx) => (
+              <button
+                className={`${page === startIndex + idx ? 'active' : ''}`}
+                onClick={() => {
+                  setPage(Math.floor(startIndex + idx));
+                }}
+              >
+                {startIndex + idx + 1}
+              </button>
+            ))}
+        <button
+          onClick={() => {
+            setPage((page) => {
+              if (page < lastPage - 1) {
+                return page + 1;
+              }
+              return page;
+            });
+          }}
+        >{`>`}</button>
+        <button
+          onClick={() => {
+            setPage(lastPage - 1);
+          }}
+        >{`>>`}</button>
+      </div>
+    </S.Container>
   );
 }
