@@ -1,5 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { color } from './common.style';
+
+const fadein = keyframes`
+  0% {
+    transform: translateX(2svw);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 export const Background = styled.div`
   /* background-image: url('/assets/img/parent_bg.png'); */
@@ -17,6 +28,8 @@ export const Background = styled.div`
   .outline {
     width: 90svw;
     height: 100%;
+
+    animation: ${fadein} 1s;
 
     background-color: rgb(240, 240, 240);
     border-left: 0.5svw solid ${color(1).bright};
