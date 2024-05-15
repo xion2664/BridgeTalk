@@ -16,137 +16,85 @@ export const Container = styled.div`
 
   .main {
     display: grid;
-    width: 88svw;
-    height: 85svh;
+    width: 75svw;
+    height: 75svh;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: 1svh 1svw;
 
-    grid-template-columns: 1fr 1fr;
-    gap: 2svw;
-
-    &__left {
+    &__worditem {
       display: flex;
-      gap: 3svw;
-      background-color: ${color(1).sub};
-      border-radius: 1.5svw;
-      padding: 2.9svh 0.8svw;
-      position: relative;
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-      &::after {
-        ${insetShadow}
-        border-radius: 1.5svw;
-        box-shadow: inset 0 1svh 0.8svh ${color(0.5).bright};
+      width: 23svw;
+      height: 20svh;
+
+      gap: 1svh;
+
+      border: 1px solid ${color(1).black};
+      border-radius: 1svw;
+      padding: 1vw;
+
+      background-color: ${color(1).bright};
+      font-size: 1svw;
+
+      padding: 1svh 1svw;
+
+      cursor: pointer;
+
+      transition: all 0.2s;
+      &:hover {
+        transform: scale(1.05);
       }
 
-      &::before {
-        ${insetShadow}
-        border-radius: 1.5svw;
-        box-shadow: inset 0 -1svh 0.8svh ${color(0.25).black};
-      }
-
-      &-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 2svh;
-
-        .active {
-          background-color: ${color(1).light};
+      &-top {
+        &-title {
+          font-size: 1.5svw;
         }
-
-        &-button {
-          width: 5.2svw;
-          height: 9.2svh;
-          font-family: 'DNF';
-          font-size: 2.5svw;
-          position: relative;
-          cursor: pointer;
-          border-radius: 1.5svw;
-          border: none;
-          box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-
-          &::after {
-            ${insetShadow}
-            border-radius: 1.5svw;
-            box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
-          }
-
-          &::before {
-            ${insetShadow}
-            border-radius: 1.5svw;
-            box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).black};
-          }
-        }
-      }
-
-      &-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2svh;
         width: 100%;
-        height: 100%;
 
-        &-item {
-          font-family: 'DNF';
-          font-size: 2.5svw;
-          padding: 1svh 0.5svw;
-          background-color: ${color(1).light};
-          position: relative;
-          border-radius: 1svw;
-          box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+        display: flex;
+        align-items: end;
 
-          &::after {
-            ${insetShadow}
-            border-radius: 1svw;
-            box-shadow: inset 0 1svh 0.8svh ${color(0.5).bright};
-          }
+        gap: 1svw;
+      }
 
-          &::before {
-            ${insetShadow}
-            border-radius: 1svw;
-            box-shadow: inset 0 -1svh 0.8svh ${color(0.25).black};
-          }
-        }
+      &-bottom {
+        width: 100%;
+
+        text-align: start;
       }
     }
+  }
 
-    &__right {
-      width: 100%;
-      height: 100%;
+  .pagenation {
+    display: flex;
+    gap: 1svw;
+    justify-content: center;
+
+    .active {
       background-color: ${color(1).sub};
-      border-radius: 1.5svw;
-      padding: 2.9svh 0.8svw;
-      position: relative;
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+    }
 
-      &::after {
-        ${insetShadow}
-        border-radius: 1.5svw;
-        box-shadow: inset 0 1svh 0.8svh ${color(0.5).bright};
-      }
+    button {
+      width: 3svw;
+      height: 3svw;
 
-      &::before {
-        ${insetShadow}
-        border-radius: 1.5svw;
-        box-shadow: inset 0 -1svh 0.8svh ${color(0.25).black};
-      }
+      border: none;
+      border-radius: 1svw;
 
-      &-item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      font-family: 'Pretendard';
+      font-size: 1.5svw;
 
-        text-align: center;
+      cursor: pointer;
 
-        width: 100%;
-        height: 100%;
+      box-shadow: 0 0 1svh ${color(1).black};
 
-        background-color: ${color(1).light};
-        border-radius: 1.5svw;
+      transition: all 0.2s;
 
-        &-word {
-          display: flex;
-          gap: 1svw;
-        }
+      &:hover {
+        background-color: ${color(1).sub};
       }
     }
   }
