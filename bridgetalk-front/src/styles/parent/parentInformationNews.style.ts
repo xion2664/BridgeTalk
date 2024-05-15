@@ -4,14 +4,14 @@ import { insetShadow } from '../main/common.style';
 
 const gridLayout = css`
   display: grid;
-  grid-template-columns: 1fr 3fr 5fr;
+  grid-template-columns: 2fr 10fr 2fr;
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 90svh;
-  width: 50svw;
+  width: 70svw;
 
   gap: 2svh;
 
@@ -41,6 +41,7 @@ export const Container = styled.div`
       cursor: pointer;
 
       box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+      padding: 0.5svh 0.5svw;
     }
 
     .active {
@@ -90,11 +91,23 @@ export const Container = styled.div`
       font-family: 'Pretendard';
 
       cursor: pointer;
+      position: relative;
 
       &-title {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        text-align: start;
+      }
+
+      &-category {
+        position: absolute;
+        bottom: 1svh;
+        right: 1svw;
+
+        display: flex;
+
+        color: ${color(0.5).black};
       }
     }
 

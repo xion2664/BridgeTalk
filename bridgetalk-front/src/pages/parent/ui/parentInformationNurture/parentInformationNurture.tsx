@@ -47,8 +47,8 @@ export function ParentInformationNurture() {
 
   const header = useMemo(
     () => ({
-      kor: ['번호', '카테고리', '제목'],
-      viet: ['Số', 'Phân loại', 'Tiêu đề'],
+      kor: ['번호', '제목', ''],
+      viet: ['Số', 'Tiêu đề', ''],
     }),
     [],
   );
@@ -89,6 +89,7 @@ export function ParentInformationNurture() {
             className={`${searchCategory === it ? 'active' : ''}`}
             style={{
               fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black',
+              fontSize: language === 'kor' ? '2svw' : '1.3svw',
             }}
             onClick={() => {
               setSearchCategory(it);
@@ -118,8 +119,8 @@ export function ParentInformationNurture() {
                   }}
                 >
                   <td className="main__item-num">{it.parentingInfoId}</td>
-                  <td className="main__item-category">{categories[language][category[it.category!]]}</td>
                   <td className="main__item-title">{it.title}</td>
+                  <td className="main__item-category">{categories[language][category[it.category!]]}</td>
                 </tr>
               ))}
           </tbody>
