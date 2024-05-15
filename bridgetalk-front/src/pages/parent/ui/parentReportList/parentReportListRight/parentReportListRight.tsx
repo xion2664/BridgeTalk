@@ -31,25 +31,22 @@ export function ParentReportListRight() {
       <div className="title">
         <div>{title[language]}</div>
       </div>
-      {/* <div className="filter">
-        <div className="calendar">
-          <FaCalendarAlt />
-          <div>날짜</div>
-        </div>
-        <button className="due"></button>
-        <div>~</div>
-        <button className="due"></button>
-        <button className="search">
-          <FaSearch />
-        </button>
-      </div> */}
       <div className="children">
         {childrenList.map((child: any) => {
           return (
             <button
-              className="children__child"
-              onClick={() => {
-                const tmp = reportList.filter((report: any) => report.UUID === child.userId);
+              className={`children__child ${
+                selected.some((report: any) => report.UUID === child.userId) ? 'active' : ''
+              }`}
+              onClick={(e: any) => {
+                if ([...e.target.classList].some((it) => it === 'active')) {
+                  const tmp = selected.filter((report: any) => report.UUID !== child.userId);
+                  setSelected(tmp);
+                  return;
+                }
+
+                const tmp = reportList.filter((report: any) => report.UUID === child.userId).concat(selected);
+
                 setSelected(tmp);
               }}
             >

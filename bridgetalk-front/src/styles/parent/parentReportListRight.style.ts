@@ -15,17 +15,11 @@ export const Container = styled.div`
   }
 
   .title {
-    /* position: absolute;
-    display: flex;
-    align-items: center; */
-
     div {
       font-family: 'Pretendard';
       font-size: 3svw;
       color: ${color(1).black};
       position: relative;
-
-      /* ${textShadowBlue} */
     }
 
     img {
@@ -42,12 +36,16 @@ export const Container = styled.div`
     padding: 0 1svw;
 
     &__child {
-      color: ${color(1).black};
+      color: ${color(0.5).black};
       font-size: 2svw;
       cursor: pointer;
 
       background-color: transparent;
       border: none;
+    }
+
+    .active {
+      color: ${color(1).black};
     }
   }
 
