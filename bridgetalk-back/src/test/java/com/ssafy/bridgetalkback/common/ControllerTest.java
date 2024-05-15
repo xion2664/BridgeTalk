@@ -18,6 +18,8 @@ import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.controller.LettersController;
 import com.ssafy.bridgetalkback.letters.service.ClovaSpeechService;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
+import com.ssafy.bridgetalkback.notification.controller.NotificationController;
+import com.ssafy.bridgetalkback.notification.controller.SseController;
 import com.ssafy.bridgetalkback.notification.domain.Notification;
 import com.ssafy.bridgetalkback.notification.service.NotificationService;
 import com.ssafy.bridgetalkback.notification.service.SseService;
@@ -66,7 +68,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         ProfileController.class,
         ParentingInfoCrawlingController.class,
         ParentingInfoController.class,
-        BoardsController.class
+        BoardsController.class,
+        NotificationController.class,
+        SseController.class,
 })
 public abstract class ControllerTest {
     @Autowired
