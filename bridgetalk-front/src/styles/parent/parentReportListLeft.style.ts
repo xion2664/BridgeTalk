@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from './common.style';
+import { color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
 export const Container = styled.div`
@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100%;
+  height: 80svh;
 
   background-color: ${color(1).sub};
   border-radius: 2svw;
@@ -18,8 +18,8 @@ export const Container = styled.div`
   position: relative;
 
   .main {
-    display: grid;
-    grid-template-rows: 1fr 14fr;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
 
@@ -27,11 +27,30 @@ export const Container = styled.div`
       display: none;
     }
 
+    position: relative;
+
+    padding-top: 6svh;
+
+    &__title {
+      color: ${color(1).bright};
+      font-family: 'DNF';
+      ${textShadowBlue}
+
+      font-size: 2svw;
+
+      position: absolute;
+      top: 0;
+      left: 2svw;
+      transform: translate(0, -50%);
+    }
+
     &__content {
       height: 100%;
       background-color: ${color(1).light};
       display: flex;
       flex-direction: column;
+
+      border-radius: 2svw;
 
       &-list {
         padding: 1svh 1svw;
@@ -48,7 +67,7 @@ export const Container = styled.div`
 
         &-item {
           background-color: ${color(1).sub};
-          padding: 10svh 2svw;
+          padding: 8svh 2svw;
 
           border-radius: 1.5svw;
           box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
@@ -87,7 +106,7 @@ export const Container = styled.div`
           }
           &-title {
             font-family: 'Pretendard-Black';
-            font-size: 3svw;
+            font-size: 2svw;
           }
           &-body {
             font-size: 1.4svw;
@@ -104,7 +123,8 @@ export const Container = styled.div`
 
       &-input {
         width: 100%;
-        height: 13.7svh;
+        /* height: 13.7svh; */
+        height: 20%;
 
         border-top: 1px solid black;
       }
