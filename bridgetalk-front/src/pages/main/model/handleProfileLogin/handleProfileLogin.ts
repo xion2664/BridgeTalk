@@ -9,7 +9,7 @@ export async function handleProfileLogin(
   navigatePath: string,
 ) {
   try {
-    const response = await postProfileLogin('7b16b428-0bae-4955-9a4d-d1a93e114856', 'ssafy789');
+    const response = await postProfileLogin(uuid, password);
 
     if (response && response.data) {
       userStore.setUserDino(response.data.userDino);
