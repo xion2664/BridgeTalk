@@ -182,15 +182,15 @@ export function EditProfilePage({ type }: Props) {
 }
 
 function DinoBox() {
-  const [dinoNum, setDinoNum] = useState<number>(1);
+  const [dinoNum, setDinoNum] = useState<number>(3);
 
   return (
     <>
       {Array(6)
         .fill(0)
         .map((_, idx) => (
-          <Canvas>
-            <ambientLight intensity={1} />
+          <Canvas style={{ width: `10svw` }}>
+            <ambientLight intensity={dinoNum === idx + 1 ? 2 : 1} />
             <PerspectiveCamera position={[-0.01, 0, 0.1]} fov={55} zoom={1} />
             <DinoSelect idx={idx + 1} dinoNum={dinoNum} setDinoNum={setDinoNum} />
           </Canvas>
