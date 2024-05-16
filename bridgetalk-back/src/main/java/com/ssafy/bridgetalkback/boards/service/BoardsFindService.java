@@ -14,11 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BoardsFindService {
+
     private final BoardsRepository boardsRepository;
 
-    public Boards findBoardsByBoardsIdAndIsDeleted(Long id) {
-        log.info("{ BoardsFindService } : Id(Pk)로 게시글 조회 - "+id);
-        return boardsRepository.findBoardsByBoardsIdAndIsDeleted(id, 0)
-                .orElseThrow(() -> BaseException.type(BoardsErrorCode.BOARDS_NOT_FOUND));
+    public Boards findByBoardsIdAndIsDeleted(Long boardsId) {
+        log.info("{ BoardsFindService } : Id(Pk)로 게시글 정보 조회 - " + boardsId);
+        return boardsRepository.findBoardsByBoardsIdAndIsDeleted(boardsId, 0)
+                .orElseThrow(()-> BaseException.type(BoardsErrorCode.BOARDS_NOT_FOUND));
     }
 }

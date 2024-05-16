@@ -10,7 +10,9 @@ public record LettersResponseDto(
         Long lettersId,
         String lettersOriginalContent,
         String lettersTranslationContent,
-        LocalDateTime lettersRegDate
+        LocalDateTime lettersRegDate,
+
+        Integer isChecked
 
 ) {
     public static LettersResponseDto of(Letters letters) {
@@ -19,6 +21,7 @@ public record LettersResponseDto(
                 .lettersOriginalContent(letters.getLettersOriginalContent())
                 .lettersTranslationContent(letters.getLettersTranslationContent())
                 .lettersRegDate(letters.getCreatedAt())
+                .isChecked(letters.getIsChecked())
                 .build();
     }
 }

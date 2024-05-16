@@ -193,3 +193,24 @@ export const ErrorModalContainer = styled.div`
 
   animation: ${errorModalFadeInOut} 2s ease-in-out;
 `;
+
+export const PasswordCheckModaContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2svh;
+
+  width: 86.7svw;
+  height: 39.6svh;
+
+  background-color: ${color(0.5).black};
+
+  border-radius: 2.6svw;
+
+  .content {
+    display: flex;
+  }
+
+  .buttons {
+    display: flex;
+  }
+`;
