@@ -1,23 +1,25 @@
+import { handleSignup } from '@/pages';
 import { useSignupStore } from '@/pages/main/store';
+import { useErrorStore } from '@/shared/store';
 import * as S from '@/styles/main/selectCountry.style';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
   setPage: Dispatch<SetStateAction<number>>;
-  handleSignup: any;
 }
 
-export function SelectCountry({ setPage, handleSignup }: Props) {
+export function SelectCountry({ setPage }: Props) {
   const navigate = useNavigate();
 
-  const { email, password, name, nickname, dino } = useSignupStore((state) => ({
+  const { email, password, name, nickname } = useSignupStore((state) => ({
     email: state.email,
     password: state.password,
     name: state.name,
     nickname: state.nickname,
-    dino: state.dino,
   }));
+
+  const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
 
   return (
     <S.Container>
@@ -50,7 +52,7 @@ export function SelectCountry({ setPage, handleSignup }: Props) {
         <button
           className="buttons__next"
           onClick={() => {
-            handleSignup(email, password, name, nickname, dino);
+            handleSignup(email, password, name, nickname, 'D1', setErrorModalState);
             navigate('/start');
           }}
         >
