@@ -62,4 +62,11 @@ public class AuthController {
         log.info("{ AuthService } : 프로필 선택 (로그인) 성공");
         return ResponseEntity.ok(loginResponseDto);
     }
+
+    @GetMapping("/nickname-duplicate/{nickname}")
+    public ResponseEntity<Void> duplicateNickname(@ExtractPayload String userId, @PathVariable String nickname) {
+        log.info("{ AuthController } : 닉네임 중복 검사 진입");
+        authService.duplicateNickname(nickname);
+        return ResponseEntity.ok().build();
+    }
 }

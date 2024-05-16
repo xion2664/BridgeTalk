@@ -277,6 +277,85 @@ public class AuthControllerTest extends ControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("중복 닉네임 검사 API [POST /api/auth/nickname-duplicate/{nickname}]")
+    class duplicateNickname {
+        private static final String BASE_URL = "/api/auth/nickname-duplicate/{nickname}";
+        private static final String NICKNAME = "닉네임";
+        private static final String DUPLICATE_NICKNAME = "중복된 닉네임";
+
+        @Test
+        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
+        void throwExceptionByInvalidPermission() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, NICKNAME);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+
+        }
+
+        @Test
+        @DisplayName("중복된 이메일이라면 회원가입에 실패한다")
+        void throwExceptionByDuplicateNickname() throws Exception {
+            // given
+            doThrow(BaseException.type(AuthErrorCode.DUPLICATE_NICKNAME))
+                    .when(authService)
+                    .duplicateNickname(any());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, DUPLICATE_NICKNAME)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.DUPLICATE_NICKNAME;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isBadRequest(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+
+        }
+
+        @Test
+        @DisplayName("닉네임 중복 검사에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doNothing()
+                    .when(authService)
+                    .duplicateNickname(any());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, DUPLICATE_NICKNAME)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());

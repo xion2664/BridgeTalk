@@ -117,6 +117,13 @@ public class AuthService {
         return loginResponseDto;
     }
 
+    public void duplicateNickname(String nickname) {
+        if(parentsRepository.existsParentsByParentsNicknameAndIsDeleted(nickname, 0)) {
+            log.info("{ AuthService } : 중복 닉네임");
+            throw BaseException.type(AuthErrorCode.DUPLICATE_NICKNAME);
+        }
+    }
+
     public void DuplicateEmail(String email) {
         // 기존 이메일 가입한 경우 재가입 불가
         if(parentsRepository.existsParentsByParentsEmail(Email.from(email))) {
