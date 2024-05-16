@@ -12,10 +12,10 @@ export function StartPage() {
   useEffect(() => {
     setTimeout(() => {
       singnupBtnRef.current?.classList?.remove('invisible');
-    }, 1200);
+    }, 900);
     setTimeout(() => {
       signinBtnRef.current?.classList?.remove('invisible');
-    }, 1700);
+    }, 1200);
   }, []);
 
   return (

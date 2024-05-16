@@ -203,8 +203,8 @@ export const PasswordCheckModaContainer = styled.div`
 
   gap: 2svh;
 
-  width: 86.7svw;
-  height: 39.6svh;
+  width: 84svw;
+  height: 42.6svh;
 
   background-color: ${color(0.5).black};
 
@@ -230,25 +230,40 @@ export const PasswordCheckModaContainer = styled.div`
       height: 13.8svh;
       border-radius: 5.2svw;
       border: 1svw solid ${main.color(1).main};
+
+      padding: 1svh 1.5svw;
+      font-size: 2.5svw;
     }
   }
 
   .buttons {
     display: flex;
+    gap: 2svw;
 
     button {
-      width: 26svw;
-      height: 17svh;
+      width: 17svw;
+      height: 11.2svh;
       border-radius: 5.2svw;
       background-color: ${main.color(1).main};
       position: relative;
 
+      font-size: 2.5svw;
+
+      color: ${color(1).bright};
+      font-family: 'DNF';
+
+      cursor: pointer;
+
       &::after {
         ${main.insetShadow}
+        border-radius: 5.2svw;
+        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
       }
 
       &::before {
         ${main.insetShadow}
+        border-radius: 5.2svw;
+        box-shadow: inset 0 -0.5svh 0.4svh ${color(0.5).black};
       }
     }
   }

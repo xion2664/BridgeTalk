@@ -39,7 +39,7 @@ export const Container = styled.div`
       width: 38.9svw;
     }
 
-    animation: ${fadein} 1s ease-in-out;
+    animation: ${fadein} 0.8s ease-in-out;
   }
 
   .buttons {
