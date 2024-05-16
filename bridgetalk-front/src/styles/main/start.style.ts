@@ -1,12 +1,25 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { color, insetShadow, textShadowRed } from './common.style';
 
 const BUTTON_RADIUS = css`
   border-radius: 7svw;
 `;
 
+const fadein = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
+
+  .invisible {
+    opacity: 0;
+  }
 
   .title {
     position: fixed;
@@ -16,6 +29,8 @@ export const Container = styled.div`
     img {
       width: 38.9svw;
     }
+
+    animation: ${fadein} 1s ease-in-out;
   }
 
   .buttons {

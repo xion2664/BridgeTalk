@@ -1,8 +1,22 @@
 import * as S from '@/styles/main/start.style';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function StartPage() {
   const navigate = useNavigate();
+
+  // Ref
+  const signinBtnRef: any = useRef<HTMLButtonElement>();
+  const singnupBtnRef: any = useRef<HTMLButtonElement>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      singnupBtnRef.current.classList.remove('invisible');
+    }, 1200);
+    setTimeout(() => {
+      signinBtnRef.current.classList.remove('invisible');
+    }, 1700);
+  });
 
   return (
     <S.Container>
@@ -11,7 +25,8 @@ export function StartPage() {
       </div>
       <div className="buttons">
         <button
-          className="buttons__signup"
+          ref={singnupBtnRef}
+          className="buttons__signup invisible"
           onClick={() => {
             navigate('../signup');
           }}
@@ -20,7 +35,8 @@ export function StartPage() {
           회원가입
         </button>
         <button
-          className="buttons__siginin"
+          ref={signinBtnRef}
+          className="buttons__siginin invisible"
           onClick={() => {
             navigate('../signin');
           }}
