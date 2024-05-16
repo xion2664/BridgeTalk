@@ -43,16 +43,11 @@ public class CommentsServiceTest extends ServiceTest {
 
     private Boards boards;
 
-    private Comments comments;
-
     @Autowired
     private ReportsUpdateService reportsUpdateService;
 
     @Autowired
     private CommentsFindService commentsFindService;
-
-    @Autowired
-    private BoardsService boardsService;
 
     @Autowired
     private CommentsService commentsService;
@@ -79,7 +74,7 @@ public class CommentsServiceTest extends ServiceTest {
         assertAll(
                 () -> assertThat(findComments.getCommentsId()).isEqualTo(commentsId),
                 () -> assertThat(findComments.getCommentsContentKor()).isEqualTo(COMMENTS_01.getCommentsContentKor()),
-//                () -> assertThat(findComments.getCommentsContentViet()).isEqualTo(COMMENTS_01.getCommentsContentViet()),
+                () -> assertThat(findComments.getCommentsContentViet()).isNotNull(),
                 () -> assertThat(findComments.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -96,7 +91,7 @@ public class CommentsServiceTest extends ServiceTest {
 
         assertAll(
                 () -> assertThat(findComments.getCommentsId()).isEqualTo(commentsId),
-//                () -> assertThat(findComments.getCommentsContentKor()).isEqualTo(COMMENTS_01.getCommentsContentKor()),
+                () -> assertThat(findComments.getCommentsContentKor()).isNotNull(),
                 () -> assertThat(findComments.getCommentsContentViet()).isEqualTo(COMMENTS_01.getCommentsContentViet()),
                 () -> assertThat(findComments.getIsDeleted()).isEqualTo(0)
         );
@@ -118,7 +113,7 @@ public class CommentsServiceTest extends ServiceTest {
         assertAll(
                 () -> assertThat(findComments.getCommentsId()).isEqualTo(updateCommentsId),
                 () -> assertThat(findComments.getCommentsContentKor()).isEqualTo(COMMENTS_01.getCommentsContentKor()),
-//                () -> assertThat(findComments.getCommentsContentViet()).isEqualTo(COMMENTS_01.getCommentsContentViet()),
+                () -> assertThat(findComments.getCommentsContentViet()).isNotNull(),
                 () -> assertThat(findComments.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -137,7 +132,7 @@ public class CommentsServiceTest extends ServiceTest {
         Comments findComments = commentsFindService.findByCommentsIdAndIsDeleted(updateCommentsId);
         assertAll(
                 () -> assertThat(findComments.getCommentsId()).isEqualTo(updateCommentsId),
-//                () -> assertThat(findComments.getCommentsContentKor()).isEqualTo(COMMENTS_01.getCommentsContentKor()),
+                () -> assertThat(findComments.getCommentsContentKor()).isNotNull(),
                 () -> assertThat(findComments.getCommentsContentViet()).isEqualTo(COMMENTS_01.getCommentsContentViet()),
                 () -> assertThat(findComments.getIsDeleted()).isEqualTo(0)
         );

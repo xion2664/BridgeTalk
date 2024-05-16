@@ -106,7 +106,11 @@ public class LettersService {
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
 
         Reports reports = reportsService.findByIdAndIsDeleted(reportsId);
+        if (lettersRepository.findByReports(reports).isPresent()) {
+            throw BaseException.type(LettersErrorCode.LETTERS_DUPLICATED);
+        }
         Letters newLetter = Letters.createLetters(parents, reports, extractOriginText, transformedText);
+
         lettersRepository.save(newLetter);
 
         return LettersResponseDto.of(newLetter);

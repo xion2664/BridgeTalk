@@ -3,6 +3,8 @@ import { create } from 'zustand';
 interface Store {
   deleteModalOpenState: any;
   setDeleteModalOpenState: any;
+  passwordCheckModalState: any;
+  setPasswordCheckModalState: any;
 }
 
 export const useProfileStore = create<Store>()((set) => ({
@@ -11,4 +13,6 @@ export const useProfileStore = create<Store>()((set) => ({
     set({
       deleteModalOpenState: deleteModalState,
     }),
+  passwordCheckModalState: false,
+  setPasswordCheckModalState: (state: []) => set({ passwordCheckModalState: state }),
 }));
