@@ -4,6 +4,9 @@ import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
 
 @Slf4j
 @Service
@@ -26,6 +31,7 @@ public class ReportsUpdateService {
     private final ChatGptService chatGptService;
     private final ReportsFindService reportsFindService;
     private final TranslationService translationService;
+    private final SseService sseService;
 
     public void createReport(Long reportsId) {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
@@ -101,12 +107,15 @@ public class ReportsUpdateService {
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
         String[] keyword_kor_arr = keywordsText[0].split(", ");
-        if (keyword_kor_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        if (keyword_kor_arr.length != 3) {
+            keyword_kor_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         String[] keyword_viet_arr = keywordsText[1].split(", ");
-        if (keyword_viet_arr.length != 3)
-            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
-
+        if (keyword_viet_arr.length != 3) {
+            keyword_viet_arr = null;
+//            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
+        }
         reports.updateReports(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_viet_arr), solutionText[0], solutionText[1]);
         log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
         log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
@@ -116,9 +125,24 @@ public class ReportsUpdateService {
         log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
+
+        log.info(">>>> (부모에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(reports.getKids().getUuid().toString())
+                .url("https://bridgetalk.co.kr/api/reports/"
+                        +reports.getKids().getUuid().toString()
+                        +"/"
+                        +reportsId
+                        +"/"
+                        +"kor")
+                .content(NotificationType.KID_REPORTS_REGISTER.getWord())
+                .notificationType(NotificationType.KID_REPORTS_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (부모에게) SSE 알림 전송 완료");
     }
 
     private List<String> arraytoList(String[] strings) {
-        return new ArrayList<>(Arrays.asList(strings));
+        return strings==null ? Collections.emptyList() : new ArrayList<>(Arrays.asList(strings));
     }
 }

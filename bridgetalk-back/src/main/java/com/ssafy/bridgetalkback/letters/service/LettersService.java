@@ -12,10 +12,16 @@ import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
+import com.ssafy.bridgetalkback.letters.domain.LettersImg;
+import com.ssafy.bridgetalkback.letters.dto.response.LettersImgResponseDto;
 import com.ssafy.bridgetalkback.letters.dto.response.LettersResponseDto;
 import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
+import com.ssafy.bridgetalkback.letters.repository.LettersImgRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
@@ -29,10 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -52,6 +55,8 @@ public class LettersService {
     private final ReportsService reportsService;
     private final ParentsFindService parentsFindService;
     private final KidsFindService kidsFindService;
+    private final LettersImgRepository lettersImgRepository;
+    private final SseService sseService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -65,26 +70,28 @@ public class LettersService {
 
     /**
      * saveVoiceFile() : s3에 음성파일 저장 메서드
+     *
      * @param lettersFile : 입력된 음성 파일
      * @return String : 저장된 s3 url
-     * */
-    public String saveVoiceFile(MultipartFile lettersFile){
+     */
+    public String saveVoiceFile(MultipartFile lettersFile) {
         log.info("{ LetterService.saveVoiceFile() } : 부모 음성 편지 s3업로드 메서드");
         return s3FileService.uploadLettersFiles(lettersFile);
     }
 
     /**
      * createText() : 음성파일 텍스트화 메서드
-     * @param voiceUrl : 입력된 음성 파일
+     *
+     * @param voiceUrl      : 입력된 음성 파일
      * @param parentsUserId : 사용자 userId(UUID)
      * @return LettersResponseDTO : 변환된 텍스트 responseDTO
-     * */
-    public LettersResponseDto createText(String voiceUrl, String parentsUserId, Long reportsId){
+     */
+    public LettersResponseDto createText(String voiceUrl, String parentsUserId, Long reportsId) {
         log.info("{ LetterService.createText() } : 텍스트화 메서드");
         String[] vrr = voiceUrl.split("/");
         System.out.println(Arrays.toString(vrr));
         int len = vrr.length;
-        String fileName = vrr[len-2]+"/"+vrr[len-1];
+        String fileName = vrr[len - 2] + "/" + vrr[len - 1];
         log.info(">> fileName : {}", fileName);
 
         // stt api 호출
@@ -103,17 +110,32 @@ public class LettersService {
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
 
         Reports reports = reportsService.findByIdAndIsDeleted(reportsId);
+        if (lettersRepository.findByReports(reports).isPresent()) {
+            throw BaseException.type(LettersErrorCode.LETTERS_DUPLICATED);
+        }
         Letters newLetter = Letters.createLetters(parents, reports, extractOriginText, transformedText);
+
         lettersRepository.save(newLetter);
+
+        log.info(">>>> (아이에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(reports.getKids().getUuid().toString())
+                .url("https://bridgetalk.co.kr/api/letters/"+newLetter.getLettersId())
+                .content(NotificationType.PARENT_LETTERS_REGISTER.getWord())
+                .notificationType(NotificationType.PARENT_LETTERS_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (아이에게) SSE 알림 전송 완료");
 
         return LettersResponseDto.of(newLetter);
     }
 
     /**
      * stt() : 음성파일 텍스트화 api 호출 메서드
+     *
      * @param fileName : 파일명
      * @return String : 변환된 텍스트
-     * */
+     */
     public String stt(String fileName) {
         log.info("{ LetterService.stt() } : stt api 호출 메서드");
         String jobName = lettersTranscribeService.transcribe(bucketName, fileName);
@@ -122,7 +144,7 @@ public class LettersService {
         String extractText = "";
         try {
             S3Object s3Object = s3Client.getObject(bucketName, transcriptFileName);
-            log.info(">> s3Object : {}",s3Object);
+            log.info(">> s3Object : {}", s3Object);
             S3ObjectInputStream objectContent = s3Object.getObjectContent();
             // Transcript json -> DTO
             TranscriptionDto jsonData = objectMapper.readValue(objectContent, TranscriptionDto.class);
@@ -149,13 +171,14 @@ public class LettersService {
 
     /**
      * changeToConversation() : chatgpt api를 호출하여 대화체로 변환하여 저장
+     *
      * @param orginalText : 원본 텍스트
      * @return transformedText : 변환된 텍스트
-     * */
+     */
     public String changeToConversation(String orginalText) {
         log.info("{ LettersService.changeToConversation }");
         String transformedText = "";
-        if (orginalText.isEmpty()){
+        if (orginalText.isEmpty()) {
             log.error("!! 변환할 원본 텍스트가 비어었습니다.");
             throw BaseException.type(LettersErrorCode.CHATGPT_EMPTY_TEXT);
         }
@@ -177,6 +200,7 @@ public class LettersService {
         return lettersRepository.findByLettersIdAndIsDeleted(lettersId, 0)
                 .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_NOT_FOUND));
     }
+
     /**
      * pk에 해당하는 편지의 번역된 한국어 text를 음성데이터로 반환하는 메서드
      *
@@ -201,6 +225,43 @@ public class LettersService {
         return LettersResponseDto.of(letters);
     }
 
+    /**
+     * 편지 키워드에 img가져오는 메소드
+     *
+     * @param lettersId
+     * @return keyword, imgUrl list 반환
+     */
+
+    public List<LettersImgResponseDto> findLettersImg(Long lettersId) {
+        log.info("{LettersService.findLetterImg() : 편지 키워드 이미지 메서드");
+        Letters letters = findById(lettersId);
+        // keyword 추출
+        String keywords = chatGptService.convertKeywordImg(letters.getLettersTranslationContent());
+        String processed = keywords.replaceAll("[\\[\\]\"]", ""); // 대괄호와 따옴표 제거
+        String[] keyword_arr = processed.split(", ");
+        System.out.println(Arrays.toString(keyword_arr));
+        List<LettersImgResponseDto> list = new ArrayList<>();
+        for (String s : keyword_arr) {
+            System.out.println(s);
+            LettersImg lettersImgByKeyword = findLettersImgByKeyword(s);
+
+            LettersImgResponseDto lettersImgResponseDto = LettersImgResponseDto.of(lettersImgByKeyword);
+            list.add(lettersImgResponseDto);
+        }
+        return list;
+    }
+
+    public LettersImg findLettersImgByKeyword(String keyword) {
+        log.info("{LettersService} : keyword에 해당하는 삭제되지 않은 이미지 url 반환 서비스 진입");
+
+        return lettersImgRepository.findLettersImgByKeywordAndIsDeleted(keyword, 0)
+                .orElseGet(() -> {
+                    return lettersImgRepository.findLettersImgByKeywordAndIsDeleted("사랑", 0)
+                            .orElseThrow(() -> BaseException.type(LettersErrorCode.LETTERS_IMG_NOT_FOUND));
+                });
+
+    }
+
     public List<LettersResponseDto> findAllKidsLetters(UUID kidsUuid) {
         log.info("{LettersService} :Kids에 해당하는 모든 편지의 번역본, id, 등록날짜 반환 서비스 진입");
         List<Letters> lettersByKidsList = findAllByKids(kidsUuid);
@@ -214,5 +275,6 @@ public class LettersService {
         List<Letters> lettersByKidsList = lettersRepository.findAllByReportsKidsUuid(kidsUuid);
         return lettersByKidsList;
     }
+
 
 }

@@ -76,10 +76,10 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
             switch (boardSearchType) {
                 case TITLE -> {
                     log.info(" { BoardsListQueryRepositoryImpl } : "+searchWord);
-                    return boards.boardsTitle_kor.contains(searchWord);
+                    return boards.boardsTitleKor.contains(searchWord);
                 }
                 case CONTENT_AND_REPORTS_SUMMARY -> {
-                    return boards.boardsContent_kor.contains(searchWord).or(boards.reports.reportsSummaryKor.contains(searchWord));
+                    return boards.boardsContentKor.contains(searchWord).or(boards.reports.reportsSummaryKor.contains(searchWord));
                 }
                 case WRITER -> {
                     return boards.parents.parentsNickname.contains(searchWord);
@@ -88,7 +88,7 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
                     return boards.reports.reportsKeywordsKor.contains(searchWord);
                 }
                 case TITLE_AND_CONTENT_AND_REPORTS -> {
-                    return boards.boardsTitle_kor.contains(searchWord).or(boards.boardsContent_kor.contains(searchWord)
+                    return boards.boardsTitleKor.contains(searchWord).or(boards.boardsContentKor.contains(searchWord)
                             .or(boards.reports.reportsSummaryKor.contains(searchWord)).or(boards.reports.reportsKeywordsKor.contains(searchWord)));
                 }
                 default -> {
@@ -104,10 +104,10 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
         } else {
             switch (boardSearchType) {
                 case TITLE -> {
-                    return boards.boardsTitle_viet.contains(searchWord);
+                    return boards.boardsTitleViet.contains(searchWord);
                 }
                 case CONTENT_AND_REPORTS_SUMMARY -> {
-                    return boards.boardsContent_viet.contains(searchWord).or(boards.reports.reportsSummaryViet.contains(searchWord));
+                    return boards.boardsContentViet.contains(searchWord).or(boards.reports.reportsSummaryViet.contains(searchWord));
                 }
                 case WRITER -> {
                     return boards.parents.parentsNickname.contains(searchWord);
@@ -116,7 +116,7 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
                     return boards.reports.reportsKeywordsViet.contains(searchWord);
                 }
                 case TITLE_AND_CONTENT_AND_REPORTS -> {
-                    return boards.boardsTitle_viet.contains(searchWord).or(boards.boardsContent_viet.contains(searchWord)
+                    return boards.boardsTitleViet.contains(searchWord).or(boards.boardsContentViet.contains(searchWord)
                             .or(boards.reports.reportsSummaryViet.contains(searchWord)).or(boards.reports.reportsKeywordsViet.contains(searchWord)));
                 }
                 default -> {
@@ -130,11 +130,11 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
         QBoardsListDto boardsListDto = null;
 
         switch (language) {
-            case kor -> boardsListDto = new QBoardsListDto(boards.boardsId, boards.boardsTitle_kor,
-                    boards.boardsContent_kor, boards.likes, boards.createdAt, boards.reports.reportsSummaryKor,
+            case kor -> boardsListDto = new QBoardsListDto(boards.boardsId, boards.boardsTitleKor,
+                    boards.boardsContentKor, boards.likes, boards.createdAt, boards.reports.reportsSummaryKor,
                     boards.reports.reportsKeywordsKor, boards.parents.parentsNickname);
-            case viet -> boardsListDto = new QBoardsListDto(boards.boardsId, boards.boardsTitle_viet,
-                    boards.boardsContent_viet, boards.likes, boards.createdAt, boards.reports.reportsSummaryViet,
+            case viet -> boardsListDto = new QBoardsListDto(boards.boardsId, boards.boardsTitleViet,
+                    boards.boardsContentViet, boards.likes, boards.createdAt, boards.reports.reportsSummaryViet,
                     boards.reports.reportsKeywordsViet, boards.parents.parentsNickname);
         }
         return boardsListDto;

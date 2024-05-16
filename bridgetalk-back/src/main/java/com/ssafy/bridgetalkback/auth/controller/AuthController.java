@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.auth.controller;
 import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ProfileLoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
@@ -54,11 +55,18 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/profileLogin/{profileId}")
-    public ResponseEntity<LoginResponseDto> profileLogin(@ExtractPayload String userId, @PathVariable String profileId) {
+    @PostMapping("/profileLogin")
+    public ResponseEntity<LoginResponseDto> profileLogin(@ExtractPayload String userId, @RequestBody ProfileLoginRequestDto requestDto) {
         log.info("{ AuthController } : 프로필 선택 (로그인) 진입");
-        LoginResponseDto loginResponseDto = authService.profileLogin(UUID.fromString(profileId));
+        LoginResponseDto loginResponseDto = authService.profileLogin(requestDto);
         log.info("{ AuthService } : 프로필 선택 (로그인) 성공");
         return ResponseEntity.ok(loginResponseDto);
+    }
+
+    @GetMapping("/nickname-duplicate/{nickname}")
+    public ResponseEntity<Void> duplicateNickname(@ExtractPayload String userId, @PathVariable String nickname) {
+        log.info("{ AuthController } : 닉네임 중복 검사 진입");
+        authService.duplicateNickname(nickname);
+        return ResponseEntity.ok().build();
     }
 }

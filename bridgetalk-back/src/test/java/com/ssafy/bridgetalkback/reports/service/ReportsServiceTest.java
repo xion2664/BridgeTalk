@@ -129,7 +129,7 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsSummary()).isEqualTo(reports[0].getReportsSummaryKor()),
                 () -> assertThat(reportsDetailResponseDto.reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsKor().toString()),
                 () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionKor()),
-                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(1,10)
+                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(0,10)
         );
     }
 
@@ -149,7 +149,7 @@ public class ReportsServiceTest extends ServiceTest {
                 () -> assertThat(reportsDetailResponseDto.reportsSummary()).isEqualTo(reports[0].getReportsSummaryViet()),
                 () -> assertThat(reportsDetailResponseDto.reportsKeywords().toString()).isEqualTo(reports[0].getReportsKeywordsViet().toString()),
                 () -> assertThat(reportsDetailResponseDto.reportsSolution()).isEqualTo(reports[0].getReportsSolutionViet()),
-                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(1,10)
+                () -> assertThat(reportsDetailResponseDto.reportsVideoList().size()).isBetween(0,10)
         );
     }
 

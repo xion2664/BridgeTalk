@@ -41,7 +41,6 @@ public class ReportsFindServiceTest extends ServiceTest {
         // when
         Reports findReports = reportsFindService.findByReportsIdAndIsDeleted(reports.getReportsId());
         Long inVaildReportsId = -1L;
-        System.out.println(reports.getReportsId());
 
         // then
         assertThatThrownBy(() -> reportsFindService.findByReportsIdAndIsDeleted(inVaildReportsId))

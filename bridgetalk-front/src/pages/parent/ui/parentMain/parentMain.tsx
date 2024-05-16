@@ -46,7 +46,7 @@ export function ParentMain() {
 
   return (
     <S.Container>
-      <button
+      {/* <button
         className="home"
         onClick={() => {
           navigate('/profile');
@@ -67,7 +67,7 @@ export function ParentMain() {
         <button className="main__info" onClick={() => navigate('../information')}>
           {rightMenu[language]}
         </button>
-      </div>
+      </div> */}
     </S.Container>
   );
 }

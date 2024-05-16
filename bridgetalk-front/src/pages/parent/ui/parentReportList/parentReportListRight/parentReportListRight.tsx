@@ -2,13 +2,14 @@ import * as S from '@/styles/parent/parentReportListRight.style';
 import { ParentReportListItem } from '@/pages/parent/ui/parentReportList/parentReportListItem/parentReportListItem';
 import { FaSearch, FaCalendarAlt } from 'react-icons/fa';
 import { useReportStore } from '@/pages/parent/store';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function ParentReportListRight() {
-  const { reportList, setReportList, language } = useReportStore((state) => ({
+  const { reportList, setReportList, language, childrenList } = useReportStore((state) => ({
     reportList: state.reportList,
     setReportList: state.setReportList,
     language: state.language,
+    childrenList: state.childrenList,
   }));
 
   const title = useMemo(
@@ -19,62 +20,84 @@ export function ParentReportListRight() {
     [],
   );
 
+  const [selected, setSelected] = useState(reportList);
+
+  useEffect(() => {
+    setSelected(reportList);
+  }, [reportList]);
+
   return (
     <S.Container>
       <div className="title">
-        <img src={`/assets/img/letter.svg`} />
-        <div style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>{title[language]}</div>
+        <img src={'/assets/img/letter.svg'} />
+        <div>{title[language]}</div>
       </div>
-      {/* <div className="filter">
-        <div className="calendar">
-          <FaCalendarAlt />
-          <div>날짜</div>
+      <div className="content__container">
+        <div className="children__wrapper">
+          <div className="children">
+            {childrenList.map((child: any) => {
+              return (
+                <button
+                  className={`children__child ${
+                    selected.some((report: any) => report.UUID === child.userId) ? 'active' : ''
+                  }`}
+                  onClick={(e: any) => {
+                    if ([...e.target.classList].some((it) => it === 'active')) {
+                      const tmp = selected.filter((report: any) => report.UUID !== child.userId);
+                      setSelected(tmp);
+                      return;
+                    }
+
+                    const tmp = reportList.filter((report: any) => report.UUID === child.userId).concat(selected);
+
+                    setSelected(tmp);
+                  }}
+                >
+                  {child.userName}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <button className="due"></button>
-        <div>~</div>
-        <button className="due"></button>
-        <button className="search">
-          <FaSearch />
-        </button>
-      </div> */}
-      <div className="content">
-        <div className="list">
-          {reportList.length > 0 ? (
-            reportList.map((report: any) => {
-              if (!report.value) return;
+        <div className="content">
+          <div className="list">
+            {selected.length > 0 ? (
+              selected.map((report: any) => {
+                if (!report.value) return;
 
-              let reportData = report.value.data;
-              reportData = reportData.filter((it: any) => it.reportsSummary);
+                let reportData = report.value.data;
+                reportData = reportData.filter((it: any) => it.reportsSummary);
 
-              const arr = reportData.map((it: any) => {
-                return (
-                  <ParentReportListItem
-                    key={it.reportsId}
-                    reportsId={it.reportsId}
-                    reportsSummary={it.reportsSummary}
-                    reportsKeywords={it.reportsKeywords}
-                    createdAt={it.createdAt}
-                    uuid={report.UUID}
-                    name={report.name}
-                    nickname={report.nickname}
-                  />
-                );
-              });
+                const arr = reportData.map((it: any) => {
+                  return (
+                    <ParentReportListItem
+                      key={it.reportsId}
+                      reportsId={it.reportsId}
+                      reportsSummary={it.reportsSummary}
+                      reportsKeywords={it.reportsKeywords}
+                      createdAt={it.createdAt}
+                      uuid={report.UUID}
+                      name={report.name}
+                      nickname={report.nickname}
+                    />
+                  );
+                });
 
-              // 저장한 리포트 리스트를 최근 순으로 정렬하기
-              arr.sort((a: any, b: any) => {
-                return b.props.createdAt - a.props.createdAt;
-              });
+                // 저장한 리포트 리스트를 최근 순으로 정렬하기
+                arr.sort((a: any, b: any) => {
+                  return b.props.createdAt - a.props.createdAt;
+                });
 
-              return arr;
-            })
-          ) : (
-            <div className="list__noReport">
-              <img src={'/assets/img/parent/noReports.svg'} />
-            </div>
-          )}
+                return arr;
+              })
+            ) : (
+              <div className="list__noReport">
+                <img src={'/assets/img/parent/noReports.svg'} />
+              </div>
+            )}
+          </div>
+          <div className="scrollbar"></div>
         </div>
-        <div className="scrollbar"></div>
       </div>
     </S.Container>
   );

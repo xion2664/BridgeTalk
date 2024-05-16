@@ -3,19 +3,25 @@ import { color } from '@/styles/parent/common.style';
 
 export const Container = styled.div`
   display: flex;
+
   background-color: ${color(1).sub};
   padding: 2svh 1svw;
-  color: ${color(1).bright};
-  border-radius: 1svw;
+  border-radius: 2svw;
 
   box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
 
   position: relative;
   cursor: pointer;
 
-  div {
-    font-family: 'DNF';
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  * {
+    font-family: 'Cookie';
     font-size: 1.5svw;
+    color: ${color(1).bright};
   }
 
   &::after {
@@ -25,8 +31,8 @@ export const Container = styled.div`
     content: '';
     width: 100%;
     height: 100%;
-    border-radius: 1svw;
-    box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+    border-radius: 2svw;
+    box-shadow: inset 0 0.5svh 1.5svh ${color(0.5).bright};
     z-index: 0;
     pointer-events: none;
   }
@@ -38,48 +44,104 @@ export const Container = styled.div`
     content: '';
     width: 100%;
     height: 100%;
-    border-radius: 1svw;
-    box-shadow: inset 0 -0.5svh 0.4svh ${color(0.5).dark};
+    border-radius: 2svw;
+    box-shadow: inset 0 -0.5svh 1.5svh ${color(0.5).dark};
     z-index: 0;
     pointer-events: none;
   }
 
   transition: all 0.1s;
-
-  &:hover {
-    transform: translateY(0.25svh);
-    box-shadow: 0 0.25svh 0.4svh ${color(0.5).black};
-  }
-
-  &:active {
-    transform: translateY(0.5svh);
-    box-shadow: 0 0svh 0.4svh ${color(0.5).black};
-  }
 `;
 
 export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1svh;
-`;
-
-export const ContentHeader = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
   gap: 1svw;
+  width: 100%;
+  /* height: 18svh; */
+  height: 100%;
 
-  .tags {
+  .left {
+    width: 100%;
+    height: 100%;
+    background-color: ${color(1).black};
+  }
+
+  .right {
     display: flex;
-    gap: 1svw;
+    flex-direction: column;
+    justify-content: space-between;
 
-    .tag {
-      background-color: ${color(1).main};
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-      padding: 0.5svh 0.5svw;
-      border-radius: 1svw;
-      font-size: 1svw;
+    gap: 1svh;
+
+    height: 100%;
+
+    &__date {
+      font-family: 'Cookie';
+
+      font-size: 2svw;
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2svw;
+
+      height: 100%;
+
+      align-items: center;
+
+      &-title {
+        text-align: center;
+      }
+
+      &-tags {
+        display: flex;
+        flex-direction: column;
+        gap: 1svh;
+      }
+
+      &-title,
+      &-tags {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &-tag {
+          background-color: ${color(1).bright};
+          border-radius: 1svw;
+          padding: 0.5svh 0.5svw;
+          color: ${color(1).black};
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  .view {
+    background-color: ${color(1).black};
+    border-radius: 1svw;
+    height: 4.8svh;
+    width: 7svw;
+
+    color: ${color(1).bright};
+    box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+
+    cursor: pointer;
+    font-family: 'Pretendard';
+
+    &:hover {
+      transform: translateY(0.25svh);
+      box-shadow: 0 0.25svh 0.4svh ${color(0.5).black};
+    }
+
+    &:active {
+      transform: translateY(0.5svh);
+      box-shadow: 0 0svh 0.4svh ${color(0.5).black};
     }
   }
 `;
-
-export const ContentBody = styled.div``;
