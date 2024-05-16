@@ -96,6 +96,7 @@ export function ParentReportListRight() {
                       uuid={report.UUID}
                       name={report.name}
                       nickname={report.nickname}
+                      dino={report.dino}
                     />
                   );
                 });
