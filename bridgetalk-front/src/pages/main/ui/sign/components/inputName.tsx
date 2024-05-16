@@ -109,13 +109,11 @@ export function InputName({ setPage }: Props) {
               return;
             }
 
-            handleNicknameCheck(nickname, setErrorModalState)
-              .then((res) => {})
-              .catch((err) => {
-                return;
-              });
-
-            setPage((page) => page + 1);
+            handleNicknameCheck(nickname, setErrorModalState).then((res) => {
+              if (res) {
+                setPage((page) => page + 1);
+              }
+            });
           }}
         >
           다음
