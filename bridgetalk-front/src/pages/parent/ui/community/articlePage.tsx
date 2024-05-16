@@ -7,6 +7,7 @@ import {
   faTrashCan,
   faUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
+import { ReplyList } from './components/replyList';
 
 export function ArticlePage() {
   return (
@@ -32,6 +33,12 @@ export function ArticlePage() {
               <FontAwesomeIcon icon={faTrashCan} />
             </div>
           </div>
+          <div className="articlePage__container-article-report">
+            리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약
+            리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약
+            리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약
+            리포트 요약 리포트 요약 리포트 요약 리포트 요약
+          </div>
           <div className="articlePage__container-article-content">
             글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
             내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용
@@ -39,6 +46,11 @@ export function ArticlePage() {
             내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용
             글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
             내용 글 내용
+          </div>
+          <div className="articlePage__container-article-keywords">
+            <div className="articlePage__container-article-keywords-keyword">키워드1</div>
+            <div className="articlePage__container-article-keywords-keyword">키워드1</div>
+            <div className="articlePage__container-article-keywords-keyword">키워드1</div>
           </div>
         </div>
 
@@ -50,6 +62,7 @@ export function ArticlePage() {
             </div>
             <div className="articlePage__container-reply-write-slide">{/* <replyCreate /> */}</div>
           </div>
+          <ReplyList />
         </div>
       </div>
     </div>
