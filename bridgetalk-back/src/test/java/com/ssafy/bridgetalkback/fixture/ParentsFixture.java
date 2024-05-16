@@ -11,8 +11,8 @@ import static com.ssafy.bridgetalkback.global.utils.PasswordEncoderUtils.ENCODER
 @Getter
 @RequiredArgsConstructor
 public enum ParentsFixture {
-    SUNKYOUNG("윤선경", "ssafy123@gmail.com", "ssafy123", "닉네임", "D1"),
-    SOYOUNG("방소영", "ssafy456@gmail.com", "ssafy456", "닉네임", "D1")
+    SUNKYOUNG("윤선경", "ssafy123@gmail.com", "ssafy123", "닉네임1", "D1"),
+    SOYOUNG("방소영", "ssafy456@gmail.com", "ssafy456", "닉네임2", "D1")
     ;
 
     private final String parentsName;
