@@ -40,15 +40,15 @@ export function ArticlePage() {
             글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
             내용 글 내용
           </div>
+        </div>
 
-          <div className="articlePage__container-reply">
-            <div className="articlePage__container-reply-write">
-              <div className="articlePage__container-reply-write-intro">
-                <h2>답글을 작성하고 사용자와 의견을 나눠보세요.</h2>
-                <button>답글 작성하기</button>
-              </div>
-              <div className="articlePage__container-reply-write-slide">{/* <replyCreate /> */}</div>
+        <div className="articlePage__container-reply">
+          <div className="articlePage__container-reply-write">
+            <div className="articlePage__container-reply-write-intro">
+              <h2>답글을 작성하고 사용자와 의견을 나눠보세요.</h2>
+              <button>답글 작성하기</button>
             </div>
+            <div className="articlePage__container-reply-write-slide">{/* <replyCreate /> */}</div>
           </div>
         </div>
       </div>
