@@ -5,16 +5,18 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 100svw;
   height: 100svh;
   background-color: ${color(0.2).black};
+
+  /* ::-webkit-scrollbar {
+    display: none;
+  } */
 
   .logout {
     position: fixed;
     top: 3svh;
     left: 2svw;
-
     border: none;
     background-color: transparent;
 
@@ -53,19 +55,44 @@ export const Container = styled.div`
     }
 
     &__profilelist {
+      &-wrapper {
+        width: 80svw;
+        overflow-x: auto;
+        overflow-y: visible;
+        position: relative;
+
+        &-left {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5svw;
+          height: 100%;
+
+          transform: translateX(-5svw);
+          background-color: ${color(1).main};
+
+          z-index: 1;
+        }
+
+        &-right {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 10svw;
+          height: 100%;
+          background-color: ${color(0.5).main};
+        }
+      }
+
       display: flex;
       align-items: center;
       justify-content: start;
       gap: 3.1svw;
 
-      overflow-x: auto;
-      width: 80svw;
-
       &-item {
         &-edit {
           background-color: transparent;
           border: none;
-
           position: absolute;
           top: 2svw;
           right: 2svw;
@@ -78,7 +105,6 @@ export const Container = styled.div`
         &-delete {
           background-color: transparent;
           border: none;
-
           position: absolute;
           top: 2svw;
           left: 2svw;
@@ -96,15 +122,21 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
 
+        min-width: 20.8svw;
+
         background-color: ${color(1).sub};
-        width: 50svw;
-        /* height: 37svh; */
         height: 30svw;
         border-radius: 3svw;
         padding: 2svw;
 
         position: relative;
         box-shadow: 0 0.5svh 0.4svh ${color(0.25).black};
+
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: inset 0 0 2svh ${color(1).white};
+        }
 
         button {
           background-color: transparent;
