@@ -1,3 +1,4 @@
+import { dateToString } from '@/shared';
 import * as S from '@/styles/parent/parentReportListLeft.style';
 import { useEffect, useState } from 'react';
 
@@ -17,6 +18,46 @@ export function ParentReportListLeft() {
 
   useEffect(() => {
     const tmp = [
+      {
+        boardId: 3,
+        boardsTitle: '제목 테스트',
+        boardsContent: '내용 테스트',
+        likes: 0,
+        createdAt: '2024-05-13T13:33:28.005731',
+        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
+        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
+        writer: '부모닉네임',
+      },
+      {
+        boardId: 3,
+        boardsTitle: '제목 테스트',
+        boardsContent: '내용 테스트',
+        likes: 0,
+        createdAt: '2024-05-13T13:33:28.005731',
+        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
+        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
+        writer: '부모닉네임',
+      },
+      {
+        boardId: 3,
+        boardsTitle: '제목 테스트',
+        boardsContent: '내용 테스트',
+        likes: 0,
+        createdAt: '2024-05-13T13:33:28.005731',
+        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
+        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
+        writer: '부모닉네임',
+      },
+      {
+        boardId: 3,
+        boardsTitle: '제목 테스트',
+        boardsContent: '내용 테스트',
+        likes: 0,
+        createdAt: '2024-05-13T13:33:28.005731',
+        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
+        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
+        writer: '부모닉네임',
+      },
       {
         boardId: 3,
         boardsTitle: '제목 테스트',
@@ -57,7 +98,7 @@ function BoardListItem({ board }: BoardListItem) {
       <div className="main__content-list-item-like">{board.likes}</div>
       <div className="main__content-list-item-title">{board.boardsTitle}</div>
       <div className="main__content-list-item-body">{board.boardsContent}</div>
-      <div className="main__content-list-item-date">{board.createdAt}</div>
+      <div className="main__content-list-item-date">{dateToString(board.createdAt)}</div>
     </div>
   );
 }
