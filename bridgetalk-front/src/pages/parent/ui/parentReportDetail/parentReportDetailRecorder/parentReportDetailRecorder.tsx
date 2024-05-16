@@ -84,7 +84,7 @@ export const ParentReportDetailRecorder = memo(() => {
 
   return (
     <S.Container>
-      <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+      <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}>
         {title[language]}
       </div>
       <ParentReportDetailVolumeChecker isRecording={isRecording} />

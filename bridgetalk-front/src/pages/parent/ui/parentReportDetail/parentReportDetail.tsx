@@ -17,6 +17,7 @@ export function ParentReportDetail() {
   const language = useReportStore((state) => state.language);
   const reports_UUID = useReportStore((state) => state.reports_UUID);
   const setResultPage = useReportStore((state) => state.setResultPage);
+  const resultPage = useReportStore((state) => state.resultPage);
 
   // State
   const [report, setReport] = useState<any>('');
@@ -24,8 +25,8 @@ export function ParentReportDetail() {
 
   const dateWord = useMemo(
     () => ({
-      kor: ['년', '월', '일'],
-      viet: ['Năm', 'tháng', 'ngày'],
+      kor: ['.', '.', '.'],
+      viet: ['.', '.', '.'],
     }),
     [],
   );
@@ -73,7 +74,7 @@ export function ParentReportDetail() {
             .fill(0)
             .map((it, idx) => (
               <button
-                className={`menu__summary `}
+                className={`menu__summary ${idx === resultPage ? 'active' : ''}`}
                 onClick={() => {
                   setResultPage(idx);
                 }}
@@ -85,11 +86,10 @@ export function ParentReportDetail() {
         <div className="leftside">
           {report && (
             <>
-              <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+              <div className="title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}>
                 {date[0]}
                 {dateWord[language][0]} {date[1]}
-                {dateWord[language][1]} {date[2]}
-                {dateWord[language][2]} {title[language]}
+                {dateWord[language][1]} {date[2]} {title[language]}
               </div>
               <div className="content-container">
                 <Content
@@ -123,17 +123,13 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
         <div className="content">
           <S.Keywords>
             {reportsKeywords.map((keyword: any) => (
-              <div className="keyword" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
-                #{keyword.trim()}
-              </div>
+              <div className="keyword"># {keyword.trim()}</div>
             ))}
           </S.Keywords>
-          <S.Summary style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>{reportsSummary}</S.Summary>
+          <S.Summary>{reportsSummary}</S.Summary>
         </div>
       ) : (
-        <div className="solution" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
-          {reportsSolution}
-        </div>
+        <div className="solution">{reportsSolution}</div>
       )}
     </>
   );
