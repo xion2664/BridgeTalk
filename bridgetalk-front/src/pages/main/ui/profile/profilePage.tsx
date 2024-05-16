@@ -2,7 +2,7 @@ import * as S from '@/styles/main/profilePage.style';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProfileList, deleteDeleteProfile, postProfileLogin } from '../../query';
-import { decodeToken, setToken } from '@/shared';
+import { customAxios, decodeToken, setToken } from '@/shared';
 import { useProfileStore, useUserStore } from '../../store';
 import { handleFetchProfileList } from '../../model';
 
@@ -64,6 +64,15 @@ export function ProfilePage() {
         }}
       >
         <img src={'assets/img/main/setting.svg'} />
+      </button>
+      <button
+        onClick={() => {
+          customAxios.get(`/notification/send-test/${userStore.userId}`).then((res) => {
+            console.log(res);
+          });
+        }}
+      >
+        sse테스트
       </button>
       {!isLoading && (
         <div className="main">

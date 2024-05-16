@@ -1,5 +1,7 @@
+import { customAxios } from '@/shared';
 import * as S from '@/styles/main/start.style';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store';
 
 export function StartPage() {
   const navigate = useNavigate();
