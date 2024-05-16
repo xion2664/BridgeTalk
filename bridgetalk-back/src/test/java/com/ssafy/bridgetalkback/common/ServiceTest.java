@@ -6,7 +6,6 @@ import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
 import com.ssafy.bridgetalkback.comments.repository.CommentsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
-import com.ssafy.bridgetalkback.notification.domain.Notification;
 import com.ssafy.bridgetalkback.notification.repository.NotificationRepository;
 import com.ssafy.bridgetalkback.notification.repository.SseRepositoryImpl;
 import com.ssafy.bridgetalkback.parentingInfo.repository.ParentingInfoBoardNumRepository;
@@ -17,7 +16,6 @@ import com.ssafy.bridgetalkback.reports.repository.ReportsRepository;
 import com.ssafy.bridgetalkback.slang.repository.SlangRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
