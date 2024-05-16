@@ -1,5 +1,5 @@
 import * as S from '@/styles/main/start.style';
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function StartPage() {
@@ -11,24 +11,26 @@ export function StartPage() {
 
   useEffect(() => {
     setTimeout(() => {
-      singnupBtnRef.current.classList.remove('invisible');
+      singnupBtnRef.current?.classList?.remove('invisible');
     }, 1200);
     setTimeout(() => {
-      signinBtnRef.current.classList.remove('invisible');
+      signinBtnRef.current?.classList?.remove('invisible');
     }, 1700);
-  });
+  }, []);
 
   return (
     <S.Container>
-      <div className="title">
+      <div className={`title`}>
         <img src={'assets/img/bridgetalk_red.svg'} />
       </div>
-      <div className="buttons">
+      <div className={`buttons`}>
         <button
           ref={singnupBtnRef}
           className="buttons__signup invisible"
           onClick={() => {
-            navigate('../signup');
+            setTimeout(() => {
+              navigate('../signup');
+            }, 100);
           }}
         >
           <img src={'assets/img/signupicon.svg'} />
@@ -38,7 +40,9 @@ export function StartPage() {
           ref={signinBtnRef}
           className="buttons__siginin invisible"
           onClick={() => {
-            navigate('../signin');
+            setTimeout(() => {
+              navigate('../signin');
+            }, 100);
           }}
         >
           <img src={'assets/img/signinicon.svg'} />

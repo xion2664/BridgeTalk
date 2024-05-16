@@ -14,6 +14,15 @@ const fadein = keyframes`
   }
 `;
 
+const fadeout = keyframes`
+0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
 
@@ -67,7 +76,7 @@ export const Container = styled.div`
 
       position: relative;
       box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-
+      cursor: pointer;
       &::after {
         ${insetShadow}
 
@@ -80,6 +89,14 @@ export const Container = styled.div`
 
         ${BUTTON_RADIUS}
         box-shadow: inset 0 -1svh 0.8svh ${color(0.25).black};
+      }
+
+      &:hover {
+        transform: scale(1.02);
+      }
+
+      &:active {
+        transform: scale(1);
       }
     }
   }
