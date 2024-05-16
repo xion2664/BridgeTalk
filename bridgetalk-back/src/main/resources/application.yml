@@ -12,6 +12,7 @@ spring:
       ddl-auto: update
     properties:
       dialect: dialect=org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
 
   profiles:
     include: secret

@@ -5,6 +5,9 @@ import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
 import com.ssafy.bridgetalkback.comments.service.CommentsService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,7 @@ import java.util.UUID;
 public class CommentsController {
 
     private final CommentsService commentsService;
+    private final SseService sseService;
 
     @PostMapping
     public ResponseEntity<CommentsResponseDto> createComments(
@@ -31,6 +35,16 @@ public class CommentsController {
         log.info("{ CommentsController } : Comments 생성 진입");
         CommentsResponseDto commentsResponseDto = commentsService.createComments(UUID.fromString(userId), commentsRequestDto);
         log.info("{ CommentsController } : Comments 생성 성공");
+
+        log.info(">>>> (부모에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(commentsResponseDto.parentsUuid())
+                .url("https://bridgetalk.co.kr/api/letters/")
+                .content(NotificationType.POST_COMMENTS_REGISTER.getWord())
+                .notificationType(NotificationType.POST_COMMENTS_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (부모에게) SSE 알림 전송 완료");
         return ResponseEntity.status(HttpStatus.CREATED).body(commentsResponseDto);
     }
 
