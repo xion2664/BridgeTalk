@@ -19,6 +19,9 @@ import com.ssafy.bridgetalkback.letters.dto.response.TranscriptionDto;
 import com.ssafy.bridgetalkback.letters.exception.LettersErrorCode;
 import com.ssafy.bridgetalkback.letters.repository.LettersImgRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
@@ -53,6 +56,7 @@ public class LettersService {
     private final ParentsFindService parentsFindService;
     private final KidsFindService kidsFindService;
     private final LettersImgRepository lettersImgRepository;
+    private final SseService sseService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -108,6 +112,16 @@ public class LettersService {
         Reports reports = reportsService.findByIdAndIsDeleted(reportsId);
         Letters newLetter = Letters.createLetters(parents, reports, extractOriginText, transformedText);
         lettersRepository.save(newLetter);
+
+        log.info(">>>> (아이에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(reports.getKids().getUuid().toString())
+                .url("https://bridgetalk.co.kr/api/letters/"+newLetter.getLettersId())
+                .content(NotificationType.PARENT_LETTERS_REGISTER.getWord())
+                .notificationType(NotificationType.PARENT_LETTERS_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (아이에게) SSE 알림 전송 완료");
 
         return LettersResponseDto.of(newLetter);
     }
