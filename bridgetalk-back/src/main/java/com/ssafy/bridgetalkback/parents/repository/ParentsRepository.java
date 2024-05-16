@@ -19,4 +19,6 @@ public interface ParentsRepository extends JpaRepository<Parents, UUID> {
     Optional<Parents> findParentsByParentsEmailAndIsDeleted(Email parentsEmail, int isDeleted);
 
     boolean existsParentsByUuidAndIsDeleted(UUID uuid, int isDeleted);
+
+    boolean existsParentsByParentsNicknameAndIsDeleted(String parentsNickname, int isDeleted);
 }
