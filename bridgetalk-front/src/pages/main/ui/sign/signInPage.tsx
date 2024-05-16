@@ -6,6 +6,7 @@ import * as S from '@/styles/main/signIn.style';
 import { HomeButton } from '@/shared';
 import { postSignin } from '../../query';
 import { handleSignin } from '../../model';
+import { useErrorStore } from '@/shared/store';
 
 export function SignInPage() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export function SignInPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
 
   return (
     <S.Container>
@@ -54,6 +56,7 @@ export function SignInPage() {
                 },
                 userStore,
                 navigate,
+                setErrorModalState,
               );
             }
           }}
@@ -69,6 +72,7 @@ export function SignInPage() {
             },
             userStore,
             navigate,
+            setErrorModalState,
           );
         }}
       >
