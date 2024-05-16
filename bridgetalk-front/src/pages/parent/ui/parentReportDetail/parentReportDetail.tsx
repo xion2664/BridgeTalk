@@ -90,7 +90,6 @@ export function ParentReportDetail() {
                 {dateWord[language][0]} {date[1]}
                 {dateWord[language][1]} {date[2]}
                 {dateWord[language][2]} {title[language]}
-                {/* <TransltaionButton isKor={isKor} setIsKor={setIsKor} /> */}
               </div>
               <div className="content-container">
                 <Content

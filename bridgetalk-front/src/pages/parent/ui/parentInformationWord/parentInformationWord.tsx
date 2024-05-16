@@ -18,72 +18,90 @@ export function ParentInformationWord() {
   const navigate = useNavigate();
   const [words, setWords] = useState<Word[]>([]);
   const [page, setPage] = useState<number>(0);
+  const [lastPage, setLastPage] = useState<number>(0);
   const [wordDetail, setWordDetail] = useState<Word | null>(null);
 
   useEffect(() => {
-    getSlang(page, 7).then((res) => {
-      console.log(res);
+    getSlang(page, 9).then((res) => {
       if (res.status === 200) {
         setWords(res.data.list);
+        setLastPage(res.data.endPage);
       }
     });
   }, [page]);
 
+  const startIndex = Math.floor(page / 5) * 5;
+  const endIndex = Math.min(startIndex + 5, lastPage);
+
   return (
-    <>
-      <BackButton path="../information" navigate={navigate} />
-      <S.Container>
-        <div className="main">
-          <div className="main__left">
-            <div className="main__left-buttons">
-              {Array(6)
-                .fill(0)
-                .map((it, idx) => (
-                  <button
-                    key={idx + 1}
-                    className={`main__left-buttons-button ${page === idx ? 'active' : null} `}
-                    onClick={() => {
-                      setPage(idx);
-                    }}
-                  >
-                    {idx + 1}
-                  </button>
-                ))}
-            </div>
-            <div className="main__left-list">
-              {words.length > 0 &&
-                words.map((word: Word) => (
-                  <div
-                    className="main__left-list-item"
-                    key={word.slangId}
-                    onClick={() => {
-                      setWordDetail(word);
-                    }}
-                  >
-                    {word.slangWord}
-                  </div>
-                ))}
-            </div>
-          </div>
-          <div className="main__right">
-            <div className="main__right-item">
-              {wordDetail !== null ? (
-                <>
-                  <div className="main__right-item-word">
-                    <div className="main__right-item-word-kor">{wordDetail.slangWord} </div>
-                    <div className="main__right-item-word-viet">{`( ${wordDetail.vietnamesePronunciation} )`}</div>
-                  </div>
-                  <div className="main__right-item-original">{wordDetail.originalWord}</div>
-                  <div className="main__right-item-meaning">{wordDetail.meaning}</div>
-                  <div className="main__right-item-vietmeaning">{wordDetail.vietnameseTranslation}</div>
-                </>
-              ) : (
-                <div>궁금한 단어를 선택해보세요!</div>
-              )}
-            </div>
-          </div>
-        </div>
-      </S.Container>
-    </>
+    <S.Container>
+      <div className="main">{words.length > 0 ? words.map((word) => <WordItem word={word} />) : null}</div>
+      <div className="pagenation">
+        <button
+          onClick={() => {
+            setPage(0);
+          }}
+        >{`<<`}</button>
+        <button
+          onClick={() => {
+            setPage((page) => {
+              if (page > 0) {
+                return page - 1;
+              }
+              return page;
+            });
+          }}
+        >{`<`}</button>
+        {words.length > 0 &&
+          Array(lastPage)
+            .fill(0)
+            .slice(startIndex, endIndex)
+            .map((_, idx) => (
+              <button
+                className={`${page === startIndex + idx ? 'active' : ''}`}
+                onClick={() => {
+                  setPage(Math.floor(startIndex + idx));
+                }}
+              >
+                {startIndex + idx + 1}
+              </button>
+            ))}
+        <button
+          onClick={() => {
+            setPage((page) => {
+              if (page < lastPage - 1) {
+                return page + 1;
+              }
+              return page;
+            });
+          }}
+        >{`>`}</button>
+        <button
+          onClick={() => {
+            setPage(lastPage - 1);
+          }}
+        >{`>>`}</button>
+      </div>
+    </S.Container>
+  );
+}
+
+function WordItem({ word }: any) {
+  const [clicked, setClicked] = useState(false);
+
+  return (
+    <div
+      className="main__worditem"
+      onClick={() => {
+        setClicked((clicked) => !clicked);
+      }}
+    >
+      <div className="main__worditem-top">
+        <div className="main__worditem-top-title">{word.slangWord}</div>
+        <div>{word.vietnamesePronunciation}</div>
+        <div>{word.originalWord}</div>
+      </div>
+      <div className="main__worditem-bottom">{!clicked ? word.meaning : word.vietnameseTranslation}</div>
+    </div>
   );
 }

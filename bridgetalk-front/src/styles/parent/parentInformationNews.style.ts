@@ -1,23 +1,31 @@
 import styled, { css } from 'styled-components';
-import { CommonContainer, color } from './common.style';
+import { CommonContainer, color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
 const gridLayout = css`
   display: grid;
-  grid-template-columns: 1fr 3fr 5fr;
+  grid-template-columns: 2fr 10fr 2fr;
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70svh;
-  width: 50svw;
+  height: 90svh;
+  width: 70svw;
 
   gap: 2svh;
 
+  .title {
+    text-align: center;
+    font-size: 3.5svw;
+    color: ${color(1).bright};
+    ${textShadowBlue}
+    height: 15svh;
+  }
+
   .categories {
     display: flex;
-    justify-content: end;
+    justify-content: start;
     gap: 1svw;
 
     button {
@@ -33,6 +41,22 @@ export const Container = styled.div`
       cursor: pointer;
 
       box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+      padding: 0.5svh 0.5svw;
+
+      position: relative;
+      transition: all 0.2s;
+
+      &::after {
+        ${insetShadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
+      }
+
+      &::before {
+        ${insetShadow}
+        border-radius: 2svw;
+        box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
+      }
     }
 
     .active {
@@ -46,22 +70,28 @@ export const Container = styled.div`
     align-items: center;
     gap: 1svh;
 
-    height: 73svh;
     padding: 2svh 2svw;
 
     border-radius: 1.5svw;
     border: none;
 
+    height: 50svh;
+
     box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
 
     background-color: ${color(1).sub};
+    position: relative;
 
     &::after {
       ${insetShadow}
+      border-radius: 1svw;
+      box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
     }
 
     &::before {
       ${insetShadow}
+      border-radius: 1svw;
+      box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
     }
 
     table {
@@ -82,11 +112,28 @@ export const Container = styled.div`
       font-family: 'Pretendard';
 
       cursor: pointer;
+      position: relative;
 
       &-title {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        text-align: start;
+      }
+
+      &-category {
+        position: absolute;
+        bottom: 1svh;
+        right: 1svw;
+
+        display: flex;
+
+        color: ${color(0.5).black};
+      }
+
+      transition: all 0.1s;
+      &:hover {
+        transform: scale(1.01);
       }
     }
 
@@ -115,7 +162,7 @@ export const Container = styled.div`
     justify-content: center;
 
     .active {
-      background-color: ${color(1).main};
+      background-color: ${color(1).sub};
     }
 
     button {
@@ -123,14 +170,20 @@ export const Container = styled.div`
       height: 3svw;
 
       border: none;
-      border-radius: 50%;
+      border-radius: 1svw;
 
-      font-family: 'DNF';
-      font-size: 2svw;
+      font-family: 'Pretendard';
+      font-size: 1.5svw;
 
       cursor: pointer;
 
-      box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+      box-shadow: 0 0 1svh ${color(1).black};
+
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: ${color(1).sub};
+      }
     }
   }
 `;
