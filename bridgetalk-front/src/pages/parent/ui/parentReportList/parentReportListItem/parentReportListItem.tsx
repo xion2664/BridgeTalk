@@ -44,11 +44,7 @@ export function ParentReportListItem({
   return (
     <S.Container onClick={() => navigate(`${reportsId}`)}>
       <S.Content>
-        <div className="left">
-          <Canvas>
-            <SelectDino />
-          </Canvas>
-        </div>
+        <div className="left"></div>
         <div className="right">
           <div className="right__date">
             {date &&
