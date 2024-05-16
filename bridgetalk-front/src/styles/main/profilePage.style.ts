@@ -55,8 +55,11 @@ export const Container = styled.div`
     &__profilelist {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: start;
       gap: 3.1svw;
+
+      overflow-x: auto;
+      width: 80svw;
 
       &-item {
         &-edit {
@@ -94,7 +97,7 @@ export const Container = styled.div`
         align-items: center;
 
         background-color: ${color(1).sub};
-        width: 20.8svw;
+        width: 50svw;
         /* height: 37svh; */
         height: 30svw;
         border-radius: 3svw;

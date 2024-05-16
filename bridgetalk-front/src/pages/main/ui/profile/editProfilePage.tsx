@@ -183,6 +183,7 @@ export function EditProfilePage({ type }: Props) {
 
 function DinoBox() {
   const [dinoNum, setDinoNum] = useState<number>(3);
+  const userStore = useUserStore();
 
   return (
     <>
@@ -190,9 +191,9 @@ function DinoBox() {
         .fill(0)
         .map((_, idx) => (
           <Canvas style={{ width: `10svw` }} className="canvas">
-            <ambientLight intensity={dinoNum === idx + 1 ? 2 : 1} />
-            <PerspectiveCamera position={[-0.01, 0, 0.1]} fov={55} zoom={1} />
-            <DinoSelect idx={idx + 1} dinoNum={dinoNum} setDinoNum={setDinoNum} />
+            <ambientLight intensity={Number(userStore.userDino[1]) === idx + 1 ? 2 : 1} />
+            <PerspectiveCamera position={[-0.01, 2, 2]} fov={55} zoom={1} />
+            <DinoSelect idx={idx + 1} />
           </Canvas>
         ))}
     </>

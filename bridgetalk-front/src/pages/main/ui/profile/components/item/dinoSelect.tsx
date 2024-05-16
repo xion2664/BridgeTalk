@@ -2,19 +2,20 @@ import { useRef, useEffect, useState } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { AnimationMixer } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useUserStore } from '@/pages';
 
 interface DinoProps {
   idx: number;
-  dinoNum: number;
-  setDinoNum: (num: number) => void;
 }
 
-export function DinoSelect({ idx, dinoNum, setDinoNum }: DinoProps) {
+export function DinoSelect({ idx }: DinoProps) {
   const [act, setAct] = useState<string>('idle');
   const [gltf, setGltf] = useState<any>(null);
   const [scale, setScale] = useState<number>(1);
 
   const mixer = useRef<AnimationMixer | null>(null);
+
+  const userStore = useUserStore();
 
   // GLTF 파일 로드 및 상태 설정
   const model = useLoader(GLTFLoader, `/assets/dino/D${idx}/${act}.glb`, (loader) => {
@@ -60,12 +61,12 @@ export function DinoSelect({ idx, dinoNum, setDinoNum }: DinoProps) {
 
   // 상태 변경에 따른 애니메이션 업데이트
   useEffect(() => {
-    if (dinoNum === idx) {
+    if (Number(userStore.userDino[1]) === idx) {
       setAct('cute');
     } else {
       setAct('idle');
     }
-  }, [dinoNum, idx]);
+  }, [userStore.userDino, idx]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,7 +78,7 @@ export function DinoSelect({ idx, dinoNum, setDinoNum }: DinoProps) {
       } else {
         // PC 화면 크기
         console.log('피씨');
-        setScale(6);
+        setScale(7);
       }
     };
 
@@ -103,9 +104,9 @@ export function DinoSelect({ idx, dinoNum, setDinoNum }: DinoProps) {
     <primitive
       object={gltf ? gltf.scene : null}
       scale={scale}
-      position={[0, 0, -2]}
+      position={[0, -1.5, -2]}
       onClick={() => {
-        setDinoNum(idx);
+        userStore.setUserDino(`D${idx}`);
       }}
     />
   );
