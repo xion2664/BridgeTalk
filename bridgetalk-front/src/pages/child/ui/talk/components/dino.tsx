@@ -29,7 +29,7 @@ export function Dino() {
     }
 
     if (!sessionDino) {
-      postProfileLogin(getUUIDbyToken()).then((res) => {
+      postProfileLogin(getUUIDbyToken(), '').then((res) => {
         setDino(res.data.userDino);
         sessionStorage.setItem('dino', res.data.userDino);
       });

@@ -30,6 +30,7 @@ export function ProfilePage() {
   }));
 
   const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
+  const setPasswordCheckModalState = useProfileStore((state) => state.setPasswordCheckModalState);
   const userStore = useUserStore();
 
   useEffect(() => {
@@ -56,7 +57,12 @@ export function ProfilePage() {
       >
         <img src={'assets/img/main/logout.svg'} />
       </button>
-      <button className="setting" onClick={() => navigate('/parent')}>
+      <button
+        className="setting"
+        onClick={() => {
+          setPasswordCheckModalState([profileList[0].userId, '/parent']);
+        }}
+      >
         <img src={'assets/img/main/setting.svg'} />
       </button>
       {!isLoading && (
@@ -72,14 +78,7 @@ export function ProfilePage() {
                   key={it.userId}
                   onClick={(e) => {
                     e.stopPropagation();
-                    postProfileLogin(it.userId).then((res) => {
-                      if (res && res.data) {
-                        userStore.setUserDino(res.data.userDino);
-                        sessionStorage.setItem('dino', res.data.userDino);
-                        setToken(res.data.accessToken, res.data.refreshToken);
-                        navigate(idx > 0 ? '/child' : '/parent');
-                      }
-                    });
+                    setPasswordCheckModalState([it.userId, '/child']);
                   }}
                 >
                   <div
