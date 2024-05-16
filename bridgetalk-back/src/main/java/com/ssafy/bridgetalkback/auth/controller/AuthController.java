@@ -64,9 +64,10 @@ public class AuthController {
     }
 
     @GetMapping("/nickname-duplicate/{nickname}")
-    public ResponseEntity<Void> duplicateNickname(@ExtractPayload String userId, @PathVariable String nickname) {
+    public ResponseEntity<Void> duplicateNickname(@PathVariable String nickname) {
         log.info("{ AuthController } : 닉네임 중복 검사 진입");
         authService.duplicateNickname(nickname);
+        log.info("{ AuthController } : 닉네임 중복 검사 통과");
         return ResponseEntity.ok().build();
     }
 }
