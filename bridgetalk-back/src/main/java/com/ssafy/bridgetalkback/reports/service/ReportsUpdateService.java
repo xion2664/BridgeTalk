@@ -4,6 +4,9 @@ import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class ReportsUpdateService {
     private final ChatGptService chatGptService;
     private final ReportsFindService reportsFindService;
     private final TranslationService translationService;
+    private final SseService sseService;
 
     public void createReport(Long reportsId) {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
@@ -121,6 +125,21 @@ public class ReportsUpdateService {
         log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
+
+        log.info(">>>> (부모에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(reports.getKids().getUuid().toString())
+                .url("https://bridgetalk.co.kr/api/reports/"
+                        +reports.getKids().getUuid().toString()
+                        +"/"
+                        +reportsId
+                        +"/"
+                        +"kor")
+                .content(NotificationType.KID_REPORTS_REGISTER.getWord())
+                .notificationType(NotificationType.KID_REPORTS_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (부모에게) SSE 알림 전송 완료");
     }
 
     private List<String> arraytoList(String[] strings) {
