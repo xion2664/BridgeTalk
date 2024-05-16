@@ -121,12 +121,21 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     // 마이크 연결 끊기 및 녹음 종료
     if (streamRef.current && !isTalking) {
       console.log('{ 마이크 연결 끊기 }');
+
+      streamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+
       streamRef.current = null;
       setIsRecording(false);
     }
 
     return () => {
       if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+        });
+
         streamRef.current = null;
         setIsRecording(false);
       }
