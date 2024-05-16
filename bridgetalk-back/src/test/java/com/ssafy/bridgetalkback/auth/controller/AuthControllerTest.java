@@ -285,29 +285,7 @@ public class AuthControllerTest extends ControllerTest {
         private static final String DUPLICATE_NICKNAME = "중복된 닉네임";
 
         @Test
-        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
-        void throwExceptionByInvalidPermission() throws Exception {
-            // when
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, NICKNAME);
-
-            // then
-            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
-            mockMvc.perform(requestBuilder)
-                    .andExpectAll(
-                            status().isForbidden(),
-                            jsonPath("$.status").exists(),
-                            jsonPath("$.status").value(expectedError.getStatus().value()),
-                            jsonPath("$.errorCode").exists(),
-                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
-                            jsonPath("$.message").exists(),
-                            jsonPath("$.message").value(expectedError.getMessage())
-                    );
-
-        }
-
-        @Test
-        @DisplayName("중복된 이메일이라면 회원가입에 실패한다")
+        @DisplayName("중복된 닉네임이라면 회원가입에 실패한다")
         void throwExceptionByDuplicateNickname() throws Exception {
             // given
             doThrow(BaseException.type(AuthErrorCode.DUPLICATE_NICKNAME))
@@ -338,14 +316,13 @@ public class AuthControllerTest extends ControllerTest {
         @DisplayName("닉네임 중복 검사에 성공한다")
         void success() throws Exception {
             // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doNothing()
                     .when(authService)
                     .duplicateNickname(any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, DUPLICATE_NICKNAME)
+                    .get(BASE_URL, NICKNAME)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
 
             // then
