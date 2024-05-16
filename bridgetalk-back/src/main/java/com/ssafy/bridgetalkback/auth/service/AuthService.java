@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.auth.service;
 import com.ssafy.bridgetalkback.auth.dto.request.KidsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.LoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
+import com.ssafy.bridgetalkback.auth.dto.request.ProfileLoginRequestDto;
 import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.utils.JwtProvider;
@@ -83,13 +84,18 @@ public class AuthService {
     }
 
     @Transactional
-    public LoginResponseDto profileLogin(UUID profileId) {
+    public LoginResponseDto profileLogin(ProfileLoginRequestDto requestDto) {
         log.info("{ AuthService } : 프로필 선택 진입");
+        UUID profileId = UUID.fromString(requestDto.profileId());
+        String password = requestDto.password();
         LoginResponseDto loginResponseDto = null;
 
         if(parentsRepository.existsParentsByUuidAndIsDeleted(profileId, 0)){
             log.info("{ AuthService } : 부모 측 - 프로필 조회");
             Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(profileId);
+            validatePassword(password, parents.getParentsPassword());
+            log.info("{ AuthService } : 프로필 비밀번호 인증 성공");
+
             String accessToken = jwtProvider.createAccessToken(parents.getUuid());
             String refreshToken = jwtProvider.createRefreshToken(parents.getUuid());
             tokenService.synchronizeRefreshToken(parents.getUuid(), refreshToken);
@@ -98,6 +104,9 @@ public class AuthService {
         else if(kidsRepository.existsKidsByUuidAndIsDeleted(profileId, 0)) {
             log.info("{ AuthService } : 아이 측 - 프로필 조회");
             Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(profileId);
+            // 아이 추후 구현 예정
+            log.info("{ AuthService } : 프로필 비밀번호 인증 성공");
+
             String accessToken = jwtProvider.createAccessToken(kids.getUuid());
             String refreshToken = jwtProvider.createRefreshToken(kids.getUuid());
             tokenService.synchronizeRefreshToken(kids.getUuid(), refreshToken);
