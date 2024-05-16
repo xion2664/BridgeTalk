@@ -1,5 +1,8 @@
+import { Dino } from '@/pages/child/ui/talk/components/dino';
+import { SelectDino } from '@/pages/main/ui/sign/components/selectDino';
 import { useReportStore } from '@/pages/parent/store';
 import * as S from '@/styles/parent/parentReportListItem.style';
+import { Canvas } from '@react-three/fiber';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,7 +44,11 @@ export function ParentReportListItem({
   return (
     <S.Container onClick={() => navigate(`${reportsId}`)}>
       <S.Content>
-        <div className="left"></div>
+        <div className="left">
+          <Canvas>
+            <SelectDino />
+          </Canvas>
+        </div>
         <div className="right">
           <div className="right__date">
             {date &&
