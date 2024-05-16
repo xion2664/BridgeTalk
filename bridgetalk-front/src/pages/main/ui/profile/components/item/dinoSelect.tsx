@@ -77,7 +77,7 @@ export function DinoSelect({ idx, dinoNum, setDinoNum }: DinoProps) {
       } else {
         // PC 화면 크기
         console.log('피씨');
-        setScale(8);
+        setScale(6);
       }
     };
 
