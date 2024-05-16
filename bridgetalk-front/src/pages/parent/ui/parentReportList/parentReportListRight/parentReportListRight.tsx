@@ -4,6 +4,13 @@ import { FaSearch, FaCalendarAlt } from 'react-icons/fa';
 import { useReportStore } from '@/pages/parent/store';
 import { useEffect, useMemo, useState } from 'react';
 
+interface Report {
+  createdAt: string;
+  reportsId: number;
+  reportsKeywords: any[];
+  reportsSummary: string;
+}
+
 export function ParentReportListRight() {
   const { reportList, setReportList, language, childrenList } = useReportStore((state) => ({
     reportList: state.reportList,
@@ -23,8 +30,18 @@ export function ParentReportListRight() {
   const [selected, setSelected] = useState(reportList);
 
   useEffect(() => {
-    setSelected(reportList);
+    const tmp = reportList.map((report: any) => {
+      const tmpData = report.value.data.filter((it: Report) => it.reportsSummary);
+      report.value.data = tmpData;
+      return report;
+    });
+    console.log(tmp);
+    setSelected(tmp);
   }, [reportList]);
+
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
 
   return (
     <S.Container>
@@ -61,7 +78,7 @@ export function ParentReportListRight() {
         </div>
         <div className="content">
           <div className="list">
-            {selected.length > 0 ? (
+            {selected.length > 0 && selected.reduce((prev: any, cur: any) => prev + cur.value.data.length, 0) > 0 ? (
               selected.map((report: any) => {
                 if (!report.value) return;
 
