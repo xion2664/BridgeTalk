@@ -214,6 +214,19 @@ public class AuthServiceTest extends ServiceTest {
         }
     }
 
+    @Nested
+    @DisplayName("닉네임 중복")
+    class duplicateNickname {
+        @Test
+        @DisplayName("부모는 중복된 닉네임이면 회원가입에 실패한다")
+        void throwExceptionByDuplicateNickname() {
+            // when - then
+            assertThatThrownBy(() -> authService.duplicateNickname(SOYOUNG.getParentsNickname()))
+                    .isInstanceOf(BaseException.class)
+                    .hasMessage(AuthErrorCode.DUPLICATE_NICKNAME.getMessage());
+        }
+    }
+
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
                 SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());

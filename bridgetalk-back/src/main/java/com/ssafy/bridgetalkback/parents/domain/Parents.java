@@ -31,7 +31,7 @@ public class Parents extends BaseEntity {
     @Embedded
     private Password parentsPassword;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String parentsNickname;
 
     @Column(nullable = false, length = 10)
