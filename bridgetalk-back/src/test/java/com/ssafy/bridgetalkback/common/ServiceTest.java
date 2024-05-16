@@ -62,6 +62,7 @@ public class ServiceTest {
     @Autowired
     protected SseRepositoryImpl sseRepository;
 
+    @Autowired
     protected CommentsRepository commentsRepository;
 
 

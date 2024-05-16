@@ -75,6 +75,8 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
                 () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_02.getBoardsTitleKor()),
                 () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
+                () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -90,6 +92,8 @@ public class BoardsServiceTest extends ServiceTest {
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
         assertAll(
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
+                () -> assertThat(findBoards.getBoardsTitleKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
                 () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
@@ -109,6 +113,8 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boards.getBoardsId()),
                 () -> assertThat(findBoards.getBoardsTitleKor()).isEqualTo(BOARDS_02.getBoardsTitleKor()),
                 () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
+                () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -124,6 +130,8 @@ public class BoardsServiceTest extends ServiceTest {
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(updateBoardsId);
         assertAll(
                 () -> assertThat(findBoards.getBoardsId()).isEqualTo(boards.getBoardsId()),
+                () -> assertThat(findBoards.getBoardsTitleKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
                 () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
