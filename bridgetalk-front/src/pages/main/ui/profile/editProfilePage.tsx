@@ -1,11 +1,17 @@
 import { decodeToken, getUUIDbyToken } from '@/shared';
 import * as S from '@/styles/main/editProfilePage.style';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store';
 import { validateName, validateNickname } from '../../model';
 import { patchEditProfile } from '../../query/patchEditProfile/patchEditProfile';
 import { postAddProfile } from '../../query';
+import { useFrame, useLoader } from 'react-three-fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { AnimationMixer } from 'three';
+import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera } from '@react-three/drei';
+import { DinoSelect } from './components/item/dinoSelect';
 
 interface Props {
   type: string;
@@ -122,25 +128,7 @@ export function EditProfilePage({ type }: Props) {
             <div className="selectbox">
               <div className="selectbox__title">캐릭터를 선택해주세요</div>
               <div className="selectbox__content">
-                <button
-                  className="selectbox__content-prev"
-                  onClick={() => {
-                    setDino((dino) => (dino > 0 ? dino - 1 : dino));
-                  }}
-                >
-                  <img src={'assets/img/prevTriangle.svg'} />
-                </button>
-                <div className="selectbox__content-dino">
-                  <img src={`assets/img/${dinos[dino]}.svg`} />
-                </div>
-                <button
-                  className="selectbox__content-next"
-                  onClick={() => {
-                    setDino((dino) => (dino < dinos.length - 1 ? dino + 1 : dino));
-                  }}
-                >
-                  <img src={'assets/img/nextTriangle.svg'} />
-                </button>
+                <DinoBox />
               </div>
             </div>
           </div>
@@ -190,5 +178,24 @@ export function EditProfilePage({ type }: Props) {
         </>
       )}
     </S.Container>
+  );
+}
+
+function DinoBox() {
+  const [dinoNum, setDinoNum] = useState<number>(3);
+  const userStore = useUserStore();
+
+  return (
+    <>
+      {Array(6)
+        .fill(0)
+        .map((_, idx) => (
+          <Canvas style={{ width: `10svw` }} className="canvas">
+            <ambientLight intensity={Number(userStore.userDino[1]) === idx + 1 ? 2 : 1} />
+            <PerspectiveCamera position={[-0.01, 2, 2]} fov={55} zoom={1} />
+            <DinoSelect idx={idx + 1} />
+          </Canvas>
+        ))}
+    </>
   );
 }

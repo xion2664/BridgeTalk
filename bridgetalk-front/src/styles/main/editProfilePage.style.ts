@@ -162,29 +162,19 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
 
-      width: 54svw;
-      height: 46svh;
+      width: 70svw;
+      height: 40svh;
 
       background-color: ${color(0.5).black};
       border-radius: 5svw;
 
+      position: relative;
+
       &__content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        width: 33svw;
-
-        button {
-          background-color: transparent;
-          border: none;
-
-          img {
-            width: 2svw;
-          }
-        }
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
       }
 
       &__title {
