@@ -1,5 +1,63 @@
 import * as S from '@/styles/parent/parentReportListLeft.style';
+import { useEffect, useState } from 'react';
+
+interface Board {
+  boardId: number;
+  boardsTitle: string;
+  boardsContent: string;
+  likes: number;
+  createdAt: string;
+  reportsSummary: string;
+  reportsKeywords: string[];
+  writer: string;
+}
 
 export function ParentReportListLeft() {
-  return <S.Container></S.Container>;
+  const [boardList, setBoardList] = useState<Board[]>([]);
+
+  useEffect(() => {
+    const tmp = [
+      {
+        boardId: 3,
+        boardsTitle: '제목 테스트',
+        boardsContent: '내용 테스트',
+        likes: 0,
+        createdAt: '2024-05-13T13:33:28.005731',
+        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
+        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
+        writer: '부모닉네임',
+      },
+    ];
+
+    setBoardList(tmp);
+  }, []);
+
+  return (
+    <S.Container>
+      <div className="main">
+        <div className="main__title">브릿지 게시판</div>
+        <div className="main__content">
+          <div className="main__content-list">
+            {boardList.length > 0 && boardList.map((board: Board) => <BoardListItem board={board} />)}
+          </div>
+          <div className="main__content-input"></div>
+        </div>
+      </div>
+    </S.Container>
+  );
+}
+
+interface BoardListItem {
+  board: Board;
+}
+
+function BoardListItem({ board }: BoardListItem) {
+  return (
+    <div className="main__content-list-item">
+      <div className="main__content-list-item-like">{board.likes}</div>
+      <div className="main__content-list-item-title">{board.boardsTitle}</div>
+      <div className="main__content-list-item-body">{board.boardsContent}</div>
+      <div className="main__content-list-item-date">{board.createdAt}</div>
+    </div>
+  );
 }

@@ -40,14 +40,14 @@ export const Container = styled.div`
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 
     width: 100%;
 
     top: 0;
-    left: 50%;
+    left: 2svw;
 
-    transform: translate(-65%, -50%);
+    transform: translate(0, -50%);
 
     z-index: 1;
 
