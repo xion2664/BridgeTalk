@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.common;
 
 import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
+import com.ssafy.bridgetalkback.boards.repository.BoardsLikeRepository;
 import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
 import com.ssafy.bridgetalkback.comments.repository.CommentsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
@@ -65,6 +66,8 @@ public class ServiceTest {
     @Autowired
     protected CommentsRepository commentsRepository;
 
+    @Autowired
+    protected BoardsLikeRepository boardsLikeRepository;
 
     @AfterEach
     void clearDatabase() {
