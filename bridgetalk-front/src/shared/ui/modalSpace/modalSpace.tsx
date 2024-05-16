@@ -96,7 +96,6 @@ function ErrorModal() {
     setTimeout(() => {
       errorStore.setErrorModalState('');
     }, 2000);
-    console.log(errorStore.errorModalState);
   }, []);
 
   return <S.ErrorModalContainer>{errorStore.errorModalState}</S.ErrorModalContainer>;
