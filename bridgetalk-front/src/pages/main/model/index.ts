@@ -7,3 +7,4 @@ export * from '@/pages/main/model/validateName/validateName';
 export * from '@/pages/main/model/handleSignup/handleSignup';
 export * from '@/pages/main/model/handleFetchProfileList/handleFetchProfileList';
 export * from '@/pages/main/model/handleNicknameCheck/handleNIcknameCheck';
+export * from '@/pages/main/model/handleSubscribeNotification/handleSubscribeNotification';

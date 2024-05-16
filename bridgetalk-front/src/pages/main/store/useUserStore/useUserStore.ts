@@ -27,6 +27,10 @@ interface Store {
   // accessToken: 로그인 유저 액세스 토큰
   accessToken: string;
   setAccessToken: (accessToken: string) => void;
+
+  // sseEventSource: SSE 알림 구독할 Source
+  sseEventSource: EventSource | null;
+  setSseEventSource: (state: EventSource) => void;
 }
 
 export const useUserStore = create<Store>()((set) => ({
@@ -57,4 +61,8 @@ export const useUserStore = create<Store>()((set) => ({
   // accessToken: 로그인 유저 액세스 토큰
   accessToken: '',
   setAccessToken: (accessToken: string) => set({ accessToken }),
+
+  // sseEventSource: SSE 알림 구독할 Source
+  sseEventSource: null,
+  setSseEventSource: (state: EventSource) => set({ sseEventSource: state }),
 }));
