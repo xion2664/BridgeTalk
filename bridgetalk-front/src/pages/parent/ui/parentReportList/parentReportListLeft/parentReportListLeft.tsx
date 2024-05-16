@@ -81,7 +81,7 @@ export function ParentReportListLeft() {
           <div className="main__content-list">
             {boardList.length > 0 && boardList.map((board: Board) => <BoardListItem board={board} />)}
           </div>
-          <div className="main__content-input"></div>
+          {/* <div className="main__content-input"></div> */}
         </div>
       </div>
     </S.Container>
@@ -95,8 +95,12 @@ interface BoardListItem {
 function BoardListItem({ board }: BoardListItem) {
   return (
     <div className="main__content-list-item">
-      <div className="main__content-list-item-like">{board.likes}</div>
-      <div className="main__content-list-item-title">{board.boardsTitle}</div>
+      <div className="flex">
+        <div className="main__content-list-item-title">{board.boardsTitle}</div>
+        <div className="main__content-list-item-like">
+          <img src={'/assets/img/parent/heart.svg'} alt="like" /> {board.likes}
+        </div>
+      </div>
       <div className="main__content-list-item-body">{board.boardsContent}</div>
       <div className="main__content-list-item-date">{dateToString(board.createdAt)}</div>
     </div>

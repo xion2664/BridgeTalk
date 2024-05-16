@@ -50,7 +50,7 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
 
-      border-radius: 2svw;
+      border-radius: 1svw;
 
       &-list {
         padding: 1svh 1svw;
@@ -60,14 +60,20 @@ export const Container = styled.div`
         gap: 3svh;
 
         width: 100%;
-        height: 59.9svh;
+        /* height: 59.9svh; */
+        height: 100%;
 
         overflow-y: auto;
         overflow-x: hidden;
 
         &-item {
+          .flex {
+            display: flex;
+            justify-content: space-between;
+          }
+
           background-color: ${color(1).sub};
-          padding: 8svh 2svw;
+          padding: 10svh 2svw;
 
           border-radius: 1.5svw;
           box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
@@ -100,22 +106,36 @@ export const Container = styled.div`
           }
 
           &-like {
-            position: absolute;
-            top: 1svh;
-            right: 1svw;
+            background-color: rgb(255, 159, 153);
+            padding: 1svh 1svw;
+
+            border-radius: 1svw;
+            font-size: 1svw;
+
+            box-shadow: 0 0.5svh 0 ${color(0.5).black};
+
+            display: flex;
+            gap: 0.5svw;
+            align-items: center;
+
+            font-family: 'DNF';
           }
           &-title {
-            font-family: 'Pretendard-Black';
+            font-family: 'Cookie';
             font-size: 2svw;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           &-body {
             font-size: 1.4svw;
-            font-family: 'Pretendard';
+            font-family: 'Cookie';
           }
           &-date {
             font-size: 1.4svw;
             width: 100%;
-            font-family: 'Pretendard';
+            font-family: 'Cookie';
             text-align: end;
           }
         }

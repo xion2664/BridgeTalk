@@ -13,8 +13,13 @@ export const Container = styled.div`
   position: relative;
   cursor: pointer;
 
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
+
   * {
-    font-family: 'Pretendard';
+    font-family: 'Cookie';
     font-size: 1.5svw;
     color: ${color(1).bright};
   }
@@ -50,10 +55,12 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
   gap: 1svw;
   width: 100%;
+  /* height: 18svh; */
+  height: 100%;
 
   .left {
     width: 100%;
@@ -62,17 +69,55 @@ export const Content = styled.div`
   }
 
   .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 1svh;
+
+    height: 100%;
+
+    &__date {
+      font-family: 'Cookie';
+
+      font-size: 2svw;
+    }
+
     &__content {
       display: grid;
       grid-template-columns: 1fr 3fr;
       gap: 2svw;
 
-      align-items: center;
+      height: 100%;
 
-      justify-content: space-between;
+      align-items: center;
 
       &-title {
         text-align: center;
+      }
+
+      &-tags {
+        display: flex;
+        flex-direction: column;
+        gap: 1svh;
+      }
+
+      &-title,
+      &-tags {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &-tag {
+          background-color: ${color(1).bright};
+          border-radius: 1svw;
+          padding: 0.5svh 0.5svw;
+          color: ${color(1).black};
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

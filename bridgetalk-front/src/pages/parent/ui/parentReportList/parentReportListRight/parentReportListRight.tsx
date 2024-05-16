@@ -30,7 +30,7 @@ export function ParentReportListRight() {
     <S.Container>
       <div className="title">
         <img src={'/assets/img/letter.svg'} />
-        <div style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}>{title[language]}</div>
+        <div>{title[language]}</div>
       </div>
       <div className="content__container">
         <div className="children__wrapper">

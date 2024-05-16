@@ -39,38 +39,26 @@ export function ParentReportListItem({
   }, []);
 
   return (
-    <S.Container>
+    <S.Container onClick={() => navigate(`${reportsId}`)}>
       <S.Content>
         <div className="left"></div>
         <div className="right">
-          <div className="right__date" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}>
+          <div className="right__date">
             {date &&
               `${date[0]}${dateWord[language][0]} ${date[1]}${dateWord[language][1]} ${date[2]}${dateWord[language][2]}`}
           </div>
           <div className="right__content">
             <div className="right__content-tags">
               {reportsKeywords.slice(0, 3).map((keyword, idx) => (
-                <div
-                  className="right__date-content-tags-tag"
-                  key={idx}
-                  style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}
-                >
+                <div className="right__content-tags-tag" key={idx}>
                   # {keyword.trim()}
                 </div>
               ))}
             </div>
-            <div
-              className="right__content-title"
-              style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black' }}
-            >
-              {' '}
-              {reportsSummary}
-            </div>
+            <div className="right__content-title">{reportsSummary}</div>
           </div>
         </div>
-        <button className="view" onClick={() => navigate(`${reportsId}`)}>
-          VIEW
-        </button>
+        {/* <button className="view">VIEW</button> */}
       </S.Content>
     </S.Container>
   );

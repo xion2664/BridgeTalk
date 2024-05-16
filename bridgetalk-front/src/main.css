@@ -28,3 +28,10 @@ body {
   font-family: 'Pretendard-Black';
   src: url('@/assets/fonts/Pretendard-Black.otf');
 }
+
+@font-face {
+  font-family: 'Cookie';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
