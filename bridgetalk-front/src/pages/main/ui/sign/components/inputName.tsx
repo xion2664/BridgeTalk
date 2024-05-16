@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import * as S from '@/styles/main/inputName.style';
 import { useSignupStore } from '@/pages/main/store';
-import { validateName, validateNickname, validatePassword } from '@/pages/main/model';
+import { handleNicknameCheck, validateName, validateNickname, validatePassword } from '@/pages/main/model';
+import { useErrorStore } from '@/shared/store';
 
 interface Props {
   setPage: Dispatch<SetStateAction<number>>;
@@ -19,6 +20,7 @@ export function InputName({ setPage }: Props) {
       passwordCheck: state.passwordCheck,
       setPasswordCheck: state.setPasswordCheck,
     }));
+  const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
 
   return (
     <S.Container>
@@ -107,7 +109,11 @@ export function InputName({ setPage }: Props) {
               return;
             }
 
-            setPage((page) => page + 1);
+            handleNicknameCheck(nickname, setErrorModalState).then((res) => {
+              if (res) {
+                setPage((page) => page + 1);
+              }
+            });
           }}
         >
           다음

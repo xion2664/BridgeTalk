@@ -1,7 +1,8 @@
 import { NavigateFunction } from 'react-router-dom';
 import { postSignin } from '../../query';
+import { errorCatch } from '@/shared';
 
-export function handleSignin(requestDto: any, userStore: any, navigate: NavigateFunction) {
+export function handleSignin(requestDto: any, userStore: any, navigate: NavigateFunction, setErrorModalState: any) {
   postSignin(requestDto)
     .then((res: any) => {
       if (res.status === 200) {
@@ -28,5 +29,9 @@ export function handleSignin(requestDto: any, userStore: any, navigate: Navigate
         navigate('/profile');
       }
     })
-    .catch((err) => alert('로그인 정보가 일치하지 않습니다.'));
+    .catch((err) => {
+      if (err instanceof Error) {
+        errorCatch(err, setErrorModalState);
+      }
+    });
 }
