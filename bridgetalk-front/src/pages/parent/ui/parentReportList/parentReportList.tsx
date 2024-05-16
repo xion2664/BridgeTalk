@@ -25,7 +25,7 @@ export function ParentReportList() {
 
       // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
       const promises = childrenList.map((child: any) => {
-        childMap.set(child.userId, { name: child.userName, nickname: child.userNickname });
+        childMap.set(child.userId, { name: child.userName, nickname: child.userNickname, dino: child.userDino });
         return getReportList(child.userId, language);
       });
 
@@ -44,6 +44,7 @@ export function ParentReportList() {
         it.UUID = childUUID;
         it.name = child.name;
         it.nickname = child.nickname;
+        it.dino = child.dino;
 
         it.value.data.forEach((report: any) => {
           reports_UUID.set(report.reportsId, it.UUID);

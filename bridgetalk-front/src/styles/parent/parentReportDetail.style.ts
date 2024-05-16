@@ -24,11 +24,12 @@ export const ContentContainer = styled.div`
     button {
       background-color: ${color(1).sub};
       border: none;
+      font-family: 'Pretendard-Black';
 
       border-top-left-radius: 1svw;
       border-top-right-radius: 1svw;
 
-      color: ${color(1).bright};
+      color: ${color(0.5).bright};
 
       font-size: 1.5svw;
 
@@ -36,6 +37,10 @@ export const ContentContainer = styled.div`
       height: 5svh;
 
       cursor: pointer;
+    }
+
+    .active {
+      color: ${color(1).bright};
     }
   }
 
@@ -60,7 +65,7 @@ export const ContentContainer = styled.div`
       right: 2svw;
       transform: translateY(-50%);
 
-      font-family: 'DNF';
+      font-family: 'Pretendard-Black';
       font-size: 2.5svw;
       color: ${color(1).bright};
       z-index: 0;
@@ -144,7 +149,7 @@ export const ContentContainer = styled.div`
     }
 
     div {
-      font-family: 'DNF';
+      font-family: 'Pretendard-Black';
     }
   }
 `;
@@ -152,12 +157,15 @@ export const ContentContainer = styled.div`
 export const Keywords = styled.div`
   display: flex;
   gap: 1svw;
+  font-family: 'Pretendard-Black';
 `;
 
 export const Summary = styled.div`
   width: 100%;
+  font-family: 'Pretendard-Black';
 `;
 
 export const Solution = styled.div`
   width: 100%;
+  font-family: 'Pretendard-Black';
 `;
