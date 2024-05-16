@@ -1,11 +1,8 @@
 package com.ssafy.bridgetalkback.parents.repository;
 
-import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.parents.domain.Email;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 import java.util.UUID;
