@@ -1,18 +1,21 @@
-import { postVoiceBlob, useReportStore, useVoiceStore } from '@/pages';
+import { postVoiceBlob, useProfileStore, useReportStore, useUserStore, useVoiceStore } from '@/pages';
+import { handleProfileLogin } from '@/pages/main/model/handleProfileLogin/handleProfileLogin';
 import { useErrorStore } from '@/shared/store';
 import { customAxios } from '@/shared/util';
 import * as S from '@/styles/shared/modalSpace.style';
-import { useEffect, useMemo } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export function ModalSpace() {
   const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
   const errorModalState = useErrorStore((state) => state.errorModalState);
+  const passwordCheckModalState = useProfileStore((state) => state.passwordCheckModalState);
 
   return (
     <>
       {isRecordFinished && <ParentVoiceRecordModalArea />}
       {errorModalState && <ErrorModal />}
+      {passwordCheckModalState && <PasswordCheckModalArea />}
     </>
   );
 }
@@ -97,4 +100,47 @@ function ErrorModal() {
   }, []);
 
   return <S.ErrorModalContainer>{errorStore.errorModalState}</S.ErrorModalContainer>;
+}
+
+function PasswordCheckModalArea() {
+  const inputRef: any = useRef<HTMLInputElement>();
+  const profileStore = useProfileStore();
+  const navigate = useNavigate();
+  const userStore = useUserStore();
+
+  return (
+    <S.Container>
+      <S.PasswordCheckModaContainer>
+        <div className="title">비밀번호 확인</div>
+        <div className="content">
+          <img src={'assets/img/main/passwordicon.svg'} />
+          <input type="password" ref={inputRef}></input>
+        </div>
+        <div className="buttons">
+          <button
+            className="buttons__cancel"
+            onClick={() => {
+              profileStore.setPasswordCheckModalState(false);
+            }}
+          >
+            취소
+          </button>
+          <button
+            className="buttons__accept"
+            onClick={() => {
+              handleProfileLogin(
+                profileStore.passwordCheckModalState[0],
+                inputRef.current.value,
+                userStore,
+                navigate,
+                profileStore.passwordCheckModalState[1],
+              );
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </S.PasswordCheckModaContainer>
+    </S.Container>
+  );
 }
