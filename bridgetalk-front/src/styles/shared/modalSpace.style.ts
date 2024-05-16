@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { color, embossing } from '../parent/common.style';
+import * as main from '../main/common.style';
 
 const fadeInWithMove = keyframes`
     0% {
@@ -197,6 +198,9 @@ export const ErrorModalContainer = styled.div`
 export const PasswordCheckModaContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   gap: 2svh;
 
   width: 86.7svw;
@@ -206,11 +210,46 @@ export const PasswordCheckModaContainer = styled.div`
 
   border-radius: 2.6svw;
 
+  text-align: center;
+
+  .title {
+    color: ${color(1).bright};
+    font-family: 'DNF';
+    font-size: 3svw;
+  }
   .content {
     display: flex;
+    gap: 1svw;
+
+    img {
+      width: 23.4svw;
+    }
+
+    input {
+      width: 43.9svw;
+      height: 13.8svh;
+      border-radius: 5.2svw;
+      border: 1svw solid ${main.color(1).main};
+    }
   }
 
   .buttons {
     display: flex;
+
+    button {
+      width: 26svw;
+      height: 17svh;
+      border-radius: 5.2svw;
+      background-color: ${main.color(1).main};
+      position: relative;
+
+      &::after {
+        ${main.insetShadow}
+      }
+
+      &::before {
+        ${main.insetShadow}
+      }
+    }
   }
 `;

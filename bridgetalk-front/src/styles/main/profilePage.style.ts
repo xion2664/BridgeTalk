@@ -196,3 +196,5 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const ProfilelistItem = styled.div<{ idx: number }>``;
