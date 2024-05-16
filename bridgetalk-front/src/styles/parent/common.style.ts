@@ -16,7 +16,8 @@ export function color(alpha: number) {
     red: `rgba(255, 97, 97, ${alpha})`,
     shadowTop: `rgba(185, 204, 255, ${alpha})`,
     bright: `rgba(245, 245, 245, ${alpha})`,
-    light: `rgba(224,233,255, ${alpha})`,
+    light: `rgba(224, 233, 255, ${alpha})`,
+    sub3: `rgba(231, 230, 233,${alpha})`,
   };
 }
 

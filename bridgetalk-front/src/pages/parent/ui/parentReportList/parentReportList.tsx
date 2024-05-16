@@ -26,7 +26,7 @@ export function ParentReportList() {
       // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
       const promises = childrenList.map((child: any) => {
         childMap.set(child.userId, { name: child.userName, nickname: child.userNickname });
-        return getReportList(child.userId, language).catch(() => null);
+        return getReportList(child.userId, language);
       });
 
       // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
@@ -55,11 +55,10 @@ export function ParentReportList() {
     }
 
     fetchData();
-  }, [language]);
+  });
 
   return (
     <>
-      <BackButton path="../main" navigate={navigate} />
       <S.Container>
         <S.ContentContainer>
           <ParentReportListRight />
