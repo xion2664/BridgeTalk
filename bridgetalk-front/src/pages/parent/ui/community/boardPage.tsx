@@ -1,7 +1,10 @@
 import { ArticleList } from './components/articleList';
+import * as S from '@/styles/parent/boardPage.style';
+
 
 export function BoardPage() {
   return (
+    <S.Container>
     <div className="boardPage">
       <div className="boardPage__header">
         <div className="boardPage__header-title">
@@ -22,5 +25,6 @@ export function BoardPage() {
         </div>
       </div>
     </div>
+    </S.Container>
   );
 }
