@@ -117,6 +117,7 @@ public class TalkController {
         log.info("{ TalkController } : 대화 종료 시, redis 삭제 및 레포트 생성 진입");
         // reports 생성
         Long reportsId = reportsService.createReports(UUID.fromString(userId)).reportsId();
+//        log.info("====================== kidsId : {}", userId);
         reportsUpdateService.createReportAsync(reportsId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

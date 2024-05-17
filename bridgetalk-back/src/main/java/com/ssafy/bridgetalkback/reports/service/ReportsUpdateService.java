@@ -90,6 +90,7 @@ public class ReportsUpdateService {
     public void createReportAsync(Long reportsId, String kidsUuid) throws ExecutionException, InterruptedException {
         // 부모 조회
         Parents parents = kidsFindService.findKidsByUuidAndIsDeleted(UUID.fromString(kidsUuid)).getParents();
+//        log.info(">> 부모 조회 성공 : {}", parents.getParentsEmail());
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
 
@@ -114,6 +115,9 @@ public class ReportsUpdateService {
         log.info(">> keywords 성공: {}", Arrays.toString(keywordsText));
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
+        log.info("========= keywordsText : {}", Arrays.stream(keywordsText).toArray());
+        log.info("========= keywordsText[0] : {}", keywordsText[0]);
+        log.info("========= keywordsText[1] : {}", keywordsText[1]);
         String[] keyword_kor_arr = keywordsText[0].split(", ");
         if (keyword_kor_arr.length != 3) {
             keyword_kor_arr = null;

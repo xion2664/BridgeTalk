@@ -80,8 +80,6 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
     if (isRecording && getAvgVolumeData.current) {
       console.log('볼륨:', volume, '평균 볼륨:', getAvgVolumeData.current(volume));
       if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.8)) {
-        console.log('{{볼륨이 평균 볼륨의 80% 이상이므로 2초 타이머 리셋}}');
-
         // 기존 타이머 제거 후 새 타이머 생성
         if (devounceTimerRef.current) {
           clearTimeout(devounceTimerRef.current);
@@ -90,7 +88,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           console.log('타이머 작동');
           setIsSend(true);
           setIsRecording(false);
-        }, 2000);
+        }, 1000);
       }
     }
   }, [volume]);

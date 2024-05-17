@@ -14,7 +14,8 @@ public enum ChatGptRequestCode {
     CONVERT_KEYWORD("convert_keyword"),
     TRANSLATE_PH("translate_ph"),
     TRANSLATE_VIET("translate_viet"),
-    TRANSLATE_ENG("translate_eng");
+    TRANSLATE_ENG("translate_eng"),
+    TRANSLATE_PH_VER1("translate_ph_ver1");
 
     private final String label;
 

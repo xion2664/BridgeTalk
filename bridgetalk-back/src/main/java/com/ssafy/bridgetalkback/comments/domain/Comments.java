@@ -35,6 +35,9 @@ public class Comments extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String commentsContentPh;
 
+    @Column(nullable = false)
+    private int likes;
+
     private Comments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet,
                      String commentsContentPh) {
         this.parents = parents;
@@ -42,6 +45,7 @@ public class Comments extends BaseEntity {
         this.commentsContentKor = commentsContentKor;
         this.commentsContentViet = commentsContentViet;
         this.commentsContentPh = commentsContentPh;
+        this.likes = 0;
     }
 
     public static Comments createComments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet,

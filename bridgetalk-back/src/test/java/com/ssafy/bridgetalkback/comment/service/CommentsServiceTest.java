@@ -209,7 +209,7 @@ public class CommentsServiceTest extends ServiceTest {
         switch (language) {
             case kor -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentKor(), language);
             case viet -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentViet(), language);
-            default -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentPh(), language);
+            case ph -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentPh(), language);
         }
         return requestDto;
     }
@@ -219,7 +219,7 @@ public class CommentsServiceTest extends ServiceTest {
         switch (language) {
             case kor -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentKor(), language);
             case viet -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentViet(), language);
-            default -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentPh(), language);
+            case ph -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentPh(), language);
         }
         return requestDto;
     }
