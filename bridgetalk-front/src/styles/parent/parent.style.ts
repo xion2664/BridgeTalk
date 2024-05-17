@@ -88,21 +88,21 @@ export const Navbar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2svh;
+  gap: 6svh;
 
   button {
     background-color: transparent;
     border: none;
 
     width: 100%;
-    height: 15svh;
+    height: 8svh;
 
     img {
       cursor: pointer;
 
       transition: all 0.2s;
 
-      width: 5svw;
+      width: 3.8svw;
       &:hover {
         transform: scale(1.1);
       }
