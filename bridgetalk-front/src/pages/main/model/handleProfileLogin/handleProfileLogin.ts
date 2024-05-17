@@ -5,8 +5,8 @@ export async function handleProfileLogin(
   uuid: string,
   password: string,
   userStore: any,
-  navigate: any,
-  navigatePath: string,
+  navigate?: any,
+  navigatePath?: string,
 ) {
   try {
     const response = await postProfileLogin(uuid, password);
@@ -15,7 +15,10 @@ export async function handleProfileLogin(
       userStore.setUserDino(response.data.userDino);
       sessionStorage.setItem('dino', response.data.userDino);
       setToken(response.data.accessToken, response.data.refreshToken);
-      navigate(navigatePath);
+
+      if (navigate) {
+        navigate(navigatePath);
+      }
     }
   } catch (err) {
     console.log(err);

@@ -127,12 +127,13 @@ function PasswordCheckModalArea() {
           <button
             className="buttons__accept"
             onClick={() => {
-              handleProfileLogin(
-                profileStore.passwordCheckModalState[0],
-                inputRef.current.value,
-                userStore,
-                navigate,
-                profileStore.passwordCheckModalState[1],
+              handleProfileLogin(profileStore.passwordCheckModalState[0], inputRef.current.value, userStore).then(
+                () => {
+                  const navigatePath = profileStore.passwordCheckModalState[1];
+
+                  profileStore.setPasswordCheckModalState(false);
+                  navigate(navigatePath);
+                },
               );
             }}
           >

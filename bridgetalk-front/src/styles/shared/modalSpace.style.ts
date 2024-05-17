@@ -201,10 +201,10 @@ export const PasswordCheckModaContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  gap: 2svh;
+  gap: 4svh;
 
   width: 84svw;
-  height: 42.6svh;
+  height: 46.6svh;
 
   background-color: ${color(0.5).black};
 
