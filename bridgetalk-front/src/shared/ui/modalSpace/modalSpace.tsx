@@ -49,6 +49,7 @@ function ParentVoiceRecordModalArea() {
     () => ({
       kor: '녹음이 완료됐어요!',
       viet: 'Việc ghi âm đã xong!',
+      ph: '',
     }),
     [],
   );
@@ -57,6 +58,7 @@ function ParentVoiceRecordModalArea() {
     () => ({
       kor: ['취소하기', '보내기'],
       viet: ['Bỏ', 'Gửi'],
+      ph: '',
     }),
     [],
   );

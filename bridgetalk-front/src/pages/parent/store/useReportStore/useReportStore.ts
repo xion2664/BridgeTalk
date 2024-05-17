@@ -15,7 +15,7 @@ interface Store {
 }
 
 interface Language {
-  type: 'kor' | 'viet';
+  type: 'kor' | 'viet' | 'ph';
 }
 
 interface Report {

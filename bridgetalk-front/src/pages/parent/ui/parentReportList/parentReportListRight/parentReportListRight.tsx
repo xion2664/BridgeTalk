@@ -23,6 +23,7 @@ export function ParentReportListRight() {
     () => ({
       kor: '아이 속마음 리포트',
       viet: 'Báo cáo',
+      ph: '',
     }),
     [],
   );
