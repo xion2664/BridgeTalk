@@ -59,7 +59,7 @@ export const Container = styled.div`
 
     &__profilelist {
       &-wrapper {
-        width: 80svw;
+        max-width: 80svw;
         overflow-x: auto;
         overflow-y: visible;
         position: relative;

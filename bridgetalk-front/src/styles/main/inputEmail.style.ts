@@ -106,6 +106,8 @@ export const Container = styled.div`
     height: 12svh;
     font-size: 2.5svw;
 
+    cursor: pointer;
+
     img {
       width: 3svw;
     }
