@@ -71,4 +71,12 @@ public class Boards extends BaseEntity {
         this.boardsContentKor = boardsContentKor;
         this.boardsContentViet = boardsContentViet;
     }
+
+    public void increaseLikes() {
+        this.likes = this.likes + 1;
+    }
+
+    public void decreaseLikes() {
+        this.likes = this.likes - 1;
+    }
 }
