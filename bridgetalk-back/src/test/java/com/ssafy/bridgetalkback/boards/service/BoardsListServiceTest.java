@@ -38,6 +38,7 @@ public class BoardsListServiceTest extends ServiceTest {
     private static final String SEARCH_TYPE = "제목";
     private static final String SEARCH_WORD_KOR = "제목";
     private static final String SEARCH_WORD_VIET = "tiêu";
+    private static final String SEARCH_WORD_PH = "pamagat";
     private static final String SORT_CONDITION = "최신순";
     private static final String INVALID_SEARCH_TYPE = "댓글";
     private static final String INVALID_SORT_CONDITION = "조회순";
@@ -143,6 +144,33 @@ public class BoardsListServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
                     () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryViet()),
                     () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsViet()==null ? Collections.emptyList() : reports[11].getReportsKeywordsViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).parentsNickname()).isEqualTo(parents.getParentsNickname())
+            );
+        }
+
+        @Test
+        @DisplayName("(필리핀어) 정렬 유형과 검색 조건에 따른 게시글 리스트 최신순 조회에 성공한다")
+        void successPh() {
+            // when
+            CustomBoardsListResponseDto<BoardsListDto> responseDto = boardsListService.getCustomBoardsList(PAGE, SEARCH_TYPE, SEARCH_WORD_PH, SORT_CONDITION, Language.ph);
+
+            // then
+            assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(PAGE_SIZE);
+            assertThat(responseDto.pageInfo().totalPages()).isLessThanOrEqualTo(PAGE_SIZE);
+
+            assertAll(
+                    () -> assertThat(responseDto.pageInfo().totalPages()).isEqualTo(3),
+                    () -> assertThat(responseDto.pageInfo().totalElements()).isEqualTo(12),
+                    () -> assertThat(responseDto.pageInfo().hasNext()).isTrue(),
+                    () -> assertThat(responseDto.pageInfo().numberOfElements()).isEqualTo(PAGE_SIZE),
+                    () -> assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(PAGE_SIZE),
+                    () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitlePh()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentPh()),
+                    () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
+                    () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryPh()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsPh()==null ? Collections.emptyList() : reports[11].getReportsKeywordsPh()),
                     () -> assertThat(responseDto.boardsList().get(0).parentsNickname()).isEqualTo(parents.getParentsNickname())
             );
         }
