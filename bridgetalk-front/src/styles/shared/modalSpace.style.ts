@@ -49,6 +49,8 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 
+  z-index: 2;
+
   display: flex;
   justify-content: center;
   align-items: center;
