@@ -348,7 +348,8 @@ public class AuthControllerTest extends ControllerTest {
     }
 
     private KidsSignupRequestDto createKidsSingupRequestDto() {
-        return new KidsSignupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+        return new KidsSignupRequestDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino(),
+                JIYEONG.getKidsPassword());
     }
 
     private ProfileLoginRequestDto createProfileLoginRequestDto() {
