@@ -175,7 +175,7 @@ public class ReportsServiceTest extends ServiceTest {
     void createText() {
         // given
         // s3에 미리 올려둔 파일
-        String fileName = "reports/talktest.m4a";
+        String fileName = "test/talktest.m4a";
 
         // when
         String extractText = reportsService.stt(fileName);
