@@ -54,10 +54,18 @@ export const Container = styled.div`
     }
 
     &__puzzle {
+      display: flex;
+      align-items: center;
       width: 70svw;
       border-radius: 5svh;
       border-bottom: 2svh solid palevioletred;
       background-color: pink;
+
+      * {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+      }
     }
   }
 `;
