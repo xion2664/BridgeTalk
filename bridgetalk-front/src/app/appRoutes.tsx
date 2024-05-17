@@ -177,7 +177,7 @@ export function AppRoutes() {
           <Route path="information/nurture" element={<ParentInformationNurture />} />
           <Route path="information/nurture/:nurtureId" element={<ParentInformationNurtureDetail />} />
           <Route path="information/word" element={<ParentInformationWord />} />
-          <Route path="community" element={<BoardPage />} />
+          <Route path="board" element={<BoardPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 

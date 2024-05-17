@@ -73,7 +73,7 @@ function Navbar({ navigate }: any) {
       </button>
       <button 
       onClick={() => {
-          navigate('community');
+          navigate('board');
         }}>
         <img src={`/assets/img/parent/navbar/community_${pathCheck('community')}.svg`} />
       </button>

@@ -2,200 +2,116 @@ import styled, { css } from 'styled-components';
 import { color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
-
 const gridLayout = css`
   display: grid;
   grid-template-columns: 2fr 10fr 2fr;
 `;
 
 export const Container = styled.div`
-display: flex;
-flex-direction: column;
-height: 90svh;
-width: 70svw;
-
-gap: 2svh;
-
-.title {
-  text-align: center;
-  font-size: 3.5svw;
-  color: ${color(1).bright};
-  ${textShadowBlue}
-  height: 15svh;
-}
-
-.categories {
-  display: flex;
-  justify-content: start;
-  gap: 1svw;
-
-  button {
-    width: 9svw;
-    height: 9svh;
-
-    border: none;
-    border-radius: 2svw;
-    font-size: 2svw;
-
-    background-color: ${color(1).bright};
-
-    cursor: pointer;
-
-    box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-    padding: 0.5svh 0.5svw;
-
-    position: relative;
-    transition: all 0.2s;
-
-    &::after {
-      ${insetShadow}
-      border-radius: 2svw;
-      box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
-    }
-
-    &::before {
-      ${insetShadow}
-      border-radius: 2svw;
-      box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
-    }
-  }
-
-  .active {
-    background-color: ${color(1).sub};
-  }
-}
-
-.main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1svh;
+  height: 90svh;
+  width: 70svw;
+  gap: 2svh;
 
-  padding: 2svh 2svw;
+  .boardPage {
+    &__header {
+      display: ${gridLayout};
+      align-items: center;
+      gap: 2svw;
+      padding: 1svw 2svw;
 
-  border-radius: 1.5svw;
-  border: none;
+      &-title {
+        font-size: 2svw;
+        color: ${color(1).bright};
+        ${textShadowBlue};
+      }
 
-  height: 50svh;
+      &-side {
+        button {
+          font-size: 1.5svw;
+          padding: 0.5svh 1svw;
+          border-radius: 0.5svw;
+          border: none;
+          background-color: ${color(1).sub};
+          cursor: pointer;
+          box-shadow: inset 0 0 0.5svh ${color(0.5).black};
+          transition: background-color 0.2s;
 
-  box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
-
-  background-color: ${color(1).sub};
-  position: relative;
-
-  &::after {
-    ${insetShadow}
-    border-radius: 1svw;
-    box-shadow: inset 0 -0.5svh 1svh ${color(0.5).black};
-  }
-
-  &::before {
-    ${insetShadow}
-    border-radius: 1svw;
-    box-shadow: inset 0 0.5svh 1svh ${color(0.5).bright};
-  }
-
-  table {
-    text-align: center;
-    width: 100%;
-  }
-
-  &__header {
-    ${gridLayout}
-  }
-  &__item {
-    ${gridLayout}
-    background-color: ${color(1).light};
-    padding: 1svw;
-    border-radius: 1svw;
-
-    font-size: 1.3svw;
-    font-family: 'Pretendard';
-
-    cursor: pointer;
-    position: relative;
-
-    &-title {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      text-align: start;
+          &:hover {
+            background-color: ${color(1).bright};
+          }
+        }
+      }
     }
 
-    &-category {
-      position: absolute;
-      bottom: 1svh;
-      right: 1svw;
-
+    &__container {
       display: flex;
+      flex-direction: column;
+      gap: 2svh;
 
-      color: ${color(0.5).black};
-    }
+      &-content {
+        padding: 2svh;
+        border-radius: 1svw;
+        background-color: ${color(1).light};
+        box-shadow: 0 0.5svh 0.4svh rgba(0, 0, 0, 0.5);
 
-    transition: all 0.1s;
-    &:hover {
-      transform: scale(1.01);
-    }
-  }
-
-  .thead {
-    font-size: 1.3svw;
-    font-family: 'Pretendard';
-
-    tr {
-      padding: 1svw;
-
-      td {
-        text-align: center;
+        span {
+          font-size: 1.5svw;
+          color: ${color(0.5).black};
+        }
       }
     }
   }
-  .tbody {
-    display: flex;
-    flex-direction: column;
-    gap: 1svw;
-  }
-}
+`;
 
-.pagenation {
+export const ArticleList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1svh;
+
+  .article {
+    background-color: white;
+    padding: 1svw;
+    border-radius: 0.5svw;
+    box-shadow: 0 0.4svh rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-0.2svh);
+    }
+
+    &-title {
+      font-size: 1.5svw;
+      color: ${color(1).bright};
+    }
+
+    &-details {
+      font-size: 1.3svw;
+      color: ${color(0.5).black};
+    }
+  }
+`;
+
+export const Pagination = styled.div`
   display: flex;
   gap: 1svw;
   justify-content: center;
-
-  .active {
-    background-color: ${color(1).sub};
-  }
+  align-items: center;
+  margin-top: 1svh;
 
   button {
     width: 3svw;
     height: 3svw;
-
-    border: none;
-    border-radius: 1svw;
-
-    font-family: 'Pretendard';
     font-size: 1.5svw;
-
+    border-radius: 1svw;
+    border: none;
+    background-color: ${color(1).light};
     cursor: pointer;
 
     box-shadow: 0 0 1svh ${color(1).black};
-
-    transition: all 0.2s;
-
     &:hover {
       background-color: ${color(1).sub};
     }
   }
-}
 `;
-
-export const NewsList = styled.div`
-display: flex;
-align-items: center;
-
-width: 100%;
-height: 100%;
-gap: 2svw;
-`;
-
-
