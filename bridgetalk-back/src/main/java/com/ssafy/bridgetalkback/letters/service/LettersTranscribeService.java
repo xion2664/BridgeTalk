@@ -45,7 +45,7 @@ public class LettersTranscribeService {
         log.info(">> {} / {}", transcriptionJobName, mediaUri);
         // Create the transcription job request
         StartTranscriptionJobRequest request = null;
-        if (language.equals(Language.viet.toString())){
+        if (language.equals(Language.viet)){
             request = StartTranscriptionJobRequest.builder()
                     .transcriptionJobName(transcriptionJobName)
 //                .languageCode(LanguageCode.EN_US.toString())
