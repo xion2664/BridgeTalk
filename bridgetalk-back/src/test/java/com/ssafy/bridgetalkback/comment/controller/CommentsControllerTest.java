@@ -294,9 +294,9 @@ public class CommentsControllerTest extends ControllerTest {
     private CommentsResponseDto createCommentsResponseDto(Language language) {
         CommentsResponseDto requestDto = null;
         switch (language) {
-            case kor -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentKor(), LocalDateTime.now());
-            case viet -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentViet(), LocalDateTime.now());
-            default -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentPh(), LocalDateTime.now());
+            case kor -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentKor(), 1, LocalDateTime.now());
+            case viet -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentViet(), 2, LocalDateTime.now());
+            default -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentPh(), 3, LocalDateTime.now());
         }
         return requestDto;
     }
