@@ -230,19 +230,10 @@ public class BoardsServiceTest extends ServiceTest {
     @DisplayName("게시글 상세조회")
     class getBoardsDetail {
         @Test
-        @DisplayName("부모가 아닌 유저라면 게시글 상세조회에 실패한다")
-        void throwExceptionByUserIsNotParents() {
-            // when - then
-            assertThatThrownBy(() -> boardsService.getBoardsDetail(kids.getUuid(), boards.getBoardsId(), Language.kor))
-                    .isInstanceOf(BaseException.class)
-                    .hasMessage(BoardsErrorCode.USER_IS_NOT_PARENTS.getMessage());
-        }
-
-        @Test
         @DisplayName("(한국어) 게시글 상세조회에 성공한다")
         void successKorea() {
             // when
-            BoardsResponseDto responseDto = boardsService.getBoardsDetail(parents.getUuid(), boards.getBoardsId(), Language.kor);
+            BoardsResponseDto responseDto = boardsService.getBoardsDetail(boards.getBoardsId(), Language.kor);
 
             // then
             Assertions.assertAll(
@@ -261,7 +252,7 @@ public class BoardsServiceTest extends ServiceTest {
         @DisplayName("(베트남어) 게시글 상세조회에 조회한다")
         void successVietnam() {
             // when
-            BoardsResponseDto responseDto = boardsService.getBoardsDetail(parents.getUuid(), boards.getBoardsId(), Language.viet);
+            BoardsResponseDto responseDto = boardsService.getBoardsDetail(boards.getBoardsId(), Language.viet);
 
             // then
             Assertions.assertAll(
