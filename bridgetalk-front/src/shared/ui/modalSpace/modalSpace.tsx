@@ -25,8 +25,8 @@ export function ModalSpace() {
 
   return (
     <>
-      {isRecordFinished && <ParentVoiceRecordModalArea />}
       {errorModalState && <ErrorModal />}
+      {isRecordFinished && <ParentVoiceRecordModalArea />}
       {passwordCheckModalState && <PasswordCheckModalArea />}
       {editProfileModalState && <EditProfileModalArea />}
       {deleteProfileModalState && <DeleteProfileModalArea />}
@@ -275,9 +275,10 @@ function DeleteProfileModalArea() {
             ref={inputRef}
             onKeyDown={(e) => {
               if (e.key !== 'Enter') return;
-              deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+              deleteDeleteProfile(profileStore.deleteModalOpenState[0], inputRef.current!.value)
                 .then(() => {
                   profileStore.setDeleteProfileModalState(false);
+                  errorStore.setErrorModalState('프로필을 성공적으로 삭제했습니다');
                   getProfileList(decodeToken('access', true)!).then((res) => {
                     profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
                   });
@@ -304,13 +305,13 @@ function DeleteProfileModalArea() {
           <button
             className="buttons__accept"
             onClick={() => {
-              deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+              deleteDeleteProfile(profileStore.deleteModalOpenState[0], inputRef.current!.value)
                 .then(() => {
                   profileStore.setDeleteProfileModalState(false);
+                  errorStore.setErrorModalState('프로필을 성공적으로 삭제했습니다');
                   getProfileList(decodeToken('access', true)!).then((res) => {
                     profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
                   });
-                  throw new Error('sadfasf');
                 })
                 .catch((err) => {
                   if (err instanceof Error) {
