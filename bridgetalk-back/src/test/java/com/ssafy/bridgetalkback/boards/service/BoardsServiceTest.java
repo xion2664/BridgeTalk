@@ -56,8 +56,8 @@ public class BoardsServiceTest extends ServiceTest {
         kids = kidsRepository.save(JIYEONG.toKids(parents));
         reports[0] = reportsRepository.save(REPORTS_01.toReports(kids));
         reports[1] = reportsRepository.save(REPORTS_02.toReports(kids));
-        reportsUpdateService.createReportAsync(reports[0].getReportsId());
-        reportsUpdateService.createReportAsync(reports[1].getReportsId());
+        reportsUpdateService.createReportAsync(reports[0].getReportsId(), kids.getUuid().toString());
+        reportsUpdateService.createReportAsync(reports[1].getReportsId(), kids.getUuid().toString());
         boards = boardsRepository.save(BOARDS_01.toBoards(reports[0], parents));
     }
 

@@ -68,7 +68,7 @@ public class ReportsUpdateServiceTest extends ServiceTest {
         Long reportsId = reports.getReportsId();
 
         //when
-        reportsService.createReportAsync(reportsId);
+        reportsService.createReportAsync(reportsId, kids.getUuid().toString());
         Reports newReports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
 
         //then
