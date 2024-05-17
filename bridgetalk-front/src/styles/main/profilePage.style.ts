@@ -20,6 +20,8 @@ export const Container = styled.div`
     border: none;
     background-color: transparent;
 
+    cursor: pointer;
+
     img {
       width: 7svw;
     }
@@ -32,6 +34,7 @@ export const Container = styled.div`
     background-color: transparent;
     border: none;
 
+    cursor: pointer;
     img {
       width: 5.8svw;
     }
@@ -55,8 +58,11 @@ export const Container = styled.div`
     }
 
     &__profilelist {
+      .selected {
+        background-color: ${color(1).main};
+      }
       &-wrapper {
-        width: 80svw;
+        max-width: 80svw;
         overflow-x: auto;
         overflow-y: visible;
         position: relative;
@@ -192,7 +198,11 @@ export const Container = styled.div`
         width: 20.9svw;
         height: 12svh;
         font-size: 2.5svw;
+
+        cursor: pointer;
       }
     }
   }
 `;
+
+export const ProfilelistItem = styled.div<{ idx: number }>``;
