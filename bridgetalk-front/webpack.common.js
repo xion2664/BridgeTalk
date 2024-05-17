@@ -96,7 +96,7 @@ module.exports = {
         { from: 'public/assets', to: 'assets/' },
         { from: 'public/@ffmpeg', to: '@ffmpeg/' },
         { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
-        { from: 'serviceWorker.js', to: '.' },
+        { from: 'public/serviceWorker.js', to: '.' },
       ],
     }),
     // new ImageMinimizerPlugin({
