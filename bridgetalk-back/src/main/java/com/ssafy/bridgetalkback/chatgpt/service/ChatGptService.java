@@ -59,8 +59,7 @@ public class ChatGptService {
         if(language.equals(Language.viet)){
             keywords[1] = translationService.translation(keywords[0], "ko", "vi");
         } else {
-            String engText = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE_ENG);
-            keywords[1] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
+            keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE_PH_VER1);
         }
         return CompletableFuture.completedFuture(keywords);
     }
@@ -145,7 +144,7 @@ public class ChatGptService {
             text += " 이 영어 문단을 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
-            text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
+            text += "\n 위 문단의 핵심 키워드 3개 추출해서 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.SOLUTION)) {
             text += "\n 위 문장들에 대해 한국인엄마로서 해줄 수 있는 말로 대답해줘";
@@ -171,9 +170,13 @@ public class ChatGptService {
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_VIET)){
             text += "\n Please translate the above sentences into Vietnamese.";
+            log.info(">> prompt : {}", text);
         }
         else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
             text += "\n 위 문장들을 영어로 번역해줘";
+            log.info(">> prompt : {}", text);
+        } else if(gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH_VER1)){
+            text += "\n 이 단어들을 필리핀어로 번역해주고, 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         }
         return text;
