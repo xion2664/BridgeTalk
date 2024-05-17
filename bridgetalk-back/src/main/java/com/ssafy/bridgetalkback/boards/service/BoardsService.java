@@ -139,20 +139,13 @@ public class BoardsService {
         return translate;
     }
 
-    public BoardsResponseDto getBoardsDetail(UUID parentsId, Long boardsId, Language language) {
+    public BoardsResponseDto getBoardsDetail(Long boardsId, Language language) {
         log.info("{ BoardsService } : 게시글 상세조회 진입");
-        validateParents(parentsId);
         Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
 
         BoardsResponseDto responseDto = BoardsResponseDto.fromBoards(findBoards, language);
         log.info("{ BoardsService } : 게시글 상세조회 성공");
         return responseDto;
-    }
-
-    private void validateParents(UUID parentsId) {
-        if (!parentsRepository.existsById(parentsId)) {
-            throw BaseException.type(BoardsErrorCode.USER_IS_NOT_PARENTS);
-        }
     }
 
     private String createTranslatePh(String text) {

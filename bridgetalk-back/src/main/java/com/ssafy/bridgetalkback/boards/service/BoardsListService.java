@@ -21,13 +21,11 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BoardsListService {
-    private final ParentsRepository parentsRepository;
     private final BoardsRepository boardsRepository;
 
-    public CustomBoardsListResponseDto<BoardsListDto> getCustomBoardsList(UUID parentsId, int page, String searchType, String searchWord,
+    public CustomBoardsListResponseDto<BoardsListDto> getCustomBoardsList(int page, String searchType, String searchWord,
                                                                           String sort, Language language) {
         log.info("{ BoardsListService } : 게시글 리스트조회 진입");
-        validateParents(parentsId);
         BoardsSearchType boardsSearchType = BoardsSearchType.from(searchType);
         BoardsSortCondition boardsSortCondition = BoardsSortCondition.from(sort);
         CustomBoardsListResponseDto<BoardsListDto> boardsList = null;
@@ -38,11 +36,5 @@ public class BoardsListService {
 
         log.info("{ BoardsListService } : 게시글 리스트조회 성공");
         return new CustomBoardsListResponseDto<>(boardsList.pageInfo(), boardsList.boardsList());
-    }
-
-    private void validateParents(UUID parentsId) {
-        if (!parentsRepository.existsById(parentsId)) {
-            throw BaseException.type(BoardsErrorCode.USER_IS_NOT_PARENTS);
-        }
     }
 }
