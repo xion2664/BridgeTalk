@@ -18,6 +18,15 @@ export function handleSignin(requestDto: any, userStore: any, navigate: Navigate
         );
         sessionStorage.setItem('dino', data.userDino);
 
+        sessionStorage.setItem(
+          btoa('access' + process.env.REACT_APP_SECURE_CODE),
+          btoa(data.accessToken + process.env.REACT_APP_SECURE_CODE),
+        );
+        sessionStorage.setItem(
+          btoa('refresh' + process.env.REACT_APP_SECURE_CODE),
+          btoa(data.refreshToken + process.env.REACT_APP_SECURE_CODE),
+        );
+
         userStore.setUserId(data.userId);
         userStore.setUserDino(data.userDino);
         userStore.setUserEmail(data.userEmail);
