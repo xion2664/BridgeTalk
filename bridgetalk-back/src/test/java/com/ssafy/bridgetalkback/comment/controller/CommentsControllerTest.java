@@ -276,7 +276,7 @@ public class CommentsControllerTest extends ControllerTest {
         switch (language) {
             case kor -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentKor(), language);
             case viet -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentViet(), language);
-            default -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentPh(), language);
+            case ph -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentPh(), language);
         }
         return requestDto;
     }
@@ -286,7 +286,7 @@ public class CommentsControllerTest extends ControllerTest {
         switch (language) {
             case kor -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentKor(), language);
             case viet -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentViet(), language);
-            default -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentPh(), language);
+            case ph -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentPh(), language);
         }
         return requestDto;
     }
@@ -296,7 +296,7 @@ public class CommentsControllerTest extends ControllerTest {
         switch (language) {
             case kor -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentKor(), 1, LocalDateTime.now());
             case viet -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentViet(), 2, LocalDateTime.now());
-            default -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentPh(), 3, LocalDateTime.now());
+            case ph -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentPh(), 3, LocalDateTime.now());
         }
         return requestDto;
     }
