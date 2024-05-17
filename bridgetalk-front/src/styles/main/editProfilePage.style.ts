@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { button, color } from './common.style';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   width: 100svw;
@@ -166,6 +167,8 @@ export const Container = styled.div`
       background-color: transparent;
       border: none;
 
+      cursor: pointer;
+
       color: ${color(1).white};
       font-family: 'DNF';
       font-size: 2.5svw;
@@ -180,6 +183,13 @@ export const Container = styled.div`
 
       img {
         width: 3svw;
+      }
+
+      &:hover {
+        background-color: ${color(1)._main};
+      }
+      &:active {
+        background-color: ${color(1).main};
       }
     }
   }

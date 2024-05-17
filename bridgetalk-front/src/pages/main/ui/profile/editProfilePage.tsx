@@ -37,6 +37,7 @@ export function EditProfilePage({ type }: Props) {
   const navigate = useNavigate();
 
   // Ref
+  const nameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
 
@@ -56,6 +57,14 @@ export function EditProfilePage({ type }: Props) {
     }),
     [],
   );
+
+  useEffect(() => {
+    if (page === 0) {
+      nameRef.current?.focus();
+    } else if (page === 1) {
+      passwordRef.current?.focus();
+    }
+  }, [page]);
 
   return (
     <S.Container>
@@ -87,6 +96,7 @@ export function EditProfilePage({ type }: Props) {
                         <img src={'assets/img/main/nameicon.svg'} />
                       </div>
                       <input
+                        ref={nameRef}
                         type="text"
                         onChange={(e) => setUserName(e.target.value)}
                         className="main__content-box-name-input"
