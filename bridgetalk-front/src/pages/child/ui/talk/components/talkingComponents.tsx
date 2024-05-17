@@ -59,6 +59,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   }));
   const errorStore = useErrorStore();
   const talkStore = useTalkStore();
+  const setIsStart = useTalkStore((state) => state.setIsStart);
 
   // Ref
   const audioDataRef = useRef<Blob | null>(null);
@@ -102,9 +103,12 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
         .then((res) => {
           if (res instanceof MediaStream) {
             console.log('{ 마이크 연결 }');
-            handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState);
-
-            // setIsRecording(true); 스타트 할 때 자동으로 녹음되는 것 방지
+            handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).catch((err) => {
+              if (err instanceof Error) {
+                errorCatch(err, errorStore.setErrorModalState);
+                setIsRecording(true); // 이미 시작된 대화가 있는 경우에만 시작
+              }
+            });
           }
         })
         .catch((err) => {
