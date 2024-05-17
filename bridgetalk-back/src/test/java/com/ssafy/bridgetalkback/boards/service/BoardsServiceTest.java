@@ -210,7 +210,7 @@ public class BoardsServiceTest extends ServiceTest {
         switch (language) {
             case kor -> requestDto =new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
             case viet -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
-            default -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+            case ph -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
         }
         return requestDto;
     }
@@ -220,7 +220,7 @@ public class BoardsServiceTest extends ServiceTest {
         switch (language) {
             case kor -> requestDto =new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
             case viet -> requestDto = new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
-            default -> requestDto = new BoardsRequestDto(2L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+            case ph -> requestDto = new BoardsRequestDto(2L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
         }
         return requestDto;
     }
@@ -231,7 +231,7 @@ public class BoardsServiceTest extends ServiceTest {
     class getBoardsDetail {
         @Test
         @DisplayName("(한국어) 게시글 상세조회에 성공한다")
-        void successKorea() {
+        void successKor() {
             // when
             BoardsResponseDto responseDto = boardsService.getBoardsDetail(boards.getBoardsId(), Language.kor);
 
@@ -250,7 +250,7 @@ public class BoardsServiceTest extends ServiceTest {
 
         @Test
         @DisplayName("(베트남어) 게시글 상세조회에 조회한다")
-        void successVietnam() {
+        void successViet() {
             // when
             BoardsResponseDto responseDto = boardsService.getBoardsDetail(boards.getBoardsId(), Language.viet);
 
@@ -263,6 +263,25 @@ public class BoardsServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryViet()),
                     () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsViet()),
+                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+            );
+        }
+
+        @Test
+        @DisplayName("(필리핀어) 게시글 상세조회에 조회한다")
+        void successPh() {
+            // when
+            BoardsResponseDto responseDto = boardsService.getBoardsDetail(boards.getBoardsId(), Language.ph);
+
+            // then
+            Assertions.assertAll(
+                    () -> assertThat(responseDto.boardsId()).isEqualTo(boards.getBoardsId()),
+                    () -> assertThat(responseDto.boardsTitle()).isEqualTo(boards.getBoardsTitlePh()),
+                    () -> assertThat(responseDto.boardsContent()).isEqualTo(boards.getBoardsContentPh()),
+                    () -> assertThat(responseDto.likes()).isEqualTo(boards.getLikes()),
+                    () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
+                    () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryPh()),
+                    () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsPh()),
                     () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
             );
         }

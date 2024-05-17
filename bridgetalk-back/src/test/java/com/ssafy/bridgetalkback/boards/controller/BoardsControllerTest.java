@@ -572,7 +572,7 @@ public class BoardsControllerTest extends ControllerTest {
         switch (language) {
             case kor -> requestDto =new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
             case viet -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
-            default -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+            case ph -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
         }
         return requestDto;
     }
@@ -582,7 +582,7 @@ public class BoardsControllerTest extends ControllerTest {
         switch (language) {
             case kor -> requestDto =new BoardsRequestDto(1L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
             case viet -> requestDto = new BoardsRequestDto(1L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
-            default -> requestDto = new BoardsRequestDto(1L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+            case ph -> requestDto = new BoardsRequestDto(1L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
         }
         return requestDto;
     }
