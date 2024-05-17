@@ -1,6 +1,7 @@
+import { useReportStore } from '@/pages/parent/store';
 import { dateToString } from '@/shared';
 import * as S from '@/styles/parent/parentReportListLeft.style';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 interface Board {
   boardId: number;
@@ -15,7 +16,15 @@ interface Board {
 
 export function ParentReportListLeft() {
   const [boardList, setBoardList] = useState<Board[]>([]);
+  const language = useReportStore((state) => state.language);
 
+  const title = useMemo(
+    () => ({
+      kor: '게시판',
+      viet: 'một bảng thông báo',
+    }),
+    [],
+  );
   useEffect(() => {
     const tmp = [
       {
@@ -76,7 +85,9 @@ export function ParentReportListLeft() {
   return (
     <S.Container>
       <div className="main">
-        <div className="main__title">브릿지 게시판</div>
+        <div className="main__title" style={{ fontFamily: 'Pretendard-Black' }}>
+          {title[language]}
+        </div>
         <div className="main__content">
           <div className="main__content-list">
             {boardList.length > 0 && boardList.map((board: Board) => <BoardListItem board={board} />)}
