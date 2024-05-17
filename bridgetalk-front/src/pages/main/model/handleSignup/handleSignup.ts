@@ -17,7 +17,7 @@ export async function handleSignup(
       parentsName: name,
       parentsNickname: nickname,
       parentsDino: dino,
-      nation: country,
+      language: country,
     });
   } catch (err) {
     if (err instanceof Error) {
