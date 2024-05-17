@@ -135,7 +135,7 @@ public class ChatGptService {
 
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
-            text += " 3줄 요약해서 한줄로 나열해줘";
+            text += " 3줄 요약해서 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
             text += " 베트남어로 번역해줘";
@@ -144,7 +144,7 @@ public class ChatGptService {
             text += " 이 영어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
-            text += "\n 위 문단의 핵심 키워드 3개 추출해서 한 줄로 나열해줘";
+            text += "\n 위 문단의 핵심 키워드 3개 추출해서 키워드만 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.SOLUTION)) {
             text += "\n 위 문장들에 대해 한국인엄마로서 해줄 수 있는 말로 대답해줘";
@@ -176,7 +176,7 @@ public class ChatGptService {
             text += "\n 위 문장들을 영어로 번역해줘";
             log.info(">> prompt : {}", text);
         } else if(gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH_VER1)){
-            text += "\n 이 단어들을 필리핀어로 번역해주고, 한 줄로 나열해줘";
+            text += "\n 필리핀어로 번역하고, 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         }
         return text;
