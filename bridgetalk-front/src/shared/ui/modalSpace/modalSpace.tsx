@@ -43,6 +43,7 @@ function ParentVoiceRecordModalArea() {
   const setIsRecordFinished = useVoiceStore((state) => state.setIsRecordFinished);
   const audioBlob = useVoiceStore((state) => state.audioBlob);
   const language = useReportStore((state) => state.language);
+  const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
 
   const title = useMemo(
     () => ({
@@ -88,11 +89,14 @@ function ParentVoiceRecordModalArea() {
             className="send"
             style={{ fontFamily: language === 'kor' ? 'DNF' : 'CherryBomb' }}
             onClick={() => {
-              if (confirm('해당 편지를 전달할까요?')) {
-                alert('전달 애니메이션 보여주기');
-                setIsRecordFinished(false);
-                postVoiceBlob(reportId, audioBlob!);
-              }
+              // if (confirm('해당 편지를 전달할까요?')) {
+              // alert('전달 애니메이션 보여주기');
+
+              setErrorModalState('성공적으로 전송했습니다.');
+              postVoiceBlob(reportId, audioBlob!);
+              setIsRecordFinished(false);
+
+              // }
             }}
           >
             {button[language][1]}
