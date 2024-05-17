@@ -100,7 +100,6 @@ export function EditProfilePage({ type }: Props) {
                         ref={nameRef}
                         type="text"
                         onChange={(e) => setUserName(e.target.value)}
-                        value={userName}
                         className="main__content-box-name-input"
                       />
                     </div>
@@ -111,8 +110,7 @@ export function EditProfilePage({ type }: Props) {
                     </div>
                     <input
                       type="text"
-                      // defaultValue={type === 'edit' ? userNickname : ''}
-                      value={userNickname}
+                      defaultValue={type === 'edit' ? userNickname : ''}
                       onChange={(e) => setUserNickname(e.target.value)}
                       className="main__content-box-nickname-input"
                     />
@@ -236,13 +234,17 @@ export function EditProfilePage({ type }: Props) {
                       kidsNickname: userNickname,
                       kidsPassword: password,
                     }).then((res: any) => {
-                      alert('프로필이 성공적으로 추가됐습니다');
+                      errorStore.setErrorModalState('프로필이 성공적으로 추가됐습니다');
                       navigate('/profile');
                     });
                   } else if (!validateName(userName)) {
-                    alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                    errorStore.setErrorModalState(
+                      '이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.',
+                    );
                   } else if (!validateNickname(userNickname)) {
-                    alert('닉네임은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                    errorStore.setErrorModalState(
+                      '닉네임은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.',
+                    );
                   }
                 } else if (type === 'edit') {
                   // 프로필 수정 로직
@@ -254,9 +256,11 @@ export function EditProfilePage({ type }: Props) {
                       },
                       getUUIDbyToken(),
                     ).then((res: any) => navigate('/profile'));
-                    alert('정보가 변경됐습니다.');
+                    errorStore.setErrorModalState('정보가 변경됐습니다.');
                   } else {
-                    alert('이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.');
+                    errorStore.setErrorModalState(
+                      '이름은 영어, 한글, 숫자를 포함한 1자 ~ 20자 이내 문자만 허용됩니다.',
+                    );
                     return;
                   }
                 }
