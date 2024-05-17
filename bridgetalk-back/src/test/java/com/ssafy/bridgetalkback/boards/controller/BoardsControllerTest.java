@@ -452,6 +452,190 @@ public class BoardsControllerTest extends ControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("게시글좋아요 등록 API [POST /api/boards/likes/{boardsId}]")
+    class register {
+        private static final String BASE_URL = "/api/boards/likes/{boardsId}";
+        private static final Long BOARD_ID = 1L;
+
+        @Test
+        @DisplayName("Authorization Header에 AccessToken이 없으면 게시글좋아요 등록에 실패한다")
+        void withoutAccessToken() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, BOARD_ID);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("본인의 게시글에는 좋아요를 누를 수 없다")
+        void throwExceptionBySelfFollowNotAllowed() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(BoardsErrorCode.SELF_BOARD_LIKE_NOT_ALLOWED))
+                    .when(boardsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, BOARD_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final BoardsErrorCode expectedError = BoardsErrorCode.SELF_BOARD_LIKE_NOT_ALLOWED;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isConflict(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("한 게시글에 두 번 이상 좋아요를 누를 수 없다")
+        void throwExceptionByAlreadyBoardLike() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(BoardsErrorCode.ALREADY_BOARD_LIKE))
+                    .when(boardsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, BOARD_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final BoardsErrorCode expectedError = BoardsErrorCode.ALREADY_BOARD_LIKE;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isConflict(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("게시글좋아요 등록에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(1L)
+                    .when(boardsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, BOARD_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
+    @Nested
+    @DisplayName("게시글좋아요 취소 API [DELETE /api/boards/likes/{boardsId}]")
+    class cancel {
+        private static final String BASE_URL = "/api/boards/likes/{boardsId}";
+        private static final Long BOARD_ID = 1L;
+
+        @Test
+        @DisplayName("Authorization Header에 AccessToken이 없으면 게시글좋아요 취소에 실패한다")
+        void withoutAccessToken() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, BOARD_ID);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("좋아요를 누르지 않은 게시글의 좋아요는 취소할 수 없다")
+        void throwExceptionByBoardLikeNotFound() throws Exception {
+            // given
+            given(jwtProvider.validateToken(anyString())).willReturn(true);
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(BoardsErrorCode.BOARD_LIKE_NOT_FOUND))
+                    .when(boardsLikeService)
+                    .cancel(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, BOARD_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final BoardsErrorCode expectedError = BoardsErrorCode.BOARD_LIKE_NOT_FOUND;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isNotFound(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("게시글좋아요 취소에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.validateToken(anyString())).willReturn(true);
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doNothing()
+                    .when(boardsLikeService)
+                    .cancel(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, BOARD_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
     private BoardsUpdateRequestDto createBoardsUpdateRequestDto(Language language) {
         return language.equals(Language.kor)
                 ? new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), language)

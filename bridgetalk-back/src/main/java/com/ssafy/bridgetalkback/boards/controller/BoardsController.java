@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.boards.controller;
 
+import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsUpdateRequestDto;
@@ -27,6 +28,7 @@ public class BoardsController {
 
     private final BoardsService boardsService;
     private final BoardsListService boardsListService;
+    private final BoardsLikeService boardLikeService;
 
     @PostMapping
     public ResponseEntity<BoardsResponseDto> createBoards(
@@ -74,5 +76,17 @@ public class BoardsController {
                                                                                           @RequestParam(value = "sort", required = false, defaultValue = "최신순") String sort) {
         log.info("{ BoardsController } : 게시글 리스트조회 진입 (검색조건, 검색키워드, 정렬 유형) - " + searchType + "," + searchWord + "," + sort);
         return ResponseEntity.ok(boardsListService.getCustomBoardsList(UUID.fromString(userId), page, searchType, searchWord, sort, language));
+    }
+
+    @PostMapping("/likes/{boardsId}")
+    public ResponseEntity<Void> register(@ExtractPayload String parentsId, @PathVariable Long boardsId) {
+        boardLikeService.register(UUID.fromString(parentsId), boardsId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/likes/{boardsId}")
+    public ResponseEntity<Void> cancel(@ExtractPayload String parentsId, @PathVariable Long boardsId) {
+        boardLikeService.cancel(UUID.fromString(parentsId), boardsId);
+        return ResponseEntity.ok().build();
     }
 }
