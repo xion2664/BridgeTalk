@@ -35,7 +35,6 @@ public class BoardsService {
     private final BoardsRepository boardsRepository;
     private final BoardsFindService boardsFindService;
     private final TranslationService translationService;
-    private final ParentsRepository parentsRepository;
     private final ChatGptService chatGptService;
 
 
