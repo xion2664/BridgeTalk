@@ -73,11 +73,11 @@ export function AppRoutes() {
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <LoginGuard>
           <LoadingScreen />
         </LoginGuard>
-      )}
+      )} */}
       <Routes>
         {/* <Route path="/home" element={<WelcomeScreen />} /> */}
 

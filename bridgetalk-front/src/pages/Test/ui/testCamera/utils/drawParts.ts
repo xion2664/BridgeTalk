@@ -45,7 +45,7 @@ export const drawDressParts = (ctx: CanvasRenderingContext2D, results: Results, 
       const topHeight = ((leftHip.y * height - leftShoulder.y * height) / 2) * 2.6;
 
       const topCenterX = ((leftShoulder.x + rightShoulder.x) / 2) * width;
-      const topCenterY = ((leftShoulder.y + leftHip.y) / 2) * height - topHeight / 2 + 230;
+      const topCenterY = ((leftShoulder.y + leftHip.y) / 2) * height - topHeight / 2 + 300;
 
       ctx.save();
       ctx.translate(topCenterX, topCenterY);
@@ -58,15 +58,16 @@ export const drawDressParts = (ctx: CanvasRenderingContext2D, results: Results, 
     // 왼쪽 팔뚝(leftForearm) 그리기
     if (leftShoulder && leftElbow) {
       const forearmWidth = leftElbow.x * width - leftShoulder.x * width;
-      const forearmHeight = leftElbow.y * height - leftShoulder.y * height;
+      const forearmHeight = leftShoulder.y * height - leftElbow.y * height;
 
-      // const forearmCenterX = ((leftElbow.x + leftShoulder.x) / 2) * width;
-      const forearmCenterX = -100;
+      const forearmCenterX = ((leftElbow.x + leftShoulder.x) / 2) * width;
       const forearmCenterY = ((leftElbow.y + leftShoulder.y) / 2) * height;
 
       ctx.save();
       ctx.translate(forearmCenterX, forearmCenterY);
       ctx.rotate(Math.atan2(leftShoulder.y - leftElbow.y, leftShoulder.x - leftElbow.x));
+      // ctx.rotate(Math.atan2(leftShoulder.y - leftElbow.y, leftShoulder.x - leftElbow.x) - Math.PI / 2); // 90도 회전 추가
+      // ctx.scale(-1, 1);
       ctx.drawImage(dressImages.leftForearm, -forearmWidth / 2, -forearmHeight / 2, forearmWidth, forearmHeight);
       ctx.restore();
     }

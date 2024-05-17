@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { customAxios } from '@/shared';
 import { StageItem } from './item/stageItem';
 import * as S from '@/styles/child/game/stage.style';
@@ -13,6 +14,7 @@ interface Puzzle {
 
 export function StagePage() {
   const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPuzzles = async () => {
@@ -31,7 +33,13 @@ export function StagePage() {
     <S.Container>
       <div className="stagePage">
         <div className="stagePage__header">
-          <img src="/assets/img/icon/toBack.svg" alt="뒤로 가기" />
+          <img
+            src="/assets/img/icon/toBack.svg"
+            alt="뒤로 가기"
+            onClick={() => {
+              navigate('/game');
+            }}
+          />
         </div>
         <div className="stagePage__container">
           {puzzles.map((puzzle) => (
