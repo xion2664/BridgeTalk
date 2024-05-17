@@ -150,6 +150,12 @@ public class ChatGptService {
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERT_KEYWORD)) {
             text += "\n 위의 문장에서 핵심 단어 4개를 [\"친구\", \"학교\", \"성장\", \"호기심\", \"게임\", \"취미\", \"가족\", \"공원\", \"학습\", \"동기부여\", \"창의력\", \"감정\", \"스포츠\", \"음악\", \"독서\", \"영화\", \"자연\", \"애완동물\", \"모험\", \"과학\", \"행복\"] 중에서 가장 밀접한 관련이 있는 단어로 바꿔서 설명없이 한 개의 list형태로 반환해줘";
+        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH)) {
+            text += "\n Please translate the above sentences into Filipino.";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
+            text += "\n 위 문장들을 영어로 번역해줘";
+            log.info(">> prompt : {}", text);
         }
         return text;
     }
