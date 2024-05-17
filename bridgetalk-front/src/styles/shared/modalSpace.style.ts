@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { color, embossing } from '../parent/common.style';
+import * as main from '../main/common.style';
 
 const fadeInWithMove = keyframes`
     0% {
@@ -197,20 +198,73 @@ export const ErrorModalContainer = styled.div`
 export const PasswordCheckModaContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2svh;
+  justify-content: center;
+  align-items: center;
 
-  width: 86.7svw;
-  height: 39.6svh;
+  gap: 4svh;
+
+  width: 84svw;
+  height: 46.6svh;
 
   background-color: ${color(0.5).black};
 
   border-radius: 2.6svw;
 
+  text-align: center;
+
+  .title {
+    color: ${color(1).bright};
+    font-family: 'DNF';
+    font-size: 3svw;
+  }
   .content {
     display: flex;
+    gap: 1svw;
+
+    img {
+      width: 23.4svw;
+    }
+
+    input {
+      width: 43.9svw;
+      height: 13.8svh;
+      border-radius: 5.2svw;
+      border: 1svw solid ${main.color(1).main};
+
+      padding: 1svh 1.5svw;
+      font-size: 2.5svw;
+    }
   }
 
   .buttons {
     display: flex;
+    gap: 2svw;
+
+    button {
+      width: 17svw;
+      height: 11.2svh;
+      border-radius: 5.2svw;
+      background-color: ${main.color(1).main};
+      position: relative;
+
+      font-size: 2.5svw;
+
+      color: ${color(1).bright};
+      font-family: 'DNF';
+
+      cursor: pointer;
+
+      &::after {
+        ${main.insetShadow}
+        border-radius: 5.2svw;
+        box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
+      }
+
+      &::before {
+        ${main.insetShadow}
+        border-radius: 5.2svw;
+        box-shadow: inset 0 -0.5svh 0.4svh ${color(0.5).black};
+      }
+    }
   }
 `;

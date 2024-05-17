@@ -78,7 +78,7 @@ export function AppRoutes() {
         </LoginGuard>
       )}
       <Routes>
-        {/* <Route path="/" element={<WelcomePage />} /> */}
+        {/* <Route path="/home" element={<WelcomeScreen />} /> */}
 
         {/* 메인화면 관련 */}
         <Route path="/" element={<Main />}>

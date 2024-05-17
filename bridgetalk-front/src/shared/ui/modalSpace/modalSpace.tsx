@@ -102,10 +102,17 @@ function ErrorModal() {
 }
 
 function PasswordCheckModalArea() {
-  const inputRef: any = useRef<HTMLInputElement>();
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
   const profileStore = useProfileStore();
   const navigate = useNavigate();
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <S.Container>
@@ -113,7 +120,26 @@ function PasswordCheckModalArea() {
         <div className="title">비밀번호 확인</div>
         <div className="content">
           <img src={'assets/img/main/passwordicon.svg'} />
-          <input type="password" ref={inputRef}></input>
+          <input
+            type="password"
+            ref={inputRef}
+            onKeyDown={(e) => {
+              if (e.key !== 'Enter') return;
+              handleProfileLogin(
+                profileStore.passwordCheckModalState[0],
+                inputRef.current!.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  const navigatePath = profileStore.passwordCheckModalState[1];
+
+                  profileStore.setPasswordCheckModalState(false);
+                  navigate(navigatePath);
+                }
+              });
+            }}
+          ></input>
         </div>
         <div className="buttons">
           <button
@@ -129,11 +155,17 @@ function PasswordCheckModalArea() {
             onClick={() => {
               handleProfileLogin(
                 profileStore.passwordCheckModalState[0],
-                inputRef.current.value,
+                inputRef.current!.value,
                 userStore,
-                navigate,
-                profileStore.passwordCheckModalState[1],
-              );
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  const navigatePath = profileStore.passwordCheckModalState[1];
+
+                  profileStore.setPasswordCheckModalState(false);
+                  navigate(navigatePath);
+                }
+              });
             }}
           >
             확인

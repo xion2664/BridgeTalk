@@ -32,20 +32,26 @@ public class Comments extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String commentsContentViet;
 
-    private Comments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet) {
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String commentsContentPh;
+
+    private Comments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet,
+                     String commentsContentPh) {
         this.parents = parents;
         this.boards = boards;
         this.commentsContentKor = commentsContentKor;
         this.commentsContentViet = commentsContentViet;
+        this.commentsContentPh = commentsContentPh;
     }
 
-    public static Comments createComments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet)  {
-        return new Comments(parents, boards, commentsContentKor, commentsContentViet);
+    public static Comments createComments(Parents parents, Boards boards, String commentsContentKor, String commentsContentViet,
+                                          String commentsContentPh)  {
+        return new Comments(parents, boards, commentsContentKor, commentsContentViet, commentsContentPh);
     }
 
-    public void updateComments(String commentsContentKor, String commentsContentViet) {
+    public void updateComments(String commentsContentKor, String commentsContentViet, String commentsContentPh) {
         this.commentsContentKor = commentsContentKor;
         this.commentsContentViet = commentsContentViet;
-
+        this.commentsContentPh = commentsContentPh;
     }
 }

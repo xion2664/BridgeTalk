@@ -77,6 +77,8 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentPh()).isNotNull(),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -96,6 +98,29 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
                 () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentPh()).isNotNull(),
+                () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
+        );
+    }
+
+    @Test
+    @DisplayName("(필리핀어) 게시글 등록에 성공한다.")
+    void createBoardsPh() {
+        // when
+        BoardsResponseDto boardsResponseDto = boardsService.createBoards(parents.getUuid(), createBoardsRequestDto(Language.ph));
+        Long boardsId = boardsResponseDto.boardsId();
+
+        // then
+        Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
+        assertAll(
+                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boardsId),
+                () -> assertThat(findBoards.getBoardsTitleKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isEqualTo(BOARDS_02.getBoardsTitlePh()),
+                () -> assertThat(findBoards.getBoardsContentPh()).isEqualTo(BOARDS_02.getBoardsContentPh()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -115,6 +140,8 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsContentKor()).isEqualTo(BOARDS_02.getBoardsContentKor()),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentPh()).isNotNull(),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -134,6 +161,29 @@ public class BoardsServiceTest extends ServiceTest {
                 () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
                 () -> assertThat(findBoards.getBoardsTitleViet()).isEqualTo(BOARDS_02.getBoardsTitleViet()),
                 () -> assertThat(findBoards.getBoardsContentViet()).isEqualTo(BOARDS_02.getBoardsContentViet()),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentPh()).isNotNull(),
+                () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
+        );
+    }
+
+    @Test
+    @DisplayName("(필리핀어) 게시글 수정에 성공한다.")
+    void updateBoardsPh() {
+        // when
+        BoardsResponseDto updateBoardsResponseDto = boardsService.updateBoards(parents.getUuid(), boards.getBoardsId(), updateBoardsRequestDto(Language.ph));
+        Long updateBoardsId = updateBoardsResponseDto.boardsId();
+
+        // then
+        Boards findBoards = boardsFindService.findByBoardsIdAndIsDeleted(updateBoardsId);
+        assertAll(
+                () -> assertThat(findBoards.getBoardsId()).isEqualTo(boards.getBoardsId()),
+                () -> assertThat(findBoards.getBoardsTitleKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentKor()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitleViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsContentViet()).isNotNull(),
+                () -> assertThat(findBoards.getBoardsTitlePh()).isEqualTo(BOARDS_02.getBoardsTitlePh()),
+                () -> assertThat(findBoards.getBoardsContentPh()).isEqualTo(BOARDS_02.getBoardsContentPh()),
                 () -> assertThat(findBoards.getIsDeleted()).isEqualTo(0)
         );
     }
@@ -156,15 +206,23 @@ public class BoardsServiceTest extends ServiceTest {
     }
 
     private BoardsUpdateRequestDto updateBoardsRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor)
-                : new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+        BoardsUpdateRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto =new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
+            case viet -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+            default -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+        }
+        return requestDto;
     }
 
     private BoardsRequestDto createBoardsRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor)
-                : new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+        BoardsRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto =new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
+            case viet -> requestDto = new BoardsRequestDto(2L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+            default -> requestDto = new BoardsRequestDto(2L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+        }
+        return requestDto;
     }
 
 
