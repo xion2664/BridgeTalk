@@ -254,65 +254,11 @@ public class BoardsControllerTest extends ControllerTest {
 
 
     @Nested
-    @DisplayName("게시글 상세조회 API [GET /api/boards/{boardsId}/{language}]")
+    @DisplayName("게시글 상세조회 API [GET /api/boards/read/{boardsId}/{language}]")
     class parentingInfoDetail {
-        private static final String BASE_URL = "/api/boards/{boardsId}/{language}";
+        private static final String BASE_URL = "/api/boards/read/{boardsId}/{language}";
         private static final Long BOARDS_ID = 1L;
         private static final Language LANGUAGE_KOR = Language.kor;
-
-        @Test
-        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
-        void throwExceptionByInvalidPermission() throws Exception {
-            // when
-            final BoardsUpdateRequestDto boardsUpdateRequestDto = createBoardsUpdateRequestDto(Language.kor);
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR)
-                    .contentType(APPLICATION_JSON)
-                    .content(convertObjectToJson(boardsUpdateRequestDto));
-
-            // then
-            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
-            mockMvc.perform(requestBuilder)
-                    .andExpectAll(
-                            status().isForbidden(),
-                            jsonPath("$.status").exists(),
-                            jsonPath("$.status").value(expectedError.getStatus().value()),
-                            jsonPath("$.errorCode").exists(),
-                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
-                            jsonPath("$.message").exists(),
-                            jsonPath("$.message").value(expectedError.getMessage())
-                    );
-        }
-
-
-        @Test
-        @DisplayName("부모가 아닌 유저라면 게시글 조회에 실패한다")
-        void throwExceptionByUserIsNotParents() throws Exception {
-            // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doThrow(BaseException.type(BoardsErrorCode.USER_IS_NOT_PARENTS))
-                    .when(boardsService)
-                    .getBoardsDetail(any(), anyLong(), any());
-
-            // when
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
-
-
-            // then
-            final BoardsErrorCode expectedError = BoardsErrorCode.USER_IS_NOT_PARENTS;
-            mockMvc.perform(requestBuilder)
-                    .andExpectAll(
-                            status().isNotFound(),
-                            jsonPath("$.status").exists(),
-                            jsonPath("$.status").value(expectedError.getStatus().value()),
-                            jsonPath("$.errorCode").exists(),
-                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
-                            jsonPath("$.message").exists(),
-                            jsonPath("$.message").value(expectedError.getMessage())
-                    );
-        }
 
         @Test
         @DisplayName("게시글 상세조회에 성공한다")
@@ -321,7 +267,7 @@ public class BoardsControllerTest extends ControllerTest {
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doReturn(getBoardsResponseDto())
                     .when(boardsService)
-                    .getBoardsDetail(any(), anyLong(), any());
+                    .getBoardsDetail(anyLong(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -336,9 +282,9 @@ public class BoardsControllerTest extends ControllerTest {
 
 
     @Nested
-    @DisplayName("게시글 리스트조회 API [GET /api/boards/{language}]")
+    @DisplayName("게시글 리스트조회 API [GET /api/boards/read/{language}]")
     class getCustomBoardsList {
-        private static final String BASE_URL = "/api/boards/{language}";
+        private static final String BASE_URL = "/api/boards/read/{language}";
         private static final Language LANGUAGE_KOR = Language.kor;
         private static final int PAGE = 0;
         private static final String SEARCH_TYPE = "제목";
@@ -348,72 +294,13 @@ public class BoardsControllerTest extends ControllerTest {
         private static final String INVALID_SORT_CONDITION = "조회순";
 
         @Test
-        @DisplayName("Authorization_Header에 RefreshToken이 없으면 예외가 발생한다")
-        void throwExceptionByInvalidPermission() throws Exception {
-            // when
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, LANGUAGE_KOR)
-                    .param("page", String.valueOf(PAGE))
-                    .param("searchType", SEARCH_TYPE)
-                    .param("searchWord", SEARCH_WORD_KOR)
-                    .param("sort", SORT_CONDITION);
-
-            // then
-            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
-            mockMvc.perform(requestBuilder)
-                    .andExpectAll(
-                            status().isForbidden(),
-                            jsonPath("$.status").exists(),
-                            jsonPath("$.status").value(expectedError.getStatus().value()),
-                            jsonPath("$.errorCode").exists(),
-                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
-                            jsonPath("$.message").exists(),
-                            jsonPath("$.message").value(expectedError.getMessage())
-                    );
-
-        }
-
-        @Test
-        @DisplayName("부모가 아닌 유저라면 게시글 리스트 조회에 실패한다")
-        void throwExceptionByUserIsNotParents() throws Exception {
-            // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
-            doThrow(BaseException.type(BoardsErrorCode.USER_IS_NOT_PARENTS))
-                    .when(boardsListService)
-                    .getCustomBoardsList(any(), anyInt(), any(), any(), any(), any());
-
-            // when
-            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, LANGUAGE_KOR)
-                    .param("page", String.valueOf(PAGE))
-                    .param("searchType", SEARCH_TYPE)
-                    .param("searchWord", SEARCH_WORD_KOR)
-                    .param("sort", SORT_CONDITION)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
-
-
-            // then
-            final BoardsErrorCode expectedError = BoardsErrorCode.USER_IS_NOT_PARENTS;
-            mockMvc.perform(requestBuilder)
-                    .andExpectAll(
-                            status().isNotFound(),
-                            jsonPath("$.status").exists(),
-                            jsonPath("$.status").value(expectedError.getStatus().value()),
-                            jsonPath("$.errorCode").exists(),
-                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
-                            jsonPath("$.message").exists(),
-                            jsonPath("$.message").value(expectedError.getMessage())
-                    );
-        }
-
-        @Test
         @DisplayName("존재하지 않는 검색 조건이라면 게시글 리스트 조회에 실패한다")
         void throwNotFoundSearchType() throws Exception {
             // given
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doThrow(BaseException.type(BoardsErrorCode.SEARCH_TYPE_NOT_FOUND))
                     .when(boardsListService)
-                    .getCustomBoardsList(any(), anyInt(), any(), any(), any(), any());
+                    .getCustomBoardsList(anyInt(), any(), any(), any(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -446,7 +333,7 @@ public class BoardsControllerTest extends ControllerTest {
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doThrow(BaseException.type(BoardsErrorCode.SORT_CONDITION_NOT_FOUND))
                     .when(boardsListService)
-                    .getCustomBoardsList(any(), anyInt(), any(), any(), any(), any());
+                    .getCustomBoardsList(anyInt(), any(), any(), any(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -479,7 +366,7 @@ public class BoardsControllerTest extends ControllerTest {
             given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doReturn(getCustomBoardsListResponseDto())
                     .when(boardsListService)
-                    .getCustomBoardsList(any(), anyInt(), any(), any(), any(), any());
+                    .getCustomBoardsList(anyInt(), any(), any(), any(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
