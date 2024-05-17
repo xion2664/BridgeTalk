@@ -108,6 +108,28 @@ public class BoardsControllerTest extends ControllerTest {
             mockMvc.perform(requestBuilder)
                     .andExpect(status().isCreated());
         }
+
+        @Test
+        @DisplayName("(필리핀어) 게시글 등록에 성공한다.")
+        void successPh() throws Exception {
+            //given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(getBoardsResponseDto())
+                    .when(boardsService)
+                    .createBoards(any(), any());
+
+            //when
+            final BoardsRequestDto boardsRequestDto = createBoardsRequestDto(Language.ph);
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(boardsRequestDto));
+
+            //then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isCreated());
+        }
     }
 
     @Nested
@@ -149,6 +171,28 @@ public class BoardsControllerTest extends ControllerTest {
 
             //when
             final BoardsUpdateRequestDto boardsUpdateRequestDto = createBoardsUpdateRequestDto(Language.viet);
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .patch(BASE_URL, BOARDS_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(boardsUpdateRequestDto));
+
+            //then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("(필리핀어) 게시글 수정에 성공한다.")
+        void successPh() throws Exception {
+            //given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(getBoardsResponseDto())
+                    .when(boardsService)
+                    .updateBoards(any(), any(), any());
+
+            //when
+            final BoardsUpdateRequestDto boardsUpdateRequestDto = createBoardsUpdateRequestDto(Language.ph);
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                     .patch(BASE_URL, BOARDS_ID)
                     .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
@@ -637,15 +681,23 @@ public class BoardsControllerTest extends ControllerTest {
     }
 
     private BoardsUpdateRequestDto createBoardsUpdateRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), language)
-                : new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), language);
+        BoardsUpdateRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto =new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
+            case viet -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+            default -> requestDto = new BoardsUpdateRequestDto(BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+        }
+        return requestDto;
     }
 
     private BoardsRequestDto createBoardsRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleKor(), BOARDS_01.getBoardsContentKor(), language)
-                : new BoardsRequestDto(1L, BOARDS_01.getBoardsTitleViet(), BOARDS_01.getBoardsContentViet(), language);
+        BoardsRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto =new BoardsRequestDto(1L, BOARDS_02.getBoardsTitleKor(), BOARDS_02.getBoardsContentKor(), Language.kor);
+            case viet -> requestDto = new BoardsRequestDto(1L, BOARDS_02.getBoardsTitleViet(), BOARDS_02.getBoardsContentViet(), Language.viet);
+            default -> requestDto = new BoardsRequestDto(1L, BOARDS_02.getBoardsTitlePh(), BOARDS_02.getBoardsContentPh(), Language.ph);
+        }
+        return requestDto;
     }
 
 
