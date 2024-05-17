@@ -43,7 +43,7 @@ public class AuthService {
         DuplicateEmail(requestDto.parentsEmail());
 
         Parents parents = Parents.createParents(requestDto.parentsName(), Email.from(requestDto.parentsEmail()),
-                Password.encrypt(requestDto.parentsPassword(), ENCODER), requestDto.parentsNickname(), requestDto.parentsDino());
+                Password.encrypt(requestDto.parentsPassword(), ENCODER), requestDto.parentsNickname(), requestDto.parentsDino(), requestDto.language());
 
         return parentsRepository.save(parents).getUuid();
     }
