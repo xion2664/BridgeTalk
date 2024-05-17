@@ -38,7 +38,7 @@ export const ParentReportDetailRecorder = memo(() => {
     () => ({
       kor: '답장하기',
       viet: 'phúc đáp',
-      ph: '',
+      ph: 'Tumugon',
     }),
     [],
   );

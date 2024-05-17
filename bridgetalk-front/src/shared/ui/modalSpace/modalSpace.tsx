@@ -10,10 +10,9 @@ import {
 import { handleProfileLogin } from '@/pages/main/model/handleProfileLogin/handleProfileLogin';
 import { decodeToken, errorCatch } from '@/shared/model';
 import { useErrorStore } from '@/shared/store';
-import { customAxios } from '@/shared/util';
 import * as S from '@/styles/shared/modalSpace.style';
 import { useEffect, useMemo, useRef } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function ModalSpace() {
   const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
@@ -49,7 +48,7 @@ function ParentVoiceRecordModalArea() {
     () => ({
       kor: '녹음이 완료됐어요!',
       viet: 'Việc ghi âm đã xong!',
-      ph: '',
+      ph: 'Tapos na ang pagre-record',
     }),
     [],
   );
@@ -58,7 +57,7 @@ function ParentVoiceRecordModalArea() {
     () => ({
       kor: ['취소하기', '보내기'],
       viet: ['Bỏ', 'Gửi'],
-      ph: '',
+      ph: ['Kanselahin', 'Ipadala'],
     }),
     [],
   );

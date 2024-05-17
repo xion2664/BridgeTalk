@@ -32,7 +32,7 @@ export function ParentReportListItem({
     () => ({
       kor: ['년', '월', '일'],
       viet: ['Năm', 'tháng', 'ngày'],
-      ph: [''],
+      ph: ['Taon', 'Buwan', 'Araw'],
     }),
     [],
   );

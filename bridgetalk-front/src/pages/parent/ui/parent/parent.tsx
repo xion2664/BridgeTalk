@@ -92,10 +92,16 @@ function LangIcon() {
     <button
       className="lang"
       onClick={() => {
-        setLanguage(language === 'kor' ? 'ph' : 'kor');
+        setLanguage(language === 'kor' ? 'ph' : language === 'ph' ? 'viet' : 'kor');
       }}
     >
-      {language === 'kor' ? <img src={`/assets/flag/kor.png`} /> : <img src={`/assets/flag/ph.png`} />}
+      {language === 'kor' ? (
+        <img src={`/assets/flag/kor.png`} />
+      ) : language === 'ph' ? (
+        <img src={`/assets/flag/ph.png`} />
+      ) : (
+        <img src={`/assets/flag/viet.png`} />
+      )}
     </button>
   );
 }

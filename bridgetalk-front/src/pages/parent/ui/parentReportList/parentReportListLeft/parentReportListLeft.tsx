@@ -22,7 +22,7 @@ export function ParentReportListLeft() {
     () => ({
       kor: '게시판',
       viet: 'một bảng thông báo',
-      ph: '',
+      ph: 'Forum',
     }),
     [],
   );
