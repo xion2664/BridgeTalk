@@ -29,7 +29,7 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
     @Override
     public CustomBoardsListResponseDto<BoardsListDto> getBoardsListOrderByTime(int page, BoardsSearchType boardSearchType,
                                                                                String searchWord, Language language) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 4);
         List<BoardsListDto> boardLists = query
                 .selectDistinct(createQBoardsListDto(language))
                 .from(boards)
@@ -50,7 +50,7 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
     @Override
     public CustomBoardsListResponseDto<BoardsListDto> getBoardsListOrderByLikes(int page, BoardsSearchType boardSearchType,
                                                                                 String searchWord, Language language) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 4);
         List<BoardsListDto> boardLists = query
                 .selectDistinct(createQBoardsListDto(language))
                 .from(boards)
