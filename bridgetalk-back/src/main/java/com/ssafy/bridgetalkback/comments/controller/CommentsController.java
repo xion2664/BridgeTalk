@@ -39,7 +39,11 @@ public class CommentsController {
         log.info(">>>> (부모에게) SSE 알림 전송 시작");
         NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
                 .receiverUuid(commentsResponseDto.parentsUuid())
-                .url("https://bridgetalk.co.kr/api/letters/")
+                .url("https://bridgetalk.co.kr/api/boards/"
+                        + commentsRequestDto.boardsId()
+                        + "/"
+                        + "kor"
+                )
                 .content(NotificationType.POST_COMMENTS_REGISTER.getWord())
                 .notificationType(NotificationType.POST_COMMENTS_REGISTER)
                 .build();
