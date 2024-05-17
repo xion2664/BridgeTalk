@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.parents.service;
 
+import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
@@ -7,6 +8,8 @@ import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
+import com.ssafy.bridgetalkback.parents.domain.Password;
+import com.ssafy.bridgetalkback.parents.dto.request.DeleteProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.dto.request.UpdateProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+
+import static com.ssafy.bridgetalkback.global.utils.PasswordEncoderUtils.ENCODER;
 
 @Slf4j
 @Service
@@ -47,11 +52,18 @@ public class ProfileService {
     }
 
     @Transactional
-    public void deleteProfile(UUID profileId) {
+    public void deleteProfile(DeleteProfileRequestDto requestDto) {
+        UUID profileId = UUID.fromString(requestDto.profileId());
+        String password = requestDto.password();
+
         if(parentsRepository.existsParentsByUuidAndIsDeleted(profileId, 0)){
-            log.info("{ ProfileService } : 부모 측 - 프로필 삭제");
             Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(profileId);
+
+            validatePassword(password, parents.getParentsPassword());
+            log.info("{ ProfileService } : 프로필 비밀번호 인증 성공");
+
             parents.updateIsDeleted();
+            log.info("{ ProfileService } : 부모 측 - 프로필 삭제 ");
             tokenService.deleteRefreshTokenByUserId(profileId);
             log.info("{ ProfileService } : 부모 측 - RefreshToken 삭제");
 
@@ -70,5 +82,11 @@ public class ProfileService {
             log.info("{ ProfileService } : 아이 측 - RefreshToken 삭제");
         }
         else throw BaseException.type(AuthErrorCode.USER_NOT_FOUND);
+    }
+
+    private void validatePassword(String comparePassword, Password findPassword) {
+        if(!findPassword.isSamePassword(comparePassword, ENCODER)) {
+            throw BaseException.type(AuthErrorCode.WRONG_PASSWORD);
+        }
     }
 }
