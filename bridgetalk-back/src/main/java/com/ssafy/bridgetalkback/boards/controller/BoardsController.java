@@ -10,6 +10,9 @@ import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
 import com.ssafy.bridgetalkback.boards.service.BoardsListService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
+import com.ssafy.bridgetalkback.notification.domain.NotificationType;
+import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
+import com.ssafy.bridgetalkback.notification.service.SseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,7 @@ public class BoardsController {
     private final BoardsService boardsService;
     private final BoardsListService boardsListService;
     private final BoardsLikeService boardLikeService;
+    private final SseService sseService;
 
     @PostMapping
     public ResponseEntity<BoardsResponseDto> createBoards(
@@ -80,7 +84,22 @@ public class BoardsController {
 
     @PostMapping("/likes/{boardsId}")
     public ResponseEntity<Void> register(@ExtractPayload String parentsId, @PathVariable Long boardsId) {
+        log.info("{ BoardController } : 좋아요 등록 진입");
         boardLikeService.register(UUID.fromString(parentsId), boardsId);
+
+        log.info(">>>> (부모에게) SSE 알림 전송 시작");
+        NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
+                .receiverUuid(parentsId)
+                .url("https://bridgetalk.co.kr/api/boards/"
+                        + boardsId
+                        + "/"
+                        + "kor"
+                )
+                .content(NotificationType.POST_COMMENTS_REGISTER.getWord())
+                .notificationType(NotificationType.POST_LIKE_REGISTER)
+                .build();
+        sseService.send(notificationRequestDto);
+        log.info(">>>> (부모에게) SSE 알림 전송 완료");
         return ResponseEntity.ok().build();
     }
 

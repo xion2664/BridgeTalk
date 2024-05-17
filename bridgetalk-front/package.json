@@ -23,6 +23,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
+    "@emotion/css": "^11.11.2",
     "@ffmpeg/core": "^0.12.6",
     "@ffmpeg/ffmpeg": "^0.12.10",
     "@ffmpeg/util": "^0.12.1",
@@ -31,6 +32,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/drawing_utils": "^0.3.1675466124",
+    "@mediapipe/hands": "^0.4.1675469240",
     "@mediapipe/pose": "^0.5.1675469404",
     "@react-three/drei": "^9.105.6",
     "@react-three/fiber": "^8.16.3",
