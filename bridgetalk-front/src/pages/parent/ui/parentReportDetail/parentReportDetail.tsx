@@ -27,6 +27,7 @@ export function ParentReportDetail() {
     () => ({
       kor: ['.', '.', '.'],
       viet: ['.', '.', '.'],
+      ph: ['.', '.', '.'],
     }),
     [],
   );
@@ -34,6 +35,7 @@ export function ParentReportDetail() {
     () => ({
       kor: '분석 리포트',
       viet: 'Báo cáo',
+      ph: '',
     }),
     [],
   );
@@ -42,6 +44,7 @@ export function ParentReportDetail() {
     () => ({
       kor: ['요약', '솔루션'],
       viet: ['Tóm tắt', 'Giải pháp'],
+      ph: ['Buod', 'Solusyon'],
     }),
     [],
   );

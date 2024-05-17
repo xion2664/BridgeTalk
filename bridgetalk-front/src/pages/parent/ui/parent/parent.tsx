@@ -71,10 +71,11 @@ function Navbar({ navigate }: any) {
       >
         <img src={`/assets/img/parent/navbar/info_${pathCheck('word')}.svg`} />
       </button>
-      <button 
-      onClick={() => {
+      <button
+        onClick={() => {
           navigate('board');
-        }}>
+        }}
+      >
         <img src={`/assets/img/parent/navbar/community_${pathCheck('community')}.svg`} />
       </button>
     </S.Navbar>
@@ -91,10 +92,16 @@ function LangIcon() {
     <button
       className="lang"
       onClick={() => {
-        setLanguage(language === 'kor' ? 'viet' : 'kor');
+        setLanguage(language === 'kor' ? 'ph' : language === 'ph' ? 'viet' : 'kor');
       }}
     >
-      {language === 'kor' ? <img src={'/assets/img/ktv.svg'} /> : <img src={'/assets/img/vtk.svg'} />}
+      {language === 'kor' ? (
+        <img src={`/assets/flag/kor.png`} />
+      ) : language === 'ph' ? (
+        <img src={`/assets/flag/ph.png`} />
+      ) : (
+        <img src={`/assets/flag/viet.png`} />
+      )}
     </button>
   );
 }

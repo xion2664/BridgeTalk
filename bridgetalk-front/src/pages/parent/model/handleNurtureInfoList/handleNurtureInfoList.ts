@@ -1,7 +1,7 @@
 import { getNurtureInfoList } from '../../query';
 
 export async function handleNurtureInfoList(
-  language: 'kor' | 'viet',
+  language: 'kor' | 'viet' | 'ph',
   setInfoList: any,
   page: number,
   setLastPage: any,
