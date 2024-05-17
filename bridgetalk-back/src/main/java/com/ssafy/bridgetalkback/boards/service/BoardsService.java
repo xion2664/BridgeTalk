@@ -15,7 +15,6 @@ import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.service.ReportsFindService;
 import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import com.ssafy.bridgetalkback.global.Language;
-import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
