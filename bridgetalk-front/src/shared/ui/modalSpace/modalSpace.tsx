@@ -102,11 +102,17 @@ function ErrorModal() {
 }
 
 function PasswordCheckModalArea() {
-  const inputRef: any = useRef<HTMLInputElement>();
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
   const profileStore = useProfileStore();
   const navigate = useNavigate();
   const userStore = useUserStore();
   const errorStore = useErrorStore();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <S.Container>
@@ -121,7 +127,7 @@ function PasswordCheckModalArea() {
               if (e.key !== 'Enter') return;
               handleProfileLogin(
                 profileStore.passwordCheckModalState[0],
-                inputRef.current.value,
+                inputRef.current!.value,
                 userStore,
                 errorStore.setErrorModalState,
               ).then((res) => {
@@ -149,7 +155,7 @@ function PasswordCheckModalArea() {
             onClick={() => {
               handleProfileLogin(
                 profileStore.passwordCheckModalState[0],
-                inputRef.current.value,
+                inputRef.current!.value,
                 userStore,
                 errorStore.setErrorModalState,
               ).then((res) => {
