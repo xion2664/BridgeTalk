@@ -58,6 +58,9 @@ export const Container = styled.div`
     }
 
     &__profilelist {
+      .selected {
+        background-color: ${color(1).main};
+      }
       &-wrapper {
         max-width: 80svw;
         overflow-x: auto;
@@ -195,6 +198,8 @@ export const Container = styled.div`
         width: 20.9svw;
         height: 12svh;
         font-size: 2.5svw;
+
+        cursor: pointer;
       }
     }
   }
