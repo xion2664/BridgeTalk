@@ -23,6 +23,7 @@ export function ParentReportListRight() {
     () => ({
       kor: '아이 속마음 리포트',
       viet: 'Báo cáo',
+      ph: 'Ulat',
     }),
     [],
   );
@@ -35,13 +36,9 @@ export function ParentReportListRight() {
       report.value.data = tmpData;
       return report;
     });
-    console.log(tmp);
+
     setSelected(tmp);
   }, [reportList]);
-
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
 
   return (
     <S.Container>
