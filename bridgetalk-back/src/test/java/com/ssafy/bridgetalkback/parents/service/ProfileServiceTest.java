@@ -117,6 +117,6 @@ public class ProfileServiceTest extends ServiceTest {
     }
 
     private DeleteProfileRequestDto createKidsDeleteProfileRequestDto() {
-        return new DeleteProfileRequestDto(kids.getUuid().toString(), "임시 비밀번호");
+        return new DeleteProfileRequestDto(kids.getUuid().toString(), JIYEONG.getKidsPassword());
     }
 }
