@@ -94,8 +94,11 @@ public class LettersService {
         String fileName = vrr[len - 2] + "/" + vrr[len - 1];
         log.info(">> fileName : {}", fileName);
 
+        // db에 저장
+        Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
+
         // stt api 호출
-        String extractOriginText = stt(fileName);
+        String extractOriginText = stt(fileName, parents.getNation());
 
 //        // 번역 api 호출
 //        //      1. 베트남어(vi) -> 영어(en)
@@ -105,9 +108,6 @@ public class LettersService {
 
         // chatgpt api 호출 => 번역 & 대화체로 수정
         String transformedText = changeToConversation(extractOriginText);
-
-        // db에 저장
-        Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
 
         Reports reports = reportsService.findByIdAndIsDeleted(reportsId);
         if (lettersRepository.findByReports(reports).isPresent()) {
@@ -134,11 +134,12 @@ public class LettersService {
      * stt() : 음성파일 텍스트화 api 호출 메서드
      *
      * @param fileName : 파일명
+     * @param language : 국가
      * @return String : 변환된 텍스트
      */
-    public String stt(String fileName) {
+    public String stt(String fileName, String language) {
         log.info("{ LetterService.stt() } : stt api 호출 메서드");
-        String jobName = lettersTranscribeService.transcribe(bucketName, fileName);
+        String jobName = lettersTranscribeService.transcribe(bucketName, fileName, language);
         String transcriptFileName = jobName + ".json";
         log.info(">> trancriptionFileName : {}", transcriptFileName);
         String extractText = "";
