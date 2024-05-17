@@ -1,5 +1,14 @@
-import { postVoiceBlob, useProfileStore, useReportStore, useUserStore, useVoiceStore } from '@/pages';
+import {
+  deleteDeleteProfile,
+  getProfileList,
+  postVoiceBlob,
+  useProfileStore,
+  useReportStore,
+  useUserStore,
+  useVoiceStore,
+} from '@/pages';
 import { handleProfileLogin } from '@/pages/main/model/handleProfileLogin/handleProfileLogin';
+import { decodeToken, errorCatch } from '@/shared/model';
 import { useErrorStore } from '@/shared/store';
 import { customAxios } from '@/shared/util';
 import * as S from '@/styles/shared/modalSpace.style';
@@ -10,7 +19,9 @@ export function ModalSpace() {
   const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
   const errorModalState = useErrorStore((state) => state.errorModalState);
   const passwordCheckModalState = useProfileStore((state) => state.passwordCheckModalState);
+
   const editProfileModalState = useProfileStore((state) => state.editProfileModalState);
+  const deleteProfileModalState = useProfileStore((state) => state.deleteModalOpenState);
 
   return (
     <>
@@ -18,6 +29,7 @@ export function ModalSpace() {
       {errorModalState && <ErrorModal />}
       {passwordCheckModalState && <PasswordCheckModalArea />}
       {editProfileModalState && <EditProfileModalArea />}
+      {deleteProfileModalState && <DeleteProfileModalArea />}
     </>
   );
 }
@@ -231,6 +243,92 @@ function EditProfileModalArea() {
                 if (res) {
                   navigate('/editprofile');
                   profileStore.setEditProfileModalState(false);
+                }
+              });
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </S.PasswordCheckModaContainer>
+    </S.Container>
+  );
+}
+
+function DeleteProfileModalArea() {
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
+  const profileStore = useProfileStore();
+  const navigate = useNavigate();
+  const userStore = useUserStore();
+  const errorStore = useErrorStore();
+
+  return (
+    <S.Container>
+      <S.PasswordCheckModaContainer>
+        <div className="title">프로필 삭제</div>
+        <div className="content">
+          <img src={'assets/img/main/passwordicon.svg'} />
+          <input
+            type="password"
+            ref={inputRef}
+            onKeyDown={(e) => {
+              if (e.key !== 'Enter') return;
+
+              handleProfileLogin(
+                profileStore.deleteModalOpenState[0],
+                inputRef.current!.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+                    .then(() => {
+                      profileStore.setDeleteProfileModalState(false);
+                      getProfileList(userStore.accessToken).then((res) => {
+                        profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
+                      });
+                    })
+                    .catch((err) => {
+                      if (err instanceof Error) {
+                        errorCatch(err, errorStore.setErrorModalState);
+                      }
+                    });
+                }
+              });
+            }}
+          ></input>
+        </div>
+        <div className="buttons">
+          <button
+            className="buttons__cancel"
+            onClick={() => {
+              profileStore.setDeleteProfileModalState(false);
+            }}
+          >
+            취소
+          </button>
+          <button
+            className="buttons__accept"
+            onClick={() => {
+              handleProfileLogin(
+                profileStore.deleteModalOpenState[0],
+                inputRef.current!.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+                    .then(() => {
+                      profileStore.setDeleteProfileModalState(false);
+                      getProfileList(userStore.accessToken).then((res) => {
+                        profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
+                      });
+                    })
+                    .catch((err) => {
+                      if (err instanceof Error) {
+                        errorCatch(err, errorStore.setErrorModalState);
+                      }
+                    });
                 }
               });
             }}
