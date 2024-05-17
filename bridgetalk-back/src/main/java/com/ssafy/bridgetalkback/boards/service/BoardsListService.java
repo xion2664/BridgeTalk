@@ -3,18 +3,13 @@ package com.ssafy.bridgetalkback.boards.service;
 import com.ssafy.bridgetalkback.boards.domain.BoardsSearchType;
 import com.ssafy.bridgetalkback.boards.domain.BoardsSortCondition;
 import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
 import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
 import com.ssafy.bridgetalkback.global.Language;
-import com.ssafy.bridgetalkback.global.exception.BaseException;
-import com.ssafy.bridgetalkback.parents.repository.ParentsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Slf4j
 @Service
