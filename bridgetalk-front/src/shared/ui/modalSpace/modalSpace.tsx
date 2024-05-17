@@ -10,12 +10,14 @@ export function ModalSpace() {
   const isRecordFinished = useVoiceStore((state) => state.isRecordFinished);
   const errorModalState = useErrorStore((state) => state.errorModalState);
   const passwordCheckModalState = useProfileStore((state) => state.passwordCheckModalState);
+  const editProfileModalState = useProfileStore((state) => state.editProfileModalState);
 
   return (
     <>
       {isRecordFinished && <ParentVoiceRecordModalArea />}
       {errorModalState && <ErrorModal />}
       {passwordCheckModalState && <PasswordCheckModalArea />}
+      {editProfileModalState && <EditProfileModalArea />}
     </>
   );
 }
@@ -164,6 +166,71 @@ function PasswordCheckModalArea() {
 
                   profileStore.setPasswordCheckModalState(false);
                   navigate(navigatePath);
+                }
+              });
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </S.PasswordCheckModaContainer>
+    </S.Container>
+  );
+}
+
+function EditProfileModalArea() {
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
+  const profileStore = useProfileStore();
+  const navigate = useNavigate();
+  const userStore = useUserStore();
+  const errorStore = useErrorStore();
+
+  return (
+    <S.Container>
+      <S.PasswordCheckModaContainer>
+        <div className="title">비밀번호 확인</div>
+        <div className="content">
+          <img src={'assets/img/main/passwordicon.svg'} />
+          <input
+            type="password"
+            ref={inputRef}
+            onKeyDown={(e) => {
+              if (e.key !== 'Enter') return;
+              handleProfileLogin(
+                profileStore.editProfileModalState,
+                inputRef.current!.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  navigate('/editprofile');
+                  profileStore.setEditProfileModalState(false);
+                }
+              });
+            }}
+          ></input>
+        </div>
+        <div className="buttons">
+          <button
+            className="buttons__cancel"
+            onClick={() => {
+              profileStore.setEditProfileModalState(false);
+            }}
+          >
+            취소
+          </button>
+          <button
+            className="buttons__accept"
+            onClick={() => {
+              handleProfileLogin(
+                profileStore.editProfileModalState,
+                inputRef.current!.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
+                  navigate('/editprofile');
+                  profileStore.setEditProfileModalState(false);
                 }
               });
             }}

@@ -31,6 +31,7 @@ export function ProfilePage() {
   }));
 
   const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
+  const setEditProfileModalState = useProfileStore((staet) => staet.setEditProfileModalState);
   const setPasswordCheckModalState = useProfileStore((state) => state.setPasswordCheckModalState);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export function ProfilePage() {
                         e.stopPropagation();
                         setUserDino(it.userDino);
                         setUserNickname(it.userNickname);
-                        navigate('/editProfile');
+                        setEditProfileModalState(it.userId);
                       }}
                     >
                       <img src={'assets/img/main/editProfileIcon.svg'} />
