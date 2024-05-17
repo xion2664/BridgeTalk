@@ -71,7 +71,10 @@ function Navbar({ navigate }: any) {
       >
         <img src={`/assets/img/parent/navbar/info_${pathCheck('word')}.svg`} />
       </button>
-      <button>
+      <button 
+      onClick={() => {
+          navigate('board');
+        }}>
         <img src={`/assets/img/parent/navbar/community_${pathCheck('community')}.svg`} />
       </button>
     </S.Navbar>
