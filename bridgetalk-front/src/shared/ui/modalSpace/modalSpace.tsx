@@ -274,27 +274,27 @@ function DeleteProfileModalArea() {
             onKeyDown={(e) => {
               if (e.key !== 'Enter') return;
 
-              handleProfileLogin(
-                profileStore.deleteModalOpenState[0],
-                inputRef.current!.value,
-                userStore,
-                errorStore.setErrorModalState,
-              ).then((res) => {
-                if (res) {
-                  deleteDeleteProfile(profileStore.deleteModalOpenState[0])
-                    .then(() => {
-                      profileStore.setDeleteProfileModalState(false);
-                      getProfileList(decodeToken('access', true)!).then((res) => {
-                        profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
-                      });
-                    })
-                    .catch((err) => {
-                      if (err instanceof Error) {
-                        errorCatch(err, errorStore.setErrorModalState);
-                      }
-                    });
-                }
-              });
+              // handleProfileLogin(
+              //   profileStore.deleteModalOpenState[0],
+              //   inputRef.current!.value,
+              //   userStore,
+              //   errorStore.setErrorModalState,
+              // ).then((res) => {
+              //   if (res) {
+              deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+                .then(() => {
+                  profileStore.setDeleteProfileModalState(false);
+                  getProfileList(decodeToken('access', true)!).then((res) => {
+                    profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
+                  });
+                })
+                .catch((err) => {
+                  if (err instanceof Error) {
+                    errorCatch(err, errorStore.setErrorModalState);
+                  }
+                });
+              //   }
+              // });
             }}
           ></input>
         </div>
@@ -310,27 +310,28 @@ function DeleteProfileModalArea() {
           <button
             className="buttons__accept"
             onClick={() => {
-              handleProfileLogin(
-                profileStore.deleteModalOpenState[0],
-                inputRef.current!.value,
-                userStore,
-                errorStore.setErrorModalState,
-              ).then((res) => {
-                if (res) {
-                  deleteDeleteProfile(profileStore.deleteModalOpenState[0])
-                    .then(() => {
-                      profileStore.setDeleteProfileModalState(false);
-                      getProfileList(decodeToken('access', true)!).then((res) => {
-                        profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
-                      });
-                    })
-                    .catch((err) => {
-                      if (err instanceof Error) {
-                        errorCatch(err, errorStore.setErrorModalState);
-                      }
-                    });
-                }
-              });
+              // handleProfileLogin(
+              //   profileStore.deleteModalOpenState[0],
+              //   inputRef.current!.value,
+              //   userStore,
+              //   errorStore.setErrorModalState,
+              // ).then((res) => {
+              //   if (res) {
+              deleteDeleteProfile(profileStore.deleteModalOpenState[0])
+                .then(() => {
+                  profileStore.setDeleteProfileModalState(false);
+                  getProfileList(decodeToken('access', true)!).then((res) => {
+                    profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
+                  });
+                  throw new Error('sadfasf');
+                })
+                .catch((err) => {
+                  if (err instanceof Error) {
+                    errorCatch(err, errorStore.setErrorModalState);
+                  }
+                });
+              //   }
+              // });
             }}
           >
             확인
