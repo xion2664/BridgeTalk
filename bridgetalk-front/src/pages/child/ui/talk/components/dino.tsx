@@ -14,6 +14,7 @@ export function Dino() {
   const setIsTalking = useTalkStore((state) => state.setIsTalking);
   const emotion = useTalkStore((state) => state.emotion);
   const isEnd = useTalkStore((state) => state.isEnd);
+  const setIsStart = useTalkStore((state) => state.setIsStart);
   const [scale, setScale] = useState<number>(1);
   const [dino, setDino] = useState<string>(sessionStorage.getItem('dino') ?? 'D1');
   const [act, setAct] = useState<string>('idle');
@@ -90,6 +91,7 @@ export function Dino() {
       onClick={() => {
         if (!isEnd) {
           console.log('{ 대화 시작 }');
+          setIsStart(true);
           setIsTalking(true);
         }
       }}
