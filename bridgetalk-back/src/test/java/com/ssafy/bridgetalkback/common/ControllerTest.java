@@ -12,6 +12,7 @@ import com.ssafy.bridgetalkback.boards.controller.BoardsController;
 import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
 import com.ssafy.bridgetalkback.comments.controller.CommentsController;
+import com.ssafy.bridgetalkback.comments.service.CommentsListService;
 import com.ssafy.bridgetalkback.comments.service.CommentsService;
 import com.ssafy.bridgetalkback.boards.service.BoardsListService;
 import com.ssafy.bridgetalkback.global.config.SecurityConfig;
@@ -72,7 +73,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
         NotificationController.class,
         SseController.class,
         CommentsController.class,
-        ParentingInfoCrawlingController.class,
+        ParentingInfoCrawlingController.class
 })
 public abstract class ControllerTest {
     @Autowired
@@ -172,6 +173,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected BoardsLikeService boardsLikeService;
+
+    @MockBean
+    protected CommentsListService commentsListService;
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

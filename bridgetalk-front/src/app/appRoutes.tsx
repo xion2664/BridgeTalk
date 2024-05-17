@@ -46,6 +46,7 @@ import {
   TestWordcloud,
   TestCharacter,
 } from '@/pages';
+import { BoardPage } from '@/pages/parent/ui/community/boardPage';
 
 export function AppRoutes() {
   const [loading, setLoading] = useState(false);
@@ -176,6 +177,7 @@ export function AppRoutes() {
           <Route path="information/nurture" element={<ParentInformationNurture />} />
           <Route path="information/nurture/:nurtureId" element={<ParentInformationNurtureDetail />} />
           <Route path="information/word" element={<ParentInformationWord />} />
+          <Route path="board" element={<BoardPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 

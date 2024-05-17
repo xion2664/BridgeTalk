@@ -3,7 +3,11 @@ package com.ssafy.bridgetalkback.comments.controller;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
+import com.ssafy.bridgetalkback.comments.dto.response.CustomCommentsListResponseDto;
+import com.ssafy.bridgetalkback.comments.query.dto.CommentsListDto;
+import com.ssafy.bridgetalkback.comments.service.CommentsListService;
 import com.ssafy.bridgetalkback.comments.service.CommentsService;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.notification.domain.NotificationType;
 import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
@@ -26,6 +30,7 @@ public class CommentsController {
 
     private final CommentsService commentsService;
     private final SseService sseService;
+    private final CommentsListService commentsListService;
 
     @PostMapping
     public ResponseEntity<CommentsResponseDto> createComments(
@@ -70,5 +75,13 @@ public class CommentsController {
         commentsService.deleteComments(UUID.fromString(userId), commentsId);
         log.info("{ CommentsController } : Comments 삭제 성공");
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("read/{language}")
+    public ResponseEntity<CustomCommentsListResponseDto<CommentsListDto>> getCustomCommentsList(@PathVariable Language language,
+                                                                                                @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                                                                @RequestParam(value = "sort", required = false, defaultValue = "최신순") String sort) {
+        log.info("{ BoardsController } : 게시글 리스트조회 진입 (정렬 유형) - " + sort);
+        return ResponseEntity.ok(commentsListService.getCustomCommentsList(page, sort, language));
     }
 }
