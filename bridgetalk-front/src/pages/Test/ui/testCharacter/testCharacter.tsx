@@ -1,61 +1,114 @@
-import { useRef, useEffect } from 'react';
-import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { AnimationMixer } from 'three';
-
-extend({ OrbitControls });
-
-const Model = () => {
-  const gltf = useLoader(GLTFLoader, '/assets/dino/DinoCute.glb');
-  const mixer = useRef<AnimationMixer | null>(null);
-
-  useEffect(() => {
-    if (gltf.animations.length > 0) {
-      mixer.current = new AnimationMixer(gltf.scene);
-      const action = mixer.current.clipAction(gltf.animations[0]);
-      action.play();
-    }
-    return () => {
-      if (mixer.current) {
-        mixer.current.stopAllAction();
-      }
-    };
-  }, [gltf.animations, gltf.scene]);
-
-  useFrame((state, delta) => {
-    mixer.current?.update(delta);
-  });
-
-  return <primitive object={gltf.scene} scale={1} position={[0, -1, 0]} />;
-};
-
-const CameraControls = () => {
-  const {
-    camera,
-    gl: { domElement },
-  } = useThree();
-
-  useEffect(() => {
-    const controls = new OrbitControls(camera, domElement);
-    controls.minDistance = 1; // 최소 거리 제한
-    controls.maxDistance = 20; // 최대 거리 제한
-    return () => {
-      controls.dispose();
-    };
-  }, [camera, domElement]);
-
-  return null;
-};
+import { useCallback, useEffect, useRef } from 'react';
+import { css } from '@emotion/css';
+import Webcam from 'react-webcam';
+import { Camera } from '@mediapipe/camera_utils';
+import { Hands, Results } from '@mediapipe/hands';
+import { Pose } from '@mediapipe/pose';
+import { drawCanvas } from './utils/drawCanvas';
 
 export function TestCharacter() {
+  const webcamRef = useRef<Webcam>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const resultsRef = useRef<Results>();
+
+  /**
+   * 검출결과（프레임마다 호출됨）
+   * @param results
+   */
+  const onResults = useCallback((results: Results) => {
+    resultsRef.current = results;
+
+    const canvasCtx = canvasRef.current!.getContext('2d')!;
+    drawCanvas(canvasCtx, results);
+  }, []);
+
+  // 초기 설정
+  useEffect(() => {
+    const hands = new Hands({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      },
+    });
+
+    hands.setOptions({
+      maxNumHands: 2,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+
+    hands.onResults(onResults);
+
+    if (typeof webcamRef.current !== 'undefined' && webcamRef.current !== null) {
+      const camera = new Camera(webcamRef.current.video!, {
+        onFrame: async () => {
+          await hands.send({ image: webcamRef.current!.video! });
+        },
+        width: 1280,
+        height: 720,
+      });
+      camera.start();
+    }
+  }, [onResults]);
+
+  /*  랜드마크들의 좌표를 콘솔에 출력 */
+  const OutputData = () => {
+    const results = resultsRef.current!;
+    console.log(results.multiHandLandmarks);
+  };
+
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-      <ambientLight intensity={2} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -10, -10]} />
-      <Model />
-      <CameraControls />
-    </Canvas>
+    <div className={styles.container}>
+      {/* 비디오 캡쳐 */}
+      <Webcam
+        audio={false}
+        style={{ visibility: 'hidden' }}
+        width={1280}
+        height={720}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={{ width: 1280, height: 720, facingMode: 'user' }}
+      />
+      {/* 랜드마크를 손에 표시 */}
+      <canvas ref={canvasRef} className={styles.canvas} width={1280} height={720} />
+      {/* 좌표 출력 */}
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={OutputData}>
+          Output Data
+        </button>
+      </div>
+    </div>
   );
 }
+
+const styles = {
+  container: css`
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  canvas: css`
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    background-color: #fff;
+  `,
+  buttonContainer: css`
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  `,
+  button: css`
+    color: #fff;
+    background-color: #0082cf;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+  `,
+};
