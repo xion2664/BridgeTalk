@@ -188,7 +188,7 @@ function EditProfileModalArea() {
   return (
     <S.Container>
       <S.PasswordCheckModaContainer>
-        <div className="title">비밀번호 확인</div>
+        <div className="title">프로필 수정</div>
         <div className="content">
           <img src={'assets/img/main/passwordicon.svg'} />
           <input
