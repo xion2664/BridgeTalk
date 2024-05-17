@@ -97,16 +97,16 @@ public class ReportsUpdateService {
         String originText = reports.getReportsOriginContent();
 
         log.info(">> summaryText 진입: {}", originText);
-        CompletableFuture<String[]> summary = chatGptService.createSummary(originText);
-//        CompletableFuture<String[]> summary = chatGptService.createSummary(originText, parents.getLanguage());
+//        CompletableFuture<String[]> summary = chatGptService.createSummary(originText);
+        CompletableFuture<String[]> summary = chatGptService.createSummary(originText, parents.getLanguage());
 
         log.info(">> keywords 진입");
-        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText);
-//        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText, parents.getLanguage());
+//        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText);
+        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText, parents.getLanguage());
 
         log.info(">> solution 진입");
-        CompletableFuture<String[]> solution = chatGptService.createSolution(originText);
-//        CompletableFuture<String[]> solution = chatGptService.createSolution(originText, parents.getLanguage());
+//        CompletableFuture<String[]> solution = chatGptService.createSolution(originText);
+        CompletableFuture<String[]> solution = chatGptService.createSolution(originText, parents.getLanguage());
 
         String[] summaryText = summary.get();
         log.info(">> summaryText 성공: {}", Arrays.toString(summaryText));

@@ -25,7 +25,7 @@ public class LettersTranscribeService {
     private static final Region REGION = Region.AP_NORTHEAST_2;
     private static TranscribeClient client;
 
-    public String transcribe(String bucketName, String fileName, String language) {
+    public String transcribe(String bucketName, String fileName, Language language) {
         log.info("{ LettersTranscriptionService } => bucketName: {}, fileName: {}", bucketName, fileName);
         client = TranscribeClient.builder()
                 .credentialsProvider(getCredentials())

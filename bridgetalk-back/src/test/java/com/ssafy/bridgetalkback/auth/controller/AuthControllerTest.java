@@ -335,7 +335,7 @@ public class AuthControllerTest extends ControllerTest {
 
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
-                SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino(), SUNKYOUNG.getNation());
+                SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino(), SUNKYOUNG.getLanguage());
     }
 
     private LoginRequestDto createLoginRequestDto() {

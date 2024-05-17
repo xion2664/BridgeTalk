@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
 import com.ssafy.bridgetalkback.files.service.S3FileService;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.global.exception.GlobalErrorCode;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
@@ -98,7 +99,7 @@ public class LettersService {
         Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(UUID.fromString(parentsUserId));
 
         // stt api 호출
-        String extractOriginText = stt(fileName, parents.getNation());
+        String extractOriginText = stt(fileName, parents.getLanguage());
 
 //        // 번역 api 호출
 //        //      1. 베트남어(vi) -> 영어(en)
@@ -137,7 +138,7 @@ public class LettersService {
      * @param language : 국가
      * @return String : 변환된 텍스트
      */
-    public String stt(String fileName, String language) {
+    public String stt(String fileName, Language language) {
         log.info("{ LetterService.stt() } : stt api 호출 메서드");
         String jobName = lettersTranscribeService.transcribe(bucketName, fileName, language);
         String transcriptFileName = jobName + ".json";
@@ -183,7 +184,8 @@ public class LettersService {
             log.error("!! 변환할 원본 텍스트가 비어었습니다.");
             throw BaseException.type(LettersErrorCode.CHATGPT_EMPTY_TEXT);
         }
-        transformedText = chatGptService.createPrompt(orginalText, ChatGptRequestCode.CONVERSION);
+        String engText = chatGptService.createPrompt(orginalText, ChatGptRequestCode.TRANSLATE_ENG);
+        transformedText = chatGptService.createPrompt(engText, ChatGptRequestCode.CONVERSION);
         log.info(">> transformedText : {}", transformedText);
 
         return transformedText;
