@@ -106,11 +106,11 @@ public class Reports extends BaseEntity {
     }
     public void updateReportsPh(String summaryTextKor, String summaryTextPh, List<String> keywordKorList, List<String> keywordPhList, String solutionTextKor, String solutionTextPh) {
         this.reportsSummaryKor = summaryTextKor;
-        this.reportsSummaryViet = summaryTextPh;
+        this.reportsSummaryPh = summaryTextPh;
         this.reportsKeywordsKor = keywordKorList;
-        this.reportsKeywordsViet = keywordPhList;
+        this.reportsKeywordsPh = keywordPhList;
         this.reportsSolutionKor = solutionTextKor;
-        this.reportsSolutionViet = solutionTextPh;
+        this.reportsSolutionPh = solutionTextPh;
     }
 
     public void updateReportsOriginContent(String updateContent) {
