@@ -5,6 +5,7 @@ import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.auth.service.TokenService;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
+import com.ssafy.bridgetalkback.kids.domain.KidsPassword;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.parents.domain.Parents;
@@ -59,7 +60,7 @@ public class ProfileService {
         if(parentsRepository.existsParentsByUuidAndIsDeleted(profileId, 0)){
             Parents parents = parentsFindService.findParentsByUuidAndIsDeleted(profileId);
 
-            validatePassword(password, parents.getParentsPassword());
+            validateParentsPassword(password, parents.getParentsPassword());
             log.info("{ ProfileService } : 프로필 비밀번호 인증 성공");
 
             parents.updateIsDeleted();
@@ -75,16 +76,26 @@ public class ProfileService {
             log.info("{ ProfileService } : 부모 측 - 부모의 아이들 프로필 및 RefreshToken 삭제");
         }
         else if(kidsRepository.existsKidsByUuidAndIsDeleted(profileId, 0)) {
-            log.info("{ ProfileService } : 아이 측 - 프로필 삭제");
             Kids kids = kidsFindService.findKidsByUuidAndIsDeleted(profileId);
+
+            validateKidsPassword(password, kids.getKidsPassword());
+            log.info("{ ProfileService } : 프로필 비밀번호 인증 성공");
+
             kids.updateIsDeleted();
+            log.info("{ ProfileService } : 아이 측 - 프로필 삭제");
             tokenService.deleteRefreshTokenByUserId(profileId);
             log.info("{ ProfileService } : 아이 측 - RefreshToken 삭제");
         }
         else throw BaseException.type(AuthErrorCode.USER_NOT_FOUND);
     }
 
-    private void validatePassword(String comparePassword, Password findPassword) {
+    private void validateParentsPassword(String comparePassword, Password findPassword) {
+        if(!findPassword.isSamePassword(comparePassword, ENCODER)) {
+            throw BaseException.type(AuthErrorCode.WRONG_PASSWORD);
+        }
+    }
+
+    private void validateKidsPassword(String comparePassword, KidsPassword findPassword) {
         if(!findPassword.isSamePassword(comparePassword, ENCODER)) {
             throw BaseException.type(AuthErrorCode.WRONG_PASSWORD);
         }
