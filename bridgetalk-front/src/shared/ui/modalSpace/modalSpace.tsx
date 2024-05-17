@@ -284,7 +284,7 @@ function DeleteProfileModalArea() {
                   deleteDeleteProfile(profileStore.deleteModalOpenState[0])
                     .then(() => {
                       profileStore.setDeleteProfileModalState(false);
-                      getProfileList(userStore.accessToken).then((res) => {
+                      getProfileList(decodeToken('access', true)!).then((res) => {
                         profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
                       });
                     })
@@ -320,7 +320,7 @@ function DeleteProfileModalArea() {
                   deleteDeleteProfile(profileStore.deleteModalOpenState[0])
                     .then(() => {
                       profileStore.setDeleteProfileModalState(false);
-                      getProfileList(userStore.accessToken).then((res) => {
+                      getProfileList(decodeToken('access', true)!).then((res) => {
                         profileStore.deleteModalOpenState[1]([...res!.data.profileList]);
                       });
                     })
