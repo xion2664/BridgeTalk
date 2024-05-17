@@ -248,6 +248,12 @@ export const Container = styled.div`
     button {
       ${button}
 
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${color(1)._main};
+      }
+
       width: 19.2svw;
       height: 12svh;
       font-size: 2.5svw;
