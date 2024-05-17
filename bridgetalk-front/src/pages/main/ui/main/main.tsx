@@ -10,7 +10,7 @@ export function Main() {
   useEffect(() => {
     // 페이지가 로드되자마자 /start 경로로 이동
     navigate('/start');
-  }, [navigate]);
+  }, []);
 
   return (
     <S.Background>

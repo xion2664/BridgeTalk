@@ -1,31 +1,54 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/css';
 import Webcam from 'react-webcam';
 import { Camera } from '@mediapipe/camera_utils';
 import { Pose, Results } from '@mediapipe/pose';
-import { drawDress } from './utils/drawDress';
+import { drawDressParts } from './utils/drawParts';
+
+// 이미지 URL을 변수에 직접 할당
+const leftForearmUrl = '/assets/img/child/game/leftForearm.png';
+const rightForearmUrl = '/assets/img/child/game/rightForearm.png';
+const topUrl = '/assets/img/child/game/top.png';
+const bottomUrl = '/assets/img/child/game/bottom.png';
 
 export function TestCamera() {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const resultsRef = useRef<Results>();
-  const [dressImage, setDressImage] = useState<HTMLImageElement | null>(null);
+
+  const [dressImages, setDressImages] = useState({
+    leftForearm: null as HTMLImageElement | null,
+    rightForearm: null as HTMLImageElement | null,
+    top: null as HTMLImageElement | null,
+    bottom: null as HTMLImageElement | null,
+  });
 
   useEffect(() => {
-    const img = new Image();
-    img.src = 'assets/img/asdf.png';
-    img.onload = () => setDressImage(img);
+    const loadImage = (src: string) => {
+      return new Promise<HTMLImageElement>((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve(img);
+      });
+    };
+
+    Promise.all([loadImage(leftForearmUrl), loadImage(rightForearmUrl), loadImage(topUrl), loadImage(bottomUrl)]).then(
+      ([leftForearm, rightForearm, top, bottom]) => {
+        setDressImages({ leftForearm, rightForearm, top, bottom });
+      },
+    );
   }, []);
 
   const onResults = useCallback(
     (results: Results) => {
       resultsRef.current = results;
-      if (dressImage) {
+      const { leftForearm, rightForearm, top, bottom } = dressImages;
+      if (leftForearm && rightForearm && top && bottom) {
         const canvasCtx = canvasRef.current!.getContext('2d')!;
-        drawDress(canvasCtx, results, dressImage);
+        drawDressParts(canvasCtx, results, { leftForearm, rightForearm, top, bottom });
       }
     },
-    [dressImage],
+    [dressImages],
   );
 
   useEffect(() => {
