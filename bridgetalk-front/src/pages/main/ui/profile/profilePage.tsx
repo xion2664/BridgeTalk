@@ -109,7 +109,7 @@ export function ProfilePage() {
                       <img src={'assets/img/main/deleteicon.svg'} />
                     </button>
                     <div className="main__profilelist-item-dino">
-                      <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
+                      <img src={`assets/dino/${it.userDino}/${it.userDino}.png`} alt="캐릭터" />
                     </div>
                     <div className="main__profilelist-item-title">{it.userName}</div>
                     <div className="main__profilelist-item-nickname">{it.userNickname}</div>
