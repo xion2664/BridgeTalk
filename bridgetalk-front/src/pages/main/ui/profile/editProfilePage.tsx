@@ -34,6 +34,7 @@ export function EditProfilePage({ type }: Props) {
   // State
   const [page, setPage] = useState<number>(0);
   const [dino, setDino] = useState<number>(type === 'edit' ? Number(userDino[1]) - 1 : 0);
+  const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
   // Ref
@@ -99,6 +100,7 @@ export function EditProfilePage({ type }: Props) {
                         ref={nameRef}
                         type="text"
                         onChange={(e) => setUserName(e.target.value)}
+                        value={userName}
                         className="main__content-box-name-input"
                       />
                     </div>
@@ -109,7 +111,8 @@ export function EditProfilePage({ type }: Props) {
                     </div>
                     <input
                       type="text"
-                      defaultValue={type === 'edit' ? userNickname : ''}
+                      // defaultValue={type === 'edit' ? userNickname : ''}
+                      value={userNickname}
                       onChange={(e) => setUserNickname(e.target.value)}
                       className="main__content-box-nickname-input"
                     />
@@ -189,6 +192,7 @@ export function EditProfilePage({ type }: Props) {
                   return;
                 }
 
+                setPassword(passwordRef.current!.value);
                 setPage((page) => page + 1);
               }}
             >
@@ -230,6 +234,7 @@ export function EditProfilePage({ type }: Props) {
                       kidsName: userName,
                       kidsDino: userDino,
                       kidsNickname: userNickname,
+                      kidsPassword: password,
                     }).then((res: any) => {
                       alert('프로필이 성공적으로 추가됐습니다');
                       navigate('/profile');
