@@ -35,16 +35,8 @@ export function ProfilePage() {
 
   useEffect(() => {
     handleFetchProfileList(accessToken, setProfileList);
+    setIsLoading(false);
   }, []);
-
-  useEffect(() => {
-    console.log(selectedUser);
-    // console.log(profileList);
-  }, [selectedUser]);
-
-  useEffect(() => {
-    console.log(profileList);
-  }, [profileList]);
 
   return (
     <S.Container>
@@ -73,66 +65,68 @@ export function ProfilePage() {
           <img src={'assets/img/main/profile.svg'} />
         </div>
         <div className="main__profilelist-wrapper">
-          <div className="main__profilelist">
-            {profileList.length > 0 &&
-              profileList.slice(1).map((it, idx) => (
-                <div
-                  className={`main__profilelist-item ${selectedUser === it.userId ? 'selected' : ''}`}
-                  key={it.userId}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedUser(it.userId);
+          {!isLoading ? (
+            <div className="main__profilelist">
+              {profileList.length > 0 &&
+                profileList.slice(1).map((it, idx) => (
+                  <div
+                    className={`main__profilelist-item ${selectedUser === it.userId ? 'selected' : ''}`}
+                    key={it.userId}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedUser(it.userId);
+                    }}
+                  >
+                    <div
+                      className="main__profilelist-item-edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setUserDino(it.userDino);
+                        setUserNickname(it.userNickname);
+                        navigate('/editProfile');
+                      }}
+                    >
+                      <img src={'assets/img/main/editProfileIcon.svg'} />
+                    </div>
+                    <button
+                      className="main__profilelist-item-delete"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteModalOpenState(it.userId);
+                        if (confirm('정말 삭제하시겠습니까?')) {
+                          deleteDeleteProfile(it.userId).then((res) => {
+                            if (res.status === '200') {
+                              alert('삭제 성공');
+                              getProfileList(decodeToken('access')!).then((res) => {
+                                setProfileList([...res!.data.profileList]);
+                              });
+                            }
+                          });
+                        }
+                        // navigate('/editProfile');
+                      }}
+                    >
+                      <img src={'assets/img/main/deleteicon.svg'} />
+                    </button>
+                    <div className="main__profilelist-item-dino">
+                      <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
+                    </div>
+                    <div className="main__profilelist-item-title">{it.userName}</div>
+                    <div className="main__profilelist-item-nickname">{it.userNickname}</div>
+                  </div>
+                ))}
+              <div className="main__profilelist-empty">
+                <button
+                  onClick={() => {
+                    setUserId(profileList[0].userId);
+                    navigate('/addProfile');
                   }}
                 >
-                  <div
-                    className="main__profilelist-item-edit"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setUserDino(it.userDino);
-                      setUserNickname(it.userNickname);
-                      navigate('/editProfile');
-                    }}
-                  >
-                    <img src={'assets/img/main/editProfileIcon.svg'} />
-                  </div>
-                  <button
-                    className="main__profilelist-item-delete"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteModalOpenState(it.userId);
-                      if (confirm('정말 삭제하시겠습니까?')) {
-                        deleteDeleteProfile(it.userId).then((res) => {
-                          if (res.status === '200') {
-                            alert('삭제 성공');
-                            getProfileList(decodeToken('access')!).then((res) => {
-                              setProfileList([...res!.data.profileList]);
-                            });
-                          }
-                        });
-                      }
-                      // navigate('/editProfile');
-                    }}
-                  >
-                    <img src={'assets/img/main/deleteicon.svg'} />
-                  </button>
-                  <div className="main__profilelist-item-dino">
-                    <img src={`assets/img/${it.userDino}.svg`} alt="캐릭터" />
-                  </div>
-                  <div className="main__profilelist-item-title">{it.userName}</div>
-                  <div className="main__profilelist-item-nickname">{it.userNickname}</div>
-                </div>
-              ))}
-            <div className="main__profilelist-empty">
-              <button
-                onClick={() => {
-                  setUserId(profileList[0].userId);
-                  navigate('/addProfile');
-                }}
-              >
-                <img src={'assets/img/main/addProfile.svg'} />
-              </button>
+                  <img src={'assets/img/main/addProfile.svg'} />
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
         <div className="main__button">
           <button
