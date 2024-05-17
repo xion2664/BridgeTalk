@@ -20,6 +20,8 @@ export const Container = styled.div`
     border: none;
     background-color: transparent;
 
+    cursor: pointer;
+
     img {
       width: 7svw;
     }
@@ -32,6 +34,7 @@ export const Container = styled.div`
     background-color: transparent;
     border: none;
 
+    cursor: pointer;
     img {
       width: 5.8svw;
     }
