@@ -258,8 +258,6 @@ function EditProfileModalArea() {
 function DeleteProfileModalArea() {
   const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
   const profileStore = useProfileStore();
-  const navigate = useNavigate();
-  const userStore = useUserStore();
   const errorStore = useErrorStore();
 
   return (
@@ -273,14 +271,6 @@ function DeleteProfileModalArea() {
             ref={inputRef}
             onKeyDown={(e) => {
               if (e.key !== 'Enter') return;
-
-              // handleProfileLogin(
-              //   profileStore.deleteModalOpenState[0],
-              //   inputRef.current!.value,
-              //   userStore,
-              //   errorStore.setErrorModalState,
-              // ).then((res) => {
-              //   if (res) {
               deleteDeleteProfile(profileStore.deleteModalOpenState[0])
                 .then(() => {
                   profileStore.setDeleteProfileModalState(false);
@@ -310,13 +300,6 @@ function DeleteProfileModalArea() {
           <button
             className="buttons__accept"
             onClick={() => {
-              // handleProfileLogin(
-              //   profileStore.deleteModalOpenState[0],
-              //   inputRef.current!.value,
-              //   userStore,
-              //   errorStore.setErrorModalState,
-              // ).then((res) => {
-              //   if (res) {
               deleteDeleteProfile(profileStore.deleteModalOpenState[0])
                 .then(() => {
                   profileStore.setDeleteProfileModalState(false);

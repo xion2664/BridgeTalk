@@ -62,6 +62,43 @@ export const Container = styled.div`
           font-size: 3.3svw;
         }
 
+        &-password {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2.6svw;
+
+          .flex {
+            display: flex;
+            gap: 2svw;
+          }
+
+          &-input {
+            width: 100%;
+            height: 13.9svh;
+            border: 1svw solid ${color(1).main};
+            border-radius: 5.2svw;
+            font-family: 'DNF';
+            font-size: 2.5svw;
+            padding: 1.2svh 2svw;
+          }
+
+          &-title {
+            img {
+              width: 24svw;
+            }
+          }
+        }
+
+        &-passwordcheck {
+          &-title {
+            img {
+              width: 24svw;
+            }
+          }
+        }
+
         &-nickname {
           display: flex;
           flex-direction: column;
@@ -71,6 +108,7 @@ export const Container = styled.div`
 
           .flex {
             display: flex;
+            gap: 2svw;
           }
 
           &-title {
@@ -85,10 +123,11 @@ export const Container = styled.div`
             border: 1svw solid ${color(1).main};
             border-radius: 5.2svw;
             font-family: 'DNF';
-            font-size: 3.3svw;
+            font-size: 2.5svw;
             padding: 1.2svh 2svw;
           }
         }
+
         &-name {
           display: flex;
           flex-direction: column;
