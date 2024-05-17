@@ -106,6 +106,7 @@ function PasswordCheckModalArea() {
   const profileStore = useProfileStore();
   const navigate = useNavigate();
   const userStore = useUserStore();
+  const errorStore = useErrorStore();
 
   return (
     <S.Container>
@@ -127,14 +128,19 @@ function PasswordCheckModalArea() {
           <button
             className="buttons__accept"
             onClick={() => {
-              handleProfileLogin(profileStore.passwordCheckModalState[0], inputRef.current.value, userStore).then(
-                () => {
+              handleProfileLogin(
+                profileStore.passwordCheckModalState[0],
+                inputRef.current.value,
+                userStore,
+                errorStore.setErrorModalState,
+              ).then((res) => {
+                if (res) {
                   const navigatePath = profileStore.passwordCheckModalState[1];
 
                   profileStore.setPasswordCheckModalState(false);
                   navigate(navigatePath);
-                },
-              );
+                }
+              });
             }}
           >
             확인

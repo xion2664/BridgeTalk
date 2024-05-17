@@ -1,5 +1,5 @@
 import * as S from '@/styles/main/start.style';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function StartPage() {
