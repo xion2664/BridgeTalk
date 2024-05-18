@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.boards.controller;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsRequestDto;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsUpdateRequestDto;
+import com.ssafy.bridgetalkback.boards.dto.response.BoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.dto.response.BoardsResponseDto;
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
@@ -264,15 +265,13 @@ public class BoardsControllerTest extends ControllerTest {
         @DisplayName("게시글 상세조회에 성공한다")
         void success() throws Exception {
             // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doReturn(getBoardsResponseDto())
                     .when(boardsService)
                     .getBoardsDetail(anyLong(), any());
 
             // when
             MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+                    .get(BASE_URL, BOARDS_ID, LANGUAGE_KOR);
 
             // then
             mockMvc.perform(requestBuilder)
@@ -297,7 +296,6 @@ public class BoardsControllerTest extends ControllerTest {
         @DisplayName("존재하지 않는 검색 조건이라면 게시글 리스트 조회에 실패한다")
         void throwNotFoundSearchType() throws Exception {
             // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doThrow(BaseException.type(BoardsErrorCode.SEARCH_TYPE_NOT_FOUND))
                     .when(boardsListService)
                     .getCustomBoardsList(anyInt(), any(), any(), any(), any());
@@ -308,8 +306,7 @@ public class BoardsControllerTest extends ControllerTest {
                     .param("page", String.valueOf(PAGE))
                     .param("searchType", INVALID_SEARCH_TYPE)
                     .param("searchWord", SEARCH_WORD_KOR)
-                    .param("sort", SORT_CONDITION)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+                    .param("sort", SORT_CONDITION);
 
 
             // then
@@ -330,7 +327,6 @@ public class BoardsControllerTest extends ControllerTest {
         @DisplayName("존재하지 않는 정렬 유형이라면 게시글 리스트 조회에 실패한다")
         void throwNotFoundSearchCondition() throws Exception {
             // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doThrow(BaseException.type(BoardsErrorCode.SORT_CONDITION_NOT_FOUND))
                     .when(boardsListService)
                     .getCustomBoardsList(anyInt(), any(), any(), any(), any());
@@ -341,8 +337,7 @@ public class BoardsControllerTest extends ControllerTest {
                     .param("page", String.valueOf(PAGE))
                     .param("searchType", SEARCH_TYPE)
                     .param("searchWord", SEARCH_WORD_KOR)
-                    .param("sort", INVALID_SORT_CONDITION)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+                    .param("sort", INVALID_SORT_CONDITION);
 
 
             // then
@@ -363,7 +358,6 @@ public class BoardsControllerTest extends ControllerTest {
         @DisplayName("정렬 유형과 검색 조건에 따른 게시글 리스트 조회에 성공한다")
         void success() throws Exception {
             // given
-            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
             doReturn(getCustomBoardsListResponseDto())
                     .when(boardsListService)
                     .getCustomBoardsList(anyInt(), any(), any(), any(), any());
@@ -374,8 +368,7 @@ public class BoardsControllerTest extends ControllerTest {
                     .param("page", String.valueOf(PAGE))
                     .param("searchType", SEARCH_TYPE)
                     .param("searchWord", SEARCH_WORD_KOR)
-                    .param("sort", SORT_CONDITION)
-                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+                    .param("sort", SORT_CONDITION);
 
             // then
             mockMvc.perform(requestBuilder)
@@ -485,6 +478,87 @@ public class BoardsControllerTest extends ControllerTest {
                     .andExpectAll(
                             status().isOk()
                     );
+        }
+    }
+
+    @Nested
+    @DisplayName("내가 쓴 글 리스트조회 API [GET /api/boards/my/{language}]")
+    class getMyBoardsList {
+        private static final String BASE_URL = "/api/boards/my/{language}";
+        private static final Language LANGUAGE_KOR = Language.kor;
+        private static final String SORT_CONDITION = "최신순";
+        private static final String INVALID_SORT_CONDITION = "조회순";
+
+        @Test
+        @DisplayName("Authorization Header에 AccessToken이 없으면 게시글좋아요 취소에 실패한다")
+        void withoutAccessToken() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, LANGUAGE_KOR)
+                    .param("sort", SORT_CONDITION);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("존재하지 않는 정렬 유형이라면 게시글 리스트 조회에 실패한다")
+        void throwNotFoundSearchCondition() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(BoardsErrorCode.SORT_CONDITION_NOT_FOUND))
+                    .when(boardsListService)
+                    .getMyBoardsList(any(), any(), any());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, LANGUAGE_KOR)
+                    .param("sort", INVALID_SORT_CONDITION)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+
+            // then
+            final BoardsErrorCode expectedError = BoardsErrorCode.SORT_CONDITION_NOT_FOUND;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isNotFound(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("정렬 유형과 검색 조건에 따른 게시글 리스트 조회에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(createBoardsListResponseDto())
+                    .when(boardsListService)
+                    .getMyBoardsList(any(), any(), any());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, LANGUAGE_KOR)
+                    .param("sort", SORT_CONDITION)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isOk());
         }
     }
 
@@ -616,6 +690,10 @@ public class BoardsControllerTest extends ControllerTest {
 
     private CustomBoardsListResponseDto getCustomBoardsListResponseDto() {
         return new CustomBoardsListResponseDto<>(createCustomPageable(), createBoardsListDto());
+    }
+
+    private BoardsListResponseDto createBoardsListResponseDto() {
+        return new BoardsListResponseDto(createBoardsListDto());
     }
 }
 

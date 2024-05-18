@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.boards.service;
 
 import com.ssafy.bridgetalkback.boards.domain.Boards;
+import com.ssafy.bridgetalkback.boards.dto.response.BoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
@@ -75,7 +76,7 @@ public class BoardsListServiceTest extends ServiceTest {
 
     @Nested
     @DisplayName("게시글 리스트 조회")
-    class customParentingInfoList {
+    class customBoardsList {
         @Test
         @DisplayName("존재하지 않는 검색 조건이라면 게시글 리스트 조회에 실패한다")
         void throwNotFoundSearchType() {
@@ -164,6 +165,78 @@ public class BoardsListServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.pageInfo().hasNext()).isTrue(),
                     () -> assertThat(responseDto.pageInfo().numberOfElements()).isEqualTo(PAGE_SIZE),
                     () -> assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(PAGE_SIZE),
+                    () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitlePh()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentPh()),
+                    () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
+                    () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryPh()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsPh()==null ? Collections.emptyList() : reports[11].getReportsKeywordsPh()),
+                    () -> assertThat(responseDto.boardsList().get(0).parentsNickname()).isEqualTo(parents.getParentsNickname())
+            );
+        }
+    }
+
+    @Nested
+    @DisplayName("내가 쓴 글 리스트 조회")
+    class myBoardList {
+        @Test
+        @DisplayName("존재하지 않는 정렬 유형이라면 내가 쓴 글 리스트 조회에 실패한다")
+        void throwNotFoundSearchCondition() {
+            // when - then
+            assertThatThrownBy(() -> boardsListService.getMyBoardsList(parents.getUuid(), INVALID_SORT_CONDITION, Language.kor))
+                    .isInstanceOf(BaseException.class)
+                    .hasMessage(BoardsErrorCode.SORT_CONDITION_NOT_FOUND.getMessage());
+        }
+
+        @Test
+        @DisplayName("(한국어) 정렬 유형과 검색 조건에 따른 내가 쓴 글 리스트 최신순 조회에 성공한다")
+        void successKorean() {
+            // when
+            BoardsListResponseDto responseDto = boardsListService.getMyBoardsList(parents.getUuid(), SORT_CONDITION, Language.kor);
+
+            assertAll(
+                    () -> assertThat(responseDto.boardsList().size()).isEqualTo(12),
+                    () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitleKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
+                    () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsKor()==null ? Collections.emptyList() : reports[11].getReportsKeywordsKor()),
+                    () -> assertThat(responseDto.boardsList().get(0).parentsNickname()).isEqualTo(parents.getParentsNickname())
+            );
+        }
+
+        @Test
+        @DisplayName("(베트남어) 정렬 유형과 검색 조건에 따른 내가 쓴 글 리스트 최신순 조회에 성공한다")
+        void successViet() {
+            // when
+            BoardsListResponseDto responseDto = boardsListService.getMyBoardsList(parents.getUuid(), SORT_CONDITION, Language.viet);
+
+            // then
+            assertAll(
+                    () -> assertThat(responseDto.boardsList().size()).isEqualTo(12),
+                    () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitleViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).likes()).isEqualTo(boards[11].getLikes()),
+                    () -> assertThat(responseDto.boardsList().get(0).createdAt()).isNotNull(),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsSummary()).isEqualTo(reports[11].getReportsSummaryViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).reportsKeywords()).isEqualTo(reports[11].getReportsKeywordsViet()==null ? Collections.emptyList() : reports[11].getReportsKeywordsViet()),
+                    () -> assertThat(responseDto.boardsList().get(0).parentsNickname()).isEqualTo(parents.getParentsNickname())
+            );
+        }
+
+        @Test
+        @DisplayName("(필리핀어) 정렬 유형과 검색 조건에 따른 내가 쓴 글 리스트 최신순 조회에 성공한다")
+        void successPh() {
+            // when
+            BoardsListResponseDto responseDto = boardsListService.getMyBoardsList(parents.getUuid(), SORT_CONDITION, Language.ph);
+
+            // then
+            assertAll(
+                    () -> assertThat(responseDto.boardsList().size()).isLessThanOrEqualTo(12),
                     () -> assertThat(responseDto.boardsList().get(0).boardId()).isEqualTo(boards[11].getBoardsId()),
                     () -> assertThat(responseDto.boardsList().get(0).boardsTitle()).isEqualTo(boards[11].getBoardsTitlePh()),
                     () -> assertThat(responseDto.boardsList().get(0).boardsContent()).isEqualTo(boards[11].getBoardsContentPh()),
