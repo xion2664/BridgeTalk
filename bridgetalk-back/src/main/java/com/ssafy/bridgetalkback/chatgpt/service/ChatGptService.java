@@ -8,6 +8,7 @@ import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.dto.request.ChatGptRequestDto;
 import com.ssafy.bridgetalkback.chatgpt.dto.response.Choice;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
@@ -39,26 +40,40 @@ public class ChatGptService {
     private String legacyPromptUrl;
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createSummary(String originText) {
+    public CompletableFuture<String[]> createSummary(String originText, Language language) {
         String[] summary = new String[2];
         summary[0] = createPrompt(originText, ChatGptRequestCode.SUMMARY);
-        summary[1] = translationService.translation(summary[0], "ko", "vi");
+        if(language.equals(Language.viet)){
+            summary[1] = translationService.translation(summary[0], "ko", "vi");
+        } else {
+            String engText = createPrompt(summary[0], ChatGptRequestCode.TRANSLATE_ENG);
+            summary[1] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
+        }
         return CompletableFuture.completedFuture(summary);
     }
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createKeywords(String originText) {
+    public CompletableFuture<String[]> createKeywords(String originText, Language language) {
         String[] keywords = new String[2];
         keywords[0] = createPrompt(originText, ChatGptRequestCode.KEYWORD);
-        keywords[1] = translationService.translation(keywords[0], "ko", "vi");
+        if(language.equals(Language.viet)){
+            keywords[1] = translationService.translation(keywords[0], "ko", "vi");
+        } else {
+            keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE_PH_VER1);
+        }
         return CompletableFuture.completedFuture(keywords);
     }
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createSolution(String originText) {
+    public CompletableFuture<String[]> createSolution(String originText, Language language) {
         String[] solution = new String[2];
         solution[0] = createPrompt(originText, ChatGptRequestCode.SOLUTION);
-        solution[1] = translationService.translation(solution[0], "ko", "vi");
+        if (language.equals(Language.viet)){
+            solution[1] = translationService.translation(solution[0], "ko", "vi");
+        } else {
+            String engText = createPrompt(solution[0], ChatGptRequestCode.TRANSLATE_ENG);
+            solution[1] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
+        }
         return CompletableFuture.completedFuture(solution);
     }
 
@@ -120,16 +135,16 @@ public class ChatGptService {
 
     public String createText(String text, ChatGptRequestCode gptRequestCode) {
         if (gptRequestCode.equals(ChatGptRequestCode.SUMMARY)) {
-            text += " 3줄 요약해서 한줄로 나열해줘";
+            text += " 3줄 요약해서 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE)) {
             text += " 베트남어로 번역해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)) {
-            text += " 이 베트남어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
+            text += " 이 영어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
-            text += " 핵심 키워드 3개 추출해서 한줄로 나열해줘";
+            text += "\n 위 문단의 핵심 키워드 3개 추출해서 키워드만 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.SOLUTION)) {
             text += "\n 위 문장들에 대해 한국인엄마로서 해줄 수 있는 말로 대답해줘";
@@ -153,8 +168,15 @@ public class ChatGptService {
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH)) {
             text += "\n Please translate the above sentences into Filipino.";
             log.info(">> prompt : {}", text);
-        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
+        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_VIET)){
+            text += "\n Please translate the above sentences into Vietnamese.";
+            log.info(">> prompt : {}", text);
+        }
+        else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
             text += "\n 위 문장들을 영어로 번역해줘";
+            log.info(">> prompt : {}", text);
+        } else if(gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH_VER1)){
+            text += "\n 필리핀어로 번역하고, 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
         }
         return text;

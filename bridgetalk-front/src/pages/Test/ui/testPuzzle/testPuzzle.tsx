@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { css } from '@emotion/css';
 import Webcam from 'react-webcam';
 import { Camera } from '@mediapipe/camera_utils';

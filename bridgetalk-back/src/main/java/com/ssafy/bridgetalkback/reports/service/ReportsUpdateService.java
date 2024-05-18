@@ -3,21 +3,22 @@ package com.ssafy.bridgetalkback.reports.service;
 import com.ssafy.bridgetalkback.chatgpt.config.ChatGptRequestCode;
 import com.ssafy.bridgetalkback.chatgpt.exception.ChatGptErrorCode;
 import com.ssafy.bridgetalkback.chatgpt.service.ChatGptService;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
+import com.ssafy.bridgetalkback.kids.service.KidsFindService;
 import com.ssafy.bridgetalkback.notification.domain.NotificationType;
 import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
 import com.ssafy.bridgetalkback.notification.service.SseService;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
+import com.ssafy.bridgetalkback.slang.domain.Slang;
 import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -32,6 +33,7 @@ public class ReportsUpdateService {
     private final ReportsFindService reportsFindService;
     private final TranslationService translationService;
     private final SseService sseService;
+    private final KidsFindService kidsFindService;
 
     public void createReport(Long reportsId) {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
@@ -85,20 +87,27 @@ public class ReportsUpdateService {
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
     }
 
-    public void createReportAsync(Long reportsId) throws ExecutionException, InterruptedException {
+    public void createReportAsync(Long reportsId, String kidsUuid) throws ExecutionException, InterruptedException {
+        // 부모 조회
+        Parents parents = kidsFindService.findKidsByUuidAndIsDeleted(UUID.fromString(kidsUuid)).getParents();
+//        log.info(">> 부모 조회 성공 : {}", parents.getParentsEmail());
+
         log.info("{ ReportsService } : 아이속마음 레포트 저장 진입");
 
         Reports reports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
         String originText = reports.getReportsOriginContent();
 
         log.info(">> summaryText 진입: {}", originText);
-        CompletableFuture<String[]> summary = chatGptService.createSummary(originText);
+//        CompletableFuture<String[]> summary = chatGptService.createSummary(originText);
+        CompletableFuture<String[]> summary = chatGptService.createSummary(originText, parents.getLanguage());
 
         log.info(">> keywords 진입");
-        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText);
+//        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText);
+        CompletableFuture<String[]> keywords = chatGptService.createKeywords(originText, parents.getLanguage());
 
         log.info(">> solution 진입");
-        CompletableFuture<String[]> solution = chatGptService.createSolution(originText);
+//        CompletableFuture<String[]> solution = chatGptService.createSolution(originText);
+        CompletableFuture<String[]> solution = chatGptService.createSolution(originText, parents.getLanguage());
 
         String[] summaryText = summary.get();
         log.info(">> summaryText 성공: {}", Arrays.toString(summaryText));
@@ -106,29 +115,47 @@ public class ReportsUpdateService {
         log.info(">> keywords 성공: {}", Arrays.toString(keywordsText));
         String[] solutionText = solution.get();
         log.info(">> solutionText 성공: {}", Arrays.toString(solutionText));
+        log.info("========= keywordsText : {}", Arrays.stream(keywordsText).toArray());
+        log.info("========= keywordsText[0] : {}", keywordsText[0]);
+        log.info("========= keywordsText[1] : {}", keywordsText[1]);
         String[] keyword_kor_arr = keywordsText[0].split(", ");
         if (keyword_kor_arr.length != 3) {
             keyword_kor_arr = null;
 //            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
         }
-        String[] keyword_viet_arr = keywordsText[1].split(", ");
-        if (keyword_viet_arr.length != 3) {
-            keyword_viet_arr = null;
+        String[] keyword_translation_arr = keywordsText[1].split(", ");
+        if (keyword_translation_arr.length != 3) {
+            keyword_translation_arr = null;
 //            throw BaseException.type(ChatGptErrorCode.INVALID_KEYWORD);
         }
-        reports.updateReports(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_viet_arr), solutionText[0], solutionText[1]);
-        log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
-        log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
-        log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());
-        log.info(">>>> reports.keywordVietArr : {}", reports.getReportsKeywordsViet().toString());
-        log.info(">>>> reports.solutionKor : {}", reports.getReportsSolutionKor());
-        log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
+
+        // 부모의 국가 베트남
+        if (parents.getLanguage().equals(Language.viet)){
+            reports.updateReportsViet(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_translation_arr), solutionText[0], solutionText[1]);
+            log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
+            log.info(">>>> reports.summaryViet : {}", reports.getReportsSummaryViet());
+            log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());
+            log.info(">>>> reports.keywordVietArr : {}", reports.getReportsKeywordsViet().toString());
+            log.info(">>>> reports.solutionKor : {}", reports.getReportsSolutionKor());
+            log.info(">>>> reports.solutionViet : {}", reports.getReportsSolutionViet());
+        }
+        // 부모의 국가 필리핀
+        else {
+            reports.updateReportsPh(summaryText[0], summaryText[1], arraytoList(keyword_kor_arr), arraytoList(keyword_translation_arr), solutionText[0], solutionText[1]);
+            log.info(">>>> reports.summaryKor : {}", reports.getReportsSummaryKor());
+            log.info(">>>> reports.summaryPh : {}", reports.getReportsSummaryPh());
+            log.info(">>>> reports.keywordKorArr : {}", reports.getReportsKeywordsKor().toString());
+            log.info(">>>> reports.keywordPhArr : {}", reports.getReportsKeywordsPh().toString());
+            log.info(">>>> reports.solutionKor : {}", reports.getReportsSolutionKor());
+            log.info(">>>> reports.solutionPh : {}", reports.getReportsSolutionPh());
+        }
+
 
         log.info("{ ReportsService } : 아이속마음 레포트 저장 성공");
 
         log.info(">>>> (부모에게) SSE 알림 전송 시작");
         NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
-                .receiverUuid(reports.getKids().getUuid().toString())
+                .receiverUuid(parents.getUuid().toString())
                 .url("https://bridgetalk.co.kr/api/reports/"
                         +reports.getKids().getUuid().toString()
                         +"/"

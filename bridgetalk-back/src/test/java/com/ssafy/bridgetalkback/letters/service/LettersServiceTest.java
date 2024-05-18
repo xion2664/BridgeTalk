@@ -1,6 +1,7 @@
 package com.ssafy.bridgetalkback.letters.service;
 
 import com.ssafy.bridgetalkback.common.ServiceTest;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import com.ssafy.bridgetalkback.kids.domain.Kids;
 import com.ssafy.bridgetalkback.letters.domain.Letters;
@@ -70,7 +71,7 @@ public class LettersServiceTest extends ServiceTest {
         String fileName = "test/test-v6.mp3";
 
         //when
-        String extractText = lettersService.stt(fileName);
+        String extractText = lettersService.stt(fileName, Language.viet);
 
         //given
         String results = "Alice, mình hiểu là cậu muốn đi công viên giải trí mà. Tôi xin lỗi vì luôn bận rộn và không thể nghe lời bạn một cách đúng đắn. Tôi hiểu cảm giác của anh, mình muốn chia sẻ những trải nghiệm thú.";

@@ -229,7 +229,7 @@ public class AuthServiceTest extends ServiceTest {
 
     private ParentsSignupRequestDto createParentsSignupRequestDto() {
         return new ParentsSignupRequestDto(SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsPassword(), SUNKYOUNG.getParentsName(),
-                SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino());
+                SUNKYOUNG.getParentsNickname(), SUNKYOUNG.getParentsDino(), SUNKYOUNG.getLanguage());
     }
 
     private LoginRequestDto createLoginRequestDto() {
@@ -241,11 +241,12 @@ public class AuthServiceTest extends ServiceTest {
     }
 
     private KidsSignupRequestDto createKidsSignupRequestDto() {
-        return new KidsSignupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(), JIYEONG.getKidsDino());
+        return new KidsSignupRequestDto(String.valueOf(parents.getUuid()), JIYEONG.getKidsName(), JIYEONG.getKidsNickname(),
+                JIYEONG.getKidsDino(), JIYEONG.getKidsPassword());
     }
 
     private ProfileLoginRequestDto createKidsProfileLoginRequestDto() {
-        return new ProfileLoginRequestDto(String.valueOf(kids.getUuid()), "임시비밀번호(추후구현예정)");
+        return new ProfileLoginRequestDto(String.valueOf(kids.getUuid()), JIYEONG.getKidsPassword());
     }
 
     private ProfileLoginRequestDto createParentsProfileLoginRequestDto() {

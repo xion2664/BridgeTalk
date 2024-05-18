@@ -31,6 +31,7 @@ export function ProfilePage() {
   }));
 
   const setDeleteModalOpenState = useProfileStore((state) => state.setDeleteModalOpenState);
+  const setEditProfileModalState = useProfileStore((staet) => staet.setEditProfileModalState);
   const setPasswordCheckModalState = useProfileStore((state) => state.setPasswordCheckModalState);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export function ProfilePage() {
                         e.stopPropagation();
                         setUserDino(it.userDino);
                         setUserNickname(it.userNickname);
-                        navigate('/editProfile');
+                        setEditProfileModalState(it.userId);
                       }}
                     >
                       <img src={'assets/img/main/editProfileIcon.svg'} />
@@ -92,17 +93,18 @@ export function ProfilePage() {
                       className="main__profilelist-item-delete"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setDeleteModalOpenState(it.userId);
-                        if (confirm('정말 삭제하시겠습니까?')) {
-                          deleteDeleteProfile(it.userId).then((res) => {
-                            if (res.status === '200') {
-                              alert('삭제 성공');
-                              getProfileList(decodeToken('access')!).then((res) => {
-                                setProfileList([...res!.data.profileList]);
-                              });
-                            }
-                          });
-                        }
+                        setDeleteModalOpenState([it.userId, setProfileList]);
+
+                        // if (confirm('정말 삭제하시겠습니까?')) {
+                        //   deleteDeleteProfile(it.userId).then((res) => {
+                        //     if (res.status === '200') {
+                        //       alert('삭제 성공');
+                        //       getProfileList(decodeToken('access')!).then((res) => {
+                        //         setProfileList([...res!.data.profileList]);
+                        //       });
+                        //     }
+                        //   });
+                        // }
                         // navigate('/editProfile');
                       }}
                     >

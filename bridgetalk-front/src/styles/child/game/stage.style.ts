@@ -6,13 +6,17 @@ export const Container = styled.div`
   justify-content: center;
   width: 100svw;
   height: 100svh;
+  padding: 10svw;
 
   background-image: url('/assets/img/child/game/candyBackground.png');
   background-size: cover;
 
   .stagePage {
     &__header {
+      margin: 3svw;
+
       img {
+        width: 5svw;
       }
     }
 
@@ -22,8 +26,9 @@ export const Container = styled.div`
       justify-content: baseline;
       gap: 5svw;
 
-      width: 100%;
+      width: 100svw;
       height: 100%;
+      padding: 5svw;
 
       overflow-y: auto;
     }
@@ -50,7 +55,7 @@ export const Container = styled.div`
     }
 
     img {
-      height: 80%;
+      width: 90%;
       border-radius: 1svh;
     }
   }

@@ -104,6 +104,28 @@ public class CommentsControllerTest extends ControllerTest {
             mockMvc.perform(requestBuilder)
                     .andExpect(status().isCreated());
         }
+
+        @Test
+        @DisplayName("(필리핀어) 등록에 성공한다.")
+        void successPh() throws Exception {
+            //given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(createCommentsResponseDto(Language.ph))
+                    .when(commentsService)
+                    .createComments(any(), any());
+
+            //when
+            final CommentsRequestDto commentsRequestDto = createCommentsRequestDto(Language.ph);
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(commentsRequestDto));
+
+            //then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isCreated());
+        }
     }
 
     @Nested
@@ -179,6 +201,28 @@ public class CommentsControllerTest extends ControllerTest {
             mockMvc.perform(requestBuilder)
                     .andExpect(status().isOk());
         }
+
+        @Test
+        @DisplayName("(필리핀어) 수정에 성공한다.")
+        void successPh() throws Exception {
+            //given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(createCommentsResponseDto(Language.ph))
+                    .when(commentsService)
+                    .updateComments(any(), any(), any());
+
+            //when
+            final CommentsUpdateRequestDto commentsUpdateRequestDto = createCommentsUpdateRequestDto(Language.ph);
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .patch(BASE_URL, COMMENTS_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN)
+                    .contentType(APPLICATION_JSON)
+                    .content(convertObjectToJson(commentsUpdateRequestDto));
+
+            //then
+            mockMvc.perform(requestBuilder)
+                    .andExpect(status().isOk());
+        }
     }
 
     @Nested
@@ -228,20 +272,32 @@ public class CommentsControllerTest extends ControllerTest {
     }
 
     private CommentsUpdateRequestDto createCommentsUpdateRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new CommentsUpdateRequestDto(COMMENTS_02.getCommentsContentKor(), language)
-                : new CommentsUpdateRequestDto(COMMENTS_02.getCommentsContentViet(), language);
+        CommentsUpdateRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentKor(), language);
+            case viet -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentViet(), language);
+            case ph -> requestDto = new CommentsUpdateRequestDto(COMMENTS_01.getCommentsContentPh(), language);
+        }
+        return requestDto;
     }
 
     private CommentsRequestDto createCommentsRequestDto(Language language) {
-        return language.equals(Language.kor)
-                ? new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentKor(), language)
-                : new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentViet(), language);
+        CommentsRequestDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentKor(), language);
+            case viet -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentViet(), language);
+            case ph -> requestDto = new CommentsRequestDto(1L, COMMENTS_01.getCommentsContentPh(), language);
+        }
+        return requestDto;
     }
 
     private CommentsResponseDto createCommentsResponseDto(Language language) {
-        return language.equals(Language.kor)
-                ? new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentKor(), LocalDateTime.now())
-                : new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentViet(), LocalDateTime.now());
+        CommentsResponseDto requestDto = null;
+        switch (language) {
+            case kor -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentKor(), 1, LocalDateTime.now());
+            case viet -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentViet(), 2, LocalDateTime.now());
+            case ph -> requestDto = new CommentsResponseDto(1L, String.valueOf(UUID.randomUUID()), "닉네임", COMMENTS_01.getCommentsContentPh(), 3, LocalDateTime.now());
+        }
+        return requestDto;
     }
 }

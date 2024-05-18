@@ -49,6 +49,8 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 
+  z-index: 2;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,7 +184,7 @@ export const ErrorModalContainer = styled.div`
 
   width: 80svw;
   height: 10svh;
-  z-index: 2;
+  z-index: 3000;
 
   display: flex;
   justify-content: center;

@@ -3,7 +3,6 @@ import { css } from '@emotion/css';
 import Webcam from 'react-webcam';
 import { Camera } from '@mediapipe/camera_utils';
 import { Hands, Results } from '@mediapipe/hands';
-import { Pose } from '@mediapipe/pose';
 import { drawCanvas } from './utils/drawCanvas';
 
 export function TestCharacter() {
