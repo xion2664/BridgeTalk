@@ -35,12 +35,9 @@ ParentingInfoCrawlingService {
         map.put("75304", "PUBERTY");
 
         for(String key : map.keySet()) {
-            if(!key.equals("75303")) continue;
+            // if(!key.equals("75304")) continue;
             List<String> urlList = createUrlList(key, Category.valueOf(map.get(key)));
-            int cnt = 0;
             for(String url : urlList) {
-                cnt++;
-                if(cnt <= 15) continue;
                 ParentingInfoCrawlingDto dto = parentingInfoCrawling(url, Category.valueOf(map.get(key)));
                 parentingInfoService.createParentingInfo(dto.titleKor(), dto.titleViet(), dto.titlePh(),
                         dto.contentKor(), dto.contentViet(), dto.contentPh(), dto.link(), dto.category());
