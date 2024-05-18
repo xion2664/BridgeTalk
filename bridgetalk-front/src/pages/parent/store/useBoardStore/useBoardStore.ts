@@ -9,21 +9,14 @@ interface Store {
   setBoard_UUID: (board_UUID: any) => void;
   resultPage: number;
   setResultPage: (resultPage: number) => void;
+  searchType: string;
+  setSearchType: (searchType: string) => void;
+  sortType: string;
+  setSortType: (sortType: string) => void;
 }
 
 interface Language {
-  type: 'kor' | 'viet';
-}
-
-interface Board {
-    boardId?: number;
-    boardsTitle?: string;
-    boardsContent?: string;
-    likes?: number;
-    createdAt?: string;
-    reportsSummary?: string;
-    reportsKeyword?: string[];
-    writer?: string;
+  type: 'kor' | 'viet' | 'ph';
 }
 
 export const useBoardStore = create<Store>()((set) => ({
@@ -35,4 +28,8 @@ export const useBoardStore = create<Store>()((set) => ({
   setBoard_UUID: (board_UUID: any) => set({ board_UUID: board_UUID }),
   resultPage: 0,
   setResultPage: (resultPage: number) => set({ resultPage: resultPage }),
+  searchType: '제목',
+  setSearchType: (searchType: string) => set({ searchType: searchType }),
+  sortType: '최신순',
+  setSortType: (sortType: string) => set({ searchType: sortType }),
 }));
