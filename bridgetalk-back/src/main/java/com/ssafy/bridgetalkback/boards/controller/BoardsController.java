@@ -1,5 +1,6 @@
 package com.ssafy.bridgetalkback.boards.controller;
 
+import com.ssafy.bridgetalkback.boards.dto.response.BoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.boards.dto.request.BoardsRequestDto;
@@ -107,5 +108,13 @@ public class BoardsController {
     public ResponseEntity<Void> cancel(@ExtractPayload String parentsId, @PathVariable Long boardsId) {
         boardLikeService.cancel(UUID.fromString(parentsId), boardsId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("my/{language}")
+    public ResponseEntity<BoardsListResponseDto> getMyBoardsList(@ExtractPayload String parentsId,
+                                                                 @PathVariable Language language,
+                                                                 @RequestParam(value = "sort", required = false, defaultValue = "최신순") String sort) {
+        log.info("{ BoardsController } : 내가 쓴 글 리스트조회 진입");
+        return ResponseEntity.ok(boardsListService.getMyBoardsList(UUID.fromString(parentsId), sort, language));
     }
 }
