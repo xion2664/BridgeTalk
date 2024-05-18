@@ -26,7 +26,7 @@ public class ParentingInfoQueryRepositoryImpl implements ParentingInfoQueryRepos
 
     @Override
     public CustomParentingInfoListResponseDto<ParentingInfoListDto> getParentingInfoListOrderById(int page, String category, Language language) {
-        Pageable pageable = PageRequest.of(page, 6);
+        Pageable pageable = PageRequest.of(page, 4);
         List<ParentingInfoListDto> boardLists = query
                 .selectDistinct(createQParentingInfoListDto(language))
                 .from(parentingInfo)
