@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { customAxios } from '@/shared';
 import * as S from '@/styles/child/game/finish.style';
 
@@ -54,7 +53,7 @@ export function FinishPage() {
         <div className="finishPage__container">
           <img src="/assets/img/child/game/finishTitle.svg" alt="" />
           <div className="finishPage__container-img">
-            <img src={landmark?.puzzleImageUrl} alt="" />
+            <img src={landmark?.puzzleImageUrl} alt="landmark" />
           </div>
           <div className="finishPage__container-side">
             <div className="finishPage__container-side-title">{landmark?.puzzleLandmarkName}</div>
