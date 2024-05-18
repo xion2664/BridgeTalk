@@ -4,10 +4,12 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.bridgetalkback.boards.domain.BoardsSearchType;
+import com.ssafy.bridgetalkback.boards.dto.response.BoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.dto.response.CustomBoardsListResponseDto;
 import com.ssafy.bridgetalkback.boards.query.dto.BoardsListDto;
 import com.ssafy.bridgetalkback.boards.query.dto.QBoardsListDto;
 import com.ssafy.bridgetalkback.global.Language;
+import com.ssafy.bridgetalkback.parents.domain.Parents;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -66,6 +68,30 @@ public class BoardsListQueryRepositoryImpl implements BoardsListQueryRepository 
                 .where(searchLanguage(boardSearchType, searchWord, language));
 
         return new CustomBoardsListResponseDto<>(PageableExecutionUtils.getPage(boardLists, pageable, countQuery::fetchOne));
+    }
+
+    @Override
+    public BoardsListResponseDto getMyBoardsListOrderByTime(Parents parents, Language language) {
+        List<BoardsListDto> boardLists = query
+                .selectDistinct(createQBoardsListDto(language))
+                .from(boards)
+                .where(boards.parents.eq(parents))
+                .orderBy(boards.createdAt.desc())
+                .fetch();
+
+        return new BoardsListResponseDto(boardLists);
+    }
+
+    @Override
+    public BoardsListResponseDto getMyBoardsListOrderByLikes(Parents parents, Language language) {
+        List<BoardsListDto> boardLists = query
+                .selectDistinct(createQBoardsListDto(language))
+                .from(boards)
+                .where(boards.parents.eq(parents))
+                .orderBy(boards.likes.desc())
+                .fetch();
+
+        return new BoardsListResponseDto(boardLists);
     }
 
     private BooleanExpression searchLanguage(BoardsSearchType boardSearchType, String searchWord, Language language) {
