@@ -26,7 +26,7 @@ public class ParentingInfoQueryRepositoryImpl implements ParentingInfoQueryRepos
 
     @Override
     public CustomParentingInfoListResponseDto<ParentingInfoListDto> getParentingInfoListOrderById(int page, String category, Language language) {
-        Pageable pageable = PageRequest.of(page, 4);
+        Pageable pageable = PageRequest.of(page, 6);
         List<ParentingInfoListDto> boardLists = query
                 .selectDistinct(createQParentingInfoListDto(language))
                 .from(parentingInfo)
@@ -56,10 +56,12 @@ public class ParentingInfoQueryRepositoryImpl implements ParentingInfoQueryRepos
         QParentingInfoListDto parentingInfoListDto = null;
 
         switch (language) {
-            case kor -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.title_kor,
-                    parentingInfo.content_kor, parentingInfo.link, parentingInfo.category.stringValue());
-            case viet -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.title_viet,
-                    parentingInfo.content_viet, parentingInfo.link, parentingInfo.category.stringValue());
+            case kor -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.titleKor,
+                    parentingInfo.contentKor, parentingInfo.link, parentingInfo.category.stringValue());
+            case viet -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.titleViet,
+                    parentingInfo.contentViet, parentingInfo.link, parentingInfo.category.stringValue());
+            case ph -> parentingInfoListDto = new QParentingInfoListDto(parentingInfo.parentingInfoId, parentingInfo.titlePh,
+                    parentingInfo.contentPh, parentingInfo.link, parentingInfo.category.stringValue());
         }
         return parentingInfoListDto;
     }
