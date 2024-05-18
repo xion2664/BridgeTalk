@@ -10,7 +10,7 @@ export async function getBoardList(language: any, page: number, searchType: any,
         sort,
       },
     })
-    .then((err) => {
+    .catch((err) => {
       throw err;
     });
 }
