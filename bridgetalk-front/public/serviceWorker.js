@@ -3,15 +3,14 @@ const API_CACHE = 'api-cache-v1';
 const NEED_CACHE_URL = ['parentingInfo', 'slang'];
 
 self.addEventListener('install', (e) => {
-  console.log('installed', e);
+  console.log('SERVICE-WORKER INSTALLED', e);
 });
 
 self.addEventListener('activate', (e) => {
-  console.log('activated', e);
+  console.log('SERVICE_WORKER ACTIVATED', e);
 });
 
 self.addEventListener('fetch', (e) => {
-  console.log('fetched', e);
   if (e.request.method === 'GET') {
     // 캐시 대상 요청이라면
     if (NEED_CACHE_URL.some((url) => e.request.url.includes(url))) {
