@@ -158,7 +158,10 @@ public class ChatGptService {
             text += "\n 위 문장들을 문단별로 영어로 번역해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_VIET)) {
-            text += "\n 위 문장들을 문단별로 베트남어로 번역해줘";
+            text += "\n Translate these sentences into Vietnamese paragraph by paragraph";
+            log.info(">> prompt : {}", text);
+        } else if (gptRequestCode.equals(ChatGptRequestCode.PARAGRAPH_TRANSLATE_PH)) {
+            text += "\n Translate these sentences into Filipino paragraph by paragraph";
             log.info(">> prompt : {}", text);
         } else if(gptRequestCode.equals(ChatGptRequestCode.LETTERS_KEYWORD)){
             text += "\n 위의 문장에서 핵심 단어 4개를 차례로 한줄로 나열해줘";
@@ -166,13 +169,12 @@ public class ChatGptService {
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERT_KEYWORD)) {
             text += "\n 위의 문장에서 핵심 단어 4개를 [\"친구\", \"학교\", \"성장\", \"호기심\", \"게임\", \"취미\", \"가족\", \"공원\", \"학습\", \"동기부여\", \"창의력\", \"감정\", \"스포츠\", \"음악\", \"독서\", \"영화\", \"자연\", \"애완동물\", \"모험\", \"과학\", \"행복\"] 중에서 가장 밀접한 관련이 있는 단어로 바꿔서 설명없이 한 개의 list형태로 반환해줘";
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH)) {
-            text += "\n Please translate the above sentences into Filipino.";
+            text += "\n Translate the above sentence literally into Filipino.";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_VIET)){
-            text += "\n Please translate the above sentences into Vietnamese.";
+            text += "\n Translate the above sentence literally into Vietnamese.";
             log.info(">> prompt : {}", text);
-        }
-        else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
+        } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_ENG)) {
             text += "\n 위 문장들을 영어로 번역해줘";
             log.info(">> prompt : {}", text);
         } else if(gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH_VER1)){
