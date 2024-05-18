@@ -22,32 +22,40 @@ self.addEventListener('activate', (e) => {
   // );
 });
 
-self.addEventListener('fetch', (e) => {
-  console.log('fetched', e);
-  if (e.request.method === 'GET') {
-    console.log('GET 1');
+// self.addEventListener('fetch', (e) => {
+//   console.log('fetched', e);
+//   if (e.request.method === 'GET') {
+//     console.log('GET 1');
 
-    if (
-      NEED_CACHE_URL.some((url) => {
-        e.request.url.includes(url);
-      })
-    ) {
-    }
+//     if (NEED_CACHE_URL.some((url) => e.request.url.includes(url))) {
+//       console.log(e.request.url);
+//     }
 
-    // e.responseWith(
-    //   caches.match(e.request).then((cachedResponse) => {
-    //     if (cachedResponse) {
-    //       return cachedResponse;
-    //     }
-    //     return fetch(e.request).then((networkResponse) => {
-    //       if (networkResponse.status === 200) {
-    //         caches.open(API_CACHE).then((cache) => {
-    //           cache.put(e.request, networkResponse.clone());
-    //         });
-    //       }
-    //       return networkResponse;
-    //     });
-    //   }),
-    // );
-  }
-});
+//     e.respondWith(
+//       fetch(e.request)
+//         .then((networkResponse) => {
+//           return networkResponse;
+//         })
+//         .catch((error) => {
+//           console.error('Fetch failed:', error);
+//           throw error;
+//         }),
+//     );
+
+//     // e.responseWith(
+//     //   caches.match(e.request).then((cachedResponse) => {
+//     //     if (cachedResponse) {
+//     //       return cachedResponse;
+//     //     }
+//     //     return fetch(e.request).then((networkResponse) => {
+//     //       if (networkResponse.status === 200) {
+//     //         caches.open(API_CACHE).then((cache) => {
+//     //           cache.put(e.request, networkResponse.clone());
+//     //         });
+//     //       }
+//     //       return networkResponse;
+//     //     });
+//     //   }),
+//     // );
+//   }
+// });
