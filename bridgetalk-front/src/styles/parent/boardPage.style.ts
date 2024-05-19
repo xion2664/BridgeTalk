@@ -25,6 +25,8 @@ export const Container = styled.div`
   background-color: ${color(1).bright};
 
   .boardPage {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     gap: 2svh;
@@ -111,6 +113,8 @@ export const Container = styled.div`
       height: 60svh;
 
       &-item {
+        cursor: pointer;
+
         display: flex;
         flex-direction: column;
         gap: 1svh;
@@ -178,4 +182,48 @@ export const Container = styled.div`
       } //.active
     } // .pagenation
   } // .boardPage
+
+  .sort {
+    position: absolute;
+    top: 10svh;
+    right: 0;
+    transform: translateX(100%);
+
+    padding: 0 1svw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1svh;
+
+    button {
+      background-color: transparent;
+      border: none;
+
+      color: ${color(1).line};
+      cursor: pointer;
+
+      font-size: 1.5svw;
+      &:hover {
+        color: ${color(1).black};
+      }
+    }
+  } // .sort
+
+  .write {
+    position: absolute;
+    right: 2svw;
+    bottom: 4svh;
+
+    padding: 3svh 1.5svw;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    background-color: transparent;
+
+    img {
+      width: 3.6svw;
+    }
+  } // .write
 `;

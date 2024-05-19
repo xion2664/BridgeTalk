@@ -31,5 +31,5 @@ export const useBoardStore = create<Store>()((set) => ({
   searchType: '제목',
   setSearchType: (searchType: string) => set({ searchType: searchType }),
   sortType: '최신순',
-  setSortType: (sortType: string) => set({ searchType: sortType }),
+  setSortType: (sortType: string) => set({ sortType: sortType }),
 }));

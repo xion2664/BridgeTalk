@@ -55,10 +55,26 @@ export function BoardPage() {
           {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
         </div>
         <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={1} />
-      </div>
-      <div className="sort">
-        <button className="sort__latest">최신순</button>
-        <button className="sort__popular">인기순</button>
+        <div className="sort">
+          <button
+            className="sort__latest"
+            style={{ color: boardStore.sortType === '최신순' ? 'black' : '' }}
+            onClick={() => {
+              boardStore.setSortType('최신순');
+            }}
+          >
+            최신순
+          </button>
+          <button
+            className="sort__popular"
+            style={{ color: boardStore.sortType === '좋아요순' ? 'black' : '' }}
+            onClick={() => {
+              boardStore.setSortType('좋아요순');
+            }}
+          >
+            인기순
+          </button>
+        </div>
       </div>
       <button
         className="write"
