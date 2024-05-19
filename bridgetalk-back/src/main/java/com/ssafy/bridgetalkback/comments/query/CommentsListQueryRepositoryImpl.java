@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.comments.query;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.bridgetalkback.boards.domain.Boards;
 import com.ssafy.bridgetalkback.comments.dto.response.CustomCommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.query.dto.CommentsListDto;
 import com.ssafy.bridgetalkback.comments.query.dto.QCommentsListDto;
@@ -25,11 +26,12 @@ public class CommentsListQueryRepositoryImpl implements CommentsListQueryReposit
     private final JPAQueryFactory query;
 
     @Override
-    public CustomCommentsListResponseDto<CommentsListDto> getCommentsListOrderByTime(int page, Language language) {
+    public CustomCommentsListResponseDto<CommentsListDto> getCommentsListOrderByTime(Boards boards, int page, Language language) {
         Pageable pageable = PageRequest.of(page, 10);
         List<CommentsListDto> commentsList = query
                 .selectDistinct(createQCommentsListDto(language))
                 .from(comments)
+                .where(comments.boards.eq(boards))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(comments.createdAt.desc())
@@ -43,11 +45,12 @@ public class CommentsListQueryRepositoryImpl implements CommentsListQueryReposit
     }
 
     @Override
-    public CustomCommentsListResponseDto<CommentsListDto> getCommentsListOrderByLikes(int page, Language language) {
+    public CustomCommentsListResponseDto<CommentsListDto> getCommentsListOrderByLikes(Boards boards, int page, Language language) {
         Pageable pageable = PageRequest.of(page, 10);
         List<CommentsListDto> commentsList = query
                 .selectDistinct(createQCommentsListDto(language))
                 .from(comments)
+                .where(comments.boards.eq(boards))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(comments.likes.desc())
