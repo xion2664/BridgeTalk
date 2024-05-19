@@ -99,7 +99,7 @@ export function BoardDetailPage() {
                 }
               }}
             >
-              <img src={`/assets/img/parent/community/like_${like ? 'solid' : 'empty'}.svg`} />
+              <img src={`/assets/img/parent/community/${like ? 'like_solid.png' : 'like_empty.svg'}`} />
             </button>
             <div className="boiardDetailPage__header-icons-like-cnt">{likeCnt}</div>
           </div>
