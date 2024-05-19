@@ -12,6 +12,7 @@ import com.ssafy.bridgetalkback.boards.controller.BoardsController;
 import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.boards.service.BoardsService;
 import com.ssafy.bridgetalkback.comments.controller.CommentsController;
+import com.ssafy.bridgetalkback.comments.service.CommentsLikeService;
 import com.ssafy.bridgetalkback.comments.service.CommentsListService;
 import com.ssafy.bridgetalkback.comments.service.CommentsService;
 import com.ssafy.bridgetalkback.boards.service.BoardsListService;
@@ -176,6 +177,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected CommentsListService commentsListService;
+    @MockBean
+    protected CommentsLikeService commentsLikeService;
+
 
     protected String convertObjectToJson(Object data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);

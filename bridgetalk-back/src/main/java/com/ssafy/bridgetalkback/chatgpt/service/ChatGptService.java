@@ -141,7 +141,7 @@ public class ChatGptService {
             text += " 베트남어로 번역해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERSION)) {
-            text += " 이 영어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 어조로 다듬어줘";
+            text += " 이 영어 문단을 한국어로 번역하고, 부드럽고 친근한 엄마의 말로 다듬어줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.KEYWORD)) {
             text += "\n 위 문단의 핵심 키워드 3개 추출해서 키워드만 한 줄로 나열해줘";

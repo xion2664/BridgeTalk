@@ -1,11 +1,14 @@
 package com.ssafy.bridgetalkback.comment.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
+import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
+import com.ssafy.bridgetalkback.comments.exception.CommentsErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
 import com.ssafy.bridgetalkback.global.Language;
+import com.ssafy.bridgetalkback.global.exception.BaseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,10 +24,11 @@ import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_02;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -271,6 +275,111 @@ public class CommentsControllerTest extends ControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("답글좋아요 등록 API [POST /api/comments/likes/{commentsId}]")
+    class register {
+        private static final String BASE_URL = "/api/comments/likes/{commentsId}";
+        private static final Long COMMENT_ID = 1L;
+
+        @Test
+        @DisplayName("Authorization Header에 AccessToken이 없으면 게시글좋아요 등록에 실패한다")
+        void withoutAccessToken() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, COMMENT_ID);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("본인의 답글에는 좋아요를 누를 수 없다")
+        void throwExceptionBySelfFollowNotAllowed() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(CommentsErrorCode.SELF_COMMENT_LIKE_NOT_ALLOWED))
+                    .when(commentsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, COMMENT_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final CommentsErrorCode expectedError = CommentsErrorCode.SELF_COMMENT_LIKE_NOT_ALLOWED;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isConflict(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("한 답글에 두 번 이상 좋아요를 누를 수 없다")
+        void throwExceptionByAlreadyBoardLike() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(CommentsErrorCode.ALREADY_COMMENT_LIKE))
+                    .when(commentsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, COMMENT_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final CommentsErrorCode expectedError = CommentsErrorCode.ALREADY_COMMENT_LIKE;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isConflict(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("답글 좋아요 등록에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(1L)
+                    .when(commentsLikeService)
+                    .register(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .post(BASE_URL, COMMENT_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
     private CommentsUpdateRequestDto createCommentsUpdateRequestDto(Language language) {
         CommentsUpdateRequestDto requestDto = null;
         switch (language) {
@@ -280,6 +389,86 @@ public class CommentsControllerTest extends ControllerTest {
         }
         return requestDto;
     }
+
+    @Nested
+    @DisplayName("답글좋아요 취소 API [DELETE /api/comments/likes/{commentsId}]")
+    class cancel {
+        private static final String BASE_URL = "/api/comments/likes/{commentsId}";
+        private static final Long COMMENT_ID = 1L;
+
+        @Test
+        @DisplayName("Authorization Header에 AccessToken이 없으면 게시글좋아요 취소에 실패한다")
+        void withoutAccessToken() throws Exception {
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, COMMENT_ID);
+
+            // then
+            final AuthErrorCode expectedError = AuthErrorCode.INVALID_PERMISSION;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isForbidden(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("좋아요를 누르지 않은 답글의 좋아요는 취소할 수 없다")
+        void throwExceptionByBoardLikeNotFound() throws Exception {
+            // given
+            given(jwtProvider.validateToken(anyString())).willReturn(true);
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doThrow(BaseException.type(CommentsErrorCode.COMMENT_LIKE_NOT_FOUND))
+                    .when(commentsLikeService)
+                    .cancel(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, COMMENT_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            final CommentsErrorCode expectedError = CommentsErrorCode.COMMENT_LIKE_NOT_FOUND;
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isNotFound(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectedError.getStatus().value()),
+                            jsonPath("$.errorCode").exists(),
+                            jsonPath("$.errorCode").value(expectedError.getErrorCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectedError.getMessage())
+                    );
+        }
+
+        @Test
+        @DisplayName("답글 좋아요 취소에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.validateToken(anyString())).willReturn(true);
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doNothing()
+                    .when(commentsLikeService)
+                    .cancel(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .delete(BASE_URL, COMMENT_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + REFRESH_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(
+                            status().isOk()
+                    );
+        }
+    }
+
 
     private CommentsRequestDto createCommentsRequestDto(Language language) {
         CommentsRequestDto requestDto = null;
