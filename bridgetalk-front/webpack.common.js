@@ -54,6 +54,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i, // 해당 확장자의 파일의 경우
         type: 'asset/resource', // 별도의 파일을 내보내고 URL을 추출한다.
+        exclude: /public\/assets/,
       },
       {
         test: /\.(glb)$/i,
@@ -91,7 +92,7 @@ module.exports = {
         { from: 'public/assets', to: 'assets/' },
         { from: 'public/@ffmpeg', to: '@ffmpeg/' },
         { from: 'public/814.ffmpeg.js', to: '814.ffmpeg.js' },
-        { from: 'public/serviceWorker.js', to: '.' },
+        { from: 'src/app/serviceWorker.js', to: '.' },
       ],
     }),
     // new ImageMinimizerPlugin({
