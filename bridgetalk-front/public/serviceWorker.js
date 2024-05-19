@@ -1,7 +1,7 @@
 const API_CACHE = 'api-cache-v1';
 const ASSET_CACHE = 'asset-cache-v1';
 
-const NEED_CACHE_API_URL = ['parentingInfo', 'slang'];
+const NEED_CACHE_API_URL = [/parentingInfo/, /slang/];
 const NEED_CACHE_ASSET_REGEX = /\.(svg|png|jpe?g|glb)$/;
 
 self.addEventListener('install', (e) => {
@@ -15,7 +15,7 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method === 'GET') {
     // 캐시 대상 요청이라면
-    if (NEED_CACHE_API_URL.some((url) => e.request.url.includes(url))) {
+    if (NEED_CACHE_API_URL.some((url) => url.test(e.request.url))) {
       cacheCheck(API_CACHE, e);
     } else if (NEED_CACHE_ASSET_REGEX.test(e.request.url)) {
       cacheCheck(ASSET_CACHE, e);
