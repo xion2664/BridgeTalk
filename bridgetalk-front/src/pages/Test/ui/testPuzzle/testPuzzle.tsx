@@ -56,7 +56,7 @@ export function TestPuzzle() {
         height={720}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        videoConstraints={{ width: 1280, height: 720, facingMode: 'user' }}
+        videoConstraints={{ width: 1280, height: 1000, facingMode: 'user' }}
       />
       <canvas ref={canvasRef} className={styles.canvas} width={1280} height={720} />
       <div className={styles.buttonContainer}>
@@ -81,7 +81,7 @@ const styles = {
   canvas: css`
     position: absolute;
     width: 1280px;
-    height: 720px;
+    height: 1000px;
     background-color: #fff;
   `,
   buttonContainer: css`

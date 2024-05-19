@@ -14,20 +14,26 @@ interface Puzzle {
 
 export function StagePage() {
   const [puzzles, setPuzzles] = useState<Puzzle[]>([]);
+  const [nation, setNation] = useState<'viet' | 'ph'>('viet');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPuzzles = async () => {
-      try {
-        const response = await customAxios.get('/puzzle');
-        setPuzzles(response.data.puzzleList);
-      } catch (error) {
-        console.error('Failed to fetch letters:', error);
-      }
-    };
+  const fetchPuzzles = async (nation: 'viet' | 'ph') => {
+    try {
+      const response = await customAxios.get(`/puzzle/list/${nation}`);
+      setPuzzles(response.data.puzzleList);
+    } catch (error) {
+      console.error('Failed to fetch puzzles:', error);
+    }
+  };
 
-    fetchPuzzles();
-  }, []);
+  useEffect(() => {
+    fetchPuzzles(nation);
+  }, [nation]);
+
+  const toggleNation = () => {
+    const newNation = nation === 'viet' ? 'ph' : 'viet';
+    setNation(newNation);
+  };
 
   return (
     <S.Container>
@@ -40,16 +46,14 @@ export function StagePage() {
               navigate('/game');
             }}
           />
+          <div className="stagePage__header-lang" onClick={toggleNation}>
+            <img src={`/assets/flag/${nation}.png`} alt={nation} />
+          </div>
         </div>
         <div className="stagePage__container">
           {puzzles.map((puzzle) => (
-            <div className="stageItem">
-              <StageItem
-                key={puzzle.puzzleId}
-                id={puzzle.puzzleId.toString()}
-                img={puzzle.puzzleImageUrl}
-                name={puzzle.puzzleLandmarkName}
-              />
+            <div className="stageItem" key={puzzle.puzzleId}>
+              <StageItem id={puzzle.puzzleId.toString()} img={puzzle.puzzleImageUrl} name={puzzle.puzzleLandmarkName} />
             </div>
           ))}
         </div>
