@@ -2,6 +2,12 @@ import styled, { css } from 'styled-components';
 import { color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
+const truncate = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 export const Container = styled.div`
   * {
     font-family: 'Pretendard';
@@ -24,10 +30,12 @@ export const Container = styled.div`
     gap: 2svh;
 
     width: 40svw;
+    height: 100svh;
 
     &__categories {
       display: flex;
       gap: 1svw;
+      height: 5svh;
 
       button {
         font-size: 1.5svw;
@@ -100,10 +108,13 @@ export const Container = styled.div`
       grid-template-rows: repeat(4, 1fr);
       gap: 3svh;
 
+      height: 60svh;
+
       &-item {
         display: flex;
         flex-direction: column;
         gap: 1svh;
+        width: 100%;
 
         &-header {
           display: flex;
@@ -116,6 +127,8 @@ export const Container = styled.div`
 
             &-title {
               font-size: 2svw;
+              width: 100%;
+              ${truncate}
             }
 
             &-sub {
@@ -127,6 +140,7 @@ export const Container = styled.div`
 
         &-body {
           &-content {
+            ${truncate}
           }
           &-keywords {
             display: flex;
