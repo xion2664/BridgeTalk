@@ -96,20 +96,15 @@ public class Reports extends BaseEntity {
         this.reportsSolutionPh = solutionTextViet;
     }
 
-    public void updateReportsViet(String summaryTextKor, String summaryTextViet, List<String> keywordKorList, List<String> keywordVietList, String solutionTextKor, String solutionTextViet) {
+    public void updateReportsViet(String summaryTextKor, String summaryTextViet, String summaryTextPh,List<String> keywordKorList, List<String> keywordVietList, List<String> keywordPhList, String solutionTextKor, String solutionTextViet, String solutionTextPh) {
         this.reportsSummaryKor = summaryTextKor;
         this.reportsSummaryViet = summaryTextViet;
-        this.reportsKeywordsKor = keywordKorList;
-        this.reportsKeywordsViet = keywordVietList;
-        this.reportsSolutionKor = solutionTextKor;
-        this.reportsSolutionViet = solutionTextViet;
-    }
-    public void updateReportsPh(String summaryTextKor, String summaryTextPh, List<String> keywordKorList, List<String> keywordPhList, String solutionTextKor, String solutionTextPh) {
-        this.reportsSummaryKor = summaryTextKor;
         this.reportsSummaryPh = summaryTextPh;
         this.reportsKeywordsKor = keywordKorList;
+        this.reportsKeywordsViet = keywordVietList;
         this.reportsKeywordsPh = keywordPhList;
         this.reportsSolutionKor = solutionTextKor;
+        this.reportsSolutionViet = solutionTextViet;
         this.reportsSolutionPh = solutionTextPh;
     }
 

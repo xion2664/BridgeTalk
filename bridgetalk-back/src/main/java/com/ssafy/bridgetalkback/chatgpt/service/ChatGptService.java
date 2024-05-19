@@ -40,42 +40,90 @@ public class ChatGptService {
     private String legacyPromptUrl;
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createSummary(String originText, Language language) {
-        String[] summary = new String[2];
+    public CompletableFuture<String[]> createSummary(String originText) {
+        String[] summary = new String[3];
         summary[0] = createPrompt(originText, ChatGptRequestCode.SUMMARY);
-        if(language.equals(Language.viet)){
-            summary[1] = translationService.translation(summary[0], "ko", "vi");
-        } else {
-            String engText = createPrompt(summary[0], ChatGptRequestCode.TRANSLATE_ENG);
-            summary[1] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
-        }
+        summary[1] = translationService.translation(summary[0], "ko", "vi");
+        String engText = translationService.translation(summary[0], "ko", "en");
+        summary[2] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
         return CompletableFuture.completedFuture(summary);
     }
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createKeywords(String originText, Language language) {
-        String[] keywords = new String[2];
+    public CompletableFuture<String> createSummaryKor(String originText) {
+        String summaryKor = createPrompt(originText, ChatGptRequestCode.SUMMARY);
+        return CompletableFuture.completedFuture(summaryKor);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createSummaryViet(String summary) {
+        String summaryViet = translationService.translation(summary, "ko", "vi");
+        return CompletableFuture.completedFuture(summaryViet);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createSummaryPh(String summary) {
+        String engText = translationService.translation(summary, "ko", "en");
+        String summaryPh = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
+        return CompletableFuture.completedFuture(summaryPh);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createKeywords(String originText) {
+        String[] keywords = new String[3];
         keywords[0] = createPrompt(originText, ChatGptRequestCode.KEYWORD);
-        if(language.equals(Language.viet)){
-            keywords[1] = translationService.translation(keywords[0], "ko", "vi");
-        } else {
-            keywords[1] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE_PH_VER1);
-        }
+        keywords[1] = translationService.translation(keywords[0], "ko", "vi");
+        keywords[2] = createPrompt(keywords[0], ChatGptRequestCode.TRANSLATE_PH_VER1);
         return CompletableFuture.completedFuture(keywords);
     }
 
     @Async("threadPoolTaskExecutor")
-    public CompletableFuture<String[]> createSolution(String originText, Language language) {
-        String[] solution = new String[2];
+    public CompletableFuture<String> createKeywordsKor(String originText) {
+        String keywordsKor = createPrompt(originText, ChatGptRequestCode.KEYWORD);
+        return CompletableFuture.completedFuture(keywordsKor);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createKeywordsViet(String keywords) {
+        String keywordsViet = translationService.translation(keywords, "ko", "vi");
+        return CompletableFuture.completedFuture(keywordsViet);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createKeywordsPh(String keywords) {
+        String keywordsPh = createPrompt(keywords, ChatGptRequestCode.TRANSLATE_PH_VER1);
+        return CompletableFuture.completedFuture(keywordsPh);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String[]> createSolution(String originText) {
+        String[] solution = new String[3];
         solution[0] = createPrompt(originText, ChatGptRequestCode.SOLUTION);
-        if (language.equals(Language.viet)){
-            solution[1] = translationService.translation(solution[0], "ko", "vi");
-        } else {
-            String engText = createPrompt(solution[0], ChatGptRequestCode.TRANSLATE_ENG);
-            solution[1] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
-        }
+        solution[1] = translationService.translation(solution[0], "ko", "vi");
+        String engText = translationService.translation(solution[0], "ko", "en");
+        solution[2] = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
         return CompletableFuture.completedFuture(solution);
     }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createSolutionKor(String originText) {
+        String solutionKor = createPrompt(originText, ChatGptRequestCode.SOLUTION);
+        return CompletableFuture.completedFuture(solutionKor);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createSolutionViet(String solution) {
+        String solutionViet = translationService.translation(solution, "ko", "vi");
+        return CompletableFuture.completedFuture(solutionViet);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> createSolutionPh(String solution) {
+        String engText = translationService.translation(solution, "ko", "en");
+        String solutionPh = createPrompt(engText, ChatGptRequestCode.TRANSLATE_PH);
+        return CompletableFuture.completedFuture(solutionPh);
+    }
+
 
     // 비동기
     @Async("threadPoolTaskExecutor")
