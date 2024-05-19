@@ -120,7 +120,8 @@ public class AuthServiceTest extends ServiceTest {
                     () -> {
                         RefreshToken findRefreshToken = refreshTokenRedisRepository.findById(parents.getUuid()).orElseThrow();
                         assertThat(findRefreshToken.getRefreshToken()).isEqualTo(loginResponseDto.refreshToken());
-                    }
+                    },
+                    () -> assertThat(loginResponseDto.language()).isEqualTo(parents.getLanguage())
             );
         }
     }
@@ -199,6 +200,7 @@ public class AuthServiceTest extends ServiceTest {
                         RefreshToken findRefreshToken = refreshTokenRedisRepository.findById(parents.getUuid()).orElseThrow();
                         assertThat(findRefreshToken.getRefreshToken()).isEqualTo(parentsLoginResponseDto.refreshToken());
                     },
+                    () -> assertThat(parentsLoginResponseDto.language()).isEqualTo(parents.getLanguage()),
                     () -> assertThat(kidsLoginResponseDto.userId()).isEqualTo(String.valueOf(kids.getUuid())),
                     () -> assertThat(kidsLoginResponseDto.userName()).isEqualTo(kids.getKidsName()),
                     () -> assertThat(kidsLoginResponseDto.userEmail()).isEqualTo(kids.getKidsEmail()),

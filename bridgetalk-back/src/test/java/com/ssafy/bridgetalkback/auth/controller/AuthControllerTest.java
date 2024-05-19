@@ -7,6 +7,7 @@ import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.dto.request.ParentsSignupRequestDto;
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
 import com.ssafy.bridgetalkback.common.ControllerTest;
+import com.ssafy.bridgetalkback.global.Language;
 import com.ssafy.bridgetalkback.global.exception.BaseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -344,7 +345,7 @@ public class AuthControllerTest extends ControllerTest {
 
     private LoginResponseDto loginResponseDto() {
         return new LoginResponseDto("7cfadd66-e491-4cb2-9d8f-6aa2e285dc46", SUNKYOUNG.getParentsName(), SUNKYOUNG.getParentsEmail(), SUNKYOUNG.getParentsNickname(),
-                SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN);
+                SUNKYOUNG.getParentsDino(), ACCESS_TOKEN, REFRESH_TOKEN, Language.kor);
     }
 
     private KidsSignupRequestDto createKidsSingupRequestDto() {
