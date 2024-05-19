@@ -18,7 +18,7 @@ export function SearchTypes() {
     const map: any = {
       제목: '제목',
       작성자: '작성자',
-      내용: '내용과레포트요약',
+      내용과레포트요약: '내용과레포트요약',
     };
 
     return map[category] === searchType ? 'active' : '';
@@ -45,7 +45,7 @@ export function SearchTypes() {
       <button
         className={`boardPage__categories-content ${activeCategory(boardStore.searchType, '내용과레포트요약')}`}
         onClick={() => {
-          boardStore.setSearchType('내용');
+          boardStore.setSearchType('내용과레포트요약');
         }}
       >
         {categories[language][2]}

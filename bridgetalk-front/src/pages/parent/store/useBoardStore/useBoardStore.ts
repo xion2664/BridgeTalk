@@ -13,6 +13,8 @@ interface Store {
   setSearchType: (searchType: string) => void;
   sortType: string;
   setSortType: (sortType: string) => void;
+  refresh: boolean;
+  setRefresh: () => void;
 }
 
 interface Language {
@@ -31,5 +33,7 @@ export const useBoardStore = create<Store>()((set) => ({
   searchType: '제목',
   setSearchType: (searchType: string) => set({ searchType: searchType }),
   sortType: '최신순',
-  setSortType: (sortType: string) => set({ searchType: sortType }),
+  setSortType: (sortType: string) => set({ sortType: sortType }),
+  refresh: false,
+  setRefresh: () => set((state) => ({ refresh: !state.refresh })),
 }));
