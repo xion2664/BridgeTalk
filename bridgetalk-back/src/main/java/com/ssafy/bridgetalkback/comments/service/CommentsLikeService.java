@@ -1,10 +1,5 @@
 package com.ssafy.bridgetalkback.comments.service;
 
-import com.ssafy.bridgetalkback.boards.domain.Boards;
-import com.ssafy.bridgetalkback.boards.domain.BoardsLike;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
-import com.ssafy.bridgetalkback.boards.repository.BoardsLikeRepository;
-import com.ssafy.bridgetalkback.boards.service.BoardsFindService;
 import com.ssafy.bridgetalkback.comments.domain.Comments;
 import com.ssafy.bridgetalkback.comments.domain.CommentsLike;
 import com.ssafy.bridgetalkback.comments.exception.CommentsErrorCode;
@@ -42,6 +37,18 @@ public class CommentsLikeService {
         return commentsLikeRepository.save(commentsLike).getCommentsLikeId();
     }
 
+    @Transactional
+    public void cancel(UUID parentsId, Long commentsId){
+        validateCancel(parentsId, commentsId);
+        Comments comments = commentsFindService.findByCommentsIdAndIsDeleted(commentsId);
+        comments.decreaseLikes();
+        commentsLikeRepository.deleteByParentsIdAndCommentsId(parentsId, commentsId);
+    }
+
+    @Transactional
+    public void deleteByParents(Parents parents) {
+        commentsLikeRepository.deleteByParents(parents);
+    }
 
     private void validateSelfCommentsLike(UUID parentsId, Long commentsId) {
         Comments comments = commentsFindService.findByCommentsIdAndIsDeleted(commentsId);
@@ -56,22 +63,13 @@ public class CommentsLikeService {
         }
     }
 
-    @Transactional
-    public void cancel(UUID parentsId, Long commentsId){
-        validateCancel(parentsId, commentsId);
-        Comments comments = commentsFindService.findByCommentsIdAndIsDeleted(commentsId);
-        comments.decreaseLikes();
-        commentsLikeRepository.deleteByParentsIdAndCommentsId(parentsId, commentsId);
-    }
-
     private void validateCancel(UUID parentsId, Long commentsId) {
         if (!commentsLikeRepository.existsByParentsUuidAndCommentsCommentsId(parentsId, commentsId)) {
             throw BaseException.type(CommentsErrorCode.COMMENT_LIKE_NOT_FOUND);
         }
     }
 
-    @Transactional
-    public void deleteByParents(Parents parents) {
-        commentsLikeRepository.deleteByParents(parents);
+    public boolean checkLike(UUID parentsId, Long commentsId) {
+        return commentsLikeRepository.existsByParentsUuidAndCommentsCommentsId(parentsId, commentsId);
     }
 }
