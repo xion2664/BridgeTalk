@@ -21,7 +21,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
+    width: 30svw;
 
     ::-webkit-scrollbar {
       display: none;
@@ -59,8 +59,6 @@ export const Container = styled.div`
         flex-direction: column;
         gap: 3svh;
 
-        width: 100%;
-        /* height: 59.9svh; */
         height: 100%;
 
         overflow-y: auto;
@@ -81,7 +79,7 @@ export const Container = styled.div`
           position: relative;
 
           width: 100%;
-          height: 16.3svh;
+          max-height: 16.3svh;
 
           display: flex;
           flex-direction: column;
@@ -131,7 +129,13 @@ export const Container = styled.div`
           &-body {
             font-size: 1.4svw;
             font-family: 'Cookie';
+
+            /* 트렁케이트 스타일 추가 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
+
           &-date {
             font-size: 1.4svw;
             width: 100%;
