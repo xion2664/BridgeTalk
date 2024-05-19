@@ -86,35 +86,45 @@ export function CreatePage() {
     <S.Container>
       <div className="createPage">
         <div className="createPage__header">
-          <button className="createPage__header-toBack">
+          <button
+            className="createPage__header-toBack"
+            onClick={() => {
+              navigate('../board');
+            }}
+          >
             <img src={'/assets/img/parent/community/back.svg'} />
           </button>
         </div>
         <div className="createPage__container">
           <div className="createPage__container-title">
             <div>Q</div>
-            <input type="text" placeholder="제목을 입력하세요" required ref={titleRef} />
+            <input type="text" placeholder="제목을 입력해주세요" required ref={titleRef} />
           </div>
           <div className="createPage__container-report">
-            {reportList &&
-              reportList.map((report: any) => {
-                const reports = report.value.data;
+            <div className="createPage__container-report=title">리포트를 선택해주세요</div>
+            <div className="createPage__container-report-content">
+              {reportList &&
+                reportList.map((report: any) => {
+                  const reports = report.value.data;
 
-                return reports.map((it: any) => {
-                  const reportId = it.reportsId;
-                  const repoortsSummary = it.reportsSummary;
+                  return reports.map((it: any) => {
+                    const reportId = it.reportsId;
+                    const repoortsSummary = it.reportsSummary;
 
-                  return (
-                    <button
-                      onClick={() => {
-                        setReportsId(reportId);
-                      }}
-                    >
-                      <p>{repoortsSummary}</p>
-                    </button>
-                  );
-                });
-              })}
+                    return (
+                      <button
+                        className="createPage__container-report-content-btn"
+                        style={{ fontFamily: reportId === reportsId ? 'Pretendard-Black' : '' }}
+                        onClick={() => {
+                          setReportsId(reportId);
+                        }}
+                      >
+                        <p>{repoortsSummary}</p>
+                      </button>
+                    );
+                  });
+                })}
+            </div>
           </div>
           <div className="createPage__container-content">
             <textarea

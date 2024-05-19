@@ -25,11 +25,17 @@ export const Container = styled.div`
     height: 100svh;
 
     &__header {
+      display: flex;
+      align-items: center;
+
       width: 100%;
       height: 5svh;
 
       &-toBack {
         background-color: transparent;
+
+        cursor: pointer;
+        border: none;
 
         img {
           width: 2svw;
@@ -46,8 +52,35 @@ export const Container = styled.div`
         display: flex;
         gap: 1svw;
 
+        div {
+          font-size: 2svw;
+        }
+
         input {
           width: 100%;
+
+          font-size: 2svw;
+
+          outline: none;
+          border: none;
+        }
+      }
+
+      &-report {
+        display: flex;
+        flex-direction: column;
+        gap: 1svh;
+
+        &-title {
+        }
+
+        &-content {
+          display: flex;
+          flex-direction: column;
+
+          &-btn {
+            cursor: pointer;
+          }
         }
       }
     }
