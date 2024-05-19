@@ -62,7 +62,7 @@ export function CreatePage() {
     }
 
     fetchData();
-  }, []);
+  }, [language]);
 
   async function handleBoardCreate(reportsId: number, boardsTitle: string, boardsContent: string, language: any) {
     const DTO = {
@@ -96,11 +96,11 @@ export function CreatePage() {
         </div>
         <div className="createPage__container">
           <div className="createPage__container-title">
-            <div>Q</div>
+            <div>Q.</div>
             <input type="text" placeholder="제목을 입력해주세요" required ref={titleRef} />
           </div>
           <div className="createPage__container-report">
-            <div className="createPage__container-report=title">리포트를 선택해주세요</div>
+            <div className="createPage__container-report-title">리포트를 선택해주세요</div>
             <div className="createPage__container-report-content">
               {reportList &&
                 reportList.map((report: any) => {
@@ -127,30 +127,26 @@ export function CreatePage() {
             </div>
           </div>
           <div className="createPage__container-content">
-            <textarea
-              name="article"
-              id="article"
-              cols={40}
-              rows={30}
-              placeholder="내용을 입력해주세요"
-              ref={contentRef}
-            ></textarea>
+            <textarea name="article" id="article" placeholder="내용을 입력해주세요" ref={contentRef}></textarea>
           </div>
           <div className="createPage__container-btns">
             <button
               onClick={() => {
-                handleBoardCreate(reportsId, titleRef.current!.value, contentRef.current!.value, language).then(
-                  (res) => {
-                    console.log(res);
-                    if (!res) return;
+                handleBoardCreate(
+                  reportsId,
+                  titleRef.current!.value,
+                  contentRef.current!.value.split('\n').join('</br>'),
+                  language,
+                ).then((res) => {
+                  console.log(res);
+                  if (!res) return;
 
-                    setErrorModalState('게시글이 성공적으로 등록됐습니다.');
+                  setErrorModalState('게시글이 성공적으로 등록됐습니다.');
 
-                    setTimeout(() => {
-                      navigate('../board');
-                    }, 500);
-                  },
-                );
+                  setTimeout(() => {
+                    navigate('../board');
+                  }, 500);
+                });
               }}
             >
               작성 완료

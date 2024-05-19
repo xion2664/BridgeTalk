@@ -110,7 +110,7 @@ export const Container = styled.div`
       grid-template-rows: repeat(4, 1fr);
       gap: 3svh;
 
-      height: 60svh;
+      height: 65svh;
 
       &-item {
         cursor: pointer;
@@ -119,6 +119,10 @@ export const Container = styled.div`
         flex-direction: column;
         gap: 1svh;
         width: 100%;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &-header {
           display: flex;

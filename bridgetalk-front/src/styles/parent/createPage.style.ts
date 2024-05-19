@@ -22,7 +22,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 2svh;
     width: 40svw;
-    height: 80svh;
+    height: 100svh;
 
     &__header {
       display: flex;
@@ -44,6 +44,10 @@ export const Container = styled.div`
     }
 
     &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 2svh;
+
       height: 100%;
       width: 100%;
 
@@ -73,6 +77,8 @@ export const Container = styled.div`
         gap: 1svh;
 
         &-title {
+          text-align: center;
+          font-size: 1.5svw;
         }
 
         &-content {
@@ -87,8 +93,31 @@ export const Container = styled.div`
       &-content {
         textarea {
           width: 100%;
+          resize: none;
+          height: 30svh;
+          padding: 2svh 1svw;
+          font-size: 1.3svw;
         }
       }
-    }
+
+      &-btns {
+        width: 100%;
+
+        button {
+          width: 100%;
+
+          background-color: ${color(1).bright};
+          padding: 2svh 1svw;
+          border-radius: 1svw;
+
+          cursor: pointer;
+
+          &:hover {
+            background-color: ${color(1).black};
+            color: ${color(1).bright};
+          }
+        }
+      }
+    } //contaienr
   }
 `;

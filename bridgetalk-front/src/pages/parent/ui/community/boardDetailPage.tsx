@@ -79,7 +79,9 @@ export function BoardDetailPage() {
               <div className="boardDetailPage__container-article-report">
                 {board?.reportsSummary ?? '요약된 리포트 정보가 없습니다.'}
               </div>
-              <div className="boardDetailPage__container-article-content">{board?.boardsContent}</div>
+              <div className="boardDetailPage__container-article-content">
+                {board?.boardsContent.split('</br>').join('\n')}
+              </div>
               <div className="boardDetailPage__container-article-keywords">
                 {board?.reportsKeywords.map((keyword: string) => (
                   <div className="boardDetailPage__container-article-keywords-keyword"># {keyword}</div>
