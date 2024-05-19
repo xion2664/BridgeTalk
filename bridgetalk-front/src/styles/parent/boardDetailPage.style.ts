@@ -28,6 +28,15 @@ export const Container = styled.div`
     width: 40svw;
     height: 100svh;
 
+    .scroll {
+      overflow-y: auto;
+      height: 80svh;
+
+      display: flex;
+      flex-direction: column;
+      gap: 2svh;
+    }
+
     &__header {
       width: 100%;
       height: 5svh;
@@ -103,8 +112,42 @@ export const Container = styled.div`
       }
 
       &-reply {
+        display: flex;
+        flex-direction: column;
+        gap: 2svh;
+
         &-wrapper {
+          width: 100%;
+
           display: flex;
+        }
+
+        &-input {
+          width: 100%;
+
+          input {
+            width: 100%;
+            padding: 1svh 0.5svw;
+
+            font-size: 1.2svw;
+            border: 1px solid ${color(1).line};
+          }
+        }
+
+        &-button {
+          width: 10svw;
+          button {
+            width: 100%;
+            height: 100%;
+
+            background-color: ${color(1).bright};
+            border: 1px solid ${color(1).line};
+
+            &:hover {
+              background-color: ${color(1).black};
+              color: ${color(1).bright};
+            }
+          }
         }
       }
     } // __container

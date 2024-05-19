@@ -66,32 +66,33 @@ export function BoardDetailPage() {
             <div className="boiardDetailPage__header-icons-like-cnt">0</div>
           </div>
         </div>
-        <div className="boardDetailPage__container">
-          <div className="boardDetailPage__container-article">
-            <div className="boardDetailPage__container-article-header-title">글 제목</div>
-            <div className="boardDetailPage__container-article-header-sub">
-              <p>{board?.writer}</p>
-              <p>{`|`}</p>
-              <p>{board && dateToString(board?.createdAt)}</p>
+        <div className="scroll">
+          <div className="boardDetailPage__container">
+            <div className="boardDetailPage__container-article">
+              <div className="boardDetailPage__container-article-header-title">글 제목</div>
+              <div className="boardDetailPage__container-article-header-sub">
+                <p>{board?.writer}</p>
+                <p>{`|`}</p>
+                <p>{board && dateToString(board?.createdAt)}</p>
+              </div>
+              <hr />
+              <div className="boardDetailPage__container-article-report">
+                {board?.reportsSummary ?? '요약된 리포트 정보가 없습니다.'}
+              </div>
+              <div className="boardDetailPage__container-article-content">{board?.boardsContent}</div>
+              <div className="boardDetailPage__container-article-keywords">
+                {board?.reportsKeywords.map((keyword: string) => (
+                  <div className="boardDetailPage__container-article-keywords-keyword"># {keyword}</div>
+                ))}
+              </div>
             </div>
-            <hr />
-            <div className="boardDetailPage__container-article-report">
-              {board?.reportsSummary ?? '요약된 리포트 정보가 없습니다.'}
-            </div>
-            <div className="boardDetailPage__container-article-content">{board?.boardsContent}</div>
-            <div className="boardDetailPage__container-article-keywords">
-              {board?.reportsKeywords.map((keyword: string) => (
-                <div className="boardDetailPage__container-article-keywords-keyword"># {keyword}</div>
-              ))}
-            </div>
-            <hr />
           </div>
-        </div>
-        <div className="boardDetailPage__container-reply">
-          <div className="boardDetailPage__container-reply-wrapper">
-            <ReplyRegist boardsId={board?.boardsId} />
+          <div className="boardDetailPage__container-reply">
+            <div className="boardDetailPage__container-reply-wrapper">
+              <ReplyRegist boardsId={board?.boardsId} />
+            </div>
+            <ReplyList boardId={board?.boardsId} />
           </div>
-          <ReplyList boardId={board?.boardsId} />
         </div>
       </div>
     </S.Container>
