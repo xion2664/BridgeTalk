@@ -8,3 +8,5 @@ export * from '@/pages/parent/query/getNurtureInfoDetail/getNurtureInfoDetail';
 export * from '@/pages/parent/query/getBoardList/getBoardList';
 export * from '@/pages/parent/query/getBoardDetail/getBoardDetail';
 export * from '@/pages/parent/query/getCommentList/getCommentList';
+export * from '@/pages/parent/query/postBoardCreate/postBoardCreate';
+export * from '@/pages/parent/query/postCommentCreate/postCommentCreate';
