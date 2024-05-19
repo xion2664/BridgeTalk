@@ -9,13 +9,47 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ReplyList } from './components/replyList';
 import * as S from '@/styles/parent/boardDetailPage.style';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useBoardStore, useReportStore } from '../../store';
+import { getBoardDetail } from '../../query';
+import { dateToString } from '@/shared';
+
+interface BoardContent {
+  boardsContent: string;
+  boardsId: number;
+  boardsTitle: string;
+  createdAt: string;
+  likes: number;
+  reportsKeywords: string[];
+  reportsSummary: string;
+  writer: string;
+}
 
 export function BoardDetailPage() {
   const navigate = useNavigate();
 
+  const params = useParams();
+
+  const boardStore = useBoardStore();
+  const langauge = useReportStore((state) => state.language);
   const [like, setLike] = useState(false);
+  const [board, setBoard] = useState<BoardContent>();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getBoardDetail(Number(params.boardId), langauge);
+
+        if (data.status === 200) {
+          setBoard(data.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <S.Container>
@@ -41,54 +75,31 @@ export function BoardDetailPage() {
         </div>
         <div className="boardDetailPage__container">
           <div className="boardDetailPage__container-article">
-            <div className="boardDetailPage__container-article-header-title">
-              <p>글 제목</p>
+            <div className="boardDetailPage__container-article-header-title">글 제목</div>
+            <div className="boardDetailPage__container-article-header-sub">
+              <p>{board?.writer}</p>
+              <p>{`|`}</p>
+              <p>{board && dateToString(board?.createdAt)}</p>
             </div>
-            <div className="boardDetailPage__container-article-header-function">
-              <div className="boardDetailPage__container-article-header-function-like">
-                <FontAwesomeIcon icon={faHeart} />
-              </div>
-              <div className="boardDetailPage__container-article-header-function-share">
-                <FontAwesomeIcon icon={faUpRightFromSquare} />
-              </div>
-              <div className="boardDetailPage__container-article-header-function-edit">
-                <FontAwesomeIcon icon={faPen} />
-              </div>
-              <div className="boardDetailPage__container-article-header-function-delete">
-                <FontAwesomeIcon icon={faTrashCan} />
-              </div>
-            </div>
+            <hr />
             <div className="boardDetailPage__container-article-report">
-              리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트
-              요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약
-              리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트
-              요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약 리포트 요약
+              {board?.reportsSummary ?? '요약된 리포트 정보가 없습니다.'}
             </div>
-            <div className="boardDetailPage__container-article-content">
-              글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
-              내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
-              내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
-              내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
-              내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글 내용 글
-              내용 글 내용 글 내용 글 내용
-            </div>
+            <div className="boardDetailPage__container-article-content">{board?.boardsContent}</div>
             <div className="boardDetailPage__container-article-keywords">
-              <div className="boardDetailPage__container-article-keywords-keyword">키워드1</div>
-              <div className="boardDetailPage__container-article-keywords-keyword">키워드1</div>
-              <div className="boardDetailPage__container-article-keywords-keyword">키워드1</div>
+              {board?.reportsKeywords.map((keyword: string) => (
+                <div className="boardDetailPage__container-article-keywords-keyword"># {keyword}</div>
+              ))}
             </div>
+            <hr />
           </div>
-
-          <div className="boardDetailPage__container-reply">
-            <div className="boardDetailPage__container-reply-write">
-              <div className="boardDetailPage__container-reply-write-intro">
-                <h2>답글을 작성하고 사용자와 의견을 나눠보세요.</h2>
-                <button>답글 작성하기</button>
-              </div>
-              <div className="boardDetailPage__container-reply-write-slide">{/* <replyCreate /> */}</div>
-            </div>
-            <ReplyList />
+        </div>
+        <div className="boardDetailPage__container-reply">
+          <div className="boardDetailPage__container-reply-write">
+            <div className="boardDetailPage__container-reply-write-intro"></div>
+            <div className="boardDetailPage__container-reply-write-slide"></div>
           </div>
+          <ReplyList />
         </div>
       </div>
     </S.Container>
