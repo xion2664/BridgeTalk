@@ -111,4 +111,10 @@ public class CommentsController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/likes/{commentsId}")
+    public ResponseEntity<Boolean> checkLike(@ExtractPayload String parentsId, @PathVariable Long commentsId) {
+        boolean result = commentsLikeService.checkLike(UUID.fromString(parentsId), commentsId);
+        return ResponseEntity.ok(result);
+    }
 }
