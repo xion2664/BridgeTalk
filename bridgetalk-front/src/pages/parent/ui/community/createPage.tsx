@@ -4,20 +4,22 @@ import { useReportStore } from '../../store';
 import { getReportList, postBoardCreate } from '../../query';
 import { errorCatch } from '@/shared';
 import { useErrorStore } from '@/shared/store';
+import { useNavigate } from 'react-router-dom';
 
 export function CreatePage() {
+  const navigate = useNavigate();
+
   const language = useReportStore((state) => state.language);
   const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
+  const reportList = useReportStore((state) => state.reportList);
+  const setReportList = useReportStore((state) => state.setReportList);
+  const setReports_UUID = useReportStore((state) => state.setReports_UUID);
+  const childrenList = useReportStore((state) => state.childrenList);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [reportsId, setReportsId] = useState<number>(0);
-
-  const reportList = useReportStore((state) => state.reportList);
-  const setReportList = useReportStore((state) => state.setReportList);
-  const setReports_UUID = useReportStore((state) => state.setReports_UUID);
-  const childrenList = useReportStore((state) => state.childrenList);
 
   useEffect(() => {
     async function fetchData() {
@@ -75,7 +77,7 @@ export function CreatePage() {
       console.log(response);
     } catch (err) {
       if (err instanceof Error) {
-        errorCatch(err, setErrorModalState);
+        return errorCatch(err, setErrorModalState);
       }
     }
   }
@@ -125,7 +127,17 @@ export function CreatePage() {
           <div className="createPage__container-btns">
             <button
               onClick={() => {
-                handleBoardCreate(reportsId, titleRef.current!.value, contentRef.current!.value, language);
+                handleBoardCreate(reportsId, titleRef.current!.value, contentRef.current!.value, language).then(
+                  (res) => {
+                    if (!res) return;
+
+                    setErrorModalState('게시글이 성공적으로 등록됐습니다.');
+
+                    setTimeout(() => {
+                      navigate('../board');
+                    }, 500);
+                  },
+                );
               }}
             >
               작성 완료
