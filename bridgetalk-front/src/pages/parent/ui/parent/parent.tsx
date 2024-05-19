@@ -88,11 +88,18 @@ function LangIcon() {
     setLanguage: state.setLangauge,
   }));
 
+  const lang = localStorage.getItem('language');
+
+  let userLang: 'viet' | 'ph' | 'kor' = 'kor';
+  if (lang === 'viet' || lang === 'ph' || lang === 'kor') {
+    userLang = lang || 'kor';
+  }
+
   return (
     <button
       className="lang"
       onClick={() => {
-        setLanguage(language === 'kor' ? 'ph' : language === 'ph' ? 'viet' : 'kor');
+        setLanguage(language === 'kor' ? userLang : 'kor');
       }}
     >
       {language === 'kor' ? (
