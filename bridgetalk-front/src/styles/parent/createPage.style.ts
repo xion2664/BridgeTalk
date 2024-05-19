@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   background-color: ${color(1).bright};
 
-  .boardDetailPage {
+  .createPage {
     display: flex;
     flex-direction: column;
     gap: 2svh;
@@ -27,6 +27,14 @@ export const Container = styled.div`
     &__header {
       width: 100%;
       height: 5svh;
+
+      &-toBack {
+        background-color: transparent;
+
+        img {
+          width: 2svw;
+        }
+      }
     }
 
     &__container {

@@ -15,7 +15,7 @@ interface BoardContent {
   likes: number;
   reportsKeywords: string[];
   reportsSummary: string;
-  writer: string;
+  parentsNickname: string;
 }
 
 export function BoardDetailPage() {
@@ -71,7 +71,7 @@ export function BoardDetailPage() {
             <div className="boardDetailPage__container-article">
               <div className="boardDetailPage__container-article-header-title">글 제목</div>
               <div className="boardDetailPage__container-article-header-sub">
-                <p>{board?.writer}</p>
+                <p>{board?.parentsNickname}</p>
                 <p>{`|`}</p>
                 <p>{board && dateToString(board?.createdAt)}</p>
               </div>

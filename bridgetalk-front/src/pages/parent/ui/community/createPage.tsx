@@ -86,7 +86,9 @@ export function CreatePage() {
     <S.Container>
       <div className="createPage">
         <div className="createPage__header">
-          <button className="createPage__header-toBack">{`<`}</button>
+          <button className="createPage__header-toBack">
+            <img src={'/assets/img/parent/community/back.svg'} />
+          </button>
         </div>
         <div className="createPage__container">
           <div className="createPage__container-title">
