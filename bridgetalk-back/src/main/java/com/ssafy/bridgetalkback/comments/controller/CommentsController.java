@@ -2,6 +2,7 @@ package com.ssafy.bridgetalkback.comments.controller;
 
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
+import com.ssafy.bridgetalkback.comments.dto.response.CommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CustomCommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.query.dto.CommentsListDto;
@@ -84,7 +85,7 @@ public class CommentsController {
                                                                                                 @PathVariable Language language,
                                                                                                 @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                                                                 @RequestParam(value = "sort", required = false, defaultValue = "최신순") String sort) {
-        log.info("{ BoardsController } : 게시글 리스트조회 진입 (정렬 유형) - " + sort);
+        log.info("{ CommentController } : Comments 리스트조회 진입 (정렬 유형) - " + sort);
         return ResponseEntity.ok(commentsListService.getCustomCommentsList(boardId, page, sort, language));
     }
 
@@ -116,5 +117,12 @@ public class CommentsController {
     public ResponseEntity<Boolean> checkLike(@ExtractPayload String parentsId, @PathVariable Long commentsId) {
         boolean result = commentsLikeService.checkLike(UUID.fromString(parentsId), commentsId);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("read/reports/{reportsId}/{language}")
+    public ResponseEntity<CommentsListResponseDto> getReportsCommentsList(@PathVariable Long reportsId,
+                                                                          @PathVariable Language language) {
+        log.info("{ CommentController } : Reports Comments 리스트조회 진입");
+        return ResponseEntity.ok(commentsListService.getReportsCommentsList(reportsId, language));
     }
 }
