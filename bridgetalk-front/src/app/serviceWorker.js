@@ -1,14 +1,28 @@
-const API_CACHE = 'api-cache-v1';
-const ASSET_CACHE = 'asset-cache-v1';
+const API_CACHE = `api-cache-${new Date().toISOString()}`;
+const ASSET_CACHE = `asset-cache-${new Date().toISOString()}`;
 
 const NEED_CACHE_API_URL = [/parentingInfo/, /slang/];
 const NEED_CACHE_ASSET_REGEX = /\.(svg|png|jpe?g|glb)$/;
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   console.log('SERVICE-WORKER INSTALLED', e);
 });
 
 self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== API_CACHE && cacheName !== ASSET_CACHE) {
+            return caches.delete(cacheName);
+          }
+        }),
+      );
+    }),
+  );
+
+  self.clients.claim();
   console.log('SERVICE_WORKER ACTIVATED', e);
 });
 
