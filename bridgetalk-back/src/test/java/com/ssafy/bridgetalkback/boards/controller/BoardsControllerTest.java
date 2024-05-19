@@ -25,8 +25,7 @@ import java.util.UUID;
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.*;
 import static com.ssafy.bridgetalkback.fixture.ParentsFixture.SUNKYOUNG;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
+import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -638,6 +637,32 @@ public class BoardsControllerTest extends ControllerTest {
                     .andExpectAll(
                             status().isOk()
                     );
+        }
+    }
+
+    @Nested
+    @DisplayName("게시글 좋아요 여부 확인 API [GET /api/boards/likes/{boardsId}]")
+    class checkLike {
+        private static final String BASE_URL = "/api/boards/likes/{boardsId}";
+        private static final Long BOARDS_ID = 1L;
+
+        @Test
+        @DisplayName("게시글 좋아요 여부 확인에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(true)
+                    .when(boardsLikeService)
+                    .checkLike(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, BOARDS_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + ACCESS_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(status().isOk());
         }
     }
 
