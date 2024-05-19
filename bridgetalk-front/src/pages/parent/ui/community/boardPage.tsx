@@ -42,6 +42,7 @@ export function BoardPage() {
       const data: any = await handleSearchBoard(language, page, boardStore.searchType, '', boardStore.sortType);
 
       boardStore.setBoardList(data.data.boardsList);
+      setLastPage(data.data.pageInfo.totalPages);
     }
     fetchData();
   }, [language, page]);
@@ -54,7 +55,7 @@ export function BoardPage() {
         <div className="boardPage__list">
           {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
         </div>
-        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={1} />
+        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
         <div className="sort">
           <button
             className="sort__latest"
