@@ -33,6 +33,9 @@ export const Container = styled.div`
       width: 9svw;
       height: 9svh;
 
+      white-space: normal;
+      word-wrap: break-word;
+
       border: none;
       border-radius: 2svw;
       font-size: 2svw;
