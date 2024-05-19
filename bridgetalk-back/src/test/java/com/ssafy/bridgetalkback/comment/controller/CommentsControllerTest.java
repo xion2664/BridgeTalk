@@ -19,7 +19,6 @@ import java.util.UUID;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_01;
-import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_02;
 import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
