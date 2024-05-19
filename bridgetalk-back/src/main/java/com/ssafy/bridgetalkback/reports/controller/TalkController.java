@@ -118,7 +118,7 @@ public class TalkController {
         // reports 생성
         Long reportsId = reportsService.createReports(UUID.fromString(userId)).reportsId();
 //        log.info("====================== kidsId : {}", userId);
-        reportsUpdateService.createReportAsync(reportsId, userId);
+        reportsUpdateService.createReportAsync2(reportsId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
