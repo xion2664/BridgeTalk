@@ -244,7 +244,7 @@ public class BoardsServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryKor()),
                     () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsKor()),
-                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+                    () -> assertThat(responseDto.parentsNickname()).isEqualTo(boards.getParents().getParentsNickname())
             );
         }
 
@@ -263,7 +263,7 @@ public class BoardsServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryViet()),
                     () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsViet()),
-                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+                    () -> assertThat(responseDto.parentsNickname()).isEqualTo(boards.getParents().getParentsNickname())
             );
         }
 
@@ -282,7 +282,7 @@ public class BoardsServiceTest extends ServiceTest {
                     () -> assertThat(responseDto.createdAt()).isEqualTo(boards.getCreatedAt()),
                     () -> assertThat(responseDto.reportsSummary()).isEqualTo(boards.getReports().getReportsSummaryPh()),
                     () -> assertThat(responseDto.reportsKeywords()).isEqualTo(boards.getReports().getReportsKeywordsPh()),
-                    () -> assertThat(responseDto.writer()).isEqualTo(boards.getParents().getParentsNickname())
+                    () -> assertThat(responseDto.parentsNickname()).isEqualTo(boards.getParents().getParentsNickname())
             );
         }
     }

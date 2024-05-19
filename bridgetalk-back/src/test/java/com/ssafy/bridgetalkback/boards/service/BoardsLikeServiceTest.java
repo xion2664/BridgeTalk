@@ -119,4 +119,25 @@ public class BoardsLikeServiceTest extends ServiceTest {
         // then
         assertThat(boardsLikeRepository.existsByParentsUuidAndBoardsBoardsId(parents[1].getUuid(), boards.getBoardsId())).isFalse();
     }
+
+    @Nested
+    @DisplayName("게시글 좋아요 여부 확인")
+    class checkLike {
+        @Test
+        @DisplayName("게시글 좋아요 여부 확인에 성공한다")
+        void success() {
+            // given
+            boardsLikeService.register(parents[1].getUuid(), boards.getBoardsId());
+
+            // when
+            boolean checkLike1 = boardsLikeService.checkLike(parents[1].getUuid(), boards.getBoardsId());
+            boolean checkLike2 = boardsLikeService.checkLike(parents[0].getUuid(), boards.getBoardsId());
+
+            // then
+            assertAll(
+                    () -> assertThat(checkLike1).isTrue(),
+                    () -> assertThat(checkLike2).isFalse()
+            );
+        }
+    }
 }

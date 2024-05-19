@@ -1,9 +1,6 @@
 package com.ssafy.bridgetalkback.comment.service;
 
 import com.ssafy.bridgetalkback.boards.domain.Boards;
-import com.ssafy.bridgetalkback.boards.domain.BoardsLike;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
-import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.comments.domain.Comments;
 import com.ssafy.bridgetalkback.comments.domain.CommentsLike;
 import com.ssafy.bridgetalkback.comments.exception.CommentsErrorCode;
@@ -126,5 +123,26 @@ public class CommentsLikeServiceTest extends ServiceTest {
 
         // then
         assertThat(commentsLikeRepository.existsByParentsUuidAndCommentsCommentsId(parents[1].getUuid(), comments.getCommentsId())).isFalse();
+    }
+
+    @Nested
+    @DisplayName("답글 좋아요 여부 확인")
+    class checkLike {
+        @Test
+        @DisplayName("답글 좋아요 여부 확인에 성공한다")
+        void success() {
+            // given
+            commentsLikeService.register(parents[1].getUuid(), comments.getCommentsId());
+
+            // when
+            boolean checkLike1 = commentsLikeService.checkLike(parents[1].getUuid(), comments.getCommentsId());
+            boolean checkLike2 = commentsLikeService.checkLike(parents[0].getUuid(), comments.getCommentsId());
+
+            // then
+            assertAll(
+                    () -> assertThat(checkLike1).isTrue(),
+                    () -> assertThat(checkLike2).isFalse()
+            );
+        }
     }
 }

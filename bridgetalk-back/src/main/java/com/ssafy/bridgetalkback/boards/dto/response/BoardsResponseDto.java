@@ -16,7 +16,7 @@ public record BoardsResponseDto(
         LocalDateTime createdAt,
         String reportsSummary,
         List<String> reportsKeywords,
-        String writer
+        String parentsNickname
 ) {
     public static BoardsResponseDto fromBoards(Boards boards, Language language) {
         return BoardsResponseDto.builder()
@@ -27,7 +27,7 @@ public record BoardsResponseDto(
                 .createdAt(boards.getCreatedAt())
                 .reportsSummary(selectReportsSummary(boards, language))
                 .reportsKeywords(selectReportsKeywords(boards, language))
-                .writer(boards.getParents().getParentsNickname())
+                .parentsNickname(boards.getParents().getParentsNickname())
                 .build();
     }
 

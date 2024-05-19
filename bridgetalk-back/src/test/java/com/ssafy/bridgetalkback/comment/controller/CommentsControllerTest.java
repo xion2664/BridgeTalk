@@ -1,7 +1,6 @@
 package com.ssafy.bridgetalkback.comment.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
@@ -21,8 +20,7 @@ import java.util.UUID;
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_01;
 import static com.ssafy.bridgetalkback.fixture.CommentsFixture.COMMENTS_02;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.BEARER_TOKEN;
-import static com.ssafy.bridgetalkback.fixture.TokenFixture.REFRESH_TOKEN;
+import static com.ssafy.bridgetalkback.fixture.TokenFixture.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -466,6 +464,32 @@ public class CommentsControllerTest extends ControllerTest {
                     .andExpectAll(
                             status().isOk()
                     );
+        }
+    }
+
+    @Nested
+    @DisplayName("답글 좋아요 여부 확인 API [GET /api/comments/likes/{commentsId}]")
+    class checkLike {
+        private static final String BASE_URL = "/api/comments/likes/{commentsId}";
+        private static final Long COMMENTS_ID = 1L;
+
+        @Test
+        @DisplayName("게시글 좋아요 여부 확인에 성공한다")
+        void success() throws Exception {
+            // given
+            given(jwtProvider.getId(anyString())).willReturn(String.valueOf(UUID.randomUUID()));
+            doReturn(true)
+                    .when(commentsLikeService)
+                    .checkLike(any(), anyLong());
+
+            // when
+            MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                    .get(BASE_URL, COMMENTS_ID)
+                    .header(AUTHORIZATION, BEARER_TOKEN + ACCESS_TOKEN);
+
+            // then
+            mockMvc.perform(requestBuilder)
+                    .andExpectAll(status().isOk());
         }
     }
 
