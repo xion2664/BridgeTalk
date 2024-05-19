@@ -1,7 +1,7 @@
 import * as S from '@/styles/parent/createPage.style';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useReportStore } from '../../store';
-import { postBoardCreate } from '../../query';
+import { getReportList, postBoardCreate } from '../../query';
 import { errorCatch } from '@/shared';
 import { useErrorStore } from '@/shared/store';
 
@@ -13,6 +13,54 @@ export function CreatePage() {
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [reportsId, setReportsId] = useState<number>(0);
+
+  const reportList = useReportStore((state) => state.reportList);
+  const setReportList = useReportStore((state) => state.setReportList);
+  const setReports_UUID = useReportStore((state) => state.setReports_UUID);
+  const childrenList = useReportStore((state) => state.childrenList);
+
+  useEffect(() => {
+    async function fetchData() {
+      // childMap: {UUID: {name, nickname}}
+      const childMap = new Map();
+
+      // {reportsId: UUID}
+      const reports_UUID = new Map();
+
+      // promises: 여러개의 비동기 호출에 대한 결과를 저장하는 배열
+      const promises = childrenList.map((child: any) => {
+        childMap.set(child.userId, { name: child.userName, nickname: child.userNickname, dino: child.userDino });
+        return getReportList(child.userId, language);
+      });
+
+      // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
+      const data = await Promise.allSettled(promises);
+      console.log(data);
+
+      data.forEach((it: any) => {
+        if (!it.value) return;
+
+        const childUUID = it.value.request.responseURL.split('/')[5];
+
+        // child = {name, nickname}
+        const child = childMap.get(childUUID);
+
+        it.UUID = childUUID;
+        it.name = child.name;
+        it.nickname = child.nickname;
+        it.dino = child.dino;
+
+        it.value.data.forEach((report: any) => {
+          reports_UUID.set(report.reportsId, it.UUID);
+        });
+      });
+
+      setReports_UUID(reports_UUID);
+      setReportList(data);
+    }
+
+    fetchData();
+  }, []);
 
   async function handleBoardCreate(reportsId: number, boardsTitle: string, boardsContent: string, language: any) {
     const DTO = {
@@ -42,6 +90,27 @@ export function CreatePage() {
           <div className="createPage__container-title">
             <div>Q</div>
             <input type="text" placeholder="제목을 입력하세요" required ref={titleRef} />
+          </div>
+          <div className="createPage__container-report">
+            {reportList &&
+              reportList.map((report: any) => {
+                const reports = report.value.data;
+
+                return reports.map((it: any) => {
+                  const reportId = it.reportsId;
+                  const repoortsSummary = it.reportsSummary;
+
+                  return (
+                    <button
+                      onClick={() => {
+                        setReportsId(reportId);
+                      }}
+                    >
+                      <p>{repoortsSummary}</p>
+                    </button>
+                  );
+                });
+              })}
           </div>
           <div className="createPage__container-content">
             <textarea
