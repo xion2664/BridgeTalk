@@ -1,9 +1,6 @@
 package com.ssafy.bridgetalkback.comment.service;
 
 import com.ssafy.bridgetalkback.boards.domain.Boards;
-import com.ssafy.bridgetalkback.boards.domain.BoardsLike;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
-import com.ssafy.bridgetalkback.boards.service.BoardsLikeService;
 import com.ssafy.bridgetalkback.comments.domain.Comments;
 import com.ssafy.bridgetalkback.comments.domain.CommentsLike;
 import com.ssafy.bridgetalkback.comments.exception.CommentsErrorCode;

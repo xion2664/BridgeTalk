@@ -1,7 +1,6 @@
 package com.ssafy.bridgetalkback.comment.controller;
 
 import com.ssafy.bridgetalkback.auth.exception.AuthErrorCode;
-import com.ssafy.bridgetalkback.boards.exception.BoardsErrorCode;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.request.CommentsUpdateRequestDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CommentsResponseDto;
