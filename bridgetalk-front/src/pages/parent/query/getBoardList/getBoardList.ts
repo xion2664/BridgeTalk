@@ -1,6 +1,6 @@
 import { customAxios } from '@/shared';
 
-export async function getBoardList(language: any, page: number, searchType: any, searchWord: string, sort: any) {
+export async function getBoardList(searchWord: string, language: any, page: number, searchType: any, sort: any) {
   return customAxios
     .get(`/boards/read/${language}`, {
       params: {
