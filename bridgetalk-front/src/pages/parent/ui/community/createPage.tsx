@@ -114,12 +114,13 @@ export function CreatePage() {
                     return (
                       <button
                         className="createPage__container-report-content-btn"
-                        style={{ fontFamily: reportId === reportsId ? 'Pretendard-Black' : '' }}
                         onClick={() => {
                           setReportsId(reportId);
                         }}
                       >
-                        <p>{repoortsSummary}</p>
+                        <p style={{ fontFamily: reportId === reportsId ? 'Pretendard-Black' : '' }}>
+                          {repoortsSummary}
+                        </p>
                       </button>
                     );
                   });

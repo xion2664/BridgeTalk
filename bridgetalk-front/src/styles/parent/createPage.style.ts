@@ -83,6 +83,11 @@ export const Container = styled.div`
           }
         }
       }
+      &-content {
+        textarea {
+          width: 100%;
+        }
+      }
     }
   }
 `;
