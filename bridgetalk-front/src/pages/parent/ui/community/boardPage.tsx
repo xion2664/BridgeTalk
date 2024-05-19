@@ -9,6 +9,7 @@ import { SearchTypes } from './boardPage/searchTypes';
 import { Input } from './boardPage/input';
 import { BoardListItem } from './boardPage/boardListItem';
 import { Pagenation } from './boardPage/pagenation';
+import { useNavigate } from 'react-router-dom';
 
 interface Board {
   boardId: number;
@@ -23,6 +24,8 @@ interface Board {
 
 // infant_and_toddler', 'school', 'puberty'
 export function BoardPage() {
+  const navigate = useNavigate();
+
   // Global state
   const language = useReportStore((state) => state.language);
   const boardStore = useBoardStore();
@@ -41,7 +44,7 @@ export function BoardPage() {
       boardStore.setBoardList(data.data.boardsList);
     }
     fetchData();
-  }, [language]);
+  }, [language, page]);
 
   return (
     <S.Container>
@@ -57,7 +60,14 @@ export function BoardPage() {
         <button className="sort__latest">최신순</button>
         <button className="sort__popular">인기순</button>
       </div>
-      <button className="write"></button>
+      <button
+        className="write"
+        onClick={() => {
+          navigate('write');
+        }}
+      >
+        <img src={'/assets/img/parent/community/write_solid.svg'} />
+      </button>
     </S.Container>
   );
 }
