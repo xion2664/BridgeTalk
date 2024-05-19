@@ -70,7 +70,7 @@ public class CommentsListQueryRepositoryImpl implements CommentsListQueryReposit
                 .selectDistinct(createQCommentsListDto(language))
                 .from(comments)
                 .where(comments.boards.eq(boards))
-                .orderBy(comments.createdAt.desc())
+                .orderBy(comments.likes.desc())
                 .fetch();
 
         return new CommentsListResponseDto(commentsList);
