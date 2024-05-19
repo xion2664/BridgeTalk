@@ -1,21 +1,34 @@
-export function ReplyListItem() {
+import { dateToString } from '@/shared';
+
+interface Reply {
+  commentsId: number;
+  parentsNickname: string;
+  commentsContent: string;
+  likes: number;
+  createdAt: string;
+}
+
+interface Props {
+  reply: Reply;
+}
+
+export function ReplyListItem({ reply }: Props) {
   return (
     <div className="replyListItem">
-      <div className="replyListItem__content">
-        답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용
-        답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용
-        답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용
-        답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용 답글 내용
+      <div className="replyListItem__left">
+        <div className="replyListItem__left-like">
+          <button className="replyListItem__left-like-btn">
+            <img src={'/assets/img/parent/community/favor_solid.svg'} />
+          </button>
+        </div>
+        <div className="replyListItem__left-cnt">0</div>
       </div>
-      <div className="replyListItem__footer">
-        <div className="replyListItem__footer-info">
-          <div className="replyListItem__footer-info-user">답글쓴이 닉네임</div>
-          <div className="replyListItem__footer-info-date">17:12 | May 16th 2024</div>
+      <div className="replyListItem__right">
+        <div className="replyListItem__right-top">
+          <div className="replyListItem__right-top-writer">{reply.parentsNickname}</div>
+          <div className="replyListItem__right-top-date">{dateToString(reply.createdAt)}</div>
         </div>
-        <div className="replyListItem__footer-etc">
-          <div className="replyListItem__footer-etc-edit">수정</div>
-          <div className="replyListItem__footer-etc-edit">삭제</div>
-        </div>
+        <div className="replyListItem__right-bottom">{reply.commentsContent}</div>
       </div>
     </div>
   );

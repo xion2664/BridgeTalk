@@ -10,6 +10,7 @@ import { Input } from './boardPage/input';
 import { BoardListItem } from './boardPage/boardListItem';
 import { Pagenation } from './boardPage/pagenation';
 import { useNavigate } from 'react-router-dom';
+import { useErrorStore } from '@/shared/store';
 
 interface Board {
   boardId: number;
@@ -29,7 +30,7 @@ export function BoardPage() {
   // Global state
   const language = useReportStore((state) => state.language);
   const boardStore = useBoardStore();
-
+  const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
   // State
   const [page, setPage] = useState<number>(0);
   const [lastPage, setLastPage] = useState<number>(0);
@@ -37,28 +38,58 @@ export function BoardPage() {
   // Ref
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const data: any = await handleSearchBoard(language, page, boardStore.searchType, '', boardStore.sortType);
+  async function fetchData(
+    _searchWord: string = inputRef.current!.value,
+    _language: any = language,
+    _page: number = page,
+    _boardSearchType: string = boardStore.searchType,
+    _sortType: string = boardStore.sortType,
+  ) {
+    try {
+      const data: any = await handleSearchBoard(_searchWord, _language, _page, _boardSearchType, _sortType);
 
       boardStore.setBoardList(data.data.boardsList);
+      setLastPage(data.data.pageInfo.totalPages);
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrorModalState('예기치 못한 에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
     }
-    fetchData();
+  }
+
+  useEffect(() => {
+    fetchData('', language, page, boardStore.searchType, boardStore.sortType);
   }, [language, page]);
 
   return (
     <S.Container>
       <div className="boardPage">
         <SearchTypes />
-        <Input ref={inputRef} />
+        <Input ref={inputRef} fetchData={fetchData} />
         <div className="boardPage__list">
           {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
         </div>
-        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={1} />
-      </div>
-      <div className="sort">
-        <button className="sort__latest">최신순</button>
-        <button className="sort__popular">인기순</button>
+        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
+        <div className="sort">
+          <button
+            className="sort__latest"
+            style={{ color: boardStore.sortType === '최신순' ? 'black' : '' }}
+            onClick={() => {
+              boardStore.setSortType('최신순');
+            }}
+          >
+            최신순
+          </button>
+          <button
+            className="sort__popular"
+            style={{ color: boardStore.sortType === '좋아요순' ? 'black' : '' }}
+            onClick={() => {
+              boardStore.setSortType('좋아요순');
+            }}
+          >
+            인기순
+          </button>
+        </div>
       </div>
       <button
         className="write"

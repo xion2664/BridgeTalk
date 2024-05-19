@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Input = React.forwardRef((props, ref: any) => {
+export const Input = React.forwardRef((props: any, ref: any) => {
   return (
     <div className="boardPage__search">
       <form className="boardPage__search-form">
@@ -9,6 +9,7 @@ export const Input = React.forwardRef((props, ref: any) => {
           className="boardPage__search-button"
           onClick={(e) => {
             e.preventDefault();
+            props.fetchData();
           }}
         >
           <img src={`/assets/img/parent/community/search_solid.svg`} />
