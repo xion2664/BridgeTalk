@@ -13,6 +13,9 @@ export const Container = styled.div`
 
   .stagePage {
     &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin: 3svw;
 
       img {
