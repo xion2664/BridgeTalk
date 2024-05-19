@@ -18,8 +18,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collections;
-
 import static com.ssafy.bridgetalkback.fixture.BoardsFixture.BOARDS_01;
 import static com.ssafy.bridgetalkback.fixture.CommentsFixture.*;
 import static com.ssafy.bridgetalkback.fixture.KidsFixture.JIYEONG;
