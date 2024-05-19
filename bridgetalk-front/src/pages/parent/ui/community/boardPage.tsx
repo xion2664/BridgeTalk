@@ -61,6 +61,10 @@ export function BoardPage() {
     fetchData('', language, page, boardStore.searchType, boardStore.sortType);
   }, [language, page]);
 
+  useEffect(() => {
+    fetchData(inputRef.current!.value, language, 0, boardStore.searchType, boardStore.sortType);
+  }, [boardStore.sortType]);
+
   return (
     <S.Container>
       <div className="boardPage">

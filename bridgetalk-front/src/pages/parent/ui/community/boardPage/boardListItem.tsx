@@ -38,7 +38,7 @@ export function BoardListItem({ board }: Props) {
         <div className="boardPage__list-item-header-second"></div>
       </div>
       <div className="boardPage__list-item-body">
-        <div className="boardPage__list-item-body-content">{board.boardsContent}</div>
+        <div className="boardPage__list-item-body-content">{board.boardsContent.split('</br>').join(' ')}</div>
         <div className="boardPage__list-item-body-keywords">
           {board.reportsKeywords.map((keyword) => (
             <div># {keyword}</div>

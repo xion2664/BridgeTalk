@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   background-color: ${color(1).bright};
 
-  .boardDetailPage {
+  .createPage {
     display: flex;
     flex-direction: column;
     gap: 2svh;
@@ -25,11 +25,30 @@ export const Container = styled.div`
     height: 100svh;
 
     &__header {
+      display: flex;
+      align-items: center;
+
       width: 100%;
       height: 5svh;
+
+      &-toBack {
+        background-color: transparent;
+
+        cursor: pointer;
+        border: none;
+
+        img {
+          width: 2svw;
+        }
+      }
     }
 
     &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 2svh;
+
+      height: 100%;
       width: 100%;
 
       &-title {
@@ -38,10 +57,67 @@ export const Container = styled.div`
         display: flex;
         gap: 1svw;
 
+        div {
+          font-size: 2svw;
+        }
+
         input {
           width: 100%;
+
+          font-size: 2svw;
+
+          outline: none;
+          border: none;
         }
       }
-    }
+
+      &-report {
+        display: flex;
+        flex-direction: column;
+        gap: 1svh;
+
+        &-title {
+          text-align: center;
+          font-size: 1.5svw;
+        }
+
+        &-content {
+          display: flex;
+          flex-direction: column;
+
+          &-btn {
+            cursor: pointer;
+          }
+        }
+      }
+      &-content {
+        textarea {
+          width: 100%;
+          resize: none;
+          height: 30svh;
+          padding: 2svh 1svw;
+          font-size: 1.3svw;
+        }
+      }
+
+      &-btns {
+        width: 100%;
+
+        button {
+          width: 100%;
+
+          background-color: ${color(1).bright};
+          padding: 2svh 1svw;
+          border-radius: 1svw;
+
+          cursor: pointer;
+
+          &:hover {
+            background-color: ${color(1).black};
+            color: ${color(1).bright};
+          }
+        }
+      }
+    } //contaienr
   }
 `;

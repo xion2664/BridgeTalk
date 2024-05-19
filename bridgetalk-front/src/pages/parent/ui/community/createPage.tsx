@@ -62,7 +62,7 @@ export function CreatePage() {
     }
 
     fetchData();
-  }, []);
+  }, [language]);
 
   async function handleBoardCreate(reportsId: number, boardsTitle: string, boardsContent: string, language: any) {
     const DTO = {
@@ -73,8 +73,7 @@ export function CreatePage() {
     };
 
     try {
-      const response = await postBoardCreate(DTO);
-      console.log(response);
+      return await postBoardCreate(DTO);
     } catch (err) {
       if (err instanceof Error) {
         return errorCatch(err, setErrorModalState);
@@ -86,58 +85,68 @@ export function CreatePage() {
     <S.Container>
       <div className="createPage">
         <div className="createPage__header">
-          <button className="createPage__header-toBack">{`<`}</button>
+          <button
+            className="createPage__header-toBack"
+            onClick={() => {
+              navigate('../board');
+            }}
+          >
+            <img src={'/assets/img/parent/community/back.svg'} />
+          </button>
         </div>
         <div className="createPage__container">
           <div className="createPage__container-title">
-            <div>Q</div>
-            <input type="text" placeholder="제목을 입력하세요" required ref={titleRef} />
+            <div>Q.</div>
+            <input type="text" placeholder="제목을 입력해주세요" required ref={titleRef} />
           </div>
           <div className="createPage__container-report">
-            {reportList &&
-              reportList.map((report: any) => {
-                const reports = report.value.data;
+            <div className="createPage__container-report-title">리포트를 선택해주세요</div>
+            <div className="createPage__container-report-content">
+              {reportList &&
+                reportList.map((report: any) => {
+                  const reports = report.value.data;
 
-                return reports.map((it: any) => {
-                  const reportId = it.reportsId;
-                  const repoortsSummary = it.reportsSummary;
+                  return reports.map((it: any) => {
+                    const reportId = it.reportsId;
+                    const repoortsSummary = it.reportsSummary;
 
-                  return (
-                    <button
-                      onClick={() => {
-                        setReportsId(reportId);
-                      }}
-                    >
-                      <p>{repoortsSummary}</p>
-                    </button>
-                  );
-                });
-              })}
+                    return (
+                      <button
+                        className="createPage__container-report-content-btn"
+                        onClick={() => {
+                          setReportsId(reportId);
+                        }}
+                      >
+                        <p style={{ fontFamily: reportId === reportsId ? 'Pretendard-Black' : '' }}>
+                          {repoortsSummary}
+                        </p>
+                      </button>
+                    );
+                  });
+                })}
+            </div>
           </div>
           <div className="createPage__container-content">
-            <textarea
-              name="article"
-              id="article"
-              cols={40}
-              rows={30}
-              placeholder="내용을 입력해주세요"
-              ref={contentRef}
-            ></textarea>
+            <textarea name="article" id="article" placeholder="내용을 입력해주세요" ref={contentRef}></textarea>
           </div>
           <div className="createPage__container-btns">
             <button
               onClick={() => {
-                handleBoardCreate(reportsId, titleRef.current!.value, contentRef.current!.value, language).then(
-                  (res) => {
-                    if (!res) return;
+                handleBoardCreate(
+                  reportsId,
+                  titleRef.current!.value,
+                  contentRef.current!.value.split('\n').join('</br>'),
+                  language,
+                ).then((res) => {
+                  console.log(res);
+                  if (!res) return;
 
-                    setErrorModalState('게시글이 성공적으로 등록됐습니다.');
+                  setErrorModalState('게시글이 성공적으로 등록됐습니다.');
 
-                    setTimeout(() => {
-                      navigate('../board');
-                    }, 500);
-                  },
-                );
+                  setTimeout(() => {
+                    navigate('../board');
+                  }, 500);
+                });
               }}
             >
               작성 완료

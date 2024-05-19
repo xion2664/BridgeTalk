@@ -1,7 +1,9 @@
+import { getMyBoardList } from '@/pages/parent/query';
 import { useReportStore } from '@/pages/parent/store';
 import { dateToString } from '@/shared';
 import * as S from '@/styles/parent/parentReportListLeft.style';
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Board {
   boardId: number;
@@ -26,62 +28,27 @@ export function ParentReportListLeft() {
     }),
     [],
   );
-  useEffect(() => {
-    const tmp = [
-      {
-        boardId: 3,
-        boardsTitle: '제목 테스트',
-        boardsContent: '내용 테스트',
-        likes: 0,
-        createdAt: '2024-05-13T13:33:28.005731',
-        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
-        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
-        writer: '부모닉네임',
-      },
-      {
-        boardId: 3,
-        boardsTitle: '제목 테스트',
-        boardsContent: '내용 테스트',
-        likes: 0,
-        createdAt: '2024-05-13T13:33:28.005731',
-        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
-        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
-        writer: '부모닉네임',
-      },
-      {
-        boardId: 3,
-        boardsTitle: '제목 테스트',
-        boardsContent: '내용 테스트',
-        likes: 0,
-        createdAt: '2024-05-13T13:33:28.005731',
-        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
-        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
-        writer: '부모닉네임',
-      },
-      {
-        boardId: 3,
-        boardsTitle: '제목 테스트',
-        boardsContent: '내용 테스트',
-        likes: 0,
-        createdAt: '2024-05-13T13:33:28.005731',
-        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
-        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
-        writer: '부모닉네임',
-      },
-      {
-        boardId: 3,
-        boardsTitle: '제목 테스트',
-        boardsContent: '내용 테스트',
-        likes: 0,
-        createdAt: '2024-05-13T13:33:28.005731',
-        reportsSummary: ' 생각이 들어 위험하고 거기에 약간의 도전도 있어.',
-        reportsKeywords: ['놀이동산', '엄마', '롤러코스터'],
-        writer: '부모닉네임',
-      },
-    ];
+  const none = useMemo(
+    () => ({
+      kor: '작성한 게시글이 없습니다.',
+      viet: 'Không có bài viết nào',
+      ph: 'Walang mga naisulat na post',
+    }),
+    [],
+  );
 
-    setBoardList(tmp);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data: any = await getMyBoardList(language);
+        console.log(data);
+        setBoardList(data.data.boardsList);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, [language]);
 
   return (
     <S.Container>
@@ -91,7 +58,11 @@ export function ParentReportListLeft() {
         </div>
         <div className="main__content">
           <div className="main__content-list">
-            {boardList.length > 0 && boardList.map((board: Board) => <BoardListItem board={board} />)}
+            {boardList && boardList.length > 0 ? (
+              boardList.map((board: Board) => <BoardListItem key={board.boardId} board={board} />)
+            ) : (
+              <div className="main__content-list-none">{none[language]}</div>
+            )}
           </div>
           {/* <div className="main__content-input"></div> */}
         </div>
@@ -105,15 +76,22 @@ interface BoardListItem {
 }
 
 function BoardListItem({ board }: BoardListItem) {
+  const navigate = useNavigate();
+
   return (
-    <div className="main__content-list-item">
+    <div
+      className="main__content-list-item"
+      onClick={() => {
+        navigate(`/parent/board/${board.boardId}`);
+      }}
+    >
       <div className="flex">
         <div className="main__content-list-item-title">{board.boardsTitle}</div>
         <div className="main__content-list-item-like">
           <img src={'/assets/img/parent/heart.svg'} alt="like" /> {board.likes}
         </div>
       </div>
-      <div className="main__content-list-item-body">{board.boardsContent}</div>
+      <div className="main__content-list-item-body">{board.boardsContent.split('</br>').join(' ')}</div>
       <div className="main__content-list-item-date">{dateToString(board.createdAt)}</div>
     </div>
   );
