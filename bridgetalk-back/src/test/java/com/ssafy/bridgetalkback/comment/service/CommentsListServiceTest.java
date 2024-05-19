@@ -66,13 +66,13 @@ public class CommentsListServiceTest extends ServiceTest {
     }
 
     @Nested
-    @DisplayName("게시글 리스트 조회")
+    @DisplayName("답글 리스트 조회")
     class customParentingInfoList {
         @Test
         @DisplayName("존재하지 않는 정렬 유형이라면 게시글 리스트 조회에 실패한다")
         void throwNotFoundSearchCondition() {
             // when - then
-            assertThatThrownBy(() -> commentsListService.getCustomCommentsList(PAGE, INVALID_SORT_CONDITION, Language.kor))
+            assertThatThrownBy(() -> commentsListService.getCustomCommentsList(boards.getBoardsId(), PAGE, INVALID_SORT_CONDITION, Language.kor))
                     .isInstanceOf(BaseException.class)
                     .hasMessage(BoardsErrorCode.SORT_CONDITION_NOT_FOUND.getMessage());
         }
@@ -81,7 +81,7 @@ public class CommentsListServiceTest extends ServiceTest {
         @DisplayName("(한국어) 정렬 유형과 검색 조건에 따른 게시글 리스트 최신순 조회에 성공한다")
         void successKorean() {
             // when
-            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(PAGE, SORT_CONDITION, Language.kor);
+            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(boards.getBoardsId(), PAGE, SORT_CONDITION, Language.kor);
 
             // then
             assertThat(responseDto.commentsList().size()).isLessThanOrEqualTo(PAGE_SIZE);
@@ -105,7 +105,7 @@ public class CommentsListServiceTest extends ServiceTest {
         @DisplayName("(베트남어) 정렬 유형과 검색 조건에 따른 게시글 리스트 최신순 조회에 성공한다")
         void successViet() {
             // when
-            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(PAGE, SORT_CONDITION, Language.viet);
+            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(boards.getBoardsId(), PAGE, SORT_CONDITION, Language.viet);
 
             // then
             assertThat(responseDto.commentsList().size()).isLessThanOrEqualTo(PAGE_SIZE);
@@ -129,7 +129,7 @@ public class CommentsListServiceTest extends ServiceTest {
         @DisplayName("(필리핀어) 정렬 유형과 검색 조건에 따른 게시글 리스트 최신순 조회에 성공한다")
         void successPh() {
             // when
-            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(PAGE, SORT_CONDITION, Language.ph);
+            CustomCommentsListResponseDto<CommentsListDto> responseDto = commentsListService.getCustomCommentsList(boards.getBoardsId(), PAGE, SORT_CONDITION, Language.ph);
 
             // then
             assertThat(responseDto.commentsList().size()).isLessThanOrEqualTo(PAGE_SIZE);
