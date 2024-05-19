@@ -1,5 +1,5 @@
 import { postCommentCreate } from '@/pages/parent/query';
-import { useReportStore } from '@/pages/parent/store';
+import { useBoardStore, useReportStore } from '@/pages/parent/store';
 import { errorCatch } from '@/shared';
 import { useErrorStore } from '@/shared/store';
 import { useRef } from 'react';
@@ -13,6 +13,7 @@ export function ReplyRegist({ boardsId }: Props) {
   const setErrorModalState = useErrorStore((state) => state.setErrorModalState);
 
   const contentRef = useRef<HTMLInputElement>(null);
+  const setRefresh = useBoardStore((state) => state.setRefresh);
 
   async function handleCommentCreate(boardsId: number, commentsContent: string, language: any) {
     const requestDto = {
@@ -20,13 +21,14 @@ export function ReplyRegist({ boardsId }: Props) {
       commentsContent,
       language,
     };
-
+    console.log(requestDto);
     try {
       const data = await postCommentCreate(requestDto);
-      console.log(data);
+
+      return data;
     } catch (err) {
       if (err instanceof Error) {
-        errorCatch(err, setErrorModalState);
+        return errorCatch(err, setErrorModalState);
       }
     }
   }
@@ -39,7 +41,10 @@ export function ReplyRegist({ boardsId }: Props) {
         <button
           onClick={() => {
             if (!boardsId) return;
-            handleCommentCreate(boardsId, contentRef.current!.value, language);
+            handleCommentCreate(boardsId, contentRef.current!.value, language).then((res) => {
+              if (!res) return;
+              setRefresh();
+            });
           }}
         >
           등록하기

@@ -34,6 +34,7 @@ export function BoardDetailPage() {
         const data = await getBoardDetail(Number(params.boardId), langauge);
 
         if (data.status === 200) {
+          console.log(data.data);
           setBoard(data.data);
         }
       } catch (err) {
@@ -88,7 +89,7 @@ export function BoardDetailPage() {
         </div>
         <div className="boardDetailPage__container-reply">
           <ReplyRegist boardsId={board?.boardsId} />
-          <ReplyList />
+          <ReplyList boardId={board?.boardsId} />
         </div>
       </div>
     </S.Container>
