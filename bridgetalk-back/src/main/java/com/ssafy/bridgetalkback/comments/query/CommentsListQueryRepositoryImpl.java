@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.comments.query;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.bridgetalkback.boards.domain.Boards;
+import com.ssafy.bridgetalkback.comments.dto.response.CommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.dto.response.CustomCommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.query.dto.CommentsListDto;
 import com.ssafy.bridgetalkback.comments.query.dto.QCommentsListDto;
@@ -61,6 +62,18 @@ public class CommentsListQueryRepositoryImpl implements CommentsListQueryReposit
                 .from(comments);
 
         return new CustomCommentsListResponseDto<>(PageableExecutionUtils.getPage(commentsList, pageable, countQuery::fetchOne));
+    }
+
+    @Override
+    public CommentsListResponseDto getReportsCommentsListOrderByTime(Boards boards, Language language) {
+        List<CommentsListDto> commentsList = query
+                .selectDistinct(createQCommentsListDto(language))
+                .from(comments)
+                .where(comments.boards.eq(boards))
+                .orderBy(comments.likes.desc())
+                .fetch();
+
+        return new CommentsListResponseDto(commentsList);
     }
 
     private QCommentsListDto createQCommentsListDto(Language language) {
