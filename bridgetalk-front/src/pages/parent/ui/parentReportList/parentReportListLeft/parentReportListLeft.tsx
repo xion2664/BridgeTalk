@@ -28,13 +28,21 @@ export function ParentReportListLeft() {
     }),
     [],
   );
+  const none = useMemo(
+    () => ({
+      kor: '작성한 게시글이 없습니다.',
+      viet: 'Không có bài viết nào',
+      ph: 'Walang mga naisulat na post',
+    }),
+    [],
+  );
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data: any = await getMyBoardList(language);
         console.log(data);
-        setBoardList(data.data.boardsList);
+        // setBoardList(data.data.boardsList);
       } catch (err) {
         console.log(err);
       }
@@ -50,7 +58,11 @@ export function ParentReportListLeft() {
         </div>
         <div className="main__content">
           <div className="main__content-list">
-            {boardList && boardList.length > 0 && boardList.map((board: Board) => <BoardListItem board={board} />)}
+            {boardList && boardList.length > 0 ? (
+              boardList.map((board: Board) => <BoardListItem key={board.boardId} board={board} />)
+            ) : (
+              <div className="main__content-list-none">{none[language]}</div>
+            )}
           </div>
           {/* <div className="main__content-input"></div> */}
         </div>

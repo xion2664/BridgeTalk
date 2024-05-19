@@ -64,6 +64,18 @@ export const Container = styled.div`
         overflow-y: auto;
         overflow-x: hidden;
 
+        &-none {
+          display: flex;
+          width: 100%;
+          height: 100%;
+
+          justify-content: center;
+          align-items: center;
+
+          font-family: 'Pretendard';
+          font-size: 1.5svw;
+        }
+
         &-item {
           .flex {
             display: flex;
