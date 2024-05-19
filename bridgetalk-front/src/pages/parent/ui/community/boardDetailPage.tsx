@@ -88,7 +88,9 @@ export function BoardDetailPage() {
           </div>
         </div>
         <div className="boardDetailPage__container-reply">
-          <ReplyRegist boardsId={board?.boardsId} />
+          <div className="boardDetailPage__container-reply-wrapper">
+            <ReplyRegist boardsId={board?.boardsId} />
+          </div>
           <ReplyList boardId={board?.boardsId} />
         </div>
       </div>

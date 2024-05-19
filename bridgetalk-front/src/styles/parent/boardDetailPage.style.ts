@@ -101,7 +101,13 @@ export const Container = styled.div`
           gap: 0.5svw;
         }
       }
-    }
+
+      &-reply {
+        &-wrapper {
+          display: flex;
+        }
+      }
+    } // __container
 
     .replyListItem {
       display: grid;
