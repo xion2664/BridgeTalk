@@ -15,13 +15,20 @@ interface Props {
 export function ReplyListItem({ reply }: Props) {
   return (
     <div className="replyListItem">
-      <div className="replyListItem-left"></div>
-      <div className="replyListItem-right">
-        <div className="replyListItem-right-top">
-          <div className="replyListItem-right-top-writer">{reply.parentsNickname}</div>
-          <div className="replyListItem-right-top-date">{dateToString(reply.createdAt)}</div>
+      <div className="replyListItem__left">
+        <div className="replyListItem__left-like">
+          <button className="replyListItem__left-like-btn">
+            <img src={'/assets/img/parent/community/favor_solid.svg'} />
+          </button>
         </div>
-        <div className="replyListItem-right-bottom">{reply.commentsContent}</div>
+        <div className="replyListItem__left-cnt">0</div>
+      </div>
+      <div className="replyListItem__right">
+        <div className="replyListItem__right-top">
+          <div className="replyListItem__right-top-writer">{reply.parentsNickname}</div>
+          <div className="replyListItem__right-top-date">{dateToString(reply.createdAt)}</div>
+        </div>
+        <div className="replyListItem__right-bottom">{reply.commentsContent}</div>
       </div>
     </div>
   );

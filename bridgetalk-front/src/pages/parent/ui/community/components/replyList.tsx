@@ -23,5 +23,9 @@ export function ReplyList() {
     fetchData();
   }, [language]);
 
-  return <>{replyList && replyList.map((reply: any) => <ReplyListItem reply={reply} />)}</>;
+  return (
+    <div className="replyLIst" style={{ display: 'flex', flexDirection: 'column', gap: '2svh' }}>
+      {replyList && replyList.map((reply: any) => <ReplyListItem reply={reply} />)}
+    </div>
+  );
 }

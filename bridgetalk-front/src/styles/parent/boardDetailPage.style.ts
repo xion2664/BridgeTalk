@@ -102,5 +102,46 @@ export const Container = styled.div`
         }
       }
     }
+
+    .replyListItem {
+      display: grid;
+      grid-template-columns: 1fr 5fr;
+
+      &__left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 1svh;
+
+        &-like {
+          &-btn {
+            border-radius: 50%;
+            padding: 2svh 1svw;
+            background-color: transparent;
+
+            img {
+              width: 2svw;
+            }
+          }
+        }
+      } // &__left
+
+      &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1svh;
+
+        &-top {
+          display: flex;
+          align-items: end;
+          gap: 1svw;
+
+          &-writer {
+            font-size: 1.5svw;
+          }
+        }
+      } // &__right
+    }
   }
 `;
