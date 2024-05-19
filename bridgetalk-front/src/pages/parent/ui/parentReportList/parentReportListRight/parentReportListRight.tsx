@@ -19,6 +19,8 @@ export function ParentReportListRight() {
     childrenList: state.childrenList,
   }));
 
+  const reportStore = useReportStore();
+
   const title = useMemo(
     () => ({
       kor: '아이 속마음 리포트',

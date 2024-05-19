@@ -42,7 +42,7 @@ export function ParentReportListLeft() {
       try {
         const data: any = await getMyBoardList(language);
         console.log(data);
-        // setBoardList(data.data.boardsList);
+        setBoardList(data.data.boardsList);
       } catch (err) {
         console.log(err);
       }

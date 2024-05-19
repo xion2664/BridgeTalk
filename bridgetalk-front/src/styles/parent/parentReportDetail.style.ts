@@ -146,6 +146,31 @@ export const ContentContainer = styled.div`
           box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
         } */
       }
+
+      .replys {
+        display: flex;
+        flex-direction: column;
+        gap: 1svh;
+
+        &__wrapper {
+          height: 40svh;
+          overflow-y: scroll;
+
+          display: flex;
+          flex-direction: column;
+          gap: 1svh;
+        }
+
+        &-header {
+          display: flex;
+          gap: 1svw;
+        }
+
+        &-none {
+          display: flex;
+          justify-content: center;
+        }
+      }
     }
 
     div {
