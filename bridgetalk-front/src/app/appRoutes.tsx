@@ -13,6 +13,8 @@ import {
   ErrorPage,
   ParentInformationNurture,
   ParentInformationNurtureDetail,
+  CreatePage,
+  BoardDetailPage,
 } from '@/pages';
 import {
   ChildPage,
@@ -73,11 +75,11 @@ export function AppRoutes() {
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <LoginGuard>
           <LoadingScreen />
         </LoginGuard>
-      )}
+      )} */}
       <Routes>
         {/* <Route path="/home" element={<WelcomeScreen />} /> */}
 
@@ -178,6 +180,8 @@ export function AppRoutes() {
           <Route path="information/nurture/:nurtureId" element={<ParentInformationNurtureDetail />} />
           <Route path="information/word" element={<ParentInformationWord />} />
           <Route path="board" element={<BoardPage />} />
+          <Route path="board/:boardId" element={<BoardDetailPage />} />
+          <Route path="board/write" element={<CreatePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 

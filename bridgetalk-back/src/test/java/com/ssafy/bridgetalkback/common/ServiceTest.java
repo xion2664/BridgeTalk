@@ -4,6 +4,7 @@ import com.ssafy.bridgetalkback.auth.repository.AuthCodeRedisRepository;
 import com.ssafy.bridgetalkback.auth.repository.RefreshTokenRedisRepository;
 import com.ssafy.bridgetalkback.boards.repository.BoardsLikeRepository;
 import com.ssafy.bridgetalkback.boards.repository.BoardsRepository;
+import com.ssafy.bridgetalkback.comments.repository.CommentsLikeRepository;
 import com.ssafy.bridgetalkback.comments.repository.CommentsRepository;
 import com.ssafy.bridgetalkback.kids.repository.KidsRepository;
 import com.ssafy.bridgetalkback.letters.repository.LettersRepository;
@@ -70,6 +71,9 @@ public class ServiceTest {
 
     @Autowired
     protected AuthCodeRedisRepository authCodeRedisRepository;
+
+    @Autowired
+    protected CommentsLikeRepository commentsLikeRepository;
 
     @AfterEach
     void clearDatabase() {

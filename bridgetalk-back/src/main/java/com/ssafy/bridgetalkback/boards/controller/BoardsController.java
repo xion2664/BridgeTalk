@@ -91,12 +91,8 @@ public class BoardsController {
         log.info(">>>> (부모에게) SSE 알림 전송 시작");
         NotificationRequestDto notificationRequestDto = NotificationRequestDto.builder()
                 .receiverUuid(parentsId)
-                .url("https://bridgetalk.co.kr/api/boards/"
-                        + boardsId
-                        + "/"
-                        + "kor"
-                )
-                .content(NotificationType.POST_COMMENTS_REGISTER.getWord())
+                .url("https://bridgetalk.co.kr/parent/board/" + boardsId)
+                .content(NotificationType.POST_LIKE_REGISTER.getWord())
                 .notificationType(NotificationType.POST_LIKE_REGISTER)
                 .build();
         sseService.send(notificationRequestDto);

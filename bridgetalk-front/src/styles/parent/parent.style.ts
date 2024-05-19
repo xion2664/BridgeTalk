@@ -29,6 +29,8 @@ export const Background = styled.div`
     width: 90svw;
     height: 100%;
 
+    overflow: hidden;
+
     animation: ${fadein} 1s;
 
     background-color: rgb(240, 240, 240);
@@ -45,20 +47,7 @@ export const Background = styled.div`
 
     position: relative;
 
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      content: '';
-
-      background-color: ${color(1).bright};
-      opacity: 0;
-      z-index: -1;
-    }
-
-    padding: 2svh 2svw;
+    /* padding: 2svh 2svw; */
 
     display: flex;
     justify-content: center;
