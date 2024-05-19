@@ -39,6 +39,18 @@ public class BoardsLikeService {
         boardsLikeRepository.deleteByParents(parents);
     }
 
+    @Transactional
+    public void cancel(UUID parentsId, Long boardsId){
+        validateCancel(parentsId, boardsId);
+        Boards boards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
+        boards.decreaseLikes();
+        boardsLikeRepository.deleteByParentsIdAndBoardsId(parentsId, boardsId);
+    }
+
+    public boolean checkLike(UUID parentsId, Long boardsId) {
+        return boardsLikeRepository.existsByParentsUuidAndBoardsBoardsId(parentsId, boardsId);
+    }
+
     private void validateSelfBoardLike(UUID parentsId, Long boardsId) {
         Boards board = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
         if (board.getParents().getUuid().equals(parentsId)) {
@@ -50,14 +62,6 @@ public class BoardsLikeService {
         if (boardsLikeRepository.existsByParentsUuidAndBoardsBoardsId(parentsId, boardsId)) {
             throw BaseException.type(BoardsErrorCode.ALREADY_BOARD_LIKE);
         }
-    }
-
-    @Transactional
-    public void cancel(UUID parentsId, Long boardsId){
-        validateCancel(parentsId, boardsId);
-        Boards boards = boardsFindService.findByBoardsIdAndIsDeleted(boardsId);
-        boards.decreaseLikes();
-        boardsLikeRepository.deleteByParentsIdAndBoardsId(parentsId, boardsId);
     }
 
     private void validateCancel(UUID parentsId, Long boardsId) {

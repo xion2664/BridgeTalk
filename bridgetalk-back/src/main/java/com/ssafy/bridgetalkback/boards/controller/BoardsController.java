@@ -110,6 +110,12 @@ public class BoardsController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/likes/{boardsId}")
+    public ResponseEntity<Boolean> checkLike(@ExtractPayload String parentsId, @PathVariable Long boardsId) {
+        boolean result = boardLikeService.checkLike(UUID.fromString(parentsId), boardsId);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("my/{language}")
     public ResponseEntity<BoardsListResponseDto> getMyBoardsList(@ExtractPayload String parentsId,
                                                                  @PathVariable Language language,
