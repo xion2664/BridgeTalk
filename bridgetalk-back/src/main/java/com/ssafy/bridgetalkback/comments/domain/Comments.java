@@ -58,4 +58,12 @@ public class Comments extends BaseEntity {
         this.commentsContentViet = commentsContentViet;
         this.commentsContentPh = commentsContentPh;
     }
+
+    public void increaseLikes() {
+        this.likes = this.likes + 1;
+    }
+
+    public void decreaseLikes() {
+        this.likes = this.likes - 1;
+    }
 }
