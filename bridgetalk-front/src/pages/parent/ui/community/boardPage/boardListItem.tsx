@@ -1,4 +1,5 @@
 import { dateToString } from '@/shared';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   board: Board;
@@ -16,12 +17,18 @@ interface Board {
 }
 
 export function BoardListItem({ board }: Props) {
+  const navigate = useNavigate();
+
   return (
-    <div className="boardPage__list-item">
+    <div
+      className="boardPage__list-item"
+      onClick={() => {
+        navigate(`${board.boardId}`);
+      }}
+    >
       <div className="boardPage__list-item-header">
         <div className="boardPage__list-item-header-first">
           <div className="boardPage__list-item-header-first-title">{board.boardsTitle}</div>
-
           <div className="boardPage__list-item-header-first-sub">
             <div className="boardPage__list-item-header-first-sub-writer">{board.parentsNickname}</div>
             <div className="line">{`|`}</div>
