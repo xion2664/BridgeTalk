@@ -1,12 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faEllipsisVertical,
-  faHeart,
-  faPen,
-  faQ,
-  faTrashCan,
-  faUpRightFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
 import { ReplyList } from './components/replyList';
 import * as S from '@/styles/parent/boardDetailPage.style';
 import { useEffect, useState } from 'react';
@@ -14,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useBoardStore, useReportStore } from '../../store';
 import { getBoardDetail } from '../../query';
 import { dateToString } from '@/shared';
+import { ReplyRegist } from './boardPage/replyRegist';
 
 interface BoardContent {
   boardsContent: string;
@@ -95,10 +87,7 @@ export function BoardDetailPage() {
           </div>
         </div>
         <div className="boardDetailPage__container-reply">
-          <div className="boardDetailPage__container-reply-write">
-            <div className="boardDetailPage__container-reply-write-intro"></div>
-            <div className="boardDetailPage__container-reply-write-slide"></div>
-          </div>
+          <ReplyRegist boardsId={board?.boardsId} />
           <ReplyList />
         </div>
       </div>
