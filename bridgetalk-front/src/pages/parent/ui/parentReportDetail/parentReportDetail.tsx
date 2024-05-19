@@ -1,9 +1,9 @@
 import * as S from '@/styles/parent/parentReportDetail.style';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ParentReportDetailRecorder } from './parentReportDetailRecorder/parentReportDetailRecorder';
-import { BackButton } from '@/shared';
+import { BackButton, dateToString } from '@/shared';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { getReportDetail } from '../../query';
+import { getReportDetail, getReportsReplyList } from '../../query';
 import { useReportStore } from '../../store';
 
 export function ParentReportDetail() {
@@ -18,6 +18,7 @@ export function ParentReportDetail() {
   const reports_UUID = useReportStore((state) => state.reports_UUID);
   const setResultPage = useReportStore((state) => state.setResultPage);
   const resultPage = useReportStore((state) => state.resultPage);
+  const reportStore = useReportStore();
 
   // State
   const [report, setReport] = useState<any>('');
@@ -57,8 +58,11 @@ export function ParentReportDetail() {
           Number(params.reportsId),
           language,
         );
-
         setReport(data.data);
+
+        const data2: any = await getReportsReplyList(Number(params.reportsId), language);
+        reportStore.setReplys(data2.data.reportsCommentsList);
+
         setDate(data.data.createdAt.split('T')[0].split('-'));
       } catch (err) {
         console.log(err);
@@ -120,6 +124,8 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
   const resultPage = useReportStore((state) => state.resultPage);
   const language = useReportStore((state) => state.language);
 
+  const reportStore = useReportStore();
+
   return (
     <>
       {resultPage === 0 ? (
@@ -132,7 +138,26 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
           <S.Summary>{reportsSummary}</S.Summary>
         </div>
       ) : (
-        <div className="solution">{reportsSolution}</div>
+        <>
+          <div className="solution">{reportsSolution}</div>
+          <div className="replys__wrapper">
+            {reportStore.replys && reportStore.replys.length > 0 ? (
+              reportStore.replys.map((reply: any) => (
+                <div className="replys">
+                  <div className="replys-header">
+                    <div className="replys-header-writer">{reply.parentsNickname}</div>
+                    <div className="replys-header-date">{dateToString(reply.createdAt)}</div>
+                    <div className="replys-header-like">❤ {reply.likes}</div>
+                  </div>
+                  <div className="replys-body">{reply.commentsContent}</div>
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <div className="reply-none">작성된 댓글이 없습니다.</div>
+            )}
+          </div>
+        </>
       )}
     </>
   );

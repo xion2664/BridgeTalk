@@ -59,7 +59,7 @@ export function ParentInformationNurture() {
     () => ({
       kor: '육아 정보',
       viet: 'thông tin nuôi dạy con cái',
-      ph: '',
+      ph: 'Impormasyon sa Pag-aalaga ng Bata',
     }),
     [],
   );

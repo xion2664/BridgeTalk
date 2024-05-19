@@ -8,8 +8,8 @@ export function SearchTypes() {
   const categories = useMemo(
     () => ({
       kor: ['제목', '작성자', '내용'],
-      viet: [],
-      ph: [],
+      viet: ['Tiêu đề', 'Tác giả', 'Nội dung'],
+      ph: ['Pamagat', 'May-akda', 'Nilalaman'],
     }),
     [],
   );
