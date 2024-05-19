@@ -1,5 +1,7 @@
 package com.ssafy.bridgetalkback.comments.service;
 
+import com.ssafy.bridgetalkback.boards.domain.Boards;
+import com.ssafy.bridgetalkback.boards.service.BoardsFindService;
 import com.ssafy.bridgetalkback.comments.domain.CommentsSortCondition;
 import com.ssafy.bridgetalkback.comments.dto.response.CustomCommentsListResponseDto;
 import com.ssafy.bridgetalkback.comments.query.dto.CommentsListDto;
@@ -16,14 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommentsListService {
     private final CommentsRepository commentsRepository;
+    private final BoardsFindService boardsFindService;
 
-    public CustomCommentsListResponseDto<CommentsListDto> getCustomCommentsList(int page, String sort, Language language) {
+    public CustomCommentsListResponseDto<CommentsListDto> getCustomCommentsList(Long boardId, int page, String sort, Language language) {
         log.info("{ CommentsListService } : Comments 리스트조회 진입");
+        Boards boards = boardsFindService.findByBoardsIdAndIsDeleted(boardId);
         CommentsSortCondition commentsSortCondition = CommentsSortCondition.from(sort);
         CustomCommentsListResponseDto<CommentsListDto> commentsList = null;
         switch (commentsSortCondition) {
-            case TIME -> commentsList = commentsRepository.getCommentsListOrderByTime(page, language);
-            case LIKES -> commentsList = commentsRepository.getCommentsListOrderByLikes(page, language);
+            case TIME -> commentsList = commentsRepository.getCommentsListOrderByTime(boards, page, language);
+            case LIKES -> commentsList = commentsRepository.getCommentsListOrderByLikes(boards, page, language);
         }
 
         log.info("{ CommentsListService } : Comments 리스트조회 성공");

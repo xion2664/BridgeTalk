@@ -77,11 +77,12 @@ public class CommentsController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("read/{language}")
-    public ResponseEntity<CustomCommentsListResponseDto<CommentsListDto>> getCustomCommentsList(@PathVariable Language language,
+    @GetMapping("read/{boardId}/{language}")
+    public ResponseEntity<CustomCommentsListResponseDto<CommentsListDto>> getCustomCommentsList(@PathVariable Long boardId,
+                                                                                                @PathVariable Language language,
                                                                                                 @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                                                                 @RequestParam(value = "sort", required = false, defaultValue = "최신순") String sort) {
         log.info("{ BoardsController } : 게시글 리스트조회 진입 (정렬 유형) - " + sort);
-        return ResponseEntity.ok(commentsListService.getCustomCommentsList(page, sort, language));
+        return ResponseEntity.ok(commentsListService.getCustomCommentsList(boardId, page, sort, language));
     }
 }
