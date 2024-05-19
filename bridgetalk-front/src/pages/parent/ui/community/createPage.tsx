@@ -73,8 +73,7 @@ export function CreatePage() {
     };
 
     try {
-      const response = await postBoardCreate(DTO);
-      console.log(response);
+      return await postBoardCreate(DTO);
     } catch (err) {
       if (err instanceof Error) {
         return errorCatch(err, setErrorModalState);
@@ -142,6 +141,7 @@ export function CreatePage() {
               onClick={() => {
                 handleBoardCreate(reportsId, titleRef.current!.value, contentRef.current!.value, language).then(
                   (res) => {
+                    console.log(res);
                     if (!res) return;
 
                     setErrorModalState('게시글이 성공적으로 등록됐습니다.');

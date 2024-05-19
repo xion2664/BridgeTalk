@@ -22,7 +22,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 2svh;
     width: 40svw;
-    height: 100svh;
+    height: 80svh;
 
     &__header {
       display: flex;
@@ -44,6 +44,7 @@ export const Container = styled.div`
     }
 
     &__container {
+      height: 100%;
       width: 100%;
 
       &-title {
