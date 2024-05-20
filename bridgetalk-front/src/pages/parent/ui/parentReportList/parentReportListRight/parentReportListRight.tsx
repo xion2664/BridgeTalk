@@ -77,7 +77,9 @@ export function ParentReportListRight() {
         </div>
         <div className="content">
           <div className="list">
-            {selected.length > 0 && selected.reduce((prev: any, cur: any) => prev + cur.value.data.length, 0) > 0 ? (
+            {selected &&
+            selected.length > 0 &&
+            selected.reduce((prev: any, cur: any) => prev + cur.value.data.length, 0) > 0 ? (
               selected.map((report: any) => {
                 if (!report.value) return;
 
