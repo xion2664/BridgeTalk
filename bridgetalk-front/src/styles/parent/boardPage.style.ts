@@ -209,6 +209,8 @@ export const Container = styled.div`
             &-likes {
               display: flex;
               align-items: center;
+              gap: 0.5svw;
+
               font-size: 1.25svw;
               img {
                 width: 1.25svw;

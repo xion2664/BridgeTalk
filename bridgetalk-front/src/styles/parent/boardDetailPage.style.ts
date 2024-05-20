@@ -94,7 +94,7 @@ export const Container = styled.div`
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 1svh;
+            /* gap: 1svh; */
 
             button {
               background-color: transparent;
