@@ -26,6 +26,17 @@ export const Container = styled.div`
     border-radius: 2.6svw;
     background-color: ${color(1).bright};
     padding: 3.7svh 2.6svw;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll {
+      overflow-y: auto;
+      height: 80svh;
+
+      display: flex;
+      flex-direction: column;
+      gap: 2svh;
+    }
 
     &__header {
       display: flex;

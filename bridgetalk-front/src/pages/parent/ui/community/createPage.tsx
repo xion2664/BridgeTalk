@@ -138,7 +138,9 @@ export function CreatePage() {
           >
             <img src={'/assets/img/parent/community/back.svg'} />
           </button>
-          <div className="createPage__header-main">{maintitle[language]}</div>
+          <div className="createPage__header-main" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+            {maintitle[language]}
+          </div>
           <button
             className="createPage__header-btn"
             onClick={() => {
@@ -163,52 +165,56 @@ export function CreatePage() {
           </button>
         </div>
         <hr />
-        <div className="createPage__container">
-          <div className="createPage__container-title">
-            <input type="text" placeholder={placeholderTitle[language]} required ref={titleRef} />
-          </div>
-          <div className="createPage__container-report">
-            <div className="createPage__container-report-title">{`S E L E C T   R E P O R T`}</div>
-            <div className="createPage__container-report-content">
-              {reportList &&
-                reportList.map((report: any) => {
-                  const reports = report.value.data;
-
-                  return reports.map((it: any) => {
-                    const reportId = it.reportsId;
-                    const repoortsSummary = it.reportsSummary;
-
-                    return (
-                      <button
-                        style={{
-                          backgroundColor: reportId === reportsId ? 'rgba(108, 149, 255)' : 'rgba(255, 255, 255)',
-                          color: reportId === reportsId ? 'white' : 'black',
-                        }}
-                        className="createPage__container-report-content-btn"
-                        onClick={() => {
-                          setReportsId(reportId);
-                        }}
-                      >
-                        <p>
-                          <img
-                            src={`/assets/img/parent/community/list_${reportId === reportsId ? 'empty' : 'solid'}.svg`}
-                          />
-
-                          {repoortsSummary}
-                        </p>
-                      </button>
-                    );
-                  });
-                })}
+        <div className="scroll">
+          <div className="createPage__container">
+            <div className="createPage__container-title">
+              <input type="text" placeholder={placeholderTitle[language]} required ref={titleRef} />
             </div>
-          </div>
-          <div className="createPage__container-content">
-            <textarea
-              name="article"
-              id="article"
-              placeholder={placeholderContent[language]}
-              ref={contentRef}
-            ></textarea>
+            <div className="createPage__container-report">
+              <div className="createPage__container-report-title">{`S E L E C T   R E P O R T`}</div>
+              <div className="createPage__container-report-content">
+                {reportList &&
+                  reportList.map((report: any) => {
+                    const reports = report.value.data;
+
+                    return reports.map((it: any) => {
+                      const reportId = it.reportsId;
+                      const repoortsSummary = it.reportsSummary;
+
+                      return (
+                        <button
+                          style={{
+                            backgroundColor: reportId === reportsId ? 'rgba(108, 149, 255)' : 'rgba(255, 255, 255)',
+                            color: reportId === reportsId ? 'white' : 'black',
+                          }}
+                          className="createPage__container-report-content-btn"
+                          onClick={() => {
+                            setReportsId(reportId);
+                          }}
+                        >
+                          <p>
+                            <img
+                              src={`/assets/img/parent/community/list_${
+                                reportId === reportsId ? 'empty' : 'solid'
+                              }.svg`}
+                            />
+
+                            {repoortsSummary}
+                          </p>
+                        </button>
+                      );
+                    });
+                  })}
+              </div>
+            </div>
+            <div className="createPage__container-content">
+              <textarea
+                name="article"
+                id="article"
+                placeholder={placeholderContent[language]}
+                ref={contentRef}
+              ></textarea>
+            </div>
           </div>
         </div>
       </div>

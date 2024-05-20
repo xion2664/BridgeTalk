@@ -94,7 +94,9 @@ export function BoardPage() {
   return (
     <S.Container>
       <div className="boardPage__header">
-        <div className="boardPage__header-title">{title[language]}</div>
+        <div className="boardPage__header-title" style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}>
+          {title[language]}
+        </div>
         <div className="boardPage__header-sort">
           <button
             className={`boardPage__header-sort-latest ${boardStore.sortType === '최신순' && 'active'}`}
