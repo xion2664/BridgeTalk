@@ -115,6 +115,7 @@ export const Container = styled.div`
       position: fixed;
       bottom: 0;
       padding: 0 3svw;
+      z-index: -100;
 
       p {
         background-color: white;
