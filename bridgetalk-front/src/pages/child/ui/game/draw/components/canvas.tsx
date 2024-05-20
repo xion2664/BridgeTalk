@@ -1,29 +1,17 @@
-// import { DispatcherContext } from '@/pages/Test/ui/testColoring/util/context';
-// import Snapshot from '@/pages/Test/ui/testColoring/util/snapshot';
-// import SnapShot from '@/pages/Test/ui/testColoring/util/snapshot';
-// import Tool from '@/pages/Test/ui/testColoring/util/tool';
-// import { LineWidthType, ShapeOutlineType, ShapeToolType, ToolType } from '@/pages/Test/ui/testColoring/util/toolType';
-// import { useEffect, useRef, useState, useContext } from 'react';
-// import { ColorExtract, ColorFill, Eraser, Pen } from './tool';
-// import Shape from './tool/shape';
-// import { CLEAR_EVENT, REDO_EVENT, UNDO_EVENT } from '@/pages/Test/ui/testColoring/util/event';
+// import { useState, useEffect, useRef, useContext } from 'react';
+// import { LineWidthType, ToolType } from '../../util/toolType';
+// import { Pen, Tool, Eraser, ColorExtract, ColorFill } from '../../util/tool';
+// import { DispatcherContext } from '../../context';
+// import { CLEAR_EVENT, REDO_EVENT, UNDO_EVENT } from '../../util/dispatcher/event';
+// import SnapShot from '../../util/snapshot';
+// import Snapshot from '../../util/snapshot';
 
-// interface CanvasProps {
-//   toolType: ToolType;
-//   shapeType: ShapeToolType;
-//   shapeOutlineType: ShapeOutlineType;
-//   lineWidthType: LineWidthType;
-//   mainColor: string;
-//   subColor: string;
-//   setColor: (value: string) => void;
-// }
-
-// export function Canvas(props: CanvasProps) {
-//   const { toolType, lineWidthType, mainColor, subColor, setColor, shapeType, shapeOutlineType } = props;
-//   const [tool, setTool] = useState<Tool>();
-//   const canvasRef = useRef<HTMLCanvasElement>(null);
+// export function Canvas(props) {
+//   const { toolType, lineWidthType, setColor } = props;
+//   const [tool, setTool] = useState(null);
+//   const canvasRef = useRef(null);
 //   const dispatcherContext = useContext(DispatcherContext);
-//   const [snapshot] = useState<SnapShot>(new Snapshot());
+//   const [snapshot] = useState(new SnapShot());
 
 //   useEffect(() => {
 //     switch (toolType) {
@@ -39,19 +27,10 @@
 //       case ToolType.COLOR_FILL:
 //         setTool(new ColorFill());
 //         break;
-//       case ToolType.SHAPE:
-//         setTool(new Shape(shapeType, shapeOutlineType === ShapeOutlineType.DOTTED));
-//         break;
 //       default:
 //         break;
 //     }
-//   }, [toolType, shapeType]);
-
-//   useEffect(() => {
-//     if (tool instanceof Shape) {
-//       tool.isDashed = shapeOutlineType === ShapeOutlineType.DOTTED;
-//     }
-//   }, [shapeOutlineType]);
+//   }, [toolType]);
 
 //   useEffect(() => {
 //     switch (lineWidthType) {
@@ -73,20 +52,12 @@
 //   }, [lineWidthType]);
 
 //   useEffect(() => {
-//     Tool.mainColor = mainColor;
-//   }, [mainColor]);
-
-//   useEffect(() => {
-//     Tool.subColor = subColor;
-//   }, [subColor]);
-
-//   useEffect(() => {
 //     const canvas = canvasRef.current;
 //     if (canvas) {
 //       canvas.height = canvas.clientHeight;
 //       canvas.width = canvas.clientWidth;
 
-//       Tool.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+//       Tool.ctx = canvas.getContext('2d');
 
 //       const ctx = canvas.getContext('2d');
 //       if (ctx) {
@@ -130,60 +101,61 @@
 //       };
 //       dispatcher.on(UNDO_EVENT, back);
 
-//       window.addEventListener('resize', () => {
+//       const handleResize = () => {
 //         const canvasData = Tool.ctx.getImageData(0, 0, canvas.width, canvas.height);
 //         canvas.height = canvas.clientHeight;
 //         canvas.width = canvas.clientWidth;
-//         Tool.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+//         Tool.ctx = canvas.getContext('2d');
 //         Tool.ctx.fillStyle = 'white';
 //         Tool.ctx.fillRect(0, 0, canvas.width, canvas.height);
 //         Tool.ctx.putImageData(canvasData, 0, 0);
-//       });
+//       };
+
+//       window.addEventListener('resize', handleResize);
 
 //       return () => {
 //         dispatcher.off(CLEAR_EVENT, callback);
+//         window.removeEventListener('resize', handleResize);
 //       };
 //     }
-//   }, [canvasRef]);
+//   }, [canvasRef, dispatcherContext, snapshot]);
 
-//   const onMouseDown = (event: MouseEvent) => {
+//   const onMouseDown = (event) => {
 //     if (tool) {
 //       tool.onMouseDown(event);
 //     }
 //   };
 
-//   const onMouseMove = (event: MouseEvent) => {
+//   const onMouseMove = (event) => {
 //     if (tool) {
 //       tool.onMouseMove(event);
 //     }
 //   };
 
-//   const onMouseUp = (event: MouseEvent) => {
+//   const onMouseUp = (event) => {
 //     if (tool) {
 //       tool.onMouseUp(event);
-
 //       snapshot.add(Tool.ctx.getImageData(0, 0, Tool.ctx.canvas.width, Tool.ctx.canvas.height));
 //     }
 //   };
 
-//   const onTouchStart = (event: TouchEvent) => {
+//   const onTouchStart = (event) => {
 //     if (tool) {
 //       tool.onTouchStart(event);
 //     }
 //   };
 
-//   const onTouchMove = (event: TouchEvent) => {
+//   const onTouchMove = (event) => {
 //     if (tool) {
 //       tool.onTouchMove(event);
 //     }
 //   };
 
-//   const onTouchEnd = (event: TouchEvent) => {
+//   const onTouchEnd = (event) => {
 //     if (tool) {
 //       tool.onTouchEnd(event);
+//       snapshot.add(Tool.ctx.getImageData(0, 0, Tool.ctx.canvas.width, Tool.ctx.canvas.height));
 //     }
-
-//     snapshot.add(Tool.ctx.getImageData(0, 0, Tool.ctx.canvas.width, Tool.ctx.canvas.height));
 //   };
 
 //   useEffect(() => {
@@ -207,7 +179,7 @@
 //         canvas.removeEventListener('touchend', onTouchEnd);
 //       };
 //     }
-//   }, [canvasRef, onMouseDown, onMouseMove, onMouseUp]);
+//   }, [canvasRef, onMouseDown, onMouseMove, onMouseUp, onTouchStart, onTouchMove, onTouchEnd, tool]);
 
 //   return <canvas className="canvas" ref={canvasRef} />;
 // }
