@@ -75,7 +75,12 @@ export function BoardDetailPage() {
           >
             <img src={'/assets/img/parent/community/back.svg'} />
           </button>
-          <div className="boardDetailPage__header-title">{title[language]}</div>
+          <div
+            className="boardDetailPage__header-title"
+            style={{ fontFamily: language === 'kor' ? 'DNF' : 'Pretendard' }}
+          >
+            {title[language]}
+          </div>
           <button className="boiardDetailPage__header-share">
             <img src={'/assets/img/parent/community/share.svg'} />
           </button>
