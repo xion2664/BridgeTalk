@@ -154,7 +154,7 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
                 </div>
               ))
             ) : (
-              <div className="reply-none">작성된 댓글이 없습니다.</div>
+              <div className="replys-none">작성된 답글이 없습니다.</div>
             )}
           </div>
         </>

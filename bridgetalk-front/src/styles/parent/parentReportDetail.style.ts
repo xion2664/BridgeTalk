@@ -10,6 +10,11 @@ export const ContentContainer = styled.div`
   width: 80svw;
   height: 70svh;
 
+  * {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
   .menu {
     position: absolute;
     top: 0;
@@ -112,7 +117,8 @@ export const ContentContainer = styled.div`
         border-radius: 1svw;
         padding: 1.5svh 1.5svw;
 
-        font-size: 2svw;
+        font-size: 1.6svw;
+
         color: ${color(1).bright};
 
         box-shadow: 0 0.5svh 0.4svh ${color(0.5).dark};
@@ -132,25 +138,15 @@ export const ContentContainer = styled.div`
 
           box-shadow: inset 0 0.5svh 0.4svh ${color(0.5).bright};
         }
-
-        /* &::before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-
-          content: '';
-          border-radius: 1svw;
-
-          box-shadow: inset 0 -0.5svh 0.4svh ${color(0.25).dark};
-        } */
       }
 
       .replys {
         display: flex;
         flex-direction: column;
         gap: 1svh;
+        padding-left: 1svw;
+
+        font-size: 1.2svw;
 
         &__wrapper {
           height: 40svh;
@@ -167,8 +163,20 @@ export const ContentContainer = styled.div`
         }
 
         &-none {
+          width: 100%;
+          height: 100%;
+
           display: flex;
           justify-content: center;
+          align-items: center;
+
+          font-size: 2svw;
+        }
+
+        &-body {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }
