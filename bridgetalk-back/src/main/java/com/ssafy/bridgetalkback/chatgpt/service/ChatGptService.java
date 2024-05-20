@@ -228,6 +228,9 @@ public class ChatGptService {
         } else if(gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH_VER1)){
             text += "\n 필리핀어로 번역하고, 한 줄로 나열해줘";
             log.info(">> prompt : {}", text);
+        } else if(gptRequestCode.equals(ChatGptRequestCode.STT_TRANSLATION)){
+            text += "\n이 문단을 내용 그대로, 부드럽고 친근한 엄마의 어조로 다듬어줘";
+            log.info(">> prompt : {}", text);
         }
         return text;
     }
