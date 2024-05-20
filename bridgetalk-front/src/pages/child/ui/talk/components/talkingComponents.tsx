@@ -78,14 +78,14 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   // 볼륨 체크
   useEffect(() => {
     if (isRecording && getAvgVolumeData.current) {
-      console.log('볼륨:', volume, '평균 볼륨:', getAvgVolumeData.current(volume));
+      //console.log('볼륨:', volume, '평균 볼륨:', getAvgVolumeData.current(volume));
       if (volume >= Math.floor(getAvgVolumeData.current(volume) * 0.8)) {
         // 기존 타이머 제거 후 새 타이머 생성
         if (devounceTimerRef.current) {
           clearTimeout(devounceTimerRef.current);
         }
         devounceTimerRef.current = setTimeout(() => {
-          console.log('타이머 작동');
+          //console.log('타이머 작동');
           setIsSend(true);
           setIsRecording(false);
         }, 1000);
@@ -100,7 +100,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       connectAudioStream(streamRef)
         .then((res) => {
           if (res instanceof MediaStream) {
-            console.log('{ 마이크 연결 }');
+            //console.log('{ 마이크 연결 }');
             handleTalkStart(setReply, setEmotion, setSubtitle, errorStore.setErrorModalState).catch((err) => {
               if (err instanceof Error) {
                 errorCatch(err, errorStore.setErrorModalState);
@@ -122,7 +122,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
 
     // 마이크 연결 끊기 및 녹음 종료
     if (streamRef.current && !isTalking) {
-      console.log('{ 마이크 연결 끊기 }');
+      //console.log('{ 마이크 연결 끊기 }');
 
       streamRef.current.getTracks().forEach((track) => {
         track.stop();
@@ -156,20 +156,20 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
       }
 
       // 녹음 시작
-      console.log('{ 녹음 시작 }');
+      //console.log('{ 녹음 시작 }');
       startRecordVoice(streamRef, recorderRef, audioDataRef);
     }
 
     // if (!isRecording && isTalking) {
     if (!isRecording) {
-      console.log('{ 볼륨 측정 함수 재선언 }');
+      //console.log('{ 볼륨 측정 함수 재선언 }');
       getAvgVolumeData.current = getAvgVolume();
     }
 
     return () => {
       // 음량 체크 및 녹음 종료
       if (isRecording && volumeCheckInterval) {
-        console.log(' { 녹음 종료 }');
+        //console.log(' { 녹음 종료 }');
         clearInterval(volumeCheckInterval);
         stopRecordVoice(recorderRef);
         setVolume(0);
@@ -220,7 +220,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
   }, [audioBlob]);
 
   useEffect(() => {
-    console.log('{reply 감지', reply);
+    //console.log('{reply 감지', reply);
     if (audioRef.current && isTalking) {
       audioRef.current.play();
     }
@@ -258,7 +258,7 @@ export function TalkingComponents({ reply, setReply, devounceTimerRef }: any) {
           }
 
           if (talkStore.isEnd) {
-            console.log('오디오 및 대화 종료');
+            //console.log('오디오 및 대화 종료');
             talkStore.resetStore();
             setTimeout(() => {
               navigate('/child');

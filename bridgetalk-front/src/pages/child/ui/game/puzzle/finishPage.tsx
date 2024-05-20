@@ -20,9 +20,9 @@ export function FinishPage() {
       try {
         const response = await customAxios.get(`/puzzle/${id}`, {});
         setLandmark(response.data);
-        console.log('API Response Status Code:', response.status);
+        // console.log('API Response Status Code:', response.status);
       } catch (error) {
-        console.error('Failed to fetch landmark data:', error);
+        // console.error('Failed to fetch landmark data:', error);
       }
     };
 
