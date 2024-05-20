@@ -43,10 +43,10 @@ import {
   TestColoring,
   TestCamera,
   TestDraw,
-  TestPuzzle,
+  // TestPuzzle,
   TestVoice,
   TestWordcloud,
-  TestCharacter,
+  // TestCharacter,
 } from '@/pages';
 import { BoardPage } from '@/pages/parent/ui/community/boardPage';
 
@@ -189,11 +189,11 @@ export function AppRoutes() {
         <Route path="/test" element={<Test />}>
           <Route path="camera" element={<TestCamera />} />
           <Route path="draw" element={<TestDraw />} />
-          <Route path="puzzle" element={<TestPuzzle />} />
+          {/* <Route path="puzzle" element={<TestPuzzle />} /> */}
           <Route path="voice" element={<TestVoice />} />
           <Route path="wordcloud" element={<TestWordcloud />} />
           <Route path="zustand" element={<TeestZustand />} />
-          <Route path="character" element={<TestCharacter />} />
+          {/* <Route path="character" element={<TestCharacter />} /> */}
           <Route path="coloring" element={<TestColoring />} />
         </Route>
 
