@@ -57,6 +57,14 @@ export function PuzzlePage() {
   return (
     <S.Container>
       <div className="puzzlePage">
+        <img
+          src="/assets/img/child/back.svg"
+          alt=""
+          style={{ width: '30px', position: 'fixed', top: '0', left: '0', margin: '10px' }}
+          onClick={() => {
+            navigate('/stage');
+          }}
+        />
         <div className="puzzlePage__side">
           <img src={puzzle} alt="" />
           <span>

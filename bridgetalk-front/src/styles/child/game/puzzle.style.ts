@@ -13,6 +13,8 @@ export const Container = styled.div`
     height: 100%;
     padding: 5svw;
 
+    position: relative;
+
     &__side {
       display: flex;
       flex-direction: column;

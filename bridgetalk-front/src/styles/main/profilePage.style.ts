@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   width: 100svw;
   height: 100svh;
+  padding: 5svh 0;
   background-color: ${color(0.2).black};
 
   /* ::-webkit-scrollbar {
