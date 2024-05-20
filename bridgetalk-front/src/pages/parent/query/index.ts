@@ -15,3 +15,6 @@ export * from '@/pages/parent/query/getMyBoardList/getMyBoardList';
 export * from '@/pages/parent/query/getReportsReplyList/getReportsReplyList';
 export * from '@/pages/parent/query/getBoardLikeCheck/getBoardLikeCheck';
 export * from '@/pages/parent/query/deleteBoardLike/deleteBoardLike';
+export * from '@/pages/parent/query/deleteCommentLike/deleteCommentLike';
+export * from '@/pages/parent/query/postCommentLike/postCommentLike';
+export * from '@/pages/parent/query/getCommentLikeCheck/getCommentLikeCheck';
