@@ -102,7 +102,7 @@ export function BoardDetailPage() {
         <div className="scroll">
           <div className="boardDetailPage__container">
             <div className="boardDetailPage__container-article">
-              <div className="boardDetailPage__container-article-header-title">글 제목</div>
+              <div className="boardDetailPage__container-article-header-title">{board?.boardsTitle}</div>
               <div className="boardDetailPage__container-article-header-sub">
                 <p>{board?.parentsNickname}</p>
                 <p>{`|`}</p>
