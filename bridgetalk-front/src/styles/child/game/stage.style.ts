@@ -33,7 +33,12 @@ export const Container = styled.div`
       height: 100%;
       padding: 5svw;
 
-      overflow-y: auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 
