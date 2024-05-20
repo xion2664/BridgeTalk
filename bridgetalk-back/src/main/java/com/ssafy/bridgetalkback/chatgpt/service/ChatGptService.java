@@ -215,7 +215,7 @@ public class ChatGptService {
             text += "\n 위의 문장에서 핵심 단어 4개를 차례로 한줄로 나열해줘";
             log.info(">> prompt : {}", text);
         } else if (gptRequestCode.equals(ChatGptRequestCode.CONVERT_KEYWORD)) {
-            text += "\n 위의 문장에서 핵심 단어 4개를 [\"친구\", \"학교\", \"성장\", \"호기심\", \"게임\", \"취미\", \"가족\", \"공원\", \"학습\", \"동기부여\", \"창의력\", \"감정\", \"스포츠\", \"음악\", \"독서\", \"영화\", \"자연\", \"애완동물\", \"모험\", \"과학\", \"행복\"] 중에서 가장 밀접한 관련이 있는 단어로 바꿔서 설명없이 한 개의 list형태로 반환해줘";
+            text += "\n 위의 문장에서 핵심 단어 4개를 [\"친구\", \"학교\", \"성장\", \"호기심\", \"게임\", \"취미\", \"가족\", \"공원\", \"학습\", \"동기부여\", \"창의력\", \"감정\", \"스포츠\", \"음악\", \"독서\", \"영화\", \"자연\", \"애완동물\", \"모험\", \"과학\", \"행복\",\"놀이공원\",\"롤러코스터\"] 중에서 가장 밀접한 관련이 있는 단어로 바꿔서 설명없이 한 개의 list형태로 반환해줘";
         } else if (gptRequestCode.equals(ChatGptRequestCode.TRANSLATE_PH)) {
             text += "\n Translate the above sentence literally into Filipino.";
             log.info(">> prompt : {}", text);
