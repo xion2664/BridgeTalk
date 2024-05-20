@@ -95,7 +95,8 @@ public class ReportsService {
 
         Reports reports = reportsFindService.findByReportsIdAndIsDeleted(reportsId);
         log.info("{ ReportsService } : 아이속마음 상세 조회 성공, lang : {}", language);
-        List<VideoResponseDto> reportsVideoList = reportsVideoService.searchVideo(reports.getReportsKeywordsKor());
+        List<VideoResponseDto> reportsVideoList = new ArrayList<>();
+//        reportsVideoList = reportsVideoService.searchVideo(reports.getReportsKeywordsKor());
         log.info("{ ReportsVideoService } : 레포트 유튜브리스트 성공");
         return ReportsDetailResponseDto.fromReports(reports, reportsVideoList, language);
     }
