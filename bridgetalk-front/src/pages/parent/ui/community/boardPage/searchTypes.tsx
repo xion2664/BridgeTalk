@@ -25,9 +25,9 @@ export function SearchTypes() {
   }
 
   return (
-    <div className="boardPage__categories">
+    <div className="boardPage__top-categories">
       <button
-        className={`boardPage__categories-title ${activeCategory(boardStore.searchType, '제목')}`}
+        className={`boardPage__top-categories-title ${activeCategory(boardStore.searchType, '제목')}`}
         onClick={() => {
           boardStore.setSearchType('제목');
         }}
@@ -35,7 +35,7 @@ export function SearchTypes() {
         {categories[language][0]}
       </button>
       <button
-        className={`boardPage__categories-writer ${activeCategory(boardStore.searchType, '작성자')} `}
+        className={`boardPage__top-categories-writer ${activeCategory(boardStore.searchType, '작성자')} `}
         onClick={() => {
           boardStore.setSearchType('작성자');
         }}
@@ -43,7 +43,7 @@ export function SearchTypes() {
         {categories[language][1]}
       </button>
       <button
-        className={`boardPage__categories-content ${activeCategory(boardStore.searchType, '내용과레포트요약')}`}
+        className={`boardPage__top-categories-content ${activeCategory(boardStore.searchType, '내용과레포트요약')}`}
         onClick={() => {
           boardStore.setSearchType('내용과레포트요약');
         }}

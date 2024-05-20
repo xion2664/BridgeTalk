@@ -29,20 +29,22 @@ export function BoardListItem({ board }: Props) {
       <div className="boardPage__list-item-header">
         <div className="boardPage__list-item-header-first">
           <div className="boardPage__list-item-header-first-title">{board.boardsTitle}</div>
-          <div className="boardPage__list-item-header-first-sub">
-            <div className="boardPage__list-item-header-first-sub-writer">{board.parentsNickname}</div>
-            <div className="line">{`|`}</div>
-            <div className="boardPage__list-item-header-first-sub-date">{dateToString(board.createdAt)}</div>
-          </div>
+          <div className="boardPage__list-item-header-first-likes">♥ {board.likes}</div>
         </div>
-        <div className="boardPage__list-item-header-second"></div>
       </div>
       <div className="boardPage__list-item-body">
         <div className="boardPage__list-item-body-content">{board.boardsContent.split('</br>').join(' ')}</div>
-        <div className="boardPage__list-item-body-keywords">
+      </div>
+      <div className="boardPage__list-item-footer">
+        <div className="boardPage__list-item-footer-keywords">
           {board.reportsKeywords.map((keyword) => (
             <div># {keyword}</div>
           ))}
+        </div>
+        <div className="boardPage__list-item-footer-info">
+          <div className="boardPage__list-item-footer-info-writer">{board.parentsNickname}</div>
+          <div className="line">{`|`}</div>
+          <div className="boardPage__list-item-footer-info-date">{dateToString(board.createdAt)}</div>
         </div>
       </div>
     </div>

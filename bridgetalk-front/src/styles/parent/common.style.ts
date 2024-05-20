@@ -19,6 +19,7 @@ export function color(alpha: number) {
     light: `rgba(224, 233, 255, ${alpha})`,
     sub3: `rgba(231, 230, 233, ${alpha})`,
     line: `rgba(170, 170, 170, ${alpha})`,
+    sky: `rgba(178, 198, 249, ${alpha})`,
   };
 }
 
