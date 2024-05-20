@@ -31,6 +31,8 @@ export const Container = styled.div`
         border-radius: 5svh;
         border-bottom: 2svh solid palevioletred;
         background-color: pink;
+        box-shadow: 0px 10px 10px 0px rgba(255, 255, 255, 0.25) inset, 0px -10px 10px 0px rgba(0, 0, 0, 0.25) inset,
+          0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
         img {
           width: 100%;
@@ -53,6 +55,8 @@ export const Container = styled.div`
 
         background-color: pink;
         border-bottom: 2svh solid palevioletred;
+        box-shadow: 0px 10px 10px 0px rgba(255, 255, 255, 0.25) inset, 0px -10px 10px 0px rgba(0, 0, 0, 0.25) inset,
+          0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
         &-title {
           font-family: 'DNF';

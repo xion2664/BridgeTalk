@@ -58,7 +58,7 @@ export function PuzzlePage() {
     <S.Container>
       <div className="puzzlePage">
         <img
-          src="/assets/img/child/back.svg"
+          src="/assets/img/child/icon/toBack.svg"
           alt=""
           style={{ width: '10svh', position: 'fixed', top: '0', left: '0', margin: '5svh' }}
           onClick={() => {
