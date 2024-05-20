@@ -79,7 +79,7 @@ export function TestCamera() {
 
   const OutputData = () => {
     const results = resultsRef.current!;
-    console.log(results.poseLandmarks);
+    // console.log(results.poseLandmarks);
   };
 
   return (

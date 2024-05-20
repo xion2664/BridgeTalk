@@ -24,16 +24,16 @@ export function Dino() {
 
   const model = useLoader(GLTFLoader, `/assets/dino/${dino}/${act}.glb`, (loader) => {
     loader.manager.onStart = (url, itemsLoaded, itemsTotal) => {
-      console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+      // console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
     };
     loader.manager.onLoad = () => {
-      console.log('Loading complete!');
+      // console.log('Loading complete!');
     };
     loader.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+      // console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
     };
     loader.manager.onError = (url) => {
-      console.log('There was an error loading ' + url);
+      // console.log('There was an error loading ' + url);
     };
   });
 
@@ -58,7 +58,7 @@ export function Dino() {
 
   useEffect(() => {
     setAct(getDinoEmotion(emotion));
-    console.log(getDinoEmotion(emotion));
+    // console.log(getDinoEmotion(emotion));
   }, [emotion]);
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export function Dino() {
     <primitive
       onClick={() => {
         if (!isEnd) {
-          console.log('{ 대화 시작 }');
+          // console.log('{ 대화 시작 }');
           setIsStart(true);
           setIsTalking(true);
         }

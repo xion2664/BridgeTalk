@@ -53,7 +53,7 @@ export function TestCharacter() {
   /*  랜드마크들의 좌표를 콘솔에 출력 */
   const OutputData = () => {
     const results = resultsRef.current!;
-    console.log(results.multiHandLandmarks);
+    // console.log(results.multiHandLandmarks);
   };
 
   return (

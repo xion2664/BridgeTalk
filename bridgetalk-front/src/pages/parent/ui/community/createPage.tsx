@@ -37,7 +37,7 @@ export function CreatePage() {
 
       // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
       const data = await Promise.allSettled(promises);
-      console.log(data);
+      // console.log(data);
 
       data.forEach((it: any) => {
         if (!it.value) return;
@@ -138,7 +138,7 @@ export function CreatePage() {
                   contentRef.current!.value.split('\n').join('</br>'),
                   language,
                 ).then((res) => {
-                  console.log(res);
+                  // console.log(res);
                   if (!res) return;
 
                   setErrorModalState('게시글이 성공적으로 등록됐습니다.');

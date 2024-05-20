@@ -24,7 +24,7 @@ export function BoardDetailPage() {
   const params = useParams();
 
   const boardStore = useBoardStore();
-  const langauge = useReportStore((state) => state.language);
+  const language = useReportStore((state) => state.language);
   const [like, setLike] = useState(false);
   const [likeCnt, setLikeCnt] = useState(0);
   const [board, setBoard] = useState<BoardContent>();
@@ -35,9 +35,7 @@ export function BoardDetailPage() {
         const res: any = await getBoardLikeCheck(Number(params.boardId));
 
         setLike(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
     boardLikeCheck();
   }, []);
@@ -45,19 +43,16 @@ export function BoardDetailPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getBoardDetail(Number(params.boardId), langauge);
+        const data = await getBoardDetail(Number(params.boardId), language);
 
         if (data.status === 200) {
-          console.log(data.data);
           setBoard(data.data);
           setLikeCnt(data.data.likes);
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
     fetchData();
-  }, []);
+  }, [language]);
 
   return (
     <S.Container>

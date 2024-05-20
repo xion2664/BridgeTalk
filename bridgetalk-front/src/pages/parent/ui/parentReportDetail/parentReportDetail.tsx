@@ -65,7 +65,7 @@ export function ParentReportDetail() {
 
         setDate(data.data.createdAt.split('T')[0].split('-'));
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
 
