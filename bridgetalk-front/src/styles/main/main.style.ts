@@ -14,9 +14,10 @@ const move = keyframes`
 `;
 
 export const Background = styled.div`
+  background-position: center center;
   background-image: url('/assets/img/main_bg.png');
-  background-size: 110% 150%; /* 배경 이미지가 충분히 크게 설정되어야 합니다. */
-  background-repeat: no-repeat; /* 배경 이미지가 반복되지 않도록 설정 */
+  background-size: cover;
+  background-repeat: no-repeat;
   ${bg}
   animation: ${move} 30s ease-in-out infinite;
 `;

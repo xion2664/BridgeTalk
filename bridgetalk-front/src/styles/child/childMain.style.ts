@@ -17,6 +17,7 @@ export const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
+    position: relative;
 
     &__container {
       position: fixed;
@@ -48,6 +49,7 @@ export const Container = styled.div`
 
         width: 100%;
         height: 60%;
+        padding-bottom: 10svh;
 
         &-toMessage {
           display: flex;
@@ -105,7 +107,23 @@ export const Container = styled.div`
     }
 
     &__footer {
-      height: 30svh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 25svh;
+      position: fixed;
+      bottom: 0;
+      padding: 0 3svw;
+
+      p {
+        background-color: white;
+        font-family: 'DNF';
+        text-align: center;
+        padding: 1svh;
+        border-radius: 5px 5px 0 5px;
+        box-shadow 3px 3px 3px #00000050;
+      }
     }
   }
 `;
