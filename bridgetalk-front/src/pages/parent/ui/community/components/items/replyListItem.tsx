@@ -1,4 +1,6 @@
+import { deleteCommentLike, getCommentLikeCheck, postCommentLike } from '@/pages/parent/query';
 import { dateToString } from '@/shared';
+import { useEffect, useState } from 'react';
 
 interface Reply {
   commentsId: number;
@@ -13,15 +15,54 @@ interface Props {
 }
 
 export function ReplyListItem({ reply }: Props) {
+  const [likes, setLikes] = useState(reply.likes);
+  const [isLike, setIsLike] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getCommentLikeCheck(reply.commentsId);
+
+        setIsLike(data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="replyListItem">
       <div className="replyListItem__left">
         <div className="replyListItem__left-like">
-          <button className="replyListItem__left-like-btn">
-            <img src={'/assets/img/parent/community/favor_solid.svg'} />
+          <button
+            className="replyListItem__left-like-btn"
+            onClick={() => {
+              if (isLike) {
+                deleteCommentLike(reply.commentsId)
+                  .then(() => {
+                    setIsLike(false);
+                    setLikes((cnt) => cnt - 1);
+                  })
+                  .catch((err) => {
+                    setIsLike(true);
+                  });
+              } else {
+                postCommentLike(reply.commentsId)
+                  .then(() => {
+                    setIsLike(true);
+                    setLikes((cnt) => cnt + 1);
+                  })
+                  .catch((err) => {
+                    setIsLike(false);
+                  });
+              }
+            }}
+          >
+            <img src={`/assets/img/parent/community/favor_${isLike ? 'empty' : 'solid'}.svg`} />
           </button>
         </div>
-        <div className="replyListItem__left-cnt">0</div>
+        <div className="replyListItem__left-cnt">{likes}</div>
       </div>
       <div className="replyListItem__right">
         <div className="replyListItem__right-top">

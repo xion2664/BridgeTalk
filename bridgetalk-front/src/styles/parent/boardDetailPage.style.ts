@@ -7,6 +7,10 @@ export const Container = styled.div`
     font-size: 1.2svw;
   }
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   display: flex;
   justify-content: center;
   align-items: start;
