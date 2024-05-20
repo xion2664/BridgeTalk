@@ -60,7 +60,7 @@ export function PuzzlePage() {
         <img
           src="/assets/img/child/back.svg"
           alt=""
-          style={{ width: '30px', position: 'fixed', top: '0', left: '0', margin: '10px' }}
+          style={{ width: '10svh', position: 'fixed', top: '0', left: '0', margin: '5svh' }}
           onClick={() => {
             navigate('/stage');
           }}

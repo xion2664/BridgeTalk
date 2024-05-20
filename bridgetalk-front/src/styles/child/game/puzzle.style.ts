@@ -58,6 +58,7 @@ export const Container = styled.div`
     &__puzzle {
       display: flex;
       align-items: center;
+      justify-content: center;
       width: 70svw;
       border-radius: 5svh;
       border-bottom: 2svh solid palevioletred;
@@ -67,6 +68,8 @@ export const Container = styled.div`
         width: 90%;
         height: 90%;
         object-fit: contain;
+        background-color: #ffc0f1;
+        border-radius: 1svh;
       }
     }
   }
