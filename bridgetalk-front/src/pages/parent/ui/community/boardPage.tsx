@@ -57,6 +57,23 @@ export function BoardPage() {
     }
   }
 
+  const latest = useMemo(
+    () => ({
+      kor: '최신순',
+      viet: 'Pinakabago',
+      ph: '',
+    }),
+    [],
+  );
+  const favor = useMemo(
+    () => ({
+      kor: '인기순',
+      viet: 'Pinakasikat',
+      ph: '',
+    }),
+    [],
+  );
+
   useEffect(() => {
     fetchData('', language, page, boardStore.searchType, boardStore.sortType);
   }, [language, page]);
@@ -82,7 +99,7 @@ export function BoardPage() {
               boardStore.setSortType('최신순');
             }}
           >
-            최신순
+            {latest[language]}
           </button>
           <button
             className="sort__popular"
@@ -91,7 +108,7 @@ export function BoardPage() {
               boardStore.setSortType('좋아요순');
             }}
           >
-            인기순
+            {favor[language]}
           </button>
         </div>
       </div>

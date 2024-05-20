@@ -60,5 +60,64 @@
 // }
 
 export function TestPuzzle() {
-  return <></>;
+  const webcamRef = useRef<Webcam>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const resultsRef = useRef<Results>();
+
+  const onResults = useCallback((results: Results) => {
+    resultsRef.current = results;
+    const canvasCtx = canvasRef.current!.getContext('2d')!;
+    drawPose(canvasCtx, results);
+  }, []);
+
+  useEffect(() => {
+    const pose = new Pose({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+    });
+
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+
+    pose.onResults(onResults);
+
+    if (webcamRef.current !== undefined && webcamRef.current !== null) {
+      const camera = new Camera(webcamRef.current.video!, {
+        onFrame: async () => {
+          await pose.send({ image: webcamRef.current!.video! });
+        },
+        width: 1280,
+        height: 720,
+      });
+      camera.start();
+    }
+  }, [onResults]);
+
+  const OutputData = () => {
+    const results = resultsRef.current!;
+    // console.log(results.poseLandmarks);
+  };
+
+  return (
+    <div className={styles.container}>
+      <Webcam
+        audio={false}
+        style={{ visibility: 'hidden' }}
+        width={1280}
+        height={720}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={{ width: 1280, height: 1000, facingMode: 'user' }}
+      />
+      <canvas ref={canvasRef} className={styles.canvas} width={1280} height={720} />
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={OutputData}>
+          Output Data
+        </button>
+      </div>
+    </div>
+  );
 }

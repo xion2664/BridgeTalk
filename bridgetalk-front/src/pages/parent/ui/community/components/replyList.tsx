@@ -19,11 +19,11 @@ export function ReplyList({ boardId }: any) {
         const data = await getCommentList(language, boardId);
 
         if (data.status === 200) {
-          console.log(data.data.commentsList);
+          // console.log(data.data.commentsList);
           setReplyList(data.data.commentsList);
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
     fetchData(language, boardId);

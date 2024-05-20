@@ -110,7 +110,7 @@ export const Container = styled.div`
       grid-template-rows: repeat(4, 1fr);
       gap: 3svh;
 
-      height: 65svh;
+      height: 67svh;
 
       &-item {
         cursor: pointer;
