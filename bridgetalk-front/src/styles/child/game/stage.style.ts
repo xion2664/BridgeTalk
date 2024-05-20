@@ -47,9 +47,10 @@ export const Container = styled.div`
     height: 50svh;
     padding: 5svh;
 
-    border-radius: 3svh;
+    border-radius: 5svh;
     background-color: #ff6161;
-    box-shadow: 0 1svh 0 pink;
+    box-shadow: 0px 10px 10px 0px rgba(255, 255, 255, 0.25) inset, 0px -10px 10px 0px rgba(0, 0, 0, 0.25) inset,
+      0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
     span {
       font-size: 5svh;
@@ -59,7 +60,7 @@ export const Container = styled.div`
 
     img {
       width: 90%;
-      border-radius: 1svh;
+      border-radius: 3svh;
     }
   }
 `;
