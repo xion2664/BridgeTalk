@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
-const truncate = css`
+export const truncate = css`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -31,11 +31,8 @@ export const Container = styled.div`
 
     width: 67svw;
     height: 87.5svh;
-
     border-radius: 2.6svw;
-
     background-color: ${color(1).bright};
-
     padding: 3.7svh 2.6svw;
 
     &__header {
@@ -210,7 +207,12 @@ export const Container = styled.div`
             }
 
             &-likes {
-              font-size: 1.5svw;
+              display: flex;
+              align-items: center;
+              font-size: 1.25svw;
+              img {
+                width: 1.25svw;
+              }
             }
           }
         }
@@ -253,6 +255,8 @@ export const Container = styled.div`
 
               border-radius: 1.5svw;
               padding: 0.5svh 0.5svw;
+
+              box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
             }
           }
         }

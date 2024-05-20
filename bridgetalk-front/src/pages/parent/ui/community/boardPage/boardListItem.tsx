@@ -29,7 +29,10 @@ export function BoardListItem({ board }: Props) {
       <div className="boardPage__list-item-header">
         <div className="boardPage__list-item-header-first">
           <div className="boardPage__list-item-header-first-title">{board.boardsTitle}</div>
-          <div className="boardPage__list-item-header-first-likes">♥ {board.likes}</div>
+          <div className="boardPage__list-item-header-first-likes">
+            <img src={`/assets/img/parent/community/like_empty.svg`} />
+            {board.likes}
+          </div>
         </div>
       </div>
       <div className="boardPage__list-item-body">
