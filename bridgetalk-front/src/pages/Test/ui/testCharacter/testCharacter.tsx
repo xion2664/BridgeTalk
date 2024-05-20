@@ -1,9 +1,37 @@
-import { useCallback, useEffect, useRef } from 'react';
-import { css } from '@emotion/css';
-import Webcam from 'react-webcam';
-import { Camera } from '@mediapipe/camera_utils';
-import { Hands, Results } from '@mediapipe/hands';
-import { drawCanvas } from './utils/drawCanvas';
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { Canvas, extend } from '@react-three/fiber';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { CameraControls } from '@/pages/child/ui/talk/components/cameraControl';
+// import { Dino } from './components/dino';
+// import { Dino2 } from './components/dino2';
+// import * as S from './styles/character';
+
+// extend({ OrbitControls });
+
+// export function TestCharacter() {
+//   // Navigate
+//   const navigate = useNavigate();
+
+//   return (
+//     <S.Container>
+//       <div className="three">
+//         <div className="header">
+//           <img src="/assets/flag/viet.png" alt="Vietnam Flag" />
+//           <img src="/assets/flag/kor.png" alt="Korea Flag" />
+//         </div>
+//         <Canvas camera={{ position: [0, 0, 1.2], fov: 50 }}>
+//           <ambientLight intensity={2} />
+//           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+//           <pointLight position={[-10, -10, -10]} />
+//           <Dino position={[-0.5, -0.4, -5]} onClick={() => navigate('/dress')} />
+//           <Dino2 position={[0.5, -0.4, -5]} />
+//           <CameraControls />
+//         </Canvas>
+//       </div>
+//     </S.Container>
+//   );
+// }
 
 export function TestCharacter() {
   const webcamRef = useRef<Webcam>(null);
@@ -79,35 +107,3 @@ export function TestCharacter() {
     </div>
   );
 }
-
-const styles = {
-  container: css`
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `,
-  canvas: css`
-    position: absolute;
-    width: 1280px;
-    height: 720px;
-    background-color: #fff;
-  `,
-  buttonContainer: css`
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  `,
-  button: css`
-    color: #fff;
-    background-color: #0082cf;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 10px;
-    cursor: pointer;
-  `,
-};

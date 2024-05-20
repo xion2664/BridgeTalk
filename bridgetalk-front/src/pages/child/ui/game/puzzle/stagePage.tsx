@@ -40,12 +40,13 @@ export function StagePage() {
       <div className="stagePage">
         <div className="stagePage__header">
           <img
-            src="/assets/img/icon/toBack.svg"
+            src="/assets/img/child/icon/toBack.svg"
             alt="뒤로 가기"
             onClick={() => {
               navigate('/game');
             }}
           />
+          <img src="/assets/img/child/icon/stages.svg" alt="" style={{ width: '30svw' }} />
           <div className="stagePage__header-lang" onClick={toggleNation}>
             <img src={`/assets/flag/${nation}.png`} alt={nation} />
           </div>
