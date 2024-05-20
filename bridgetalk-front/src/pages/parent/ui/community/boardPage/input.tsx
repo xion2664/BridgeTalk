@@ -1,10 +1,22 @@
-import React from 'react';
+import { useReportStore } from '@/pages/parent/store';
+import React, { useMemo } from 'react';
 
 export const Input = React.forwardRef((props: any, ref: any) => {
+  const language = useReportStore((state) => state.language);
+
+  const placeholder = useMemo(
+    () => ({
+      kor: '검색어를 입력해주세요',
+      viet: 'Paki-type ang keyword',
+      ph: '',
+    }),
+    [],
+  );
+
   return (
     <div className="boardPage__search">
       <form className="boardPage__search-form">
-        <input className="boardPage__search-input" type="text" placeholder="검색어를 입력해주세요" ref={ref}></input>
+        <input className="boardPage__search-input" type="text" placeholder={placeholder[language]} ref={ref}></input>
         <button
           className="boardPage__search-button"
           onClick={(e) => {

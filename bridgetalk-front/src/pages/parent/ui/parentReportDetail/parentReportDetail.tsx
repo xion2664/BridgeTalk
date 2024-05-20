@@ -126,6 +126,15 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
 
   const reportStore = useReportStore();
 
+  const none = useMemo(
+    () => ({
+      kor: '작성된 답글이 없습니다',
+      viet: 'Walang nakasulat na sagot',
+      ph: '',
+    }),
+    [],
+  );
+
   return (
     <>
       {resultPage === 0 ? (
@@ -154,7 +163,7 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
                 </div>
               ))
             ) : (
-              <div className="replys-none">작성된 답글이 없습니다.</div>
+              <div className="replys-none">{none[language]}</div>
             )}
           </div>
         </>
