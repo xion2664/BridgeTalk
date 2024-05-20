@@ -3,7 +3,7 @@ import * as S from '@/styles/parent/boardDetailPage.style';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useBoardStore, useReportStore } from '../../store';
-import { getBoardDetail } from '../../query';
+import { deleteBoardLike, getBoardDetail, getBoardLikeCheck, postBoardLike } from '../../query';
 import { dateToString } from '@/shared';
 import { ReplyRegist } from './boardPage/replyRegist';
 
@@ -26,7 +26,21 @@ export function BoardDetailPage() {
   const boardStore = useBoardStore();
   const langauge = useReportStore((state) => state.language);
   const [like, setLike] = useState(false);
+  const [likeCnt, setLikeCnt] = useState(0);
   const [board, setBoard] = useState<BoardContent>();
+
+  useEffect(() => {
+    async function boardLikeCheck() {
+      try {
+        const res: any = await getBoardLikeCheck(Number(params.boardId));
+
+        setLike(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    boardLikeCheck();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,6 +50,7 @@ export function BoardDetailPage() {
         if (data.status === 200) {
           console.log(data.data);
           setBoard(data.data);
+          setLikeCnt(data.data.likes);
         }
       } catch (err) {
         console.log(err);
@@ -60,10 +75,33 @@ export function BoardDetailPage() {
             <button className="boiardDetailPage__header-icons-share">
               <img src={'/assets/img/parent/community/share.svg'} />
             </button>
-            <button className="boiardDetailPage__header-icons-like">
-              <img src={`/assets/img/parent/community/like_${like ? 'solid' : 'empty'}.svg`} />
+            <button
+              className="boiardDetailPage__header-icons-like"
+              onClick={() => {
+                if (like) {
+                  deleteBoardLike(Number(params.boardId))
+                    .then(() => {
+                      setLike(false);
+                      setLikeCnt((cnt) => cnt - 1);
+                    })
+                    .catch((err) => {
+                      setLike(true);
+                    });
+                } else {
+                  postBoardLike(Number(params.boardId))
+                    .then(() => {
+                      setLike(true);
+                      setLikeCnt((cnt) => cnt + 1);
+                    })
+                    .catch((err) => {
+                      setLike(false);
+                    });
+                }
+              }}
+            >
+              <img src={`/assets/img/parent/community/${like ? 'like_solid.png' : 'like_empty.svg'}`} />
             </button>
-            <div className="boiardDetailPage__header-icons-like-cnt">0</div>
+            <div className="boiardDetailPage__header-icons-like-cnt">{likeCnt}</div>
           </div>
         </div>
         <div className="scroll">
