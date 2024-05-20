@@ -36,6 +36,7 @@ export function ReplyListItem({ reply }: Props) {
       <div className="replyListItem__left">
         <div className="replyListItem__left-like">
           <button
+            style={{ backgroundColor: isLike ? 'black' : 'white' }}
             className="replyListItem__left-like-btn"
             onClick={() => {
               if (isLike) {
