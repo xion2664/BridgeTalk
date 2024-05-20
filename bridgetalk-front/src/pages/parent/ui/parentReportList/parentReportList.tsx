@@ -31,7 +31,7 @@ export function ParentReportList() {
 
       // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
       const data = await Promise.allSettled(promises);
-      console.log(data);
+      // console.log(data);
 
       data.forEach((it: any) => {
         if (!it.value) return;

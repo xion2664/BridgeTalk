@@ -1,5 +1,5 @@
 import * as S from '@/styles/parent/createPage.style';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useReportStore } from '../../store';
 import { getReportList, postBoardCreate } from '../../query';
 import { errorCatch } from '@/shared';
@@ -37,7 +37,7 @@ export function CreatePage() {
 
       // data: promises의 비동기 호출이 모두 종료되었을 때 resolve된 응답을 저장하는 배열
       const data = await Promise.allSettled(promises);
-      console.log(data);
+      // console.log(data);
 
       data.forEach((it: any) => {
         if (!it.value) return;
@@ -81,6 +81,41 @@ export function CreatePage() {
     }
   }
 
+  const placeholderTitle = useMemo(
+    () => ({
+      kor: '제목을 입력해주세요',
+      viet: 'Vui lòng nhập tiêu đề',
+      ph: 'Paki-type ang keyword',
+    }),
+    [],
+  );
+
+  const placeholderReport = useMemo(
+    () => ({
+      kor: '리포트를 선택해주세요',
+      viet: 'Vui lòng chọn báo cáo',
+      ph: 'Paki-type ang keyword',
+    }),
+    [],
+  );
+
+  const placeholderContent = useMemo(
+    () => ({
+      kor: '내용을 입력해주세요',
+      viet: 'Vui lòng nhập nội dung',
+      ph: 'Paki-type ang keyword',
+    }),
+    [],
+  );
+
+  const placeholderComplete = useMemo(
+    () => ({
+      kor: '작성 완료',
+      viet: 'Hoàn thành viết',
+      ph: 'Pinakabago',
+    }),
+    [],
+  );
   return (
     <S.Container>
       <div className="createPage">
@@ -97,10 +132,10 @@ export function CreatePage() {
         <div className="createPage__container">
           <div className="createPage__container-title">
             <div>Q.</div>
-            <input type="text" placeholder="제목을 입력해주세요" required ref={titleRef} />
+            <input type="text" placeholder={placeholderTitle[language]} required ref={titleRef} />
           </div>
           <div className="createPage__container-report">
-            <div className="createPage__container-report-title">리포트를 선택해주세요</div>
+            <div className="createPage__container-report-title">{placeholderReport[language]}</div>
             <div className="createPage__container-report-content">
               {reportList &&
                 reportList.map((report: any) => {
@@ -127,7 +162,12 @@ export function CreatePage() {
             </div>
           </div>
           <div className="createPage__container-content">
-            <textarea name="article" id="article" placeholder="내용을 입력해주세요" ref={contentRef}></textarea>
+            <textarea
+              name="article"
+              id="article"
+              placeholder={placeholderContent[language]}
+              ref={contentRef}
+            ></textarea>
           </div>
           <div className="createPage__container-btns">
             <button
@@ -138,7 +178,7 @@ export function CreatePage() {
                   contentRef.current!.value.split('\n').join('</br>'),
                   language,
                 ).then((res) => {
-                  console.log(res);
+                  // console.log(res);
                   if (!res) return;
 
                   setErrorModalState('게시글이 성공적으로 등록됐습니다.');
@@ -149,7 +189,7 @@ export function CreatePage() {
                 });
               }}
             >
-              작성 완료
+              {placeholderComplete[language]}
             </button>
           </div>
         </div>

@@ -52,6 +52,10 @@ export const ParentReportDetailRecorder = memo(() => {
     return () => {
       // 오디오 스트림 해제
       if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+          console.log('트랙 해제');
+        });
         streamRef.current = null;
       }
     };

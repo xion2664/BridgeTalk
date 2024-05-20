@@ -54,12 +54,12 @@ export function Message() {
         if (response.status === 200) {
           const audioURL = URL.createObjectURL(response.data);
           setVoiceData(audioURL);
-          console.log('API 응답 상태 코드:', response.status);
+          // console.log('API 응답 상태 코드:', response.status);
         } else {
-          console.error('오디오 데이터를 가져오는 데 실패했습니다:', response.statusText);
+          // console.error('오디오 데이터를 가져오는 데 실패했습니다:', response.statusText);
         }
       } catch (error) {
-        console.error('오디오 데이터를 가져오는 중 오류 발생:', error);
+        // console.error('오디오 데이터를 가져오는 중 오류 발생:', error);
       }
     };
 
@@ -76,9 +76,9 @@ export function Message() {
           setIsPlaying(true);
         })
         .catch((error) => {
-          console.error('오디오 재생 중 오류 발생:', error);
+          // console.error('오디오 재생 중 오류 발생:', error);
         });
-      console.log('오디오 재생');
+      // console.log('오디오 재생');
     }
   };
 
