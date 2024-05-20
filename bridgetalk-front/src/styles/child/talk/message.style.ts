@@ -65,20 +65,28 @@ export const Container = styled.div`
         border-radius: 5svh;
         background-color: #ffffff;
         box-shadow: 0 1svh 1svh #00000050;
-        overflow: auto;
-        font-size: 4svh;
-        line-height: 7svh;
+        overflow-y: auto;
+        scrollbar-width: none;
 
-        h3 {
-          font-family: 'DNF';
+        ::-webkit-scrollbar {
+          display: none;
         }
 
-        p {
-          font-size: 2svh;
-        }
+        &-content {
+          font-size: 4svh;
+          line-height: 7svh;
 
-        hr {
-          margin: 3svh 0;
+          h3 {
+            font-family: 'DNF';
+          }
+
+          p {
+            font-size: 2svh;
+          }
+
+          hr {
+            margin: 3svh 0;
+          }
         }
       }
     }

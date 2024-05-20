@@ -125,10 +125,12 @@ export function Message() {
             ))}
           </div>
           <div className="message__reader-talk">
-            <h3>다이노의 편지</h3>
-            <p>(다이노를 눌러 음성 편지를 시작하세요!)</p>
-            <hr />
-            {message}
+            <div className="message__reader-talk-content">
+              <h3>다이노의 편지</h3>
+              <p>(다이노를 눌러 음성 편지를 시작하세요!)</p>
+              <hr />
+              {message}
+            </div>
           </div>
         </div>
       </div>
