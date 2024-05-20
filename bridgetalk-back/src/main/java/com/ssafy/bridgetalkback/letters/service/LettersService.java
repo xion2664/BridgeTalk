@@ -27,6 +27,7 @@ import com.ssafy.bridgetalkback.parents.domain.Parents;
 import com.ssafy.bridgetalkback.parents.service.ParentsFindService;
 import com.ssafy.bridgetalkback.reports.domain.Reports;
 import com.ssafy.bridgetalkback.reports.service.ReportsService;
+import com.ssafy.bridgetalkback.translation.service.TranslationService;
 import com.ssafy.bridgetalkback.tts.service.TtsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,7 @@ public class LettersService {
     private final KidsFindService kidsFindService;
     private final LettersImgRepository lettersImgRepository;
     private final SseService sseService;
+    private final TranslationService translationService;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
@@ -184,8 +186,11 @@ public class LettersService {
             log.error("!! 변환할 원본 텍스트가 비어었습니다.");
             throw BaseException.type(LettersErrorCode.CHATGPT_EMPTY_TEXT);
         }
-        String engText = chatGptService.createPrompt(orginalText, ChatGptRequestCode.TRANSLATE_ENG);
-        transformedText = chatGptService.createPrompt(engText, ChatGptRequestCode.CONVERSION);
+//        String engText = chatGptService.createPrompt(orginalText, ChatGptRequestCode.TRANSLATE_ENG);
+//        transformedText = chatGptService.createPrompt(engText, ChatGptRequestCode.CONVERSION);
+        String translationText = translationService.translation(orginalText, "vi", "ko");
+        log.info(">> translationText : {}", translationText);
+        transformedText = chatGptService.createPrompt(translationText, ChatGptRequestCode.STT_TRANSLATION);
         log.info(">> transformedText : {}", transformedText);
 
         return transformedText;
