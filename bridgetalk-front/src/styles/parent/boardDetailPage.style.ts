@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { color } from './common.style';
+import { color, textShadowBlue } from './common.style';
+import { truncate } from './boardPage.style';
 
 export const Container = styled.div`
   * {
@@ -13,7 +14,7 @@ export const Container = styled.div`
 
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
 
   width: 100%;
   height: 100%;
@@ -23,14 +24,20 @@ export const Container = styled.div`
     cursor: pointer;
   }
 
-  background-color: ${color(1).bright};
-
   .boardDetailPage {
     display: flex;
     flex-direction: column;
     gap: 2svh;
-    width: 40svw;
-    height: 100svh;
+
+    width: 67svw;
+    height: 87.5svh;
+    border-radius: 2.6svw;
+    background-color: ${color(1).bright};
+    padding: 3.7svh 2.6svw;
+
+    .sky {
+      background-color: ${color(1).sky};
+    }
 
     .scroll {
       overflow-y: auto;
@@ -43,15 +50,10 @@ export const Container = styled.div`
 
     &__header {
       width: 100%;
-      height: 5svh;
 
       display: flex;
       align-content: center;
       justify-content: space-between;
-
-      div {
-        font-size: 2svw;
-      }
 
       button {
         background-color: transparent;
@@ -62,16 +64,10 @@ export const Container = styled.div`
         }
       }
 
-      &-icons {
-        display: flex;
-        align-items: center;
-        gap: 1svw;
-
-        button {
-          img {
-            width: 2svw;
-          }
-        }
+      &-title {
+        ${textShadowBlue}
+        color: ${color(1).bright};
+        font-size: 3svw;
       }
     }
 
@@ -84,34 +80,81 @@ export const Container = styled.div`
         gap: 1svh;
 
         &-header {
+          display: flex;
+          justify-content: space-between;
+
           &-title {
             font-size: 2svw;
             font-family: 'Pretendard-Black';
+            ${truncate}
           }
 
-          &-sub {
+          &-icons {
             display: flex;
-            gap: 0.5svw;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* gap: 1svh; */
+
+            button {
+              background-color: transparent;
+              border: none;
+
+              img {
+                width: 2svw;
+              }
+            }
           }
+        }
+        &-sub {
+          display: flex;
+          justify-content: space-between;
+          gap: 0.5svw;
         }
 
         &-report {
           padding: 3svh 1.5svw;
 
           border-radius: 1svw;
-          background-color: ${color(1).line};
+          background-color: ${color(1).sky};
 
           width: 100%;
 
           text-align: center;
+
+          &-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1svw;
+
+            color: ${color(1).bright};
+            font-family: 'Pretendard-Black';
+            width: 100%;
+
+            &-keywords {
+              display: flex;
+              gap: 0.5svw;
+
+              &-keyword {
+                background-color: ${color(1).bright};
+                color: ${color(1).main};
+                border-radius: 1.5svw;
+                padding: 1svh 0.5svw;
+                box-shadow: 0 0.5svh 0.4svh ${color(0.25).black};
+              }
+            }
+          }
+
+          &-content {
+            width: 100%;
+            text-align: start;
+
+            padding: 2svh 0;
+          }
         }
 
         &-content {
-        }
-
-        &-keywords {
-          display: flex;
-          gap: 0.5svw;
         }
       }
 
@@ -158,7 +201,7 @@ export const Container = styled.div`
 
     .replyListItem {
       display: grid;
-      grid-template-columns: 1fr 5fr;
+      grid-template-columns: 1fr 7fr;
 
       &__left {
         display: flex;

@@ -74,6 +74,15 @@ export function BoardPage() {
     [],
   );
 
+  const title = useMemo(
+    () => ({
+      kor: '부모 페이지',
+      viet: 'Trang phụ huynh',
+      ph: 'Pahina ng magulang',
+    }),
+    [],
+  );
+
   useEffect(() => {
     fetchData('', language, page, boardStore.searchType, boardStore.sortType);
   }, [language, page]);
@@ -84,17 +93,11 @@ export function BoardPage() {
 
   return (
     <S.Container>
-      <div className="boardPage">
-        <SearchTypes />
-        <Input ref={inputRef} fetchData={fetchData} />
-        <div className="boardPage__list">
-          {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
-        </div>
-        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
-        <div className="sort">
+      <div className="boardPage__header">
+        <div className="boardPage__header-title">{title[language]}</div>
+        <div className="boardPage__header-sort">
           <button
-            className="sort__latest"
-            style={{ color: boardStore.sortType === '최신순' ? 'black' : '' }}
+            className={`boardPage__header-sort-latest ${boardStore.sortType === '최신순' && 'active'}`}
             onClick={() => {
               boardStore.setSortType('최신순');
             }}
@@ -102,8 +105,7 @@ export function BoardPage() {
             {latest[language]}
           </button>
           <button
-            className="sort__popular"
-            style={{ color: boardStore.sortType === '좋아요순' ? 'black' : '' }}
+            className={`boardPage__header-sort-popular ${boardStore.sortType === '좋아요순' && 'active'}`}
             onClick={() => {
               boardStore.setSortType('좋아요순');
             }}
@@ -112,13 +114,23 @@ export function BoardPage() {
           </button>
         </div>
       </div>
+      <div className="boardPage">
+        <div className="boardPage__top">
+          <SearchTypes />
+          <Input ref={inputRef} fetchData={fetchData} />
+        </div>
+        <div className="boardPage__list">
+          {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
+        </div>
+        <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
+      </div>
       <button
         className="write"
         onClick={() => {
           navigate('write');
         }}
       >
-        <img src={'/assets/img/parent/community/write_solid.svg'} />
+        <img src={'/assets/img/parent/community/write_empty.svg'} />
       </button>
     </S.Container>
   );

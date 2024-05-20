@@ -14,11 +14,16 @@ export const Input = React.forwardRef((props: any, ref: any) => {
   );
 
   return (
-    <div className="boardPage__search">
-      <form className="boardPage__search-form">
-        <input className="boardPage__search-input" type="text" placeholder={placeholder[language]} ref={ref}></input>
+    <div className="boardPage__top-search">
+      <form className="boardPage__top-search-form">
+        <input
+          className="boardPage__top-search-input"
+          type="text"
+          placeholder={placeholder[language]}
+          ref={ref}
+        ></input>
         <button
-          className="boardPage__search-button"
+          className="boardPage__top-search-button"
           onClick={(e) => {
             e.preventDefault();
             props.fetchData();
