@@ -24,13 +24,12 @@
 
 [1. 프로젝트 개요](#1️⃣-프로젝트-개요)<br>
 [2. 주요 기능](#2️⃣-주요-기능)<br>
-[3. 화면 설명](#3️⃣-화면-설명)<br>
-[4. 기술 소개](#4️⃣-기술-소개)<br>
-[5. 시스템 아키텍처](#5️⃣-시스템-아키텍처)<br>
-[6. 파일 구조](#6️⃣-파일-구조)<br>
-[7. 기술 스택](#7️⃣-기술-스택)<br>
-[8. 설계 문서](#8️⃣-문서)<br>
-[9. 팀 소개](#9️⃣-팀-소개)<br>
+[3. 기술 소개](#3️⃣-기술-소개)<br>
+[4. 시스템 아키텍처](#4️⃣-시스템-아키텍처)<br>
+[5. 파일 구조](#5️⃣-파일-구조)<br>
+[6. 기술 스택](#6️⃣-기술-스택)<br>
+[7. 설계 문서](#7️⃣-문서)<br>
+[8. 팀 소개](#8️⃣-팀-소개)<br>
 <br><br><br>
 
 
@@ -137,25 +136,45 @@
 
 <br><br>
 
-# 3️⃣ 화면 설명
+# 3️⃣ 기술 소개
+|브릿지톡 핵심 기술 소개|
+|---|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/0ab80df6-bd3a-4bcf-9e03-cd6a36547613" width="650px" height="400px">|
+
+### 서비스 워커 활용 -> 정적 데이터 캐싱
+|서비스 워커 활용 -> 정적 데이터 캐싱|
+|---|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/98dc0428-a982-4bd1-a82b-0093cb02aa06" width="650px" height="400px">|
+### Unity & Three.js & 미디어 파이프 활용
+|Unity & Three.js|
+|---|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/a0f89041-4148-46f4-b3ba-0ffcad8d0d4c" width="650px" height="400px">|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/c2b9fb29-b014-4772-b850-4a9cefa3acdc" width="650px" height="400px">|
+|미디어파이프 활용|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/422d4dc4-4570-412c-b77c-16f97d47ee9a" width="650px" height="400px">|
+### 백엔드 API 성능 개선
+|STS 성능 개선|
+|---|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/650d6d4f-a11a-42ba-bae3-9a4fc1041c21" width="650px" height="400px">|
+|백엔드 API 응답 속도 개선|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/95e8ca4f-4887-4e73-b6a7-3a4aa0fb99ef" width="650px" height="400px">|
+### 테스트코드 작성 (통합 테스트 & 단위 테스트)
+|테스트코드 작성|
+|---|
+|<img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/bbbf6361-379f-4d26-9132-53d8587f1afd" width="650px" height="400px">|
 
 <br><br>
-
-# 4️⃣ 기술 소개
-
-
-<br><br>
-# 5️⃣ 시스템 아키텍처
+# 4️⃣ 시스템 아키텍처
 <img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/87e32f80-2ccc-4194-a46a-25d83886dbba" width="650px" height="400px">
 
 <br><br>
 
-# 6️⃣ 파일 구조
+# 5️⃣ 파일 구조
 
 
 <br><br>
 
-# 7️⃣ 기술 스택
+# 6️⃣ 기술 스택
 
 <div style="display:flex; flex-direction:column; align-items:flex-start;">
     <p><strong>⚡ Management Tool</stron-g></p>
@@ -264,7 +283,7 @@
 
 <br><br>
 
-# 8️⃣ 문서
+# 7️⃣ 문서
 
 ## 📂[ERD](https://www.notion.so/ERD-f84db9c62aa049b69c3f5ed78cd5d0ed)
 <img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2" width="650px" height="400px">
@@ -272,19 +291,18 @@
 <br><br>
 
 ## 📂[와이어프레임](https://www.figma.com/files/project/222942611/Team-project?fuid=958981197957446535)
-<br><br>
+
 
 ## 📂[기능명세서](https://www.notion.so/2024-04-23-10-40-1fba7cf99bec45409630948c8ae28392)
-<br><br>
 
-## 📂[API 명세서](https://www.notion.so/API-2024-05-13-09-00-6a44ff0fdc354754b975bcfff039a3f8)
-<br><br>
+## 📂[API 명세서](https://www.notion.so/API-2024-05-19-09-00-6a44ff0fdc354754b975bcfff039a3f8)
 
 ## 📂포팅메뉴얼
 > exec/bridgetalk_포팅 메뉴얼.pdf
+
 <br><br>
 
-# 9️⃣ 팀 소개
+# 8️⃣ 팀 소개
 | 이름 | 역할 |
 | --- | --- |
 | 윤선경 (팀장) |- BackEnd<br> - 전역  예외 처리  및 **테스트 코드 틀 구성** 및 작성<br> - 스프링시큐리티, **JWT를 사용한 회원 인가/인증 구현**<br> - 리프레시토큰 및 이메일 인증번호 등 일정 **휘발성 데이터 redis를 활용해서 처리**<br> - **생성형 AI를 활용**한 캐릭터 대화 구현<br> - **querydsl을 활용**한 조회 및 부모 커뮤니티 기능 구현<br> - 육아 정보 크롤링 및 번역 구현<br> - **ssl 인증** 및 프록시로 **nginx 분기 처리** ( / , /api ) |
