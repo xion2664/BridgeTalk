@@ -1,5 +1,5 @@
 # 브릿지톡(BridgeTalk) - 이주민 가정을 위한 다문화 소통 플랫폼
-<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/54ed3830-f93b-46c4-90a2-9b4fefb4b497" width="700px" height="500px">
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/54ed3830-f93b-46c4-90a2-9b4fefb4b497" width="700px" height="450px">
 
 <br>
 
@@ -23,14 +23,14 @@
 # 목차
 
 [1. 프로젝트 개요](#1️⃣-프로젝트-개요)<br>
-[2. 주요 기능](#two-주요-기능)<br>
-[3. 화면 설명](#three-화면-설명)<br>
-[4. 기술 소개](#four-기술-소개)<br>
-[5. 시스템 아키텍처](#five-시스템-아키텍처)<br>
-[6. 파일 구조](#six-파일-구조)<br>
-[7. 기술 스택](#seven-기술-스택)<br>
-[8. 설계 문서](#eight-문서)<br>
-[9. 팀 소개](#nine-팀-소개)<br>
+[2. 주요 기능](#2️⃣-주요-기능)<br>
+[3. 화면 설명](#3️⃣-화면-설명)<br>
+[4. 기술 소개](#4️⃣-기술-소개)<br>
+[5. 시스템 아키텍처](#5️⃣-시스템-아키텍처)<br>
+[6. 파일 구조](#6️⃣-파일-구조)<br>
+[7. 기술 스택](#7️⃣-기술-스택)<br>
+[8. 설계 문서](#8️⃣-문서)<br>
+[9. 팀 소개](#9️⃣-팀-소개)<br>
 <br><br><br>
 
 
@@ -77,10 +77,10 @@
 
 > #### ❓ 왜 언어 학습 위주가 아닌 소통 중심의 서비스를 기획하나요?
 
-- 언어 학습으로 인한 문제는 아이가 성장하면서 어머니가 한국에 계신 시간이 길어지다 보니 자연스레 소통에 큰 문제가 없을 정도로 개선되는 경우가 많음
-- 하지만 엄마와 아이와 소통하면서 유대감 형성을 하는 시기는 지나게 됩니다!
+- **언어 학습으로 인한 문제는** 아이와 함께 어머니가 한국에서 계속 지내게 되면서, **시간이 흐르면 자연스레 소통에 큰 문제가 없을 정도로 개선되는 경우가 많음**
+- **하지만 엄마와 아이와 소통하면서 유대감 형성을 하는 시기는 지나게 됩니다!**
     
-    → 저희는 이 시기에 소통을 돕고자 했습니다. 그렇게 나온 서비스! 
+    → **저희는 이 시기에 소통을 돕고자 했습니다.** 그렇게 나온 서비스! 
     
 
 ### 이주민 가정을 위한 다문화 소통 플랫폼 '브릿지톡' 입니다.
@@ -170,39 +170,44 @@
     <br>
     <p><strong>⚡ IDE</strong></p>
     <div>
-        <img src="https://img.shields.io/badge/vscode 1.86-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"> 
-        <img src="https://img.shields.io/badge/intellij-000000?style=for-the-badge&logo=intellijidea&logoColor=white">  
-        <img src="https://img.shields.io/badge/android studio 1.1.28-569A31?style=for-the-badge&logo=redis&logoColor=white">
+        <img src="https://img.shields.io/badge/vscode 1.85.1-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"> 
+        <img src="https://img.shields.io/badge/intellij 2023.3.1-000000?style=for-the-badge&logo=intellijidea&logoColor=white">  
     </div>
     <br>
     <!-- Server -->
     <p><strong>⚡ Server</strong></p>
     <div>
-        <img src="https://img.shields.io/badge/ubuntu 20.04-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">    
+        <img src="https://img.shields.io/badge/ubuntu 20.04.6-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">    
         <img src="https://img.shields.io/badge/nginx 1.18.0-009639?style=for-the-badge&logo=nginx&logoColor=white">
         <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
         <img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
-        <img src="https://img.shields.io/badge/redis 7.2.4-DC382D?style=for-the-badge&logo=redis&logoColor=white">
     </div>
     <br>
     <p><strong>⚡ Infra</strong></p>
     <div>
-        <img src="https://img.shields.io/badge/docker 25.0.4-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-        <img src="https://img.shields.io/badge/jenkins 2.448-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
-        <img src="https://img.shields.io/badge/sonarqube-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white">
+        <img src="https://img.shields.io/badge/docker 25.04.6-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+        <img src="https://img.shields.io/badge/jenkins 2.455-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+        <img src="https://img.shields.io/badge/sonarqube 5.1.16-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white">
     </div>
     <br>
     <!-- Frontend -->
     <p><strong>⚡ Frontend</strong></p>
     <div> 
+        <img src="https://img.shields.io/badge/react 18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+        <img src="https://img.shields.io/badge/typescript 5.4.4-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+        <img src="https://img.shields.io/badge/Zustand 4.5.2-DD0700?style=for-the-badge&logo=Zustand&logoColor=white">
+        <img src="https://img.shields.io/badge/webpack 5.91.0-8DD6F9?style=for-the-badge&logo=webpack&logoColor=white">
+        <img src="https://img.shields.io/badge/unity 2022.3.28f1-FFFFFF?style=for-the-badge&logo=unity&logoColor=black">
+        <img src="https://img.shields.io/badge/react_three_fiber 6.0.13-000000?style=for-the-badge&logo=three.js&logoColor=white">
+        <img src="https://img.shields.io/badge/styled_components 6.1.9-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
     </div>
     <br>
     <!-- Backend -->
     <p><strong>⚡ Backend</strong></p>
     <div>
         <img src="https://img.shields.io/badge/Java 17-007396?style=for-the-badge&logo=Java&logoColor=white"> 
-        <img src="https://img.shields.io/badge/Spring Boot 3.2.3-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white">
-        <img src="https://img.shields.io/badge/gralde 8.5-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+        <img src="https://img.shields.io/badge/Spring Boot 3.2.5-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white">
+        <img src="https://img.shields.io/badge/gralde 8.7-02303A?style=for-the-badge&logo=gradle&logoColor=white">
        <img src="https://img.shields.io/badge/spring jpa-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
        <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
        <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white">
@@ -212,12 +217,26 @@
     <p><strong>⚡ Database</strong></p>
     <div>
         <img src="https://img.shields.io/badge/mysql 8.0.35-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+        <img src="https://img.shields.io/badge/redis 7.2.4-DC382D?style=for-the-badge&logo=redis&logoColor=white">
     </div>
     <br>
     <!--Alarm-->
     <p><strong>⚡ Alarm</strong></p>
     <div>
+        <img src="https://img.shields.io/badge/SSE-FFD500?style=for-the-badge&logo=SSE&logoColor=white">
     </div>
+    <br>
+    <!--외부 서비스-->
+    <p><strong>⚡ 외부 서비스</strong></p>
+    <div>
+        <img src="https://img.shields.io/badge/CHATGPT-179287?style=for-the-badge&logo=chatbot&logoColor=white">
+        <img src="https://img.shields.io/badge/google cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
+        <img src="https://img.shields.io/badge/CLOVA-00DC82?style=for-the-badge&logo=x&logoColor=white">
+        <img src="https://img.shields.io/badge/PAPAGO-50B0E9?style=for-the-badge&logo=parrotsecurity&logoColor=white">
+        <img src="https://img.shields.io/badge/youtube-FF0000?style=for-the-badge&logo=youtube&logoColor=white">
+        <img src="https://img.shields.io/badge/MEDIAPIPE-005571?style=for-the-badge&logo=mural&logoColor=white">
+    </div>
+    <br>
 </div>
 <br><br>
 
@@ -247,18 +266,22 @@
 
 # 8️⃣ 문서
 
-## 📂ERD
-<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2" height="650px" width="400px">
+## 📂[ERD](https://www.notion.so/ERD-f84db9c62aa049b69c3f5ed78cd5d0ed)
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2" width="650px" height="400px">
 
 <br><br>
 
-## 📂기능명세서
+## 📂[와이어프레임](https://www.figma.com/files/project/222942611/Team-project?fuid=958981197957446535)
 <br><br>
 
-## 📂API 명세서
+## 📂[기능명세서](https://www.notion.so/2024-04-23-10-40-1fba7cf99bec45409630948c8ae28392)
+<br><br>
+
+## 📂[API 명세서](https://www.notion.so/API-2024-05-13-09-00-6a44ff0fdc354754b975bcfff039a3f8)
 <br><br>
 
 ## 📂포팅메뉴얼
+> exec/bridgetalk_포팅 메뉴얼.pdf
 <br><br>
 
 # 9️⃣ 팀 소개
