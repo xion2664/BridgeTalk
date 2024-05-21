@@ -44,5 +44,5 @@ export function AppPreloader() {
     preloadAssets();
   }, []);
 
-  return <div></div>;
+  return <></>;
 }

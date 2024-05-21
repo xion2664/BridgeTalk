@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { color, textShadowBlue } from './common.style';
 import { insetShadow } from '../main/common.style';
 
-const truncate = css`
+export const truncate = css`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -15,91 +15,151 @@ export const Container = styled.div`
   }
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: center;
+  gap: 2svh;
 
   width: 100%;
   height: 100%;
-  padding: 2svh 2svw;
-
-  background-color: ${color(1).bright};
 
   .boardPage {
     position: relative;
 
     display: flex;
     flex-direction: column;
-    gap: 2svh;
 
-    width: 40svw;
-    height: 100svh;
+    width: 67svw;
+    height: 87.5svh;
+    border-radius: 2.6svw;
+    background-color: ${color(1).bright};
+    padding: 3.7svh 2.6svw;
 
-    &__categories {
+    &__header {
       display: flex;
-      gap: 1svw;
-      height: 5svh;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
 
-      button {
-        font-size: 1.5svw;
+      width: 67svw;
 
-        color: ${color(1).black};
-        background-color: ${color(1).bright};
+      padding: 0 1svw;
 
-        border: 1px solid ${color(1).line};
-        border-radius: 0.5svw;
-        padding: 1svh 0.5svw;
-
-        cursor: pointer;
-        transition: all 0.2s;
-
-        &:hover {
-          color: ${color(1).bright};
-          background-color: ${color(1).black};
-        }
-
-        &:active {
-          color: ${color(1).black};
-          background-color: ${color(1).bright};
-        }
-      }
-
-      .active {
-        background-color: ${color(1).black};
-
+      &-title {
+        ${textShadowBlue}
+        font-size: 3svw;
         color: ${color(1).bright};
       }
-    }
 
-    &__search {
-      padding: 1.8svh 1.5svw;
-      border-top: 2px solid ${color(1).black};
-      border-bottom: 2px solid ${color(1).black};
-
-      &-form {
+      &-sort {
         display: flex;
-        align-content: center;
-        justify-content: space-between;
         gap: 1svw;
 
-        input {
-          width: 100%;
-          font-size: 1.7svw;
-
-          border: none;
-          outline: none;
-        }
-
         button {
-          padding: 1svh 0.5svw;
-
-          border-radius: 0.5svw;
-          border: 1px solid ${color(1).line};
           background-color: transparent;
+          border: none;
 
+          padding: 1svh 1svw;
+
+          font-size: 2svw;
+          border-radius: 1.5svw;
+
+          background-color: ${color(1).bright};
+          color: ${color(1).main};
           cursor: pointer;
 
-          img {
-            width: 1.7svw;
+          font-size: 1.5svw;
+
+          &:hover {
+            background-color: ${color(1).main};
+            color: ${color(1).bright};
+          }
+        }
+        .active {
+          color: ${color(1).bright};
+          background-color: ${color(1).main};
+        }
+      } // .sort
+    }
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-categories {
+        display: flex;
+        gap: 1svw;
+        height: 5svh;
+
+        button {
+          font-size: 1.5svw;
+
+          color: ${color(1).black};
+          background-color: ${color(1).bright};
+
+          border: none;
+          border-radius: 0.5svw;
+          padding: 1svh 0.5svw;
+          box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &:hover {
+            color: ${color(1).bright};
+            background-color: ${color(1).main};
+          }
+
+          &:active {
+            color: ${color(1).black};
+            background-color: ${color(1).main};
+          }
+        }
+
+        .active {
+          background-color: ${color(1).main};
+          color: ${color(1).bright};
+        }
+      }
+
+      &-search {
+        &-form {
+          display: flex;
+          align-content: center;
+          justify-content: center;
+
+          width: 29svw;
+
+          background-color: ${color(1).sky};
+          border-radius: 5svw;
+
+          overflow: hidden;
+
+          input {
+            background-color: transparent;
+            border: none;
+            outline: none;
+
+            width: 100%;
+
+            padding: 2svh 1svw;
+            font-size: 1.2svw;
+          }
+
+          button {
+            padding: 1svh 0.5svw;
+            background-color: transparent;
+
+            border: none;
+            background-color: transparent;
+
+            cursor: pointer;
+
+            padding: 0 1svw;
+
+            img {
+              width: 1.7svw;
+            }
           }
         }
       }
@@ -108,16 +168,22 @@ export const Container = styled.div`
     &__list {
       display: grid;
       grid-template-rows: repeat(4, 1fr);
-      gap: 3svh;
+      /* gap: 3svh; */
+      padding: 2svh 0;
 
-      height: 65svh;
+      height: 100%;
 
       &-item {
         cursor: pointer;
 
         display: flex;
         flex-direction: column;
+        justify-content: center;
+
         gap: 1svh;
+        border-top: 1px solid ${color(1).main};
+        border-bottom: 1px solid ${color(1).main};
+
         width: 100%;
 
         overflow: hidden;
@@ -126,12 +192,13 @@ export const Container = styled.div`
 
         &-header {
           display: flex;
-          justify-content: space-between;
+          width: 100%;
 
           &-first {
             display: flex;
-            flex-direction: column;
-            gap: 1svh;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
 
             &-title {
               font-size: 2svw;
@@ -139,25 +206,65 @@ export const Container = styled.div`
               ${truncate}
             }
 
-            &-sub {
+            &-likes {
               display: flex;
+              align-items: center;
               gap: 0.5svw;
+
+              font-size: 1.25svw;
+              img {
+                width: 1.25svw;
+              }
             }
           }
         }
 
         &-body {
           &-content {
+            font-size: 1.25svw;
+
             ${truncate}
           }
+        }
+
+        &-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          &-info {
+            display: flex;
+            gap: 0.5svw;
+
+            &-writer {
+              font-size: 1.25svw;
+            }
+
+            &-date {
+              font-size: 1.25svw;
+            }
+          }
+
           &-keywords {
             display: flex;
             justify-content: end;
             gap: 1svw;
+
+            div {
+              background-color: ${color(1).main};
+              color: ${color(1).bright};
+              font-size: 1.25svw;
+
+              border-radius: 1.5svw;
+              padding: 0.5svh 0.5svw;
+
+              box-shadow: 0 0.5svh 0.4svh ${color(0.5).black};
+            }
           }
         }
       }
     }
+
     .pagenation {
       display: flex;
       gap: 1svw;
@@ -165,53 +272,28 @@ export const Container = styled.div`
 
       .active {
         /* background-color: ${color(1).bright}; */
-        border: 2px solid ${color(1).black};
+        /* border: 2px solid ${color(1).black}; */
+        color: ${color(1).main};
+        border: none;
       }
 
       button {
         width: 3svw;
         height: 3svw;
 
-        border: none;
         border-radius: 1svw;
 
-        font-family: 'Pretendard';
+        font-family: 'DNF';
         font-size: 1.5svw;
 
         cursor: pointer;
 
         transition: all 0.2s;
         background-color: ${color(1).bright};
-        border: 1px solid ${color(1).line};
+        border: none;
       } //.active
     } // .pagenation
   } // .boardPage
-
-  .sort {
-    position: absolute;
-    top: 10svh;
-    right: 0;
-    transform: translateX(100%);
-
-    padding: 0 1svw;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1svh;
-
-    button {
-      background-color: transparent;
-      border: none;
-
-      color: ${color(1).line};
-      cursor: pointer;
-
-      font-size: 1.5svw;
-      &:hover {
-        color: ${color(1).black};
-      }
-    }
-  } // .sort
 
   .write {
     position: absolute;
@@ -221,10 +303,11 @@ export const Container = styled.div`
     padding: 3svh 1.5svw;
 
     border-radius: 50%;
+    border: none;
 
     cursor: pointer;
 
-    background-color: transparent;
+    background-color: ${color(1).main};
 
     img {
       width: 3.6svw;

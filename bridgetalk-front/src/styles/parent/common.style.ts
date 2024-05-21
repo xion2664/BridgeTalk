@@ -19,6 +19,7 @@ export function color(alpha: number) {
     light: `rgba(224, 233, 255, ${alpha})`,
     sub3: `rgba(231, 230, 233, ${alpha})`,
     line: `rgba(170, 170, 170, ${alpha})`,
+    sky: `rgba(178, 198, 249, ${alpha})`,
   };
 }
 
@@ -81,5 +82,5 @@ export const CommonContainer = css`
 export const textShadowBlue = css`
   text-shadow: 0.2svw 0 0 ${color(1).main}, 0.2svw 0.2svw 0 ${color(1).main}, 0 0.2svw 0 ${color(1).main},
     -0.2svw 0.2svw 0 ${color(1).main}, -0.2svw 0svw 0 ${color(1).main}, -0.2svw -0.2svw 0 ${color(1).main},
-    0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 1svh 0.8svh ${color(1).black};
+    0svw -0.2svw 0 ${color(1).main}, 0.2svw -0.2svw 0 ${color(1).main}, 0 0.5svh 0.4svh ${color(1).black};
 `;

@@ -2,7 +2,7 @@ import { postCommentCreate } from '@/pages/parent/query';
 import { useBoardStore, useReportStore } from '@/pages/parent/store';
 import { errorCatch } from '@/shared';
 import { useErrorStore } from '@/shared/store';
-import { MutableRefObject, RefObject, useRef } from 'react';
+import { MutableRefObject, RefObject, useMemo, useRef } from 'react';
 
 interface Props {
   boardsId?: number;
@@ -36,13 +36,32 @@ export function ReplyRegist({ boardsId }: Props) {
       }
     }
   }
+
+  const placeholder = useMemo(
+    () => ({
+      kor: '생각을 답글로 달아보세요',
+      viet: 'Hãy để lại suy nghĩ của bạn dưới dạng bình luận',
+      ph: '',
+    }),
+    [],
+  );
+
+  const regist = useMemo(
+    () => ({
+      kor: '등록하기',
+      viet: 'Đăng ký',
+      ph: '',
+    }),
+    [],
+  );
+
   return (
     <>
       <div className="boardDetailPage__container-reply-input">
         <input
           type="text"
           ref={contentRef}
-          placeholder="생각을 답글로 달아보세요"
+          placeholder={placeholder[language]}
           onKeyDown={(e) => {
             if (e.key !== 'Enter' || !boardsId) return;
 
@@ -63,7 +82,7 @@ export function ReplyRegist({ boardsId }: Props) {
             });
           }}
         >
-          등록하기
+          {regist[language]}
         </button>
       </div>
     </>

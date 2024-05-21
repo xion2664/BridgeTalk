@@ -25,7 +25,7 @@ export function ReplyListItem({ reply }: Props) {
 
         setIsLike(data.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
     fetchData();

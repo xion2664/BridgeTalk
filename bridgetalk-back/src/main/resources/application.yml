@@ -19,7 +19,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${EC2_HOST}:3306/${DATABASE_NAME}
+    url: jdbc:mysql://${EC2_HOST}:3306/${DATABASE_NAME}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${EC2_USERNAME}
     password: ${EC2_PASSWORD}
 
@@ -85,4 +85,3 @@ springdoc:
   model-and-view-allowed: true
   paths-to-match:
     - /api/**
-

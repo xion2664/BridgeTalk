@@ -17,6 +17,8 @@ export function DressingPage() {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const resultsRef = useRef<Results>();
+  const cameraRef = useRef<Camera | null>(null);
+  const poseRef = useRef<Pose | null>(null);
 
   const [dressImages, setDressImages] = useState({
     leftForearm: null as HTMLImageElement | null,
@@ -66,22 +68,37 @@ export function DressingPage() {
     });
 
     pose.onResults(onResults);
+    poseRef.current = pose;
 
-    if (webcamRef.current !== undefined && webcamRef.current !== null) {
-      const camera = new Camera(webcamRef.current.video!, {
+    if (webcamRef.current && webcamRef.current.video) {
+      const camera = new Camera(webcamRef.current.video, {
         onFrame: async () => {
-          await pose.send({ image: webcamRef.current!.video! });
+          if (webcamRef.current && webcamRef.current.video) {
+            await pose.send({ image: webcamRef.current.video });
+          }
         },
         width: 1280,
         height: 720,
       });
       camera.start();
+      cameraRef.current = camera;
     }
+
+    return () => {
+      if (cameraRef.current) {
+        cameraRef.current.stop();
+        cameraRef.current = null;
+      }
+      if (poseRef.current) {
+        poseRef.current.close();
+        poseRef.current = null;
+      }
+    };
   }, [onResults]);
 
   const OutputData = () => {
     const results = resultsRef.current!;
-    console.log(results.poseLandmarks);
+    // console.log(results.poseLandmarks);
   };
 
   const captureImage = async () => {
@@ -110,12 +127,9 @@ export function DressingPage() {
       />
       <canvas ref={canvasRef} className={styles.canvas} width={1280} height={720} />
       <div className={styles.buttonContainer}>
-        {/* <button className={styles.button} onClick={OutputData}>
-          Output Data
-        </button> */}
         <div className={styles.side}>
           <img
-            src="/assets/img/child/back.svg"
+            src="/assets/img/child/icon/toBack.svg"
             alt=""
             onClick={() => {
               navigate('/game');
@@ -133,7 +147,8 @@ export function DressingPage() {
             <br /> 필리핀 여성들이 축제나 결혼식 등 중요한 자리에 갈 때 자주 입는답니다.
           </div>
           <div className={styles.capture} onClick={captureImage}>
-            <img src="/assets/img/child/game/capture.svg" alt="" />
+            <img src="/assets/img/child/icon/camera.svg" alt="" />
+            <span>사진 찍기!</span>
           </div>
         </div>
       </div>
@@ -155,8 +170,9 @@ const styles = {
   canvas: css`
     position: absolute;
     width: 1280px;
-    height: 720px;
+    height: 1000px;
     background-color: #fff;
+    border-radius: 5svh;
   `,
   side: css`
     width: 20svw;
@@ -164,23 +180,40 @@ const styles = {
     padding: 5svh;
     background-color: #ff8379;
     border-radius: 5svw;
-    box-shadow: 3 3 3 #00000050;
+    box-shadow: 0px 10px 10px 0px rgba(255, 255, 255, 0.25) inset, 0px -10px 10px 0px rgba(0, 0, 0, 0.25) inset,
+      0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   `,
   title: css`
+    margin: 3svh 0;
+
     * {
       font-family: 'DNF';
     }
   `,
   content: css`
-    margin-top: 5svh;
+    margin: 3svh 0;
+    font-size: 2svh;
+    line-height: 3svh;
   `,
   capture: css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    box-shadow: 0px 10px 10px 0px rgba(255, 255, 255, 0.25) inset, 0px -10px 10px 0px rgba(0, 0, 0, 0.25) inset,
+      0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 5svh;
+    padding: 0 1svw;
+
     img {
       height: 10svh;
       cursor: pointer;
     }
-    * {
-      color: white;
+    span {
+      font-family: 'DNF';
+      color: #ff8379;
+      font-size: 2svh;
     }
   `,
   buttonContainer: css`
