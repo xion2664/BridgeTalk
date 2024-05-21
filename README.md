@@ -170,8 +170,1361 @@
 <br><br>
 
 # 5️⃣ 파일 구조
+<details>
+<summary>Front 폴더 구조</summary>
 
+```bash
+📦bridgetalk-front
+ ┣ 📂public
+ ┃ ┣ 📂@ffmpeg
+ ┃ ┃ ┗ 📂core
+ ┃ ┃ ┃ ┣ 📂dist
+ ┃ ┃ ┃ ┃ ┣ 📂esm
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ffmpeg-core.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ffmpeg-core.wasm
+ ┃ ┃ ┃ ┃ ┗ 📂umd
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ffmpeg-core.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜ffmpeg-core.wasm
+ ┃ ┃ ┃ ┗ 📜package.json
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📂dino
+ ┃ ┃ ┃ ┣ 📂D1
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D1.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📂D2
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D2.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📂D3
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D3.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📂D4
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D4.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📂D5
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D5.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📂D6
+ ┃ ┃ ┃ ┃ ┣ 📜cute.glb
+ ┃ ┃ ┃ ┃ ┣ 📜D6.png
+ ┃ ┃ ┃ ┃ ┣ 📜happy.glb
+ ┃ ┃ ┃ ┃ ┣ 📜hello.glb
+ ┃ ┃ ┃ ┃ ┣ 📜idle.glb
+ ┃ ┃ ┃ ┃ ┣ 📜no.glb
+ ┃ ┃ ┃ ┃ ┣ 📜sick.glb
+ ┃ ┃ ┃ ┃ ┗ 📜yes.glb
+ ┃ ┃ ┃ ┣ 📜inCom.glb
+ ┃ ┃ ┃ ┣ 📜inCom2.glb
+ ┃ ┃ ┃ ┣ 📜mycom.glb
+ ┃ ┃ ┃ ┣ 📜otherPos.glb
+ ┃ ┃ ┃ ┗ 📜pinkSick.glb
+ ┃ ┃ ┣ 📂favicon
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-114x114.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-120x120.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-144x144.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-152x152.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-57x57.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-60x60.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-72x72.png
+ ┃ ┃ ┃ ┣ 📜apple-touch-icon-76x76.png
+ ┃ ┃ ┃ ┣ 📜code.txt
+ ┃ ┃ ┃ ┣ 📜favicon-128.png
+ ┃ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┃ ┣ 📜favicon-196x196.png
+ ┃ ┃ ┃ ┣ 📜favicon-32x32.png
+ ┃ ┃ ┃ ┣ 📜favicon-96x96.png
+ ┃ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┃ ┣ 📜logo.png
+ ┃ ┃ ┃ ┣ 📜mstile-144x144.png
+ ┃ ┃ ┃ ┣ 📜mstile-150x150.png
+ ┃ ┃ ┃ ┣ 📜mstile-310x150.png
+ ┃ ┃ ┃ ┣ 📜mstile-310x310.png
+ ┃ ┃ ┃ ┗ 📜mstile-70x70.png
+ ┃ ┃ ┣ 📂flag
+ ┃ ┃ ┃ ┣ 📜kor.png
+ ┃ ┃ ┃ ┣ 📜ph.png
+ ┃ ┃ ┃ ┗ 📜viet.png
+ ┃ ┃ ┣ 📂img
+ ┃ ┃ ┃ ┣ 📂child
+ ┃ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂drawing
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜eraser.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_arrowdown.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_arrowleft.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_arrowright.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_arrowtop.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_circle.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_fivestar.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_fourstar.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_line.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_line2.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_pentagon.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_rect.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_rhombus.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_sexangle.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜shape_triangle.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜thickline1.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜thickline2.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜thickline3.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜thickline4.svg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜thickness.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜barotSaya.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜bottom.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜candyBackground.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜capture.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜finishTitle.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜gameBackground.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜gameTitle.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜leftForearm.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜rightForearm.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜toDress.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜toHelp.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜toHome.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜top.png
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜toPuzzle.svg
+ ┃ ┃ ┃ ┃ ┣ 📜back.svg
+ ┃ ┃ ┃ ┃ ┣ 📜homeIcon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜save.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot1.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot2.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot3.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot4.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot5.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot6.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot7.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot8.svg
+ ┃ ┃ ┃ ┃ ┣ 📜toGame.svg
+ ┃ ┃ ┃ ┃ ┣ 📜toMessage.svg
+ ┃ ┃ ┃ ┃ ┗ 📜toTalk.svg
+ ┃ ┃ ┃ ┣ 📂icon
+ ┃ ┃ ┃ ┃ ┗ 📜toBack.svg
+ ┃ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┃ ┣ 📜addProfile.svg
+ ┃ ┃ ┃ ┃ ┣ 📜backIcon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜commingSoon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜deleteicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜editProfile.svg
+ ┃ ┃ ┃ ┃ ┣ 📜editProfileIcon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜emailicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜emailverifynumbericon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜login.svg
+ ┃ ┃ ┃ ┃ ┣ 📜logout.svg
+ ┃ ┃ ┃ ┃ ┣ 📜mainBackground.png
+ ┃ ┃ ┃ ┃ ┣ 📜nameicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜newProfile.svg
+ ┃ ┃ ┃ ┃ ┣ 📜nicknameicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜passwordcheckicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜passwordicon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜profile.svg
+ ┃ ┃ ┃ ┃ ┣ 📜saveIcon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜selectCharacter.svg
+ ┃ ┃ ┃ ┃ ┣ 📜selectYourCountry.svg
+ ┃ ┃ ┃ ┃ ┣ 📜setting.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot1.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot2.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot3.svg
+ ┃ ┃ ┃ ┃ ┣ 📜shot4.svg
+ ┃ ┃ ┃ ┃ ┣ 📜star.svg
+ ┃ ┃ ┃ ┃ ┗ 📜titleLogo.svg
+ ┃ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┃ ┣ 📂community
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜back.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜favor_empty.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜favor_solid.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜like_empty.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜like_solid.png
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜like_solid.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜search_empty.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜search_solid.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜share.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜write_empty.svg
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜write_solid.svg
+ ┃ ┃ ┃ ┃ ┣ 📂navbar
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜community_off.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜community_on.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜home_off.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜home_on.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜info_off.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜info_on.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜message_off.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜message_on.svg
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜nurture_off.svg
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜nurture_on.svg
+ ┃ ┃ ┃ ┃ ┣ 📜bridgeTalkLogo.svg
+ ┃ ┃ ┃ ┃ ┣ 📜dino.svg
+ ┃ ┃ ┃ ┃ ┣ 📜edu.svg
+ ┃ ┃ ┃ ┃ ┣ 📜empty.svg
+ ┃ ┃ ┃ ┃ ┣ 📜heart.svg
+ ┃ ┃ ┃ ┃ ┣ 📜homeIcon.svg
+ ┃ ┃ ┃ ┃ ┣ 📜noReports.svg
+ ┃ ┃ ┃ ┃ ┗ 📜nurture.svg
+ ┃ ┃ ┃ ┣ 📂pic
+ ┃ ┃ ┃ ┃ ┣ 📜blue.svg
+ ┃ ┃ ┃ ┃ ┣ 📜Cercle.png
+ ┃ ┃ ┃ ┃ ┣ 📜childBackground.png
+ ┃ ┃ ┃ ┃ ┣ 📜childMenu.svg
+ ┃ ┃ ┃ ┃ ┣ 📜end.svg
+ ┃ ┃ ┃ ┃ ┣ 📜envelop.svg
+ ┃ ┃ ┃ ┃ ┣ 📜gameMenu.svg
+ ┃ ┃ ┃ ┃ ┣ 📜halongbay.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜home3D.svg
+ ┃ ┃ ┃ ┃ ┣ 📜mailbox.svg
+ ┃ ┃ ┃ ┃ ┣ 📜menu1.png
+ ┃ ┃ ┃ ┃ ┣ 📜menu2.png
+ ┃ ┃ ┃ ┃ ┣ 📜message.svg
+ ┃ ┃ ┃ ┃ ┣ 📜pink.svg
+ ┃ ┃ ┃ ┃ ┣ 📜talkBackground.png
+ ┃ ┃ ┃ ┃ ┣ 📜talkLogo.svg
+ ┃ ┃ ┃ ┃ ┣ 📜talkMenu.svg
+ ┃ ┃ ┃ ┃ ┗ 📜주니토니_베트남.png
+ ┃ ┃ ┃ ┣ 📜backButton.svg
+ ┃ ┃ ┃ ┣ 📜bridgetalk_red.svg
+ ┃ ┃ ┃ ┣ 📜cloth.png
+ ┃ ┃ ┃ ┣ 📜D1.svg
+ ┃ ┃ ┃ ┣ 📜D2.svg
+ ┃ ┃ ┃ ┣ 📜D3.svg
+ ┃ ┃ ┃ ┣ 📜D4.svg
+ ┃ ┃ ┃ ┣ 📜D5.svg
+ ┃ ┃ ┃ ┣ 📜D6.svg
+ ┃ ┃ ┃ ┣ 📜dino.svg
+ ┃ ┃ ┃ ┣ 📜homeIcon.svg
+ ┃ ┃ ┃ ┣ 📜ktv.svg
+ ┃ ┃ ┃ ┣ 📜letter.svg
+ ┃ ┃ ┃ ┣ 📜main_bg.png
+ ┃ ┃ ┃ ┣ 📜nexticon.svg
+ ┃ ┃ ┃ ┣ 📜nextTriangle.svg
+ ┃ ┃ ┃ ┣ 📜parent_bg.png
+ ┃ ┃ ┃ ┣ 📜previcon.svg
+ ┃ ┃ ┃ ┣ 📜prevTriangle.svg
+ ┃ ┃ ┃ ┣ 📜signinicon.svg
+ ┃ ┃ ┃ ┣ 📜signupicon.svg
+ ┃ ┃ ┃ ┗ 📜vtk.svg
+ ┃ ┃ ┣ 📂three
+ ┃ ┃ ┃ ┣ 📜armchair_007(Clone).glb
+ ┃ ┃ ┃ ┣ 📜Backyard_Tree.glb
+ ┃ ┃ ┃ ┣ 📜Backyard_Watering_Can.glb
+ ┃ ┃ ┃ ┣ 📜Bathroom2_duck.glb
+ ┃ ┃ ┃ ┣ 📜Bedroom_2_Cactus.glb
+ ┃ ┃ ┃ ┣ 📜Bedroom_2_Vase.glb
+ ┃ ┃ ┃ ┣ 📜Childrens_Room_Horse.glb
+ ┃ ┃ ┃ ┣ 📜Childrens_Room_Teddy.glb
+ ┃ ┃ ┃ ┣ 📜Childroom2_skateboard.glb
+ ┃ ┃ ┃ ┣ 📜closet_003(Clone).glb
+ ┃ ┃ ┃ ┣ 📜Dinosaur.glb
+ ┃ ┃ ┃ ┣ 📜Duck.glb
+ ┃ ┃ ┃ ┣ 📜entertainment_003(Clone).glb
+ ┃ ┃ ┃ ┣ 📜entertainment_019(Clone).glb
+ ┃ ┃ ┃ ┣ 📜Garage_Car.glb
+ ┃ ┃ ┃ ┣ 📜Gnome.glb
+ ┃ ┃ ┃ ┣ 📜handheld_01.glb
+ ┃ ┃ ┃ ┣ 📜handheld_03.glb
+ ┃ ┃ ┃ ┣ 📜Headphones1.glb
+ ┃ ┃ ┃ ┣ 📜Joystick.glb
+ ┃ ┃ ┃ ┣ 📜Kitchen_Plant3.glb
+ ┃ ┃ ┃ ┣ 📜Kitchen_Plant4.glb
+ ┃ ┃ ┃ ┣ 📜Kitchen_Vase.glb
+ ┃ ┃ ┃ ┣ 📜Livingroom2_Ball.glb
+ ┃ ┃ ┃ ┣ 📜Livingroom2_Toy.glb
+ ┃ ┃ ┃ ┣ 📜Mailbox.glb
+ ┃ ┃ ┃ ┣ 📜Panda_Toy.glb
+ ┃ ┃ ┃ ┣ 📜Patio_Bush_1.glb
+ ┃ ┃ ┃ ┣ 📜Patio_Bush_2.glb
+ ┃ ┃ ┃ ┣ 📜Patio_Gnome.glb
+ ┃ ┃ ┃ ┣ 📜Patio_Tea_set.glb
+ ┃ ┃ ┃ ┣ 📜Playground_Ball.glb
+ ┃ ┃ ┃ ┣ 📜Playground_bucket2.glb
+ ┃ ┃ ┃ ┣ 📜Playground_chil_car1.glb
+ ┃ ┃ ┃ ┣ 📜Playground_Chil_Car2.glb
+ ┃ ┃ ┃ ┣ 📜Playground_figurine_circles2.glb
+ ┃ ┃ ┃ ┣ 📜Playground_figurine_cubes.glb
+ ┃ ┃ ┃ ┣ 📜Playground_figurine_triangles.glb
+ ┃ ┃ ┃ ┣ 📜Playground_rakes.glb
+ ┃ ┃ ┃ ┣ 📜Playground_Tree.glb
+ ┃ ┃ ┃ ┣ 📜Teddy_bear.glb
+ ┃ ┃ ┃ ┣ 📜toy_016(Clone).glb
+ ┃ ┃ ┃ ┣ 📜toy_017(Clone).glb
+ ┃ ┃ ┃ ┗ 📜toy_036(Clone).glb
+ ┃ ┃ ┣ 📜android-chrome-144x144 copy.png
+ ┃ ┃ ┣ 📜android-chrome-144x144.png
+ ┃ ┃ ┣ 📜android-chrome-192x192.png
+ ┃ ┃ ┣ 📜android-chrome-256x256.png
+ ┃ ┃ ┣ 📜android-chrome-36x36.png
+ ┃ ┃ ┣ 📜android-chrome-384x384.png
+ ┃ ┃ ┣ 📜android-chrome-48x48.png
+ ┃ ┃ ┣ 📜android-chrome-512x512.png
+ ┃ ┃ ┣ 📜android-chrome-72x72.png
+ ┃ ┃ ┣ 📜android-chrome-96x96.png
+ ┃ ┃ ┣ 📜apple-touch-icon-1024x1024.png
+ ┃ ┃ ┣ 📜apple-touch-icon-114x114.png
+ ┃ ┃ ┣ 📜apple-touch-icon-120x120.png
+ ┃ ┃ ┣ 📜apple-touch-icon-144x144.png
+ ┃ ┃ ┣ 📜apple-touch-icon-152x152.png
+ ┃ ┃ ┣ 📜apple-touch-icon-167x167.png
+ ┃ ┃ ┣ 📜apple-touch-icon-180x180.png
+ ┃ ┃ ┣ 📜apple-touch-icon-57x57.png
+ ┃ ┃ ┣ 📜apple-touch-icon-60x60.png
+ ┃ ┃ ┣ 📜apple-touch-icon-72x72.png
+ ┃ ┃ ┣ 📜apple-touch-icon-76x76.png
+ ┃ ┃ ┣ 📜apple-touch-icon-precomposed.png
+ ┃ ┃ ┣ 📜apple-touch-icon.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1125x2436.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1136x640.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1170x2532.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1179x2556.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1242x2208.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1242x2688.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1284x2778.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1290x2796.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1334x750.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1488x2266.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1536x2048.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1620x2160.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1640x2160.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1668x2224.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1668x2388.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-1792x828.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2048x1536.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2048x2732.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2160x1620.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2160x1640.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2208x1242.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2224x1668.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2266x1488.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2388x1668.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2436x1125.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2532x1170.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2556x1179.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2688x1242.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2732x2048.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2778x1284.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-2796x1290.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-640x1136.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-750x1334.png
+ ┃ ┃ ┣ 📜apple-touch-startup-image-828x1792.png
+ ┃ ┃ ┣ 📜appLogo.png
+ ┃ ┃ ┣ 📜browserconfig.xml
+ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┣ 📜favicon-32x32.png
+ ┃ ┃ ┣ 📜favicon-48x48.png
+ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┣ 📜manifest.webmanifest
+ ┃ ┃ ┣ 📜mstile-144x144.png
+ ┃ ┃ ┣ 📜mstile-150x150.png
+ ┃ ┃ ┣ 📜mstile-310x150.png
+ ┃ ┃ ┣ 📜mstile-310x310.png
+ ┃ ┃ ┣ 📜mstile-70x70.png
+ ┃ ┃ ┣ 📜yandex-browser-50x50.png
+ ┃ ┃ ┗ 📜yandex-browser-manifest.json
+ ┃ ┣ 📜814.ffmpeg.js
+ ┃ ┣ 📜blender.png
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜manifest.json
+ ┃ ┗ 📜maskable_icon_x192.png
+ ┣ 📂src
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📜app.tsx
+ ┃ ┃ ┣ 📜appPreloader.tsx
+ ┃ ┃ ┣ 📜appRoutes.tsx
+ ┃ ┃ ┗ 📜serviceWorker.js
+ ┃ ┣ 📂assets
+ ┃ ┃ ┗ 📂fonts
+ ┃ ┃ ┃ ┣ 📜CherryBombOne-Regular.ttf
+ ┃ ┃ ┃ ┣ 📜DNFBitBitv2.ttf
+ ┃ ┃ ┃ ┣ 📜Pretendard-Black.otf
+ ┃ ┃ ┃ ┗ 📜Pretendard-Medium.ttf
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📂child
+ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┣ 📂decodeFormData
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜decodeFormData.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getAvgVolume
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getAvgVolume.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂getDinoEmotion
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getDinoEmotion.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleTalkEnd
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleTalkEnd.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleTalkSend
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleTalkSend.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleTalkStart
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleTalkStart.ts
+ ┃ ┃ ┃ ┃ ┣ 📂webmToMp3
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜webmToMp3.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┣ 📂getTalkStart
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getTalkStart.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getTalkStop
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getTalkStop.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getTalkUpdate
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getTalkUpdate.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postMakeReport
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postMakeReport.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postSendTalk
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postSendTalk.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂store
+ ┃ ┃ ┃ ┃ ┣ 📂useTalkStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useTalkStore.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜game.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂draw
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜canvas.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜drawingPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜toolBar.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂dress
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜drawParts.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜coloringPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜dressingPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂puzzle
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂item
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜stageItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜finishPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜puzzlePage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜stagePage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜gamingPage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂talk
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂item
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜messageListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜cameraControl.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜dino.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜message.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜messageList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜talkingComponents.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜messagePage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜talkingPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜warningPage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜childPage.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂errorPage
+ ┃ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┃ ┣ 📂errorPage
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜errorPage.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┣ 📂handleFetchProfileList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleFetchProfileList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleNicknameCheck
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleNIcknameCheck.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handlePasswordCheck
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handlePasswordCheck.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleProfileLogin
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleProfileLogin.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleSignin
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleSignin.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleSignup
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleSignup.ts
+ ┃ ┃ ┃ ┃ ┣ 📂validateEmail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜validateEmail.ts
+ ┃ ┃ ┃ ┃ ┣ 📂validateName
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜validateName.ts
+ ┃ ┃ ┃ ┃ ┣ 📂validateNickname
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜validateNickname.ts
+ ┃ ┃ ┃ ┃ ┣ 📂validatePassword
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜validatePassword.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┣ 📂deleteDeleteProfile
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜deleteDeleteProfile.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂getNicknameCheck
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getNicknameCheck.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getProfileList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getProfileList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂patchEditProfile
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜patchEditProfile.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂postAddProfile
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postAddProfile.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂postProfileLogin
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postProfileLogin.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postSignin
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postSignin.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postSignup
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postSignup.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜login.ts
+ ┃ ┃ ┃ ┃ ┗ 📜register.ts
+ ┃ ┃ ┃ ┣ 📂store
+ ┃ ┃ ┃ ┃ ┣ 📂useProfileStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useProfileStore.ts
+ ┃ ┃ ┃ ┃ ┣ 📂useSignupStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useSignupStore.ts
+ ┃ ┃ ┃ ┃ ┣ 📂useUserStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useUserStore.ts
+ ┃ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜profile.ts
+ ┃ ┃ ┃ ┃ ┗ 📜user.ts
+ ┃ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┃ ┣ 📂guard
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜loginGuard.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜main.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂profile
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂item
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜character.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜dinoSelect.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜profile.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜inputName.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜selectCharacter.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜confirmAccessPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜confirmPassword.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜deleteProfilePage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜editProfilePage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜profilePage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂sign
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜inputEmail.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜inputName.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜selectCountry.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜selectDino.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜signInPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜signUpPage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂start
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜startPage.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┣ 📂handleNurtureInfoDetail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleNurtureInfoDetail.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleNurtureInfoList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleNurtureInfoList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleSearchBoard
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleSearchBoard.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┣ 📂deleteBoardLike
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜deleteBoardLike.ts
+ ┃ ┃ ┃ ┃ ┣ 📂deleteCommentLike
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜deleteCommentLike.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getBoardDetail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getBoardDetail.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getBoardLikeCheck
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getBoardLikeCheck.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getBoardList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getBoardList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getCommentLikeCheck
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getCommentLikeCheck.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getCommentList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getCommentList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getMyBoardList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getMyBoardList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getNurtureInfoDetail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getNurtureInfoDetail.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getNurtureInfoList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getNurtureInfoList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getProfile
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getProfile.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getReportDetail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getReportDetail.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂getReportList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getReportList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getReportsReplyList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getReportsReplyList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getSlang
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getSlang.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postBoardCreate
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postBoardCreate.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postBoardLike
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postBoardLike.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postCommentCreate
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postCommentCreate.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postCommentLike
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postCommentLike.ts
+ ┃ ┃ ┃ ┃ ┣ 📂postVoiceBlob
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜postVoiceBlob.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂store
+ ┃ ┃ ┃ ┃ ┣ 📂useBoardStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useBoardStore.ts
+ ┃ ┃ ┃ ┃ ┣ 📂useReportStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useReportStore.ts
+ ┃ ┃ ┃ ┃ ┣ 📂useVoiceStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜useVoiceStore.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┃ ┣ 📂community
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂boardPage
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜boardList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜boardListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜input.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜pagenation.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜replyRegist.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜searchTypes.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂items
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜articleListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜replyListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜articleList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜replyCreate.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜replyList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜boardDetailPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜boardPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜createPage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜updatePage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parent.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentInformation
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentInformation.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentInformationMain
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentInformationMain.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentInformationNurture
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜parentInformationNurture.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentInformationNurtureDetail.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentInformationWord
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentInformationWordListItem
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentInformationWordListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentInformationWord.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentMain
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentMain.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentReportDetail
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportDetailRecorder
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportDetailRecorder.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportDetailRecorderButton
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportDetailRecorderButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportDetailVolumeChecker
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportDetailVolumeChecker.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportDetail.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂parentReportList
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportListItem
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportListItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportListLeft
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportListLeft.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportListRight
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportListRight.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentReportListWordcloud
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportListWordcloud.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜parentReportList.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Test
+ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┣ 📂capturePicture
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜capturePicture.ts
+ ┃ ┃ ┃ ┃ ┣ 📂coloring
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜canvas.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜color.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜fill.ts
+ ┃ ┃ ┃ ┃ ┣ 📂connectCamera
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜connectCamera.ts
+ ┃ ┃ ┃ ┃ ┣ 📂connectMedia
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜connectMedia.ts
+ ┃ ┃ ┃ ┃ ┣ 📂connectMicrophone
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜connectMicrophone.ts
+ ┃ ┃ ┃ ┃ ┣ 📂generateAudioContext
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜generateAudioContext.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getAudioFrequency
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getAudioFrequency.ts
+ ┃ ┃ ┃ ┃ ┣ 📂getAudioInputList
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜getAudioInputList.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleStartRecordAudio
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleStartRecordAudio.ts
+ ┃ ┃ ┃ ┃ ┣ 📂handleStopRecordAudio
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜handleStopRecordAudio.ts
+ ┃ ┃ ┃ ┃ ┣ 📂setCharacter
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜cube.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜sphere.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜test.jpg
+ ┃ ┃ ┃ ┃ ┣ 📂startRecordVideo
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜startRecordVideo.ts
+ ┃ ┃ ┃ ┃ ┣ 📂stopRecordVideo
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜stopRecordVideo.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┣ 📂examAPI
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜examAPI.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂store
+ ┃ ┃ ┃ ┃ ┣ 📂countStore
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜countStore.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┃ ┣ 📂test
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜Test.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testCamera
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜drawCloth.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜drawDress.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜drawParts.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testCamera.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testCharacter
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜drawCanvas.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testCharacter.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testColoring
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜canvas.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜context.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜dispatcher.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜event.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜fill.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜snapshot.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜tool.ts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜toolType.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testColoring.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testDraw
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testDraw.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testMenuButtons
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testMenuButtons.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testPage
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testPage.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testPuzzle
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜drawPose.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testPuzzle.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testVoice
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testVoice.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testWordcloud
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testWordcloud.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂testZustand
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜testZustand.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂shared
+ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┣ 📂connectAudioStream
+ ┃ ┃ ┃ ┃ ┗ 📜connectAudioStream.tsx
+ ┃ ┃ ┃ ┣ 📂decodeToken
+ ┃ ┃ ┃ ┃ ┗ 📜decodeToken.ts
+ ┃ ┃ ┃ ┣ 📂errorCatch
+ ┃ ┃ ┃ ┃ ┗ 📜errorCatch.ts
+ ┃ ┃ ┃ ┣ 📂generateAudioContext
+ ┃ ┃ ┃ ┃ ┗ 📜generateAudioContext.ts
+ ┃ ┃ ┃ ┣ 📂generateVolumeCheckInterval
+ ┃ ┃ ┃ ┃ ┗ 📜generateVolumeCheckInterval.ts
+ ┃ ┃ ┃ ┣ 📂getUUIDbyToken
+ ┃ ┃ ┃ ┃ ┗ 📜getUUIDbyToken.ts
+ ┃ ┃ ┃ ┣ 📂registServiceWorker
+ ┃ ┃ ┃ ┃ ┗ 📜registServiceWorker.ts
+ ┃ ┃ ┃ ┣ 📂setToken
+ ┃ ┃ ┃ ┃ ┗ 📜setToken.ts
+ ┃ ┃ ┃ ┣ 📂startRecordVoice
+ ┃ ┃ ┃ ┃ ┗ 📜startRecordVoice.ts
+ ┃ ┃ ┃ ┣ 📂stopRecordVoice
+ ┃ ┃ ┃ ┃ ┗ 📜stopRecordVoice.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂store
+ ┃ ┃ ┃ ┣ 📂useErrorStore
+ ┃ ┃ ┃ ┃ ┗ 📜useErrorStore.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂types
+ ┃ ┃ ┃ ┣ 📂ChildrenProps
+ ┃ ┃ ┃ ┃ ┗ 📜ChildrenProps.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┣ 📂backButton
+ ┃ ┃ ┃ ┃ ┗ 📜backButton.tsx
+ ┃ ┃ ┃ ┣ 📂examUi
+ ┃ ┃ ┃ ┃ ┗ 📜examUi.tsx
+ ┃ ┃ ┃ ┣ 📂homeButton
+ ┃ ┃ ┃ ┃ ┗ 📜homeButton.tsx
+ ┃ ┃ ┃ ┣ 📂homeButton2
+ ┃ ┃ ┃ ┃ ┗ 📜homeButton2.tsx
+ ┃ ┃ ┃ ┣ 📂loading
+ ┃ ┃ ┃ ┃ ┣ 📜loadingScreen.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜movingScreen.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜welcomeScreen.tsx
+ ┃ ┃ ┃ ┣ 📂modalSpace
+ ┃ ┃ ┃ ┃ ┗ 📜modalSpace.tsx
+ ┃ ┃ ┃ ┣ 📂timer
+ ┃ ┃ ┃ ┃ ┗ 📜timer.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┣ 📜cookie.ts
+ ┃ ┃ ┃ ┣ 📜customAxios.ts
+ ┃ ┃ ┃ ┣ 📜dateToString.ts
+ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┗ 📜preload.ts
+ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📂app
+ ┃ ┃ ┃ ┗ 📜app.style.ts
+ ┃ ┃ ┣ 📂child
+ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┣ 📜dress.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜finish.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜game.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜paint.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜puzzle.style.ts
+ ┃ ┃ ┃ ┃ ┗ 📜stage.style.ts
+ ┃ ┃ ┃ ┣ 📂talk
+ ┃ ┃ ┃ ┃ ┣ 📜message.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜messageList.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜messageListItem.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜messagePage.style.ts
+ ┃ ┃ ┃ ┃ ┣ 📜talk.style.ts
+ ┃ ┃ ┃ ┃ ┗ 📜talkingPage.style.ts
+ ┃ ┃ ┃ ┣ 📜childMain.style.ts
+ ┃ ┃ ┃ ┗ 📜common.style.ts
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┣ 📜common.style.ts
+ ┃ ┃ ┃ ┣ 📜dinoSelect.style.ts
+ ┃ ┃ ┃ ┣ 📜editProfilePage.style.ts
+ ┃ ┃ ┃ ┣ 📜inputEmail.style.ts
+ ┃ ┃ ┃ ┣ 📜inputName.style.ts
+ ┃ ┃ ┃ ┣ 📜main.style.ts
+ ┃ ┃ ┃ ┣ 📜profilePage.style.ts
+ ┃ ┃ ┃ ┣ 📜selectCountry.style.ts
+ ┃ ┃ ┃ ┣ 📜selectDino.style.ts
+ ┃ ┃ ┃ ┣ 📜signIn.style.ts
+ ┃ ┃ ┃ ┣ 📜signup.style.ts
+ ┃ ┃ ┃ ┗ 📜start.style.ts
+ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┣ 📜articleListItem.style.ts
+ ┃ ┃ ┃ ┣ 📜boardDetailPage.style.ts
+ ┃ ┃ ┃ ┣ 📜boardPage.style.ts
+ ┃ ┃ ┃ ┣ 📜common.style.ts
+ ┃ ┃ ┃ ┣ 📜createPage.style.ts
+ ┃ ┃ ┃ ┣ 📜parent.style.ts
+ ┃ ┃ ┃ ┣ 📜parentInformationMain.style.ts
+ ┃ ┃ ┃ ┣ 📜parentInformationNews.style.ts
+ ┃ ┃ ┃ ┣ 📜parentInformationNurturDetail.style.ts
+ ┃ ┃ ┃ ┣ 📜parentInformationWord.style.ts
+ ┃ ┃ ┃ ┣ 📜parentMain.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportDetail.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportDetailRecorder.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportList.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportListGraph.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportListItem.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportListLeft.style.ts
+ ┃ ┃ ┃ ┣ 📜parentReportListRight.style.ts
+ ┃ ┃ ┃ ┗ 📜parentReportListWordcloud.style.ts
+ ┃ ┃ ┣ 📂shared
+ ┃ ┃ ┃ ┣ 📜backButton.style.ts
+ ┃ ┃ ┃ ┣ 📜homeButton.style.ts
+ ┃ ┃ ┃ ┣ 📜loading.style.ts
+ ┃ ┃ ┃ ┣ 📜modalSpace.style.ts
+ ┃ ┃ ┃ ┗ 📜timer.style.ts
+ ┃ ┃ ┗ 📂test
+ ┃ ┃ ┃ ┣ 📜test.style.ts
+ ┃ ┃ ┃ ┣ 📜testCamera.style.ts
+ ┃ ┃ ┃ ┣ 📜testDraw.style.ts
+ ┃ ┃ ┃ ┣ 📜testMenuButtons.style.ts
+ ┃ ┃ ┃ ┣ 📜testPage.style.ts
+ ┃ ┃ ┃ ┣ 📜testVoice.style.ts
+ ┃ ┃ ┃ ┣ 📜testWordcloud.style.ts
+ ┃ ┃ ┃ ┗ 📜testZustand.style.ts
+ ┃ ┣ 📜main.css
+ ┃ ┗ 📜main.tsx
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜global.d.ts
+ ┣ 📜package.json
+ ┣ 📜tsconfig.json
+ ┣ 📜webpack.common.js
+ ┣ 📜webpack.dev.js
+ ┣ 📜webpack.prod.js
+ ┗ 📜yarn.lock
+```
 
+</details>
+<details>
+<summary> Back 폴더 구조</summary>
+
+```bash
+📦bridgetalk-back
+ ┣ 📂.gradle
+ ┣ 📂.idea
+ ┣ 📂build
+ ┣ 📂gradle
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂ssafy
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂bridgetalkback
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenReissueController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KidsSignupRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentsSignupRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileLoginRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AuthErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshTokenRedisRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenReissueService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorizationExtractor.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JwtProvider.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂boards
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Boards.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsLike.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsSearchType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsSortCondition.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsUpdateRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomBoardsListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsListDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsListQueryRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsListQueryRepositoryImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsLikeRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsLikeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsListService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂chatgpt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatGptConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatGptRequestCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatGptRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChatGptResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Choice.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatGptErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatGptService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂comments
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Comments.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsSortCondition.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsUpdateRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomCommentsListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsListDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsListQueryRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsListQueryRepositoryImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsListService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂files
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3FileController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3FileErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3FileService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂global
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂annotation
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtractPayload.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtractPayloadArgumentResolver.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtractToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExtractTokenArgumentResolver.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AsyncConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CacheConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JpaAuditingConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QueryDslConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3Config.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SwaggerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ApiGlobalExceptionHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ErrorResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GlobalErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂security
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetails.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetailService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAccessDeniedHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationEntryPoint.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserDetailDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EnumConverter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EnumStandard.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PasswordEncoderUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StringListConverter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseEntity.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Language.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂kids
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Kids.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsPassword.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂letters
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Letters.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersImg.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LettersImgResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LettersResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TranscriptionDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TranslationResultsDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LettersErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TranslateBadRequestException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LettersImgRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClovaSpeechService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LettersService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersTranscribeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂notification
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NotificationListener.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NotificationController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SseController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Notification.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NotificationType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NotificationRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NotificationErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NotificationRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SseRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SseRepositoryImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NotificationService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SseService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentingInfo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoCrawlingController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Category.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfo.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoBoardNum.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomParentingInfoListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoCrawlingDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂query
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoListDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoQueryRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoQueryRepositoryImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoBoardNumRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoCrawlingService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoListService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parents
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileListController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Email.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Parents.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Password.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Role.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DeleteProfileRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdateProfileRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentsRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentsFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileListService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂puzzle
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Puzzle.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PuzzleListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PuzzleFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂reports
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TalkController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Reports.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsDetailResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TalkResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TranscriptionDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜VideoResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReportsCreateResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReportsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ReportsRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsFindService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsTranscribeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsUpdateService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsVideoService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TalkFastApiService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TalkService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂slang
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Slang.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangListResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂translation
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TranslationService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂tts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TtsErrorCode.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TtsService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BridgetalkBackApplication.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📜application-secret.yml
+ ┃ ┃ ┃ ┗ 📜application.yml
+ ┃ ┗ 📂test
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┣ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂ssafy
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂bridgetalkback
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenReissueControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshTokenRedisRepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenReissueServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂boards
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsLikeServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsListServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BoardsServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂chatgpt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ChatGptServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsListServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentsServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂comments
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseCleaner.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂files
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3MockConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3FileServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂fixture
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BoardsFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentsFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KidsFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentsFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PuzzleFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenFixture.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂kids
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsRepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KidsFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂letters
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClovaSpeechServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LettersServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂notification
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SseControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SseServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parentingInfo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoCrawlingControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoCrawlingServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentingInfoListServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentingInfoServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parents
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileListControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentsTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PasswordTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentsRepositoryTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentsFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileListServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂puzzle
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PuzzleFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PuzzleServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂reports
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TalkControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsFindServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsUpdateServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportsVideoServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TalkServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂slang
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangControllerTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SlangServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂tts
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TtsServiceTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BridgetalkBackApplicationTests.java
+ ┃ ┃ ┃ ┗ 📂global
+ ┃ ┃ ┃ ┃ ┗ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmbeddedRedisConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisCleaner.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📂files
+ ┃ ┃ ┃ ┃ ┗ 📜test.mp3
+ ┃ ┃ ┃ ┗ 📜application.yml
+ ┣ 📜.gitignore
+ ┣ 📜build.gradle
+ ┣ 📜gradlew
+ ┣ 📜gradlew.bat
+ ┗ 📜settings.gradle
+```
+
+</detailS>
 <br><br>
 
 # 6️⃣ 기술 스택
