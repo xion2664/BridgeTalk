@@ -286,12 +286,8 @@
 # 7️⃣ 문서
 
 ## 📂[ERD](https://www.notion.so/ERD-f84db9c62aa049b69c3f5ed78cd5d0ed)
-<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2" width="650px" height="400px">
-
-<br><br>
 
 ## 📂[와이어프레임](https://www.figma.com/files/project/222942611/Team-project?fuid=958981197957446535)
-
 
 ## 📂[기능명세서](https://www.notion.so/2024-04-23-10-40-1fba7cf99bec45409630948c8ae28392)
 
