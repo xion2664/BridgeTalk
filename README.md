@@ -56,10 +56,11 @@
 총 30여 곳의 다문화 센터에 연락 및 관련 영상 조사
 
 → 대전 외국인 주민 지원통합 센터장님의 인터뷰 진행
-![image](https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/e62fca12-cbc3-4fad-8b7d-971928ec9279)
-![image](https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/0fa9df6b-c5bb-4768-b8f2-011d5af4b8a7)
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/e62fca12-cbc3-4fad-8b7d-971928ec9279" width="650px" height="400px">
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/0fa9df6b-c5bb-4768-b8f2-011d5af4b8a7" width="650px" height="400px">
 - 조사 결과
-    - 실제로 소통 문제가 존재한다는 것을 확인했으며, 기존의 언어 학습 위주의 프로그램에서 현재 언어와 소통을 같이 하는 방향으로 센터에서도 지원 프로그램이 바뀌어 가는 중임을 확인
+    - 실제로 소통 문제 존재 확인
+    - 기존의 언어 학습 위주의 프로그램에서 언어와 소통을 같이 하는 방향으로 바뀌어 나가고 있음
     - 지원 프로그램 예시로 상담사를 한 사람씩 가정에 배치하고 있음을 확인
 
 <strong>저희는 인터뷰를 통해 시간적, 공간적인 제한을 벗어나 아이와의 소통에 도움을 주는 서비스를 기획하고자 했습니다.</strong>
@@ -133,8 +134,7 @@
 
 <br><br>
 # 5️⃣ 시스템 아키텍처
-
-![image](https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/87e32f80-2ccc-4194-a46a-25d83886dbba)
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/87e32f80-2ccc-4194-a46a-25d83886dbba" width="650px" height="400px">
 
 <br><br>
 
@@ -236,7 +236,7 @@
 # 8️⃣ 문서
 
 ## 📂ERD
-![image](https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2)
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/ce169977-cfb4-42ce-8ce7-446e0ec9fbf2" height="650px" width="400px">
 
 <br><br>
 
@@ -250,54 +250,14 @@
 <br><br>
 
 # 9️⃣ 팀 소개
-
-- 윤선경
-    1. 전역  예외 처리  및 테스트 코드 틀 구성 및 작성
-    2. 스프링시큐리티, JWT를 사용한 회원 인가/인증 구현 
-    3. 리프레시토큰 및 이메일 인증번호 등 일정 시간 이후 보관이 필요없는 데이터는 redis를 활용해서 처리
-    4. 생성형 AI를 활용한 캐릭터 대화 구현
-    5. querydsl을 활용한 조회 및 부모 커뮤니티 기능 구현
-    6. 육아 정보 크롤링 및 번역 구현
-    7. ssl 인증 및 프록시로 nginx 분기 처리 ( / , /api ) 
-- 방소영
-    1. **텍스트 음성 변환 시스템 구현**
-    2. **대화 내용 관리를 위한 Redis 및 MySQL 활용**
-        - 실시간 대화 내용을 Redis에 임시 저장하고, 검증된 내용만을 MySQL 데이터베이스에 영구적으로 저장하는 프로세스 구현
-    3. **Spring Boot를 사용한 캐싱 처리 최적화**
-        - Spring Boot 프레임워크 내에서 캐싱 기능을 활용하여 한국어 줄임말 목록의 조회 속도개선
-    4. **편지 내용 및 관련 이미지 반환 기능 구현**
-    5. **UCC 촬영 및 편집**
-- 이현영
-    1. **EC2 서버 및 Jenkins CI/CD 구축**
-    2. **아이 대화내용 요약 및 키워드 추출, 솔루션 제시, 2개 국어 번역**
-        - 비동기처리를 통해 응답속도 개선
-    3. **부모 커뮤니티 기능**
-        - 아이 대화내용 기반 커뮤니티 글 CRUD
-        - 커뮤니티 게시글 댓글 CRUD
-    4. **Mattermost 알림채널 개설**
-        - Gitlab Merge Request, Jenkins Build 결과 알림기능
-- 이지영
-    1. **음성 텍스트 변환 시스템 구현**
-        - 캐릭터와의 대화시간 최적화를 위한 api 테스트 진행 (Amazon Transcribe, Clova, Whisper AI)
-        - 다국어 음성 지원
-    2. **번역 API 구현**
-        - Papago api 및 생성형 AI 활용
-    3. **캐릭터 답장 음성 파일 및 자막 생성**
-    4. **SSE 알림 설정**
-- 조한빈
-    1. **메인 페이지, 부모 페이지 화면 및 기능** 구현 / **아이 페이지 대화하기 기능** 구현
-    2. manifest 작성을 통한 **PWA** 환경 구현
-    3. webpack 설정을 통한 프로젝트 **번들링**
-    4. 서비스 워커를 활용한 **정적 데이터 캐싱**
-    5. 에셋 **프리로드**를 통한 초기 사용성 개선
-- 박시연
-    - **3D 캐릭터 구현부 전반**
-        - Unity Editor, Blender, Three.js 사용하여 Animated 3D Asset 출력 및 상호작용 구현
-    - **아이 페이지 디자인 전반**
-    - **아이 페이지 중 [받은 편지함], [게임하기] 기능 구현**
-        - [받은 편지함]
-        : 편지 리스트, 편지 음성, 편지 아이콘, 편지 내용 받아오기
-        - [게임하기]
-        : 퍼즐 게임, 카메라 의상 필터 구현
-            - 나라별 퍼즐 리스트 및 퍼즐 상세 받아오기, 퍼즐 로직 구현
-            - mediapipe 사용하여 카메라 의상 필터 구현
+| 이름 | 역할 |
+| --- | --- |
+| 윤선경 (팀장) |- BackEnd<br> - 전역  예외 처리  및 **테스트 코드 틀 구성** 및 작성<br> - 스프링시큐리티, **JWT를 사용한 회원 인가/인증 구현**<br> - 리프레시토큰 및 이메일 인증번호 등 일정 **휘발성 데이터 redis를 활용해서 처리**<br> - **생성형 AI를 활용**한 캐릭터 대화 구현<br> - **querydsl을 활용**한 조회 및 부모 커뮤니티 기능 구현<br> - 육아 정보 크롤링 및 번역 구현<br> - **ssl 인증** 및 프록시로 **nginx 분기 처리** ( / , /api ) |
+| 방소영 |- BackEnd<br> - **텍스트 음성 변환** 시스템 구현<br> - **대화 내용 관리를 위한 Redis 및 MySQL 활용**<br> - **실시간 대화 내용을 Redis에 임시 저장**하고, 검증된 내용만을 MySQL 데이터베이스에 영구적으로 저장하는 프로세스 구현<br> - Spring Boot 프레임워크 내에서 **캐싱 기능을 활용**하여 한국어 줄임말 목록의 **조회 속도개선**<br> - 편지 내용 및 관련 이미지 반환 기능 구현<br> - UCC 촬영 및 편집|
+| 이현영 |- BackEnd<br> - **EC2 서버 및 Jenkins CI/CD 구축**<br> - 아이 **대화내용 요약 및 키워드 추출, 솔루션 제시**, **2개 국어 번역**<br> - 비동기처리를 통해 응답속도 개선<br> - 아이 대화내용 기반 커뮤니티 글 CRUD, 커뮤니티 게시글 댓글 CRUD 구현<br> - **Mattermost 알림채널 개설**(Gitlab Merge Request, Jenkins Build 결과 알림기능)|
+| 이지영 |- **음성 텍스트 변환** 시스템 구현<br> - 캐릭터와의 **대화시간 최적화를 위한 api 테스트 진행** (Amazon Transcribe, Clova, Whisper AI)<br> - 번역 API 구현(Papago api 및 생성형 AI 활용)<br> - **캐릭터 답장 음성 파일 및 자막 생성**<br> - **SSE** 알림 설정 |
+| 조한빈 |- 메인 페이지, 부모 페이지 화면 및 기능<br> - manifest 작성을 통한 **PWA** 환경 구현<br> - webpack 설정을 통한 프로젝트 **번들링**<br> - 서비스 워커를 활용한 **정적 데이터 캐싱**<br> - 에셋 **프리로드**를 통한 초기 사용성 개선|
+|박시연|- **3D 캐릭터 구현부 전반**<br> - Unity Editor, Blender, Three.js 사용하여 Animated 3D Asset 출력 및 상호작용 구현<br> - 아이 페이지 디자인 전반<br> - 아이 페이지 중 [받은 편지함], [게임하기] 기능 구현<br> - [받은 편지함] : 편지 리스트, 편지 음성, 편지 아이콘, 편지 내용 받아오기<br> -  [게임하기]: 퍼즐 게임, 카메라 의상 필터 구현 
+- 나라별 퍼즐 리스트 및 퍼즐 상세 받아오기, 퍼즐 로직 구현<br>
+- mediapipe 사용하여 카메라 의상 필터 구현<br>|
+    
