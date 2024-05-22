@@ -40,8 +40,8 @@ export function BoardListItem({ board }: Props) {
       </div>
       <div className="boardPage__list-item-footer">
         <div className="boardPage__list-item-footer-keywords">
-          {board.reportsKeywords.map((keyword) => (
-            <div># {keyword}</div>
+          {board.reportsKeywords.map((keyword, idx) => (
+            <div key={idx + 1}># {keyword}</div>
           ))}
         </div>
         <div className="boardPage__list-item-footer-info">

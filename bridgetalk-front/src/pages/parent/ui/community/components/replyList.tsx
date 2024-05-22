@@ -31,7 +31,7 @@ export function ReplyList({ boardId }: any) {
 
   return (
     <div className="replyLIst" style={{ display: 'flex', flexDirection: 'column', gap: '2svh' }}>
-      {replyList && replyList.map((reply: any) => <ReplyListItem reply={reply} />)}
+      {replyList && replyList.map((reply: any, idx) => <ReplyListItem key={idx} reply={reply} />)}
     </div>
   );
 }

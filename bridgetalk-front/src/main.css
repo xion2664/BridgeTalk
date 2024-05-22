@@ -23,6 +23,9 @@
   ::-webkit-scrollbar-track {
     background: #ff9f99; /* 스크롤바 뒷 배경 색상 */
   }
+  /* ::-webkit-scrollbar-button {
+    display: none;
+  } */
 }
 
 body {

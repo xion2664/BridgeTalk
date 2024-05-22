@@ -1,5 +1,5 @@
-const API_CACHE = `api-cache-${new Date().toISOString()}`;
-const ASSET_CACHE = `asset-cache-${new Date().toISOString()}`;
+const API_CACHE = `api-cache-240522`;
+const ASSET_CACHE = `asset-cache-240522`;
 
 const NEED_CACHE_API_URL = [/parentingInfo/, /slang/];
 const NEED_CACHE_ASSET_REGEX = /\.(svg|png|jpe?g|glb)$/;
