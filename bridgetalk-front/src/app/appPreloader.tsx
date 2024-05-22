@@ -1,43 +1,41 @@
 import { useEffect } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { imageUrls, glbUrls } from '../shared';
-
-const basePath = '../../../public/assets';
+import { imageUrls } from '../shared';
 
 export function AppPreloader() {
-  const preloadImages = (fileNames: string[]) => {
-    fileNames.forEach((fileName) => {
+  const preloadImages = (urls: string[]) => {
+    urls.forEach((url) => {
       const img = new Image();
-      img.src = `${basePath}/${fileName}`;
+      img.src = url;
     });
   };
 
-  const preloadGLB = (fileName: string) => {
-    return new Promise((resolve, reject) => {
-      const loader = new GLTFLoader();
-      loader.load(
-        `${basePath}/${fileName}`,
-        (gltf) => {
-          resolve(gltf);
-        },
-        undefined,
-        (error) => {
-          reject(error);
-        },
-      );
-    });
-  };
+  // const preloadGLB = (url: string) => {
+  //   return new Promise((resolve, reject) => {
+  //     const loader = new GLTFLoader();
+  //     loader.load(
+  //       url,
+  //       (gltf) => {
+  //         resolve(gltf);
+  //       },
+  //       undefined,
+  //       (error) => {
+  //         reject(error);
+  //       },
+  //     );
+  //   });
+  // };
 
-  const preloadGLBs = async (fileNames: string[]) => {
-    const promises = fileNames.map((fileName) => preloadGLB(fileName));
-    await Promise.all(promises);
-  };
+  // const preloadGLBs = async (urls: string[]) => {
+  //   const promises = urls.map((url) => preloadGLB(url));
+  //   await Promise.all(promises);
+  // };
 
   useEffect(() => {
     const preloadAssets = async () => {
       try {
         preloadImages(imageUrls);
-        await preloadGLBs(glbUrls);
+        // await preloadGLBs(glbUrls);
       } catch (error) {
         console.error('Failed to preload assets:', error);
       }
