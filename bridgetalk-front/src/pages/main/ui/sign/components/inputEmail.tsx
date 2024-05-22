@@ -59,7 +59,7 @@ export function InputEmail({ setPage }: EmailProps) {
           }
 
           try {
-            const res = await postAuthVerify(email, confirmRef.current.value.trim());
+            // const res = await postAuthVerify(email, confirmRef.current.value.trim());
 
             setPage((page) => page + 1);
           } catch (err: any) {
