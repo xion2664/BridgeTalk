@@ -129,8 +129,8 @@ export function BoardDetailPage() {
                 <div className="boardDetailPage__container-article-report-title">
                   <div>R E P O R T</div>
                   <div className="boardDetailPage__container-article-report-title-keywords">
-                    {board?.reportsKeywords.map((keyword: string) => (
-                      <div className="boardDetailPage__container-article-report-title-keywords-keyword">
+                    {board?.reportsKeywords.map((keyword: string, idx: number) => (
+                      <div key={idx} className="boardDetailPage__container-article-report-title-keywords-keyword">
                         # {keyword}
                       </div>
                     ))}
