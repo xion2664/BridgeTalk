@@ -88,7 +88,8 @@ export function BoardPage() {
         <SearchTypes />
         <Input ref={inputRef} fetchData={fetchData} />
         <div className="boardPage__list">
-          {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
+          {boardStore.boardList &&
+            boardStore.boardList.map((board: Board, idx: number) => <BoardListItem key={idx + 1} board={board} />)}
         </div>
         <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
         <div className="sort">

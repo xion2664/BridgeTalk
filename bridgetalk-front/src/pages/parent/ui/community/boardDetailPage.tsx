@@ -116,8 +116,10 @@ export function BoardDetailPage() {
                 {board?.boardsContent.split('</br>').join('\n')}
               </div>
               <div className="boardDetailPage__container-article-keywords">
-                {board?.reportsKeywords.map((keyword: string) => (
-                  <div className="boardDetailPage__container-article-keywords-keyword"># {keyword}</div>
+                {board?.reportsKeywords.map((keyword: string, idx: number) => (
+                  <div key={idx + 1} className="boardDetailPage__container-article-keywords-keyword">
+                    # {keyword}
+                  </div>
                 ))}
               </div>
             </div>

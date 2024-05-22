@@ -27,6 +27,7 @@ export function Pagenation({ page, setPage, list, lastPage }: any) {
           .slice(startIndex, endIndex)
           .map((_, idx) => (
             <button
+              key={idx + 1}
               className={`${page === startIndex + idx ? 'active' : ''}`}
               onClick={() => {
                 setPage(Math.floor(startIndex + idx));

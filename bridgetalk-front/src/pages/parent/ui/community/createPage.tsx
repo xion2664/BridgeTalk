@@ -141,12 +141,13 @@ export function CreatePage() {
                 reportList.map((report: any) => {
                   const reports = report.value.data;
 
-                  return reports.map((it: any) => {
+                  return reports.map((it: any, idx: number) => {
                     const reportId = it.reportsId;
                     const repoortsSummary = it.reportsSummary;
 
                     return (
                       <button
+                        key={idx + 1}
                         className="createPage__container-report-content-btn"
                         onClick={() => {
                           setReportsId(reportId);

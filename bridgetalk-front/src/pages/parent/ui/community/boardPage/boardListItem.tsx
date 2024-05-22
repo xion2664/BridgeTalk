@@ -40,8 +40,8 @@ export function BoardListItem({ board }: Props) {
       <div className="boardPage__list-item-body">
         <div className="boardPage__list-item-body-content">{board.boardsContent.split('</br>').join(' ')}</div>
         <div className="boardPage__list-item-body-keywords">
-          {board.reportsKeywords.map((keyword) => (
-            <div># {keyword}</div>
+          {board.reportsKeywords.map((keyword, idx) => (
+            <div key={idx + 1}># {keyword}</div>
           ))}
         </div>
       </div>
