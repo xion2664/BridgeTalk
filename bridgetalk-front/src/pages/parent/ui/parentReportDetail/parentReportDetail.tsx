@@ -81,6 +81,7 @@ export function ParentReportDetail() {
             .fill(0)
             .map((it, idx) => (
               <button
+                key={idx + 1}
                 className={`menu__summary ${idx === resultPage ? 'active' : ''}`}
                 onClick={() => {
                   setResultPage(idx);
@@ -140,9 +141,13 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
       {resultPage === 0 ? (
         <div className="content">
           <S.Keywords>
-            {reportsKeywords.map((keyword: any) => (
-              <div className="keyword"># {keyword.trim()}</div>
-            ))}
+            {reportsKeywords.map((keyword: any, idx: number) => {
+              return (
+                <div className="keyword" key={idx}>
+                  # {keyword.trim()}
+                </div>
+              );
+            })}
           </S.Keywords>
           <S.Summary>{reportsSummary}</S.Summary>
         </div>
@@ -151,17 +156,19 @@ function Content({ reportsKeywords, reportsSummary, reportsSolution }: Props) {
           <div className="solution">{reportsSolution}</div>
           <div className="replys__wrapper">
             {reportStore.replys && reportStore.replys.length > 0 ? (
-              reportStore.replys.map((reply: any) => (
-                <div className="replys">
-                  <div className="replys-header">
-                    <div className="replys-header-writer">{reply.parentsNickname}</div>
-                    <div className="replys-header-date">{dateToString(reply.createdAt)}</div>
-                    <div className="replys-header-like">❤ {reply.likes}</div>
+              reportStore.replys.map((reply: any, idx: number) => {
+                return (
+                  <div className="replys" key={idx + 1}>
+                    <div className="replys-header">
+                      <div className="replys-header-writer">{reply.parentsNickname}</div>
+                      <div className="replys-header-date">{dateToString(reply.createdAt)}</div>
+                      <div className="replys-header-like">❤ {reply.likes}</div>
+                    </div>
+                    <div className="replys-body">{reply.commentsContent}</div>
+                    <hr />
                   </div>
-                  <div className="replys-body">{reply.commentsContent}</div>
-                  <hr />
-                </div>
-              ))
+                );
+              })
             ) : (
               <div className="replys-none">{none[language]}</div>
             )}
