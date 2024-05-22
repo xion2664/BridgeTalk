@@ -107,8 +107,8 @@ export function ParentInformationNurture() {
         <table>
           <thead className="thead">
             <tr className="main__header">
-              {header[language].map((it) => (
-                <td>{it}</td>
+              {header[language].map((it, idx) => (
+                <td key={idx + 1}>{it}</td>
               ))}
             </tr>
           </thead>
