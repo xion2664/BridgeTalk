@@ -54,7 +54,6 @@ export const ParentReportDetailRecorder = memo(() => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => {
           track.stop();
-          console.log('트랙 해제');
         });
         streamRef.current = null;
       }
