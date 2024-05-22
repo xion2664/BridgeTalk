@@ -27,9 +27,9 @@ export function ParentInformationNurtureDetail() {
           <div className="main">
             <div className="main__title">{infoDetail.title}</div>
             <div className="main__content">
-              {infoDetail.content.split('■').map((it: any) =>
+              {infoDetail.content.split('■').map((it: any, idx: number) =>
                 it.trim() ? (
-                  <div>
+                  <div key={idx + 1}>
                     {`${it.trim()}`}
                     <br />
                   </div>
