@@ -23,6 +23,7 @@ export function SignInPage() {
       <div className="title">
         <img src={'assets/img/main/login.svg'} />
       </div>
+
       <div className="email">
         <div className="email__title">
           <img src={'assets/img/main/emailicon.svg'} />
@@ -79,9 +80,6 @@ export function SignInPage() {
         다음
         <img src={'assets/img/nexticon.svg'} />
       </button>
-      {/* <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
-      {/* <button onClick={handleLogin}>로그인</button> */}
     </S.Container>
   );
 }

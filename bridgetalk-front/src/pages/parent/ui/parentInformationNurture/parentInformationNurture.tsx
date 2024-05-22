@@ -89,6 +89,7 @@ export function ParentInformationNurture() {
       <div className="categories">
         {['prospective', 'infant_and_toddler', 'school', 'puberty'].map((it, idx) => (
           <button
+            key={idx + 1}
             className={`${searchCategory === it ? 'active' : ''}`}
             style={{
               fontFamily: language === 'kor' ? 'DNF' : 'Pretendard-Black',
@@ -106,8 +107,8 @@ export function ParentInformationNurture() {
         <table>
           <thead className="thead">
             <tr className="main__header">
-              {header[language].map((it) => (
-                <td>{it}</td>
+              {header[language].map((it, idx) => (
+                <td key={idx + 1}>{it}</td>
               ))}
             </tr>
           </thead>
@@ -151,6 +152,7 @@ export function ParentInformationNurture() {
             .slice(startIndex, endIndex)
             .map((_, idx) => (
               <button
+                key={idx + 1}
                 className={`${page === startIndex + idx ? 'active' : ''}`}
                 onClick={() => {
                   setPage(Math.floor(startIndex + idx));

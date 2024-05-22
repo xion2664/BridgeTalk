@@ -177,12 +177,13 @@ export function CreatePage() {
                   reportList.map((report: any) => {
                     const reports = report.value.data;
 
-                    return reports.map((it: any) => {
+                    return reports.map((it: any, idx: number) => {
                       const reportId = it.reportsId;
                       const repoortsSummary = it.reportsSummary;
 
                       return (
                         <button
+                          key={idx}
                           style={{
                             backgroundColor: reportId === reportsId ? 'rgba(108, 149, 255)' : 'rgba(255, 255, 255)',
                             color: reportId === reportsId ? 'white' : 'black',

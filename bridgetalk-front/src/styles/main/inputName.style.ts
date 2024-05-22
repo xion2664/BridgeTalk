@@ -9,6 +9,14 @@ export const Container = styled.div`
   gap: 1svh;
   width: 60svw;
 
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1svh;
+  }
+
   input {
     border-radius: 15svw;
     border: 1svw solid ${color(1).main};

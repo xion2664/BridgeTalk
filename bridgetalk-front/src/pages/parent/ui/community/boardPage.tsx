@@ -122,7 +122,8 @@ export function BoardPage() {
           <Input ref={inputRef} fetchData={fetchData} />
         </div>
         <div className="boardPage__list">
-          {boardStore.boardList && boardStore.boardList.map((board: Board) => <BoardListItem board={board} />)}
+          {boardStore.boardList &&
+            boardStore.boardList.map((board: Board, idx: number) => <BoardListItem key={idx} board={board} />)}
         </div>
         <Pagenation page={page} setPage={setPage} list={boardStore.boardList} lastPage={lastPage} />
       </div>

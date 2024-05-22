@@ -35,7 +35,9 @@ export function ParentInformationWord() {
 
   return (
     <S.Container>
-      <div className="main">{words.length > 0 ? words.map((word) => <WordItem word={word} />) : null}</div>
+      <div className="main">
+        {words.length > 0 ? words.map((word, idx) => <WordItem key={idx + 1} word={word} />) : null}
+      </div>
       <div className="pagenation">
         <button
           onClick={() => {
@@ -58,6 +60,7 @@ export function ParentInformationWord() {
             .slice(startIndex, endIndex)
             .map((_, idx) => (
               <button
+                key={idx + 1}
                 className={`${page === startIndex + idx ? 'active' : ''}`}
                 onClick={() => {
                   setPage(Math.floor(startIndex + idx));
