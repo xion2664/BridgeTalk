@@ -1,5 +1,5 @@
 # 브릿지톡(BridgeTalk) - 이주민 가정을 위한 다문화 소통 플랫폼
-<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/54ed3830-f93b-46c4-90a2-9b4fefb4b497" width="700px" height="450px">
+<img src="https://github.com/hyun0-25/SSAFY-BRIDGETALK/assets/95136913/54ed3830-f93b-46c4-90a2-9b4fefb4b497" width="800px" height="450px">
 
 <br>
 
