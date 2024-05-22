@@ -54,6 +54,7 @@ export function ParentReportListRight() {
             {childrenList.map((child: any) => {
               return (
                 <button
+                  key={child.userId}
                   className={`children__child ${
                     selected.some((report: any) => report.UUID === child.userId) ? 'active' : ''
                   }`}
