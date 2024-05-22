@@ -57,11 +57,12 @@ module.exports = {
       },
       {
         test: /\.(glb)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        // use: [
+        //   {
+        //     loader: 'file-loader',
+        //   },
+        // ],
+        type: 'asset/resource',
       },
     ],
   },

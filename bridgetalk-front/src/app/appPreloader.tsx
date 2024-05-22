@@ -2,19 +2,21 @@ import { useEffect } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { imageUrls, glbUrls } from '../shared';
 
+const basePath = '../../../public/assets';
+
 export function AppPreloader() {
-  const preloadImages = (urls: string[]) => {
-    urls.forEach((url) => {
+  const preloadImages = (fileNames: string[]) => {
+    fileNames.forEach((fileName) => {
       const img = new Image();
-      img.src = url;
+      img.src = `${basePath}/${fileName}`;
     });
   };
 
-  const preloadGLB = (url: string) => {
+  const preloadGLB = (fileName: string) => {
     return new Promise((resolve, reject) => {
       const loader = new GLTFLoader();
       loader.load(
-        url,
+        `${basePath}/${fileName}`,
         (gltf) => {
           resolve(gltf);
         },
@@ -26,8 +28,8 @@ export function AppPreloader() {
     });
   };
 
-  const preloadGLBs = async (urls: string[]) => {
-    const promises = urls.map((url) => preloadGLB(url));
+  const preloadGLBs = async (fileNames: string[]) => {
+    const promises = fileNames.map((fileName) => preloadGLB(fileName));
     await Promise.all(promises);
   };
 

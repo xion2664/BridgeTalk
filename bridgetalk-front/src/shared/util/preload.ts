@@ -1,5 +1,8 @@
 export const importAll = (r: __WebpackModuleApi.RequireContext) => {
-  return r.keys().map(r);
+  return r.keys().map((path) => {
+    const fileName = path.substring(path.lastIndexOf('/') + 1);
+    return fileName;
+  });
 };
 
 // 특정 디렉토리의 모든 이미지 파일 가져오기
