@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { color } from './common.style';
+import { color, textShadowBlue } from './common.style';
+import { truncate } from './boardPage.style';
 
 export const Container = styled.div`
   * {
@@ -9,27 +10,40 @@ export const Container = styled.div`
 
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
 
   width: 100%;
   height: 100%;
   padding: 2svh 2svw;
 
-  background-color: ${color(1).bright};
-
   .createPage {
     display: flex;
     flex-direction: column;
     gap: 2svh;
-    width: 40svw;
-    height: 100svh;
+
+    width: 67svw;
+    height: 87.5svh;
+    border-radius: 2.6svw;
+    background-color: ${color(1).bright};
+    padding: 3.7svh 2.6svw;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll {
+      overflow-y: auto;
+      height: 80svh;
+
+      display: flex;
+      flex-direction: column;
+      gap: 2svh;
+    }
 
     &__header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       width: 100%;
-      height: 5svh;
 
       &-toBack {
         background-color: transparent;
@@ -40,6 +54,25 @@ export const Container = styled.div`
         img {
           width: 2svw;
         }
+      }
+
+      &-main {
+        ${textShadowBlue}
+        font-size: 3svw;
+        color: ${color(1).bright};
+      }
+
+      &-btn {
+        background-color: ${color(1).main};
+        color: ${color(1).bright};
+        border-radius: 1svw;
+        border: none;
+
+        font-size: 1.5svw;
+
+        padding: 1svh 1svw;
+
+        cursor: pointer;
       }
     }
 
@@ -76,17 +109,60 @@ export const Container = styled.div`
         flex-direction: column;
         gap: 1svh;
 
+        background-color: ${color(1).sky};
+        border-radius: 1.5svw;
+
+        padding: 2svh 1svw;
+
         &-title {
           text-align: center;
           font-size: 1.5svw;
+          color: ${color(1).bright};
         }
 
         &-content {
           display: flex;
           flex-direction: column;
+          gap: 1svh;
+          width: 100%;
 
           &-btn {
             cursor: pointer;
+
+            border-radius: 2.6svw;
+            border: none;
+            background-color: ${color(1).bright};
+
+            padding: 0.5svh 0.5svw;
+            width: 100%;
+
+            &:hover {
+              background-color: ${color(1).main};
+              color: ${color(1).bright};
+            }
+
+            &:active {
+              background-color: ${color(1).bright};
+              color: ${color(1).main};
+            }
+
+            p {
+              display: flex;
+              align-items: center;
+              justify-content: start;
+
+              gap: 1svw;
+
+              padding: 1svh 0.5svw;
+              font-size: 1.5svw;
+              ${truncate}
+
+              width: 100%;
+
+              img {
+                width: 1.5svw;
+              }
+            }
           }
         }
       }

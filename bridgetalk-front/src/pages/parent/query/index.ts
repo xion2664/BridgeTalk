@@ -18,3 +18,7 @@ export * from '@/pages/parent/query/deleteBoardLike/deleteBoardLike';
 export * from '@/pages/parent/query/deleteCommentLike/deleteCommentLike';
 export * from '@/pages/parent/query/postCommentLike/postCommentLike';
 export * from '@/pages/parent/query/getCommentLikeCheck/getCommentLikeCheck';
+export * from '@/pages/parent/query/deleteBoard/patchBoard';
+export * from '@/pages/parent/query/deleteComment/deleteComment';
+export * from '@/pages/parent/query/patchBoard/patchBoard';
+export * from '@/pages/parent/query/patchComment/patchComment';

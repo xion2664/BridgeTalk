@@ -65,6 +65,11 @@ export const Container = styled.div`
       &-wrapper {
         max-width: 80svw;
         overflow-x: auto;
+        scrollbar-width: none;
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
         overflow-y: visible;
         position: relative;
 
