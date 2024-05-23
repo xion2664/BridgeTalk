@@ -3,6 +3,7 @@ package com.ssafy.bridgetalkback.letters.controller;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import com.ssafy.bridgetalkback.letters.dto.request.LettersRequestDto;
 import com.ssafy.bridgetalkback.letters.service.LettersService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -29,7 +30,7 @@ public class LettersController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadLettersVoice(@ExtractPayload String userId, @ModelAttribute LettersRequestDto lettersRequestDTO) {
+    public ResponseEntity<?> uploadLettersVoice(@ExtractPayload String userId, @Valid @ModelAttribute LettersRequestDto lettersRequestDTO) {
         log.info("{ LettersController } : 부모 음성 편지 업로드 컨트롤러");
         log.info(">> LetterRequestDTO : {}", lettersRequestDTO);
 
