@@ -15,6 +15,7 @@ import com.ssafy.bridgetalkback.notification.domain.NotificationType;
 import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
 import com.ssafy.bridgetalkback.notification.service.SseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class CommentsController {
     @PostMapping
     public ResponseEntity<CommentsResponseDto> createComments(
             @ExtractPayload String userId,
-            @RequestBody CommentsRequestDto commentsRequestDto
+            @Valid @RequestBody CommentsRequestDto commentsRequestDto
     ) {
         log.info("{ CommentsController } : Comments 생성 진입");
         CommentsResponseDto commentsResponseDto = commentsService.createComments(UUID.fromString(userId), commentsRequestDto);
@@ -64,7 +65,7 @@ public class CommentsController {
     public ResponseEntity<CommentsResponseDto> updateComments(
             @ExtractPayload String userId,
             @PathVariable Long commentsId,
-            @RequestBody CommentsUpdateRequestDto commentsUpdateRequestDto
+            @Valid @RequestBody CommentsUpdateRequestDto commentsUpdateRequestDto
     ) {
         log.info("{ CommentsController } : Comments 수정 진입");
         CommentsResponseDto commentsResponseDto = commentsService.updateComments(UUID.fromString(userId), commentsId, commentsUpdateRequestDto);

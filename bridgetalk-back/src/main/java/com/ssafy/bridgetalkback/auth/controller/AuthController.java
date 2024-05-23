@@ -8,6 +8,7 @@ import com.ssafy.bridgetalkback.auth.dto.response.LoginResponseDto;
 import com.ssafy.bridgetalkback.auth.service.AuthService;
 import com.ssafy.bridgetalkback.global.annotation.ExtractPayload;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@RequestBody ParentsSignupRequestDto requestDto) {
+    public ResponseEntity<Void> signup(@Valid @RequestBody ParentsSignupRequestDto requestDto) {
         log.info("{ AuthController } : 부모 회원가입 진입");
         authService.signup(requestDto);
         log.info("{ AuthService } : 부모 회원가입 성공");
@@ -32,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto requestDto) {
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto) {
         log.info("{ AuthController } : 부모로그인 진입");
         LoginResponseDto loginResponseDto = authService.login(requestDto);
         log.info("{ AuthService } : 부모로그인 성공");
@@ -48,7 +49,7 @@ public class AuthController {
     }
 
     @PostMapping("/kids")
-    public ResponseEntity<Void> kidsSignup(@RequestBody KidsSignupRequestDto requestDto) {
+    public ResponseEntity<Void> kidsSignup(@Valid @RequestBody KidsSignupRequestDto requestDto) {
         log.info("{ AuthController } : 아이 회원가입 (프로필 추가) 진입");
         authService.kidsSignup(requestDto);
         log.info("{ AuthService } : 아이 회원가입 성공");
@@ -56,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/profileLogin")
-    public ResponseEntity<LoginResponseDto> profileLogin(@ExtractPayload String userId, @RequestBody ProfileLoginRequestDto requestDto) {
+    public ResponseEntity<LoginResponseDto> profileLogin(@ExtractPayload String userId, @Valid @RequestBody ProfileLoginRequestDto requestDto) {
         log.info("{ AuthController } : 프로필 선택 (로그인) 진입");
         LoginResponseDto loginResponseDto = authService.profileLogin(requestDto);
         log.info("{ AuthService } : 프로필 선택 (로그인) 성공");
