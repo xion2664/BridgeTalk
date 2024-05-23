@@ -1717,7 +1717,7 @@
 - 부모 (한국어, 베트남어, 필리핀어 지원)
     - 레포트 및 솔루션
         
-        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/84e92dcb-9d6e-4e92-ab05-8ca3de2859a4" width="650px" height="400px">
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/dc665b8c-b23c-4f6b-beb7-c3b6cd06c941" width="650px" height="400px">
         
         - 아이가 대화하기를 마치면 생성형 AI를 활용 → 대화 요약 & 키워드 추출해 제공
         - 아이의 이야기에 대한 답변을 추천
