@@ -30,6 +30,7 @@
 [6. 기술 스택](#6️⃣-기술-스택)<br>
 [7. 설계 문서](#7️⃣-문서)<br>
 [8. 팀 소개](#8️⃣-팀-소개)<br>
+[9. 실행 화면](#8️9️⃣-실행 화면)<br>
 <br><br><br>
 
 
@@ -1661,3 +1662,81 @@
 | 조한빈 |- 메인 페이지, 부모 페이지 화면 및 기능<br> - manifest 작성을 통한 **PWA** 환경 구현<br> - webpack 설정을 통한 프로젝트 **번들링**<br> - 서비스 워커를 활용한 **정적 데이터 캐싱**<br> - 에셋 **프리로드**를 통한 초기 사용성 개선|
 |박시연|- 3D 캐릭터 구현부 전반<br> - **Unity Editor, Blender, Three.js 사용하여 Animated 3D Asset 출력 및 상호작용 구현**<br> - 아이 페이지 디자인 전반<br> - [받은 편지함] : 편지 리스트, 편지 음성, 편지 아이콘, 편지 내용 받아오기<br> -  [퍼즐 게임]: 나라별 퍼즐 리스트 및 퍼즐 상세 받아오기, 퍼즐 로직 구현<br> -  [옷 입히기 게임 필터]: **mediapipe 사용하여 카메라 의상 필터 구현**<br>|
     
+<br><br>
+
+# 9️⃣ 실행 화면
+- 로그인/회원가입
+    - 이메일 인증 후 회원 가입 진행
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/4c6a8188-7135-4a52-b9ce-6195600ace2e" width="650px" height="400px">
+        
+    - 로그인
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/4ea1242f-ba78-4142-b589-362d460042bc" width="650px" height="400px">
+        
+    - 아이 프로필 생성
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/cad27ba9-b69c-4d2d-85a7-07417a183190" width="650px" height="400px">
+        
+    - ott의 멀티 프로필 형태로 프로필 제공
+    - 각자의 프로필은 비밀번호로 입력 후 접속 가능
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/1b88c772-b0b3-40e7-9244-75bf55732d63" width="650px" height="400px">
+        
+    - 부모 프로필은 우상단 설정 메뉴를 통해 접속 가능
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/3677a56f-61a9-415c-a0eb-8854bc0b1884" width="650px" height="400px">
+        
+- 아이
+    - 공룡 친구와 대화하기
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/be0656c5-7497-465c-b625-fdc9d50be945" width="650px" height="400px">
+        
+        - 음성을 인식하여 음성에 대답이 없을 때, 자동으로 서버에 답장 요청
+        - stt → 생성형AI를 활용한 답변 생성 → tts
+        - 답변에서 감정을 추출하여 공룡이 감정을 표현하도록 구현
+    - 게임하기
+        - 퍼즐
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/1f921679-b8d4-482e-b6d9-4a0627dbabc1" height="400px">
+            
+            - 어머니의 모국에 있는 랜드마크들을 퍼즐 형태로 제공
+            - 퍼즐 성공 시 해당 랜드마크에 대한 설명 제공
+        - 전통복 입기, 사진찍기
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/d29b2b79-e1fc-4212-9ff8-52e9364026dd" width="650px" height="400px">
+            
+            - 어머니의 모국에 있는 전통복 입기
+            - on-device AI 기술인 미디어 파이프를 활용하여 사용자의 신체를 실시간으로 인식하여 옷 입기 진행
+            - 인증샷 촬영 가능
+    - 편지함
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/8a7be531-ce54-4ad8-861b-1e420c2eb187" width="650px" height="400px">
+        
+        - 부모님이 모국어로 남긴 편지가 아이에게 한국어로 공룡 친구의 목소리로 들려줌
+- 부모 (한국어, 베트남어, 필리핀어 지원)
+    - 레포트 및 솔루션
+        
+        <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/84e92dcb-9d6e-4e92-ab05-8ca3de2859a4" width="650px" height="400px">
+        
+        - 아이가 대화하기를 마치면 생성형 AI를 활용 → 대화 요약 & 키워드 추출해 제공
+        - 아이의 이야기에 대한 답변을 추천
+        - 모국어로 아이에게 편지 남기기
+    - 육아 정보 제공
+        - 실제로 여성 가족부에 올라온 자녀연령대별 육아 정보 제공
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/1a8c85c9-3758-41c0-801b-1f7d9f48acc5" width="650px" height="400px">
+            
+    - 한국어 줄임말 제공
+        - 한국 부모가 사용하는 신조어 및 줄임말 제공
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/01fb3fc1-4ff3-4a3a-b632-ac23b74bab63" width="650px" height="400px">
+            
+    - 커뮤니티
+        - 이주민 가정의 어머니들을 위한 소통 공간
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/83395092-bf70-4690-b2e5-66964b2d8398" width="650px" height="400px">
+            
+        - 레포트를 기반으로 게시글 작성
+            
+            <img src="https://github.com/Sunkyoung-Yoon/SunKyoung-Yoon/assets/97610532/d84cb9fb-b8f3-4238-a682-25526b1a4f39" width="650px" height="400px">
