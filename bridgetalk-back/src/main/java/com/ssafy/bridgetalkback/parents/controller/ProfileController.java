@@ -5,6 +5,7 @@ import com.ssafy.bridgetalkback.parents.dto.request.DeleteProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.dto.request.UpdateProfileRequestDto;
 import com.ssafy.bridgetalkback.parents.service.ProfileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ProfileController {
 
     @PatchMapping("/{profileId}")
     public ResponseEntity<Void> updateProfile(@ExtractPayload String userId, @PathVariable String profileId,
-                                              @RequestBody UpdateProfileRequestDto requestDto) {
+                                              @Valid @RequestBody UpdateProfileRequestDto requestDto) {
         log.info("{ ProfileController } : 프로필 수정 진입");
 
         profileService.updateProfile(UUID.fromString(profileId), requestDto);
@@ -29,7 +30,7 @@ public class ProfileController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteProfile(@ExtractPayload String userId, @RequestBody DeleteProfileRequestDto requestDto) {
+    public ResponseEntity<Void> deleteProfile(@ExtractPayload String userId, @Valid @RequestBody DeleteProfileRequestDto requestDto) {
         log.info("{ ProfileController } : 프로필 삭제 진입");
 
         profileService.deleteProfile(requestDto);

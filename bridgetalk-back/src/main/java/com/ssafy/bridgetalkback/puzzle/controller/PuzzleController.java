@@ -6,6 +6,7 @@ import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleListResponseDto;
 import com.ssafy.bridgetalkback.puzzle.dto.response.PuzzleResponseDto;
 import com.ssafy.bridgetalkback.puzzle.service.PuzzleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class PuzzleController {
 
     // 사용자 사용x, 관리자만 사용
     @PostMapping
-    public ResponseEntity<Void> createPuzzle(@ExtractPayload String userId, @RequestPart(value = "request") PuzzleRequestDto requestDto,
+    public ResponseEntity<Void> createPuzzle(@ExtractPayload String userId, @Valid @RequestPart(value = "request") PuzzleRequestDto requestDto,
                                              @RequestPart(value = "puzzleFile") MultipartFile multipartFile) {
         log.info("{ PuzzleController } : 퍼즐 등록 진입");
         String imageUrl = puzzleService.savePuzzleFiles(multipartFile);

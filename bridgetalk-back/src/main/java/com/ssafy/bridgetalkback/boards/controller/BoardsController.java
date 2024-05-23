@@ -15,6 +15,7 @@ import com.ssafy.bridgetalkback.notification.domain.NotificationType;
 import com.ssafy.bridgetalkback.notification.dto.request.NotificationRequestDto;
 import com.ssafy.bridgetalkback.notification.service.SseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class BoardsController {
     @PostMapping
     public ResponseEntity<BoardsResponseDto> createBoards(
             @ExtractPayload String userId,
-            @RequestBody BoardsRequestDto boardsRequestDto
+            @Valid @RequestBody BoardsRequestDto boardsRequestDto
     ) {
         log.info("{ BoardsController } : Boards 생성 진입");
         BoardsResponseDto boardsResponseDto = boardsService.createBoards(UUID.fromString(userId), boardsRequestDto);
@@ -50,7 +51,7 @@ public class BoardsController {
     public ResponseEntity<BoardsResponseDto> updateBoards(
             @ExtractPayload String userId,
             @PathVariable Long boardsId,
-            @RequestBody BoardsUpdateRequestDto boardsUpdateRequestDto
+            @Valid @RequestBody BoardsUpdateRequestDto boardsUpdateRequestDto
     ) {
         log.info("{ BoardsController } : Boards 수정 진입");
         BoardsResponseDto boardsResponseDto = boardsService.updateBoards(UUID.fromString(userId), boardsId, boardsUpdateRequestDto);
